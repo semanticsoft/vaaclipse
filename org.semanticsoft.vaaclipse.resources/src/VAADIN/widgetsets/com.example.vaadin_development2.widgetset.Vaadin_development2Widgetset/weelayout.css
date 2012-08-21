@@ -1,0 +1,55 @@
+.v-weelayout {
+	white-space: nowrap;
+	float: left; /* Force minimum width and margin wrapping */
+	}
+
+.v-weelayout-vertical {
+	text-align: center;
+	}
+
+.v-weelayout-cell {
+	white-space: normal;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	}
+
+.v-weelayout-vertical .v-weelayout-cell {
+	text-align: left;
+	}
+
+.v-weelayout-linebreak {
+	clear: both;
+	overflow: hidden;
+	height: 0;
+	}
+
+.v-weelayout-aligner {
+	display: inline-block;
+	zoom: 1;
+	height: 100%;
+	width: 0;
+	overflow: hidden;
+	vertical-align: middle;
+	}
+
+.v-weelayout-cell-left {
+	float: left;
+	}
+
+.v-weelayout-cell-right {
+	float: right;
+	}
+
+.v-weelayout-cell-middle {
+	vertical-align: middle;
+	}
+
+.v-weelayout-cell-bottom {
+	vertical-align: bottom;
+	}
+
+.v-weelayout-cell-caption {
+	display: block;
+	line-height: 16px; /* TODO just a temporary fix for FF3 sub-pixel calculation problem */
+	}

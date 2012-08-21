@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Vaadinaddons
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadinaddons
+Bundle-Version: 1.0.0
+Bundle-Vendor: Rushan R. Gilmullin
+Export-Package: fi.jasoft.dragdroplayouts,
+ fi.jasoft.dragdroplayouts.client.ui,
+ fi.jasoft.dragdroplayouts.client.ui.interfaces,
+ fi.jasoft.dragdroplayouts.client.ui.util,
+ fi.jasoft.dragdroplayouts.drophandlers,
+ fi.jasoft.dragdroplayouts.events,
+ fi.jasoft.dragdroplayouts.interfaces,
+ org.vaadin.peter.contextmenu,
+ org.vaadin.peter.contextmenu.client.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: com.vaadin;bundle-version="6.8.1"

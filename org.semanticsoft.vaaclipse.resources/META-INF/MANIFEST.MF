@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resources
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.resources
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Rushan R. Gilmullin
+Fragment-Host: com.vaadin;bundle-version="6.8.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: VAADIN.themes.dragdrop,
+ VAADIN.themes.dragdrop.vaadock.img,
+ VAADIN.themes.vaadock,
+ VAADIN.themes.vaadock.img,
+ VAADIN.themes.vaadock_eclipse_demo,
+ VAADIN.themes.vaadock_eclipse_demo.img,
+ VAADIN.widgetsets

@@ -1,0 +1,287 @@
+@import "../reindeer/styles.css";
+
+.page_component_bar .page_component_bar_component {
+	position: relative;
+	float: right;
+}
+
+.page_component_bar {
+	background-color: transparent;
+	border-bottom: solid 1px;
+	width: 100%;
+	height: 100%;
+	float: top;
+	padding: 3px;
+}
+
+/* .v-tabsheet-tabsheetpanel */
+.v-tabsheet-folder_vaa_component {
+	
+}
+
+.v-tabsheet-folder_vaa_component .v-tabsheet-tabsheetpanel {
+	background-color: transparent;
+}
+
+.page_component {
+	background-color: white;
+}
+
+.page_component_wrapper {
+	background-color: transparent;
+	width: 100%;
+	height: 100%;
+	float: top;
+}
+
+.bottomsidebar_minimized_tabsheet {
+	position: relative;
+	float: left;
+	margin: 2px;
+	border: 1px solid;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	border-top-left-radius: 0em;
+	border-bottom-left-radius: 0em;
+}
+
+.topbottomsidebar_usertoolbar_default {
+	position: relative;
+	float: right;
+	margin-top: 5px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+.sidesidebar_minimized_tabsheet {
+	position: relative;
+	float: top;
+	margin: 2px;
+	border: 1px solid;
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0em;
+	border-bottom-left-radius: 0em;
+}
+
+.sidesidebar_usertoolbar_default {
+	position: relative;
+	float: top;
+	margin: 2px;
+}
+
+.bottom_separator {
+	position: relative;
+	float: left;
+	margin: 2px;
+	width: 2px;
+	height: 100%;
+	background-image: url(img/separator.png);
+}
+
+.side_separator {
+	position: relative;
+	float: top;
+	margin: 2px;
+	width: 100%;
+	height: 2px;
+	background-image: url(img/separator_v.png);
+}
+
+.topbottomsidebar_spacer {
+	position: relative;
+	float: right;
+	background-color: transparent;
+	border: none;
+}
+
+.topbottomsidebar_spacer .v-verticallayout {
+	background-color: transparent;
+	border: none;
+}
+
+.topbottomsidebar_spacer .v-panel-content {
+	background-color: transparent;
+	border: none;
+}
+
+.topbottomsidebar_spacer .v-panel-captionwrap {
+	display: none;
+}
+
+.perspective-panel {
+	position: relative;
+	float: left;
+	margin-left: 5px;
+	margin-top: 4px;
+	border: none;
+	background-color: transparent;
+}
+
+/*
+	vaadock-toolbar-button horizontal
+*/
+.vaadock-toolbar-button {
+	background-color: inherit;
+	border: none;
+	margin: 0px;
+	padding: 0;
+}
+
+.v-ie .vaadock-toolbar-button {
+	width: 0;
+	overflow: visible;
+}
+
+.vaadock-toolbar-button .v-icon {
+	margin-left: -2px;
+	margin-top: -2px;
+	padding: 3px;
+}
+
+.v-ie .vaadock-toolbar-button .v-icon {
+	margin-left: -12px;
+	margin-top: -2px;
+	padding: 3px;
+}
+
+.vaadock-toolbar-button:hover {
+	background:
+		url(img/toolbar_button_background_hover_23x20.png)
+		no-repeat 0 0;
+}
+
+.vaadock-toolbar-button:active {
+	background:
+		url(img/toolbar_button_background_active_23x20.png)
+		no-repeat 0 0;
+}
+
+.vaadock-toolbar-button_selected {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	background:
+		url(img/toolbar_button_background_active_23x20.png)
+		no-repeat 0 0;
+}
+
+.v-ie .vaadock-toolbar-button_selected {
+	width: 0;
+	overflow: visible;
+}
+
+.vaadock-toolbar-button_selected .v-icon {
+	margin-left: -2px;
+	margin-top: -2px;
+	padding: 3px;
+}
+
+.v-ie .vaadock-toolbar-button_selected .v-icon {
+	margin-left: -12px;
+	margin-top: -2px;
+	padding: 3px;
+}
+
+/*
+	popup button
+*/
+.popup-button {
+	width: 17px;
+	height: 20px;
+	border: none;
+	background:
+		url(img/popup_button_17x20.png)
+		no-repeat 0 0;
+	background-position: 0 -108px;
+}
+
+.popup-button:hover {
+	background:
+		url(img/popup_button_hover_17x20.png)
+		no-repeat 0 0;
+}
+
+.popup-button:active {
+	background:
+		url(img/popup_button_active_17x20.png)
+		no-repeat 0 0;
+}
+
+.hidden_perspectives_list {
+	margin-top: 20px;
+	margin-left: -35px;
+}
+
+.hidden_perspectives_list .ctxmenu-menu-item {
+	border: solid 1px;
+}
+
+.v-ie .hidden_perspectives_list .ctxmenu-menu-item {
+	display: inline;
+}
+
+.v-shadow {
+	display: none;
+}
+
+/*
+	v-splitpanel-hsplitter-perspectivesplitter
+*/
+.v-splitpanel-hsplitter-perspectivesplitter {
+	width: 0px;
+}
+
+/*
+ * sash widget
+ */
+.v-splitpanel-hsplitter-invisible-locked {
+width: 0px;
+}
+
+.v-splitpanel-vsplitter-invisible-locked {
+width: 0px;
+}
+
+.area_background {
+	background-color: gray;
+}
+
+
+/************* jhighlight styles**************************/
+.xml_plain {
+color: rgb(0,0,0);
+}
+.xml_tag_name {
+color: rgb(0,55,255);
+}
+.xml_comment {
+color: rgb(147,147,147); background-color: rgb(247,247,247);
+}
+.xml_tag_symbols {
+color: rgb(0,59,255);
+}
+.xml_rife_tag {
+color: rgb(0,0,0); background-color: rgb(228,230,160);
+}
+.xml_attribute_value {
+color: rgb(193,0,0);
+}
+.xml_attribute_name {
+color: rgb(0,0,0); font-weight: bold;
+}
+.xml_char_data {
+color: rgb(0,0,0);
+}
+code {
+color: rgb(0,0,0); font-family: monospace; font-size: 12px; white-space: nowrap;
+}
+.xml_rife_name {
+color: rgb(0,0,196); background-color: rgb(228,230,160);
+}
+h1 {
+font-family: sans-serif; font-size: 16pt; font-weight: bold; color: rgb(0,0,0); background: rgb(210,210,210); border: solid 1px black; padding: 5px; text-align: center;
+}
+.xml_processing_instruction {
+color: rgb(0,0,0); font-weight: bold; font-style: italic;
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xsi:schemaLocation="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced http://www.eclipse.org/ui/2010/UIModel/application#//ui/advanced http://www.eclipse.org/ui/2010/UIModel/application/ui/basic http://www.eclipse.org/ui/2010/UIModel/application#//ui/basic http://www.eclipse.org/ui/2010/UIModel/application/ui/menu http://www.eclipse.org/ui/2010/UIModel/application#//ui/menu" xmi:id="_GRxcMXk5Ed-55voCTyIpVQ" bindingContexts="_SeXUHO8EEd6FC9cDb6iV7y">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_SeXUAe8EEd6FC9cDb6iV7g" elementId="mainWindow" label="%windowTitle" x="20" y="20" width="700" height="570">
+    <tags>no-decoration#topdecoration.fxml</tags>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_Um-MsOokEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.perspectivestack.0">
+      <children xsi:type="advanced:Perspective" xmi:id="_V93uMOokEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.perspective.0" label="Java" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/java.png" tooltip="Java">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_SeXUCu8EEd6FC9cDb6iV7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.0" containerData="30" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_ZSnMoOr5EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.0">
+            <children xsi:type="advanced:Placeholder" xmi:id="_NilUIOr5EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.0" ref="__UYwEOr4EeGrI5NvCZeHUA"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_cIl4QOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.1" ref="_YVR-sOsaEeGrI5NvCZeHUA"/>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_9gdQIOr_EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.1" containerData="70">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_CKYooOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.2" containerData="70" horizontal="true">
+              <children xsi:type="advanced:Placeholder" xmi:id="_go1vIOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.2" ref="_QWERMOsAEeGrI5NvCZeHUA"/>
+              <children xsi:type="basic:PartStack" xmi:id="_OF_pkOsBEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.1">
+                <children xsi:type="advanced:Placeholder" xmi:id="_ig3AsOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.3" ref="_J7teoOr6EeGrI5NvCZeHUA"/>
+                <children xsi:type="advanced:Placeholder" xmi:id="_VoFYoOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.4" ref="_MjCfsOsaEeGrI5NvCZeHUA"/>
+              </children>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_EIkMkOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.2">
+              <children xsi:type="advanced:Placeholder" xmi:id="_ud1TkOsBEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.5" ref="_GWHCMOsAEeGrI5NvCZeHUA"/>
+            </children>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_CSsqoOpREeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.perspective.1" label="Debug" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/debug.png" tooltip="Debug">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_dq38sOpREeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.3" containerData="30">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_KJAjsOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.4" containerData="50" horizontal="true">
+            <children xsi:type="basic:PartStack" xmi:id="_rZAOsOpTEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.3">
+              <children xsi:type="advanced:Placeholder" xmi:id="_tzV5MOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.6" ref="_ZQfgMOsOEeGrI5NvCZeHUA"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_vzDuMOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.4">
+              <children xsi:type="advanced:Placeholder" xmi:id="_wLn_MOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.7" ref="_R6SHoOsOEeGrI5NvCZeHUA"/>
+              <children xsi:type="advanced:Placeholder" xmi:id="_xXEeoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.8" ref="_VNAcoOsOEeGrI5NvCZeHUA"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_-rC2IOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.5" containerData="60">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_Ms9RsOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.6" containerData="70" horizontal="true">
+              <children xsi:type="advanced:Placeholder" xmi:id="_eLV0IOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.9" ref="_QWERMOsAEeGrI5NvCZeHUA"/>
+              <children xsi:type="basic:PartStack" xmi:id="_eu_TwOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.5">
+                <children xsi:type="advanced:Placeholder" xmi:id="_qAfdMOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.10" ref="_J7teoOr6EeGrI5NvCZeHUA"/>
+              </children>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_S8R6sOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.6">
+              <children xsi:type="advanced:Placeholder" xmi:id="_TcAjoOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.11" ref="_GWHCMOsAEeGrI5NvCZeHUA"/>
+              <children xsi:type="advanced:Placeholder" xmi:id="_UwLhQOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.12" ref="_ZQfgMOsOEeGrI5NvCZeHUA"/>
+            </children>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="menu:org.eclipse.ui.main.menu" elementId="menu:org.eclipse.ui.main.menu">
+      <children xsi:type="menu:Menu" xmi:id="_SeXUD-8EEd6FC9cDb6iV7g" elementId="_SeXUD-8EEd6FC9cDb6iV7g" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_SeXUEO8EEd6FC9cDb6iV7g" elementId="_SeXUEO8EEd6FC9cDb6iV7g" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/save.png" command="contacts.save"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_SeXUEe8EEd6FC9cDb6iV7g" elementId="_SeXUEe8EEd6FC9cDb6iV7g" label="Save All" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/save_all.png" command="_DGvDsOsiEeGZOI_suq-2CQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_SeXUE-8EEd6FC9cDb6iV7g" elementId="_SeXUE-8EEd6FC9cDb6iV7g" label="Print" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/print.png" command="_FEAosOsiEeGZOI_suq-2CQ"/>
+      </children>
+    </mainMenu>
+    <sharedElements xsi:type="basic:Part" xmi:id="__UYwEOr4EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Package Explorer" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/package_explorer.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_J7teoOr6EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Outline" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/outline.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_GWHCMOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Console" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/console.png" closeable="true"/>
+    <sharedElements xsi:type="advanced:Area" xmi:id="_QWERMOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/editor_area.png">
+      <children xsi:type="basic:PartSashContainer" xmi:id="_C5N7MOsZEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.0">
+        <children xsi:type="basic:PartStack" xmi:id="_2QiLIOsSEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.0">
+          <children xsi:type="basic:InputPart" xmi:id="_0iDaoOsTEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.inputpart.0" label="Sample1.java" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/java.png"/>
+          <children xsi:type="basic:InputPart" xmi:id="_Gh6gMOsZEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.inputpart.0" label="Sample2.java" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/java.png"/>
+        </children>
+        <children xsi:type="basic:PartStack" xmi:id="_EfIJEOsZEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.0">
+          <children xsi:type="basic:InputPart" xmi:id="_G4WDMOsZEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.inputpart.0" label="Sample3.java" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/java.png"/>
+        </children>
+      </children>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_NdGKoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Debug" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/debug.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_R6SHoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Variables" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/variables.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_VNAcoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Breakpoints" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/breakpoints.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_ZQfgMOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Display" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/display.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_MjCfsOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/help.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_QyaqMOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="Javadoc" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/javadoc.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_YVR-sOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.0" label="JUnit" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/junit.png"/>
+    <trimBars xmi:id="_SeXUAu8EEd6FC9cDb6iV7g" elementId="toolbar:org.eclipse.ui.main.toolbar">
+      <children xsi:type="menu:ToolBar" xmi:id="toolbar:org.eclipse.ui.main.toolbar" elementId="">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MBzEwOsjEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handledtoolitem.0" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/save.png" tooltip="Save" command="contacts.save"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MaSdQOsjEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handledtoolitem.1" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/save_all.png" tooltip="Save all" command="_DGvDsOsiEeGZOI_suq-2CQ"/>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_6RnVUE8FEeCyZoR8urPqaw" elementId="">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_9UPfUBqZEeGFVucrmhucYg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handledtoolitem.2" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/print.png" tooltip="Print" command="_FEAosOsiEeGZOI_suq-2CQ"/>
+      </children>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_SeXUGO8EEd6FC9cDb6iV7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.SaveHandler" command="contacts.save"/>
+  <handlers xmi:id="_CYbMMOsiEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handler.1" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.SaveAllHandler" command="_DGvDsOsiEeGZOI_suq-2CQ"/>
+  <handlers xmi:id="_zV-EMOsiEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handler.2" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.PrintHandler" command="_FEAosOsiEeGZOI_suq-2CQ"/>
+  <bindingTables xmi:id="_SeXUEO8EEd6FC9cDb6iV7x" elementId="_SeXUEO8EEd6FC9cDb6iV7x" bindingContext="_SeXUHO8EEd6FC9cDb6iV7y">
+    <bindings xmi:id="_SeXUHu8EEd6FC9cDb6iV7g" elementId="_SeXUHu8EEd6FC9cDb6iV7g" keySequence="CTRL+S" command="contacts.save"/>
+    <bindings xmi:id="_SeXUH-8EEd6FC9cDb6iV7g" elementId="_SeXUH-8EEd6FC9cDb6iV7g" keySequence="Delete"/>
+    <bindings xmi:id="_SeXUIO8EEd6FC9cDb6iV7g" elementId="_SeXUIO8EEd6FC9cDb6iV7g" keySequence="CTRL+5 X"/>
+  </bindingTables>
+  <rootContext xmi:id="_SeXUHO8EEd6FC9cDb6iV7y" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_SeXUEO8EEd6FC9cDb6iV7w" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_SeXUEO8EEd6FC9cDb6iV7x" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <commands xmi:id="contacts.save" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.command.1" commandName="Save" description=""/>
+  <commands xmi:id="_DGvDsOsiEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.command.2" commandName="Save all"/>
+  <commands xmi:id="_FEAosOsiEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.command.3" commandName="Print"/>
+  <addons xmi:id="_XGB3wPZlEd-XstlTZ6nTXg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_XGB3wPZlEd-XstlTZ6nTXh" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_LK0NgPZmEd-XstlTZ6nTXj" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_LK0NgPZmEd-XstlTZ6nTXk" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+</application:Application>
