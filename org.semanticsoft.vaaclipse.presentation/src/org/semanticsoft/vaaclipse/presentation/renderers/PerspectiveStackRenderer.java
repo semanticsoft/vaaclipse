@@ -26,10 +26,14 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.presentation.utils.Utils;
+import org.semanticsoft.vaaclipse.presentation.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.presentation.widgets.TwoStateToolbarButton;
 
 import com.vaadin.terminal.Resource;
@@ -117,6 +121,17 @@ public class PerspectiveStackRenderer extends GenericRenderer
 				Component refComponent = (Component) ph.getRef().getWidget();
 				phComponent.addComponent(refComponent);
 				ph.getRef().setCurSharedRef(ph);
+				
+				MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
+				if (topLeftStack != null)
+				{
+					if (ph.getTags().contains(IPresentationEngine.MAXIMIZED))
+						((StackWidget)topLeftStack.getWidget()).setState(1);
+					else if (ph.getTags().contains(IPresentationEngine.MINIMIZED))
+						((StackWidget)topLeftStack.getWidget()).setState(-1);
+					else
+						((StackWidget)topLeftStack.getWidget()).setState(0);
+				}
 			}
 			
 			if (e instanceof MElementContainer<?>)

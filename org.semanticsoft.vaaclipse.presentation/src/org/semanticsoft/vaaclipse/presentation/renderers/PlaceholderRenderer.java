@@ -33,6 +33,7 @@ import org.eclipse.e4.ui.workbench.UIEvents.UIElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.presentation.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.presentation.widgets.StackWidget.StateListener;
 
@@ -138,7 +139,7 @@ public class PlaceholderRenderer extends GenericRenderer
 			
 			System.out.println("fsf");
 			final MPlaceholder ph = (MPlaceholder) changedObj;
-			MPartStack topLeftStack = findTopLeftFolder(ph.getRef());
+			MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
 			if (topLeftStack != null)
 			{
 				StackWidget stackWidget = (StackWidget)topLeftStack.getWidget();
@@ -175,7 +176,7 @@ public class PlaceholderRenderer extends GenericRenderer
 	@SuppressWarnings("restriction")
 	private void refreshState(final MArea area)
 	{
-		MPartStack topLeftStak = findTopLeftFolder(area);
+		MPartStack topLeftStak = HierarchyUtils.findTopLeftFolder(area);
 		if (topLeftStak != null)
 		{
 			StackWidget topLeftStackWidget = (StackWidget) topLeftStak.getWidget();
@@ -239,34 +240,5 @@ public class PlaceholderRenderer extends GenericRenderer
 				}
 			}
 		}
-	}
-
-	/**
-	 * Recursively search in container the top right stack (the stack locatied
-	 * in top right corner), i.e. the stack with top right corner is mathced
-	 * with top right corner of container (area).
-	 * 
-	 * @param container
-	 *            - input container (area)
-	 * @return the top right part stack
-	 */
-	private MPartStack findTopLeftFolder(MUIElement container)
-	{
-		if (container instanceof MPartStack)
-			return (MPartStack) container;
-		else if (container instanceof MPartSashContainer)
-		{
-			MPartSashContainer sash = (MPartSashContainer) container;
-			if (sash.isHorizontal() && sash.getChildren().get(1) instanceof MElementContainer<?>)
-			{
-				return findTopLeftFolder((MElementContainer) sash.getChildren().get(1));
-			}
-			else if (!sash.isHorizontal() && sash.getChildren().get(0) instanceof MElementContainer<?>)
-			{
-				return findTopLeftFolder((MElementContainer) sash.getChildren().get(0));
-			}
-		}
-
-		return null;
 	}
 }
