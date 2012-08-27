@@ -12,6 +12,7 @@
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +26,7 @@ import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
@@ -35,6 +37,9 @@ import org.eclipse.equinox.app.IApplication;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
+
+import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 
 /**
  * This engine was adopted from Kai Toedter's generic renderer project. I place it in vaaclipse packages temproraly -
@@ -113,10 +118,70 @@ public class GenericPresentationEngine implements PresentationEngine {
 	}
 
 	@Override
-	public Object createGui(MUIElement element, MElementContainer<MUIElement> parent) {
-		// System.out.println("GenericPresentationEngine.createGui(): " +
-		// element);
+	public Object createGui(MUIElement element, MElementContainer<MUIElement> parent, IEclipseContext parentContext) {
+		
+		Object currentWidget = element.getWidget();
+		if (currentWidget != null) {
 
+			Component control = (Component) currentWidget;
+			// make sure the control is visible
+			if (!(element instanceof MPlaceholder))
+				control.setVisible(true);
+			
+			Component parentWidget = (Component) parent.getWidget();
+			if (parentWidget instanceof ComponentContainer) {
+				ComponentContainer currentParent = (ComponentContainer) control.getParent();
+				if (currentParent != parentWidget) {
+					// the parents are different so we should reparent it
+					// it was done the below int SWT renderer (see commented code bellow):
+					//control.setParent((Composite) parentWidget);
+					//but in Vaadin and some other toolkits it is unable do so in all cases
+					//so the best solution is use the processProcess method to allow the parent to add childs properly
+					//So call the process content of the parent rednerer for the parent element:
+					((GenericRenderer)parent.getRenderer()).processContents(parent);
+				}
+			}
+			
+			// Reparent the context (or the kid's context)
+			if (element instanceof MContext) {
+				IEclipseContext ctxt = ((MContext) element).getContext();
+				if (ctxt != null)
+					ctxt.setParent(parentContext);
+			} else {
+				List<MContext> childContexts = modelService.findElements(
+						element, null, MContext.class, null);
+				for (MContext c : childContexts) {
+					// Ensure that we only reset the context of our direct
+					// children
+					MUIElement kid = (MUIElement) c;
+					MUIElement _parent = kid.getParent();
+					if (_parent == null && kid.getCurSharedRef() != null)
+						_parent = kid.getCurSharedRef().getParent();
+					if (!(element instanceof MPlaceholder) && _parent != element)
+						continue;
+
+					if (c.getContext() != null
+							&& c.getContext().getParent() != parentContext) {
+						c.getContext().setParent(parentContext);
+					}
+				}
+			}
+
+			// Now that we have a widget let the parent (if any) know
+			if (element.getParent() instanceof MUIElement) {
+				MElementContainer<MUIElement> parentElement = element.getParent();
+				GenericRenderer parentRenderer = (GenericRenderer) parentElement.getRenderer();
+				if (parentRenderer != null)
+				{
+					//TODO: check is this needed
+					//parentRenderer.refreshPlatformElement(parentElement);
+					//old swt specific code:
+					//parentRenderer.childRendered(parentElement, element);
+				}
+			}
+			return element.getWidget();
+		}
+		
 		if (element instanceof MContext) {
 
 			MContext ctxt = (MContext) element;
@@ -144,6 +209,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 				}
 
 				E4Workbench.processHierarchy(element);
+				eclipseContext.activate();
 			}
 		}
 
@@ -206,8 +272,20 @@ public class GenericPresentationEngine implements PresentationEngine {
 		if (parent == null) {
 			parent = (MElementContainer<MUIElement>) ((EObject) element).eContainer();
 		}
-
-		return createGui(element, parent);
+		
+		// Obtain the necessary parent context
+		IEclipseContext parentContext = null;
+		if (element.getCurSharedRef() != null) {
+			MPlaceholder ph = element.getCurSharedRef();
+			parentContext = getContext(ph.getParent());
+		} else if (parentContext == null && element.getParent() != null) {
+			parentContext = getContext(element.getParent());
+		} else if (parentContext == null && element.getParent() == null) {
+			parentContext = getContext((MUIElement) ((EObject) element)
+					.eContainer());
+		}
+		
+		return createGui(element, parent, parentContext);
 	}
 
 	private IEclipseContext getContext(MUIElement parent) {

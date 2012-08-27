@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Api
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.api
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Rushan R. Gilmullin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.semanticsoft.vaaclipse.api
+Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
+ org.semanticsoft.commons;bundle-version="1.0.0"

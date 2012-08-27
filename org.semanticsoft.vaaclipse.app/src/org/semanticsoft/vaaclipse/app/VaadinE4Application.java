@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Rushan R. Gilmullin and others.
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,15 +60,10 @@ public class VaadinE4Application implements IApplication {
 		context.applicationRunning();
 		
 		queue = new ArrayBlockingQueue<>(10);
-		
-		for (;;)
+		String msg;
+		while ((msg = queue.take()) != "EXIT") 
 		{
-			String msg = queue.poll();
-			if (msg != null)
-			{
-				if (msg.equals("exit"))
-					break;
-			}
+	        System.out.println(msg);
 		}
 		
 		return EXIT_OK;

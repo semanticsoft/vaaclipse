@@ -4,14 +4,24 @@ Bundle-Name: Vaadinaddons
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadinaddons
 Bundle-Version: 1.0.0
 Bundle-Vendor: Rushan R. Gilmullin
-Export-Package: fi.jasoft.dragdroplayouts,
+Export-Package: com.vaadin.incubator.dashlayout.client.ui,
+ com.vaadin.incubator.dashlayout.client.util.css,
+ com.vaadin.incubator.dashlayout.ui,
+ fi.jasoft.dragdroplayouts,
  fi.jasoft.dragdroplayouts.client.ui,
  fi.jasoft.dragdroplayouts.client.ui.interfaces,
  fi.jasoft.dragdroplayouts.client.ui.util,
  fi.jasoft.dragdroplayouts.drophandlers,
  fi.jasoft.dragdroplayouts.events,
  fi.jasoft.dragdroplayouts.interfaces,
+ org.semanticsoft.vaaclipse.widgets,
+ org.semanticsoft.vaaclipse.widgets.client.ui,
+ org.semanticsoft.vaadinaddons.boundsinfo,
+ org.semanticsoft.vaadinaddons.boundsinfo.client.ui,
+ org.vaadin.overlay,
+ org.vaadin.overlay.client.ui,
  org.vaadin.peter.contextmenu,
  org.vaadin.peter.contextmenu.client.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: com.vaadin;bundle-version="6.8.1"
+Require-Bundle: com.vaadin;bundle-version="6.8.1",
+ org.semanticsoft.commons;bundle-version="1.0.0"

@@ -1,0 +1,13 @@
+.v-dashlayout {
+	/* Default margins */
+	margin: 10px;
+	/* IE6 needs this here, so it will be present from the start */
+	display: inline;
+}
+
+/* Only pixel values are allowed 
+ * (other units are interpreted as pixels too)
+ */
+#v-dashlayout-spacing {
+	width: 8px;
+}

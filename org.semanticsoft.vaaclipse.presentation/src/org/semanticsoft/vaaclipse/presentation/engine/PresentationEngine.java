@@ -12,6 +12,7 @@
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
@@ -23,7 +24,7 @@ import org.eclipse.e4.ui.workbench.IPresentationEngine;
  */
 @SuppressWarnings("restriction")
 public interface PresentationEngine extends IPresentationEngine {
-	public Object createGui(MUIElement element, MElementContainer<MUIElement> parent);
+	public Object createGui(MUIElement element, MElementContainer<MUIElement> parent, IEclipseContext parentContext);
 
 	public void refreshGui(MElementContainer<?> element);
 }

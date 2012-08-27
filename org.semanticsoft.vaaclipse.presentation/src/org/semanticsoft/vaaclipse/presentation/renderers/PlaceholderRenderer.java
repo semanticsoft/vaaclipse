@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Rushan R. Gilmullin and others.
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -34,8 +33,9 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
-import org.semanticsoft.vaaclipse.presentation.widgets.StackWidget;
-import org.semanticsoft.vaaclipse.presentation.widgets.StackWidget.StateListener;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
+import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
+import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
@@ -70,7 +70,8 @@ public class PlaceholderRenderer extends GenericRenderer
 		if (!renderedRefs.contains(ph))
 			renderedRefs.add(ph);
 
-		VerticalLayout phComp = new VerticalLayout();
+		//VerticalLayout phComp = new VerticalLayout();
+		BoundsinfoVerticalLayout phComp = new BoundsinfoVerticalLayout();
 		phComp.setSizeFull();
 		ph.setWidget(phComp);
 		
@@ -197,7 +198,10 @@ public class PlaceholderRenderer extends GenericRenderer
 						else if (oldState == 1 && newState == 0)
 							setState(ph, null);
 						else if (oldState == -1 && newState == 0)
-							setState(ph, null);
+						{
+							ph.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);
+							ph.getTags().remove(IPresentationEngine.MINIMIZED);
+						}
 						else if (oldState == 0 && newState == -1)
 							setState(ph, IPresentationEngine.MINIMIZED);
 					}

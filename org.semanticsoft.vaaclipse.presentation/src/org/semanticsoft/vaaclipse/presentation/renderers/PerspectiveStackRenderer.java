@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Rushan R. Gilmullin and others.
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,21 +29,20 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.presentation.utils.Utils;
-import org.semanticsoft.vaaclipse.presentation.widgets.StackWidget;
-import org.semanticsoft.vaaclipse.presentation.widgets.TwoStateToolbarButton;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
+import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
 import com.vaadin.terminal.Resource;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -70,6 +69,9 @@ public class PerspectiveStackRenderer extends GenericRenderer
 	
 	@Inject
 	IEclipseContext eclipseContext;
+	
+	@Inject
+	EPartService partService;
 
 	private EventHandler selectPerspectiveHandler = new EventHandler() {
 		public void handleEvent(Event event)
@@ -206,7 +208,8 @@ public class PerspectiveStackRenderer extends GenericRenderer
 		{
 			selectedPerspective = perspectiveStack.getChildren().get(0);
 			System.out.println("test");
-			perspectiveStack.setSelectedElement(selectedPerspective);
+			//perspectiveStack.setSelectedElement(selectedPerspective);
+			partService.switchPerspective(selectedPerspective);
 		}
 	}
 }

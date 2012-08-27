@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Rushan R. Gilmullin and others.
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,10 +16,11 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipse.presentation.widgets.SashWidgetHorizontal;
-import org.semanticsoft.vaaclipse.presentation.widgets.SashWidgetVertical;
+import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
+import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
 
 import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.Component;
@@ -98,6 +99,8 @@ public class SashRenderer extends GenericRenderer {
 		{
 			if (e instanceof MElementContainer<?>)
 				refreshPlatformElement((MElementContainer<? extends MUIElement>) e);
+			else if (e instanceof MPlaceholder && ((MPlaceholder)e).getRef() instanceof MElementContainer<?>)
+				refreshPlatformElement((MElementContainer<? extends MUIElement>) ((MPlaceholder)e).getRef());
 		}
 		
 		if (element.getWidget() instanceof SashWidgetHorizontal)

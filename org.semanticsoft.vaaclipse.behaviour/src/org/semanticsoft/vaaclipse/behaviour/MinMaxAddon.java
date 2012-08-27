@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Kai Toedter, Rushan R. Gilmullin and others.
+ * Copyright (c) 2011, 2012 Kai Toedter, Rushan R. Gilmullin and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,10 +14,14 @@ package org.semanticsoft.vaaclipse.behaviour;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -31,6 +35,7 @@ import org.eclipse.e4.ui.model.application.ui.SideValue;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
@@ -38,14 +43,18 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.commons.geom.Bounds;
+import org.semanticsoft.vaaclipse.api.Events;
+import org.semanticsoft.vaaclipse.api.WidgetInfo;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
 
@@ -66,11 +75,21 @@ public class MinMaxAddon {
 
 	@Inject
 	private IEclipseContext context;
+	
+	@Inject
+	EPartService partService;
 
 	@Inject
 	private EHandlerService handlerService;
 
 	private final MApplication application;
+	
+	private Map<MToolBar, MPerspective> barPerspectiveInfo = new HashMap<MToolBar, MPerspective>();
+	private Set<MUIElement> minimizedElements = new HashSet<>();
+	
+	//TODO: dispose elements of this map
+	public Map<MToolItem, MPart> item2Element = new HashMap<>();
+	public Map<MPart, MUIElement> part2element = new HashMap<>();
 
 	@Inject
 	public MinMaxAddon(IEventBroker eventBroker, EModelService modelService,
@@ -79,12 +98,64 @@ public class MinMaxAddon {
 		this.eventBroker = eventBroker;
 		this.modelService = modelService;
 	}
+	
+	private EventHandler widgetHandler = new EventHandler() {
+		public void handleEvent(org.osgi.service.event.Event event) {
+			Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
+			if (!minimizedElements.contains(changedObj))
+				return;
+			MUIElement minimizedElement = (MUIElement) changedObj;
+			if (minimizedElement.getWidget() != null) {
+				MToolBar toolBar = getToolBarForMinimizedElement(minimizedElement);
+				updateToolBar(minimizedElement, toolBar);
+			}
+		}
+	};
+	
+	private EventHandler toBeRenderedHandler = new EventHandler() {
+		public void handleEvent(org.osgi.service.event.Event event) {
+			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+
+			// if one of the kids changes state, re-scrape the CTF
+			MUIElement parentElement = changedElement.getParent();
+			if (minimizedElements.contains(parentElement)) {
+				updateToolBar(parentElement, getToolBarForMinimizedElement(parentElement));
+			}
+		}
+	};
+	
+	private EventHandler childrenHandler = new EventHandler() {
+		public void handleEvent(org.osgi.service.event.Event event) {
+			Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
+			
+			// if a child has been added or removed, re-scape the CTF
+			if (minimizedElements.contains(changedObj)) {
+				updateToolBar((MUIElement) changedObj, getToolBarForMinimizedElement((MUIElement) changedObj));
+			}
+		}
+	};
 
 	@PostConstruct
-	void hookListeners() {
+	void postConstruct() {
 		eventBroker.subscribe(UIEvents.ApplicationElement.TOPIC_TAGS, tagListener);
 		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectPerspectiveHandler);
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_VISIBLE, visibilityHandler);
+		eventBroker.subscribe(UIEvents.UIElement.TOPIC_WIDGET, widgetHandler);
+		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, childrenHandler);
+		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toBeRenderedHandler);
+
+		//context.set(Behaviour.class, this);
+	}
+	
+	@PreDestroy
+	void preDestroy()
+	{
+		eventBroker.unsubscribe(tagListener);
+		eventBroker.unsubscribe(selectPerspectiveHandler);
+		eventBroker.unsubscribe(visibilityHandler);
+		eventBroker.unsubscribe(widgetHandler);
+		eventBroker.unsubscribe(childrenHandler);
+		eventBroker.unsubscribe(toBeRenderedHandler);	
 	}
 
 	private final EventHandler tagListener = new EventHandler() {
@@ -215,8 +286,19 @@ public class MinMaxAddon {
 		if (!element.isToBeRendered()) {
 			return;
 		}
-		createTrim(element);
+		MToolBar toolBar = createTrim(element);
 		element.setVisible(false);
+		minimizedElements.add(element);
+		// Activate a part other than the trimStack so that if the tool item is pressed
+		// immediately it will still open the stack.
+		partService.requestActivation();
+		
+		//send the minimize event
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put(Events.MinMaxEvents.PARAMETER_ELEMENT, element);
+		parameters.put(Events.MinMaxEvents.PARAMETER_TOOLBAR, toolBar);
+		parameters.put(Events.MinMaxEvents.PARAMETER_TRIMBAR, toolBar.getParent());
+		eventBroker.send(Events.MinMaxEvents.EVENT_MINIMIZE_ELEMENT, parameters);
 	}
 
 	protected void unzoom(MUIElement element) {
@@ -277,42 +359,45 @@ public class MinMaxAddon {
 	}
 
 	protected void restore(MUIElement element) {
+		
+		//if the element is minimized, then the widget of this element maybe (but not fact) detached from its real parent
+		//and attached to popup window and the widget's visible property is true. We must undo this changes
+		//before start the restore operation
+		WidgetInfo widgetInfo = BehaviourComponent.instance.widgetInfo;
+		Object currentParent = widgetInfo.getParent(element.getWidget());
+		Object realParent = element.getParent().getWidget();
+		if (currentParent != realParent) //if the current parent is not equal (or null) the real parent,
+		{//then reattach the widget to real parent
+			((GenericRenderer)element.getParent().getRenderer()).processContents(element.getParent());
+			//and then set the visible of elelment's widget to false
+			((GenericRenderer)element.getRenderer()).setVisible(element, false);
+		}
+		
 		element.getTags().remove(MINIMIZED_BY_ZOOM);
 		element.getTags().remove(MINIMIZED);
 		element.setVisible(true);
+		minimizedElements.remove(element);
 		
-		MWindow window = getWindowFor(element);
-		String trimId = element.getElementId() + getMinimizedElementSuffix(element);
 		//remove the trimbar
 		PresentationEngine presentationEngine = (PresentationEngine) application.getContext().get(IPresentationEngine.class);
-		MToolBar barToBeRemoved = null;
-		MTrimBar currentTrimBar = null;
-		if (window instanceof MTrimmedWindow) {
-			MTrimmedWindow trimmedWindow = (MTrimmedWindow) window;
-			List<MTrimBar> trimBars = trimmedWindow.getTrimBars();
-			for (MTrimBar trimBar : trimBars) {
-				currentTrimBar = trimBar;
-				if (trimBar.getSide() == SideValue.LEFT || trimBar.getSide() == SideValue.RIGHT || trimBar.getSide() == SideValue.BOTTOM) {
-					List<MTrimElement> children = trimBar.getChildren();
-					for (MTrimElement child : children) {
-						MToolBar bar = (MToolBar) child;
-						if (bar.getElementId().equals(trimId))
-							barToBeRemoved = bar;
-					}
-				}
+		
+		MTrimBar trimBar = getTrimBarForMinimizedElement(element);
+		MToolBar toolBar = getToolBarForMinimizedElement(element);
+		
+		if (trimBar != null || toolBar != null) {
+			
+			barPerspectiveInfo.remove(toolBar);
+			
+			trimBar.getChildren().remove(toolBar);
+			if (trimBar.getChildren().size() == 0) {
+				trimBar.setVisible(false);
 			}
+			presentationEngine.refreshGui(trimBar);
 		}
 		
-		if (barToBeRemoved != null) {
-			
-			barPerspectiveInfo.remove(barToBeRemoved);
-			
-			currentTrimBar.getChildren().remove(barToBeRemoved);
-			if (currentTrimBar.getChildren().size() == 0) {
-				currentTrimBar.setVisible(false);
-			}
-			presentationEngine.refreshGui(currentTrimBar);
-		}
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put(Events.MinMaxEvents.PARAMETER_ELEMENT, element);
+		eventBroker.send(Events.MinMaxEvents.EVENT_RESTORE_ELEMENT, parameters);
 	}
 
 	protected void maximize(MUIElement element) {
@@ -404,28 +489,19 @@ public class MinMaxAddon {
 		// A detached window will end up with getParent() == null
 		return (MWindow) parent;
 	}
-	
-	private Map<MToolBar, MPerspective> barPerspectiveInfo = new HashMap<MToolBar, MPerspective>();
 
-	private void createTrim(MUIElement element) {
+	private MToolBar createTrim(MUIElement element) {
 		MTrimmedWindow window = (MTrimmedWindow) getWindowFor(element);
 		MPerspective activePerspective = modelService.getActivePerspective(window);
 
 		// Is there already a TrimControl there ?
 		String trimId = element.getElementId() + getMinimizedElementSuffix(element);
-		System.out.println("Trim Id: " + trimId);
 		MToolBar toolBar = (MToolBar) modelService.find(trimId, window);
 		
 		if (toolBar == null) {
 			toolBar = MenuFactoryImpl.eINSTANCE.createToolBar();
 			toolBar.setElementId(trimId);
 			
-			MDirectToolItem toolItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
-			toolItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaadock_eclipse_demo/img/restore1.png");
-			toolItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.RestoreHandler");
-			toolItem.setContainerData(element.getElementId());
-
-			toolBar.getChildren().add(toolItem);
 			// Check if we have a cached location
 			MTrimBar bar = getBarForElement(element, window);
 			bar.getChildren().add(toolBar);
@@ -434,35 +510,7 @@ public class MinMaxAddon {
 			// get the parent trim bar, see bug 320756
 			PresentationEngine presentationEngine = (PresentationEngine) context.get(IPresentationEngine.class);
 
-			if (element instanceof MPlaceholder)
-			{
-				MDirectToolItem partItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
-				partItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.FastViewHandler");
-
-				MUILabel labelElement = getLabelElement(element);
-				if (labelElement != null)
-				{
-					partItem.setIconURI(labelElement.getIconURI());
-					toolBar.getChildren().add(partItem);
-				}
-			}
-			else
-			{
-				@SuppressWarnings("unchecked")
-				MElementContainer<MUIElement> partStack = (MElementContainer<MUIElement>) element;
-				for (MUIElement stackElement : partStack.getChildren()) {
-					if (!stackElement.isToBeRendered()) {
-						continue;
-					}
-
-					MDirectToolItem partItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
-					partItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.FastViewHandler");
-
-					MUILabel labelElement = getLabelElement(stackElement);
-					partItem.setIconURI(labelElement.getIconURI());
-					toolBar.getChildren().add(partItem);
-				}	
-			}
+			updateToolBar(element, toolBar);
 
 			if (bar.getWidget() == null) {
 				// ask it to be rendered
@@ -488,10 +536,80 @@ public class MinMaxAddon {
 				PresentationEngine presentationEngine = (PresentationEngine) context.get(IPresentationEngine.class);
 				presentationEngine.createGui(parent);
 			}
+			
+			updateToolBar(element, toolBar);
+			
 			toolBar.setToBeRendered(true);
 		}
 		
 		barPerspectiveInfo.put(toolBar, activePerspective);
+		return toolBar;
+	}
+
+	private void updateToolBar(MUIElement element, MToolBar toolBar)
+	{
+		toolBar.getChildren().clear();
+		
+		MDirectToolItem toolItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
+		toolItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaadock_eclipse_demo/img/restore1.png");
+		toolItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.RestoreHandler");
+		toolItem.setContainerData(element.getElementId());
+		toolBar.getChildren().add(toolItem);
+		
+		if (element instanceof MPlaceholder)
+		{
+			MDirectToolItem partItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
+			partItem.setElementId(UUID.randomUUID().toString());
+			partItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.FastViewHandler");
+
+			MUILabel labelElement = getLabelElement(element);
+			if (labelElement != null)
+			{
+				partItem.setIconURI(labelElement.getIconURI());
+				toolBar.getChildren().add(partItem);
+				MPart part = getLeafPart(element);
+				item2Element.put(partItem, part);
+				part2element.put(part, element);
+			}
+		}
+		else
+		{
+			@SuppressWarnings("unchecked")
+			MElementContainer<MUIElement> partStack = (MElementContainer<MUIElement>) element;
+			for (MUIElement stackElement : partStack.getChildren()) {
+				if (!stackElement.isToBeRendered()) {
+					continue;
+				}
+				
+				MUIElement el = stackElement instanceof MPlaceholder ? ((MPlaceholder)stackElement).getRef() : stackElement;
+				if (el instanceof MPart)
+				{
+					MDirectToolItem partItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
+					partItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.FastViewHandler");
+
+					MUILabel labelElement = getLabelElement(stackElement);
+					partItem.setIconURI(labelElement.getIconURI());
+					toolBar.getChildren().add(partItem);
+					
+					
+					item2Element.put(partItem, (MPart) el);	
+					part2element.put((MPart)el, element);
+				}
+			}
+		}
+	}
+	
+	private MPart getLeafPart(MUIElement element) {
+		if (element instanceof MPlaceholder)
+			return getLeafPart(((MPlaceholder) element).getRef());
+
+		if (element instanceof MElementContainer<?>)
+			return getLeafPart(((MElementContainer<?>) element).getSelectedElement());
+
+		if (element instanceof MPart)
+			return (MPart) element;
+
+		return null;
 	}
 
 	private MUILabel getLabelElement(MUIElement element) {
@@ -504,8 +622,16 @@ public class MinMaxAddon {
 
 	private MTrimBar getBarForElement(MUIElement element, MTrimmedWindow window) {
 		SideValue side = SideValue.LEFT;
-		//SideValue side = HierarchyUtils.findNearestSide(window, element);
+//		SideValue side = getCachedBar(element);
+//		if (side == null) {
+			Bounds winBounds = BehaviourComponent.instance.widgetInfo.getBounds(window.getWidget());
+			int winCenterX = winBounds.w / 2;
+			Bounds stackBounds = BehaviourComponent.instance.widgetInfo.getBounds(element.getWidget());
+			int stackCenterX = stackBounds.x + (stackBounds.w / 2);
+			side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;
+//		}
 		MTrimBar bar = modelService.getTrim(window, side);
+
 		return bar;
 	}
 
@@ -518,4 +644,24 @@ public class MinMaxAddon {
 		return id;
 	}
 
+//	@Override
+	public MTrimBar getTrimBarForMinimizedElement(MUIElement element)
+	{
+		MToolBar toolBar = getToolBarForMinimizedElement(element);
+		return (MTrimBar)(MElementContainer<?>)toolBar.getParent();
+	}
+
+//	@Override
+	public MToolBar getToolBarForMinimizedElement(MUIElement element)
+	{
+		MTrimmedWindow window = (MTrimmedWindow) getWindowFor(element);
+		String trimId = element.getElementId() + getMinimizedElementSuffix(element);
+		return (MToolBar) modelService.find(trimId, window);
+	}
+	
+//	@Override
+	public MUIElement getMinimizedParentForPart(MPart part)
+	{
+		return part2element.get(part);
+	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Rushan R. Gilmullin and others.
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,9 +24,8 @@ public class RestoreHandler {
 	@Execute
 	public void restore(MItem item, EModelService modelService, MWindow window, MApplication application) {
 		String stackId = item.getContainerData();
-		MUIElement stack = modelService.find(stackId, window);
-		
-		stack.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);
-		stack.getTags().remove(IPresentationEngine.MINIMIZED);
+		MUIElement element = modelService.find(stackId, window);
+		element.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);
+		element.getTags().remove(IPresentationEngine.MINIMIZED);
 	}
 }

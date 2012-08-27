@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: boundsinfo
+Implementation-Version: 1.0.0
+Vaadin-Package-Version: 1
+Vaadin-Widgetsets: org.semanticsoft.vaadinaddons.boundsinfo.Boundsinfo
+ Widgetset
+Class-Path: 
+

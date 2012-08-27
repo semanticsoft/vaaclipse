@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="org.semanticsoft.vaaclipse.widgets">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="org.semanticsoft.vaaclipse.widgets"/>
+        <property name="java-output-path" value="/org.semanticsoft.vaaclipse.widgets/build/classes"/>
+    </wb-module>
+</project-modules>
