@@ -412,6 +412,7 @@ public class SingleElementFastViewManager
 		// Create one
 		hostPane = new Window();
 		hostPane.setDraggable(false);
+		hostPane.setResizeLazy(true);
 		hostPane.setStyleName("loading-window");
 		((AbstractLayout)hostPane.getContent()).setMargin(false);
 		hostPane.getContent().setSizeFull();
