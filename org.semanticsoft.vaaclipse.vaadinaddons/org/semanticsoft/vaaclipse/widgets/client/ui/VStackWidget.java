@@ -1,14 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Rushan R. Gilmullin - initial API and implementation
+ *******************************************************************************/
+
 package org.semanticsoft.vaaclipse.widgets.client.ui;
 
+import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsUpdateManager;
+
+import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
 import com.vaadin.terminal.gwt.client.Paintable;
 import com.vaadin.terminal.gwt.client.RenderSpace;
 import com.vaadin.terminal.gwt.client.UIDL;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Widget;
 
 import fi.jasoft.dragdroplayouts.client.ui.VDDTabSheet;
 
@@ -28,6 +37,8 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 
 	/** Reference to the server connection object. */
 	protected ApplicationConnection client;
+	
+	private BoundsUpdateManager updateManager;
 
 	/**
 	 * The constructor should first call super() to initialize the component and
@@ -63,23 +74,35 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 
 		// Save the client side identifier (paintable id) for the widget
 		paintableId = uidl.getId();
+		
+		updateManager = new BoundsUpdateManager(this, paintableId, client);
 	}
 	
 	@Override
 	public RenderSpace getAllocatedSpace(Widget child)
 	{
-		updateRemoteBounds();
+		if (updateManager != null)
+			updateManager.update();
 		return super.getAllocatedSpace(child);
 	}
+	
+//	@Override
+//	public boolean requestLayout(Set<Paintable> child)
+//	{
+//		//updateRemoteBounds();
+//		if (updateManager != null)
+//			updateManager.update();
+//		return super.requestLayout(child);
+//	}
 
-	void updateRemoteBounds()
-	{
-		if (client != null)
-		{
-			client.updateVariable(paintableId, "absolute_left", this.getAbsoluteLeft(), true);
-			client.updateVariable(paintableId, "absolute_top", this.getAbsoluteTop(), true);
-			client.updateVariable(paintableId, "offset_width", this.getOffsetWidth(), true);
-			client.updateVariable(paintableId, "offset_height", this.getOffsetHeight(), true);
-		}
-	}
+//	void updateRemoteBounds()
+//	{
+//		if (client != null)
+//		{
+//			client.updateVariable(paintableId, "absolute_left", this.getAbsoluteLeft(), true);
+//			client.updateVariable(paintableId, "absolute_top", this.getAbsoluteTop(), true);
+//			client.updateVariable(paintableId, "offset_width", this.getOffsetWidth(), true);
+//			client.updateVariable(paintableId, "offset_height", this.getOffsetHeight(), true);
+//		}
+//	}
 }

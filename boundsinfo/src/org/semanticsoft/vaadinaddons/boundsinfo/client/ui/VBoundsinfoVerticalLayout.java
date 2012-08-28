@@ -11,9 +11,6 @@
 
 package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
 import com.vaadin.terminal.gwt.client.Paintable;
@@ -35,6 +32,8 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 
 	/** The client side widget identifier */
 	protected String paintableId;
+	
+	private BoundsUpdateManager updateManager;
 
 	/** Reference to the server connection object. */
 	// protected ApplicationConnection client;
@@ -74,23 +73,15 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 
 		// Save the client side identifier (paintable id) for the widget
 		paintableId = uidl.getId();
+		
+		updateManager = new BoundsUpdateManager(this, paintableId, client);
 	}
 
 	@Override
 	public RenderSpace getAllocatedSpace(Widget child)
 	{
-		updateRemoteBounds();
+		if (updateManager != null)
+			updateManager.update();
 		return super.getAllocatedSpace(child);
-	}
-
-	void updateRemoteBounds()
-	{
-		if (client != null)
-		{
-			client.updateVariable(paintableId, "absolute_left", this.getAbsoluteLeft(), true);
-			client.updateVariable(paintableId, "absolute_top", this.getAbsoluteTop(), true);
-			client.updateVariable(paintableId, "offset_width", this.getOffsetWidth(), true);
-			client.updateVariable(paintableId, "offset_height", this.getOffsetHeight(), true);
-		}
 	}
 }

@@ -14,6 +14,7 @@ package org.semanticsoft.vaadinaddons.boundsinfo;
 import java.util.Map;
 
 import org.semanticsoft.commons.geom.Bounds;
+import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsParser;
 
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
@@ -58,9 +59,20 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 	{
 		super.changeVariables(source, variables);
 		
-		if (variables.containsKey("absolute_left"))
+		if (variables.containsKey("bounds"))
 		{
-			absoluteLeft = (Integer) variables.get("absolute_left");	
+			System.out.println("update bounds of BoundsInfoVerticalLayout");
+			String boundsStr = (String) variables.get("bounds");
+			if (boundsStr != null)
+			{
+				int[] bounds = BoundsParser.fromString(boundsStr);
+				absoluteLeft = bounds[0];
+				absoluteTop = bounds[1];
+				offsetWidth = bounds[2];
+				offsetHeight = bounds[3];
+			}
+			else
+				System.err.println("Error update bounds of BoundsInfoVerticalLayout");
 		}
 		
 		if (variables.containsKey("absolute_top"))

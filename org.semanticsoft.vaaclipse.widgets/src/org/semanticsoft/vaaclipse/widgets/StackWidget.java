@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.semanticsoft.commons.geom.Bounds;
+import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsParser;
 
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
@@ -87,25 +88,18 @@ public class StackWidget extends DDTabSheet
 			fireStateChangedEvent(state, oldState);
         }
 		
-		if (variables.containsKey("absolute_left"))
+		System.out.println("update bounds of StackWidget");
+		String boundsStr = (String) variables.get("bounds");
+		if (boundsStr != null)
 		{
-			absoluteLeft = (Integer) variables.get("absolute_left");	
+			int[] bounds = BoundsParser.fromString(boundsStr);
+			absoluteLeft = bounds[0];
+			absoluteTop = bounds[1];
+			offsetWidth = bounds[2];
+			offsetHeight = bounds[3];
 		}
-		
-		if (variables.containsKey("absolute_top"))
-		{
-			absoluteTop = (Integer) variables.get("absolute_top");	
-		}
-		
-		if (variables.containsKey("offset_width"))
-		{
-			offsetWidth = (Integer) variables.get("offset_width");	
-		}
-		
-		if (variables.containsKey("offset_height"))
-		{
-			offsetHeight = (Integer) variables.get("offset_height");	
-		}
+		else
+			System.err.println("Error update bounds of StackWidget");
 	}
 	
 	public void setState(int state)

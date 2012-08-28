@@ -316,15 +316,15 @@ public class SingleElementFastViewManager
 //		});
 //	}
 	
-	Window.ResizeListener resizeListener = new Window.ResizeListener() {
-		
-		@Override
-		public void windowResized(ResizeEvent e)
-		{
-			if (hostPane != null)
-				setPaneLocation(hostPane);
-		}
-	};
+//	Window.ResizeListener resizeListener = new Window.ResizeListener() {
+//		
+//		@Override
+//		public void windowResized(ResizeEvent e)
+//		{
+//			if (hostPane != null)
+//				setPaneLocation(hostPane);
+//		}
+//	};
 	
 	LayoutClickListener layoutClickListener = new LayoutClickListener() {
         public void layoutClick(LayoutClickEvent event) {
@@ -342,7 +342,6 @@ public class SingleElementFastViewManager
 			
 			hostPane = getHostPane();
 
-			hostPane.setStyleName("loading-window");
 			ctf.setVisible(true);
 			//ctf.setSizeFull();
 			hostPane.getContent().addComponent(ctf);
@@ -350,7 +349,7 @@ public class SingleElementFastViewManager
 			// Set the initial location
 			setPaneLocation(hostPane);
 			vaadinApplication.getMainWindow().addWindow(hostPane);
-			vaadinApplication.getMainWindow().addListener(resizeListener);
+//			vaadinApplication.getMainWindow().addListener(resizeListener);
 
 			((VerticalLayout)vaadinApplication.getMainWindow().getContent()).addListener(layoutClickListener);
 			
@@ -358,7 +357,7 @@ public class SingleElementFastViewManager
 		} else if (!show && isShowing) {
 			System.out.println("скрыть стек");
 			
-			vaadinApplication.getMainWindow().removeListener(resizeListener);
+//			vaadinApplication.getMainWindow().removeListener(resizeListener);
 
 			if (hostPane != null) {
 				vaadinApplication.getMainWindow().removeWindow(hostPane);
@@ -412,6 +411,7 @@ public class SingleElementFastViewManager
 
 		// Create one
 		hostPane = new Window();
+		hostPane.setStyleName("loading-window");
 		((AbstractLayout)hostPane.getContent()).setMargin(false);
 		hostPane.getContent().setSizeFull();
 		float xSize = 600;

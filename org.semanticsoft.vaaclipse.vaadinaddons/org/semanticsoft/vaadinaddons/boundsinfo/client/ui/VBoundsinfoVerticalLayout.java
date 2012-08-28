@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Rushan R. Gilmullin - initial API and implementation
+ *******************************************************************************/
+
 package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,6 +35,8 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 
 	/** The client side widget identifier */
 	protected String paintableId;
+	
+	private BoundsUpdateManager updateManager;
 
 	/** Reference to the server connection object. */
 	// protected ApplicationConnection client;
@@ -63,23 +76,15 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 
 		// Save the client side identifier (paintable id) for the widget
 		paintableId = uidl.getId();
+		
+		updateManager = new BoundsUpdateManager(this, paintableId, client);
 	}
 
 	@Override
 	public RenderSpace getAllocatedSpace(Widget child)
 	{
-		updateRemoteBounds();
+		if (updateManager != null)
+			updateManager.update();
 		return super.getAllocatedSpace(child);
-	}
-
-	void updateRemoteBounds()
-	{
-		if (client != null)
-		{
-			client.updateVariable(paintableId, "absolute_left", this.getAbsoluteLeft(), true);
-			client.updateVariable(paintableId, "absolute_top", this.getAbsoluteTop(), true);
-			client.updateVariable(paintableId, "offset_width", this.getOffsetWidth(), true);
-			client.updateVariable(paintableId, "offset_height", this.getOffsetHeight(), true);
-		}
 	}
 }
