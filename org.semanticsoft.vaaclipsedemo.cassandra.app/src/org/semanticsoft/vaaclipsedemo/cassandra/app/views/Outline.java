@@ -29,10 +29,11 @@ import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.FileUtils;
 
 public class Outline
 {
-	MArea editorArea;
-	Pattern packagePattern = Pattern.compile("package +([a-zA-Z0-9\\.\\_]+) *;");
-	protected Pattern importsPattern = Pattern.compile("import +([a-zA-Z0-9\\.\\_]+) *;");
-	public Pattern methodsPattern = Pattern.compile("(private|public|protected) +([a-zA-Z0-9\\_]+) +([a-zA-Z0-9\\_]+) *\\(.*?\\)");
+	private MArea editorArea;
+	private Pattern packagePattern = Pattern.compile("package +([a-zA-Z0-9\\.\\_]+) *;");
+	private Pattern importsPattern = Pattern.compile("import +([a-zA-Z0-9\\.\\_]+) *;");
+	private Pattern classPattern = Pattern.compile("class +([a-zA-Z0-9\\.\\_]+)[ \r\n]");
+	private Pattern methodsPattern = Pattern.compile("(private|public|protected) +([a-zA-Z0-9\\_]+) +([a-zA-Z0-9\\_]+) *\\(.*?\\)");
 	
 	private Tree tree;
 	private Panel panel;
@@ -44,10 +45,9 @@ public class Outline
 	private static final String ICON_PROP = "icon";
 	private static final String CAPTION_PROP = "caption";
 	
-	
 	@Inject
 	public Outline(VerticalLayout parent, IEclipseContext context, EModelService modelService, MApplication app)
-	{
+	{Class<?> o = Outline. class;
 		panel = new Panel();
 		panel.setSizeFull();
 		tree = new Tree();
@@ -113,8 +113,9 @@ public class Outline
 	{
 		tree.removeAllItems();
 		
-		String pkg = parsePackage(content);
+		String pkg = parsePattern(content, packagePattern);
 		List<String> imports = parseImports(content);
+		String className = parsePattern(content, classPattern);
 		List<Method> methodList = parseMethods(content);
 		
 		packageItem = tree.addItem("package");
@@ -127,7 +128,7 @@ public class Outline
 		
 		classItem = tree.addItem("class");
 		classItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("img/class_declaration.png"));
-		classItem.getItemProperty(CAPTION_PROP).setValue("Class");
+		classItem.getItemProperty(CAPTION_PROP).setValue(className);
 		
 		for (String imp : imports)
 		{
@@ -139,7 +140,9 @@ public class Outline
 		}
 		
 		for (Method m : methodList)
-		{
+		{//this prevent matching class name as method, of course, the method with name mathcing to class name will be excluded...
+			if (m.name.equals(className)) 
+				continue;
 			String type = "pkg_method.png";
 			if (m.modifier == Method.Modifier._public)
 				type = "public_method.png";
@@ -176,10 +179,10 @@ public class Outline
 		Modifier modifier;
 	}
 	
-	private String parsePackage(String file)
+	private String parsePattern(String file, Pattern pattern)
 	{
-		Matcher m = packagePattern.matcher(file);
-		if (m.matches())
+		Matcher m = pattern.matcher(file);
+		if (m.find())
 		{
 			return m.group(1);
 		}
@@ -227,10 +230,10 @@ public class Outline
 
 	public static void main(String[] args)
 	{
-		Pattern pattern = Pattern.compile("package +([a-zA-Z0-9\\._]+) *;");
+		Pattern pattern = Pattern.compile("\r\n[^.;]*class +([a-zA-Z0-9\\.\\_]+) *");
 		Matcher m = pattern
 				.matcher(
-"/** * */package com.example.vaadin_development2.component_factories;");
+					" */\r\n public class Outline");
 		while (m.find())
 		{
 			String mod = m.group(1);
