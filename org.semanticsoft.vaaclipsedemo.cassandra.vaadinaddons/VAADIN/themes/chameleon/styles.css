@@ -1,0 +1,30 @@
+@import "components/components.css";
+@import "compound/compound.css";
+
+/* Makes the button text smaller */
+.v-button-small-text span.v-button-caption {
+	font-size: x-small;
+	text-shadow: #fafafa 1px 1px 0;
+}
+
+/* Makes the caption break across lines */
+.v-button-line-wrap .v-button-caption {
+	display: block;
+	white-space: normal;
+	text-align: center;
+}
+
+.v-button-center-icon img.v-button	{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+}
+
+.v-button-no-right-border {
+	border-right-style: none;
+}
+
+.v-button-no-left-border {
+	border-left-style: none;
+}

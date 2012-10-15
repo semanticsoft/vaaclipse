@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="e4modelextension" nsURI="http://www.semanticsoft.org/ExtensionUI/e4modelextension"
+    nsPrefix="e4modelextension">
+  <eClassifiers xsi:type="ecore:EClass" name="EditorPartDescriptor" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//descriptor/basic/PartDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uriFilter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="partAddingLogicUri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="bundleclass://org.semanticsoft.e4extension/org.semanticsoft.e4extension.shared.DefaultPartAddingLogic"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VaaclipseApplication" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Application">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorDescriptors" upperBound="-1"
+        eType="#//EditorPartDescriptor" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

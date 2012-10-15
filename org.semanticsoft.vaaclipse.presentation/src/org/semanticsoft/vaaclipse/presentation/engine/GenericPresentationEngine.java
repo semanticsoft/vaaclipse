@@ -269,7 +269,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 	public Object createGui(final MUIElement element) {
 		// Obtain the necessary parent widget
 		MElementContainer<MUIElement> parent = element.getParent();
-		if (parent == null) {
+		if (parent == null && ((EObject) element).eContainer() instanceof MElementContainer<?>) {
 			parent = (MElementContainer<MUIElement>) ((EObject) element).eContainer();
 		}
 		

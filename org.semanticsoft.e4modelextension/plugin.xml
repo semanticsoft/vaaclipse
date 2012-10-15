@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.semanticsoft.org/ExtensionUI/e4modelextension"
+            class="e4modelextension.E4modelextensionPackage"
+            genModel="model/e4modelextension.genmodel"/>
+   </extension>
+
+</plugin>

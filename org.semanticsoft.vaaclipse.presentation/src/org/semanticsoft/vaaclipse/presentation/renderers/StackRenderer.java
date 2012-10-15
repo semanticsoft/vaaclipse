@@ -11,6 +11,9 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
@@ -19,6 +22,7 @@ import org.eclipse.e4.ui.model.application.ui.MUILabel;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -34,11 +38,15 @@ import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.TabSheet.Tab;
 
 
 @SuppressWarnings("restriction")
 public class StackRenderer extends GenericRenderer {
+	
+	private Map<Component, MStackElement> vaatab2Element = new HashMap<Component, MStackElement>();
 	
 	private EventHandler tagListener = new EventHandler() {
 		@Override
@@ -78,7 +86,6 @@ public class StackRenderer extends GenericRenderer {
 			MPartStack stack = (MPartStack) element;
 			if (stack.getRenderer() != StackRenderer.this)
 				return;
-			StackRenderer renderer = (StackRenderer) stack.getRenderer();
 
 			// Gather up the elements that are being 'hidden' by this change
 			MUIElement oldSel = (MUIElement) event
@@ -91,8 +98,26 @@ public class StackRenderer extends GenericRenderer {
 			if (stack.getSelectedElement() != null)
 			{
 				//lsr.showTab(stack.getSelectedElement());
-				Component tabComponent = (Component) stack.getSelectedElement().getWidget();
-				((TabSheet)stack.getWidget()).setSelectedTab(tabComponent);
+				
+				if (stack.getSelectedElement().getWidget() == null)
+				{
+					IPresentationEngine engine = (IPresentationEngine) context.get(IPresentationEngine.class.getName());
+					engine.createGui(stack.getSelectedElement());
+					
+					int i = 0;
+					for (MStackElement e : stack.getChildren())
+					{
+						if (e == stack.getSelectedElement())
+							break;
+						
+						if (e.getWidget() != null)
+							i++;
+					}
+					
+					addTab((TabSheet) stack.getWidget(), stack.getSelectedElement(), i);
+				}
+				
+				((TabSheet)stack.getWidget()).setSelectedTab((Component) stack.getSelectedElement().getWidget());
 			}
 		}
 	};
@@ -117,31 +142,42 @@ public class StackRenderer extends GenericRenderer {
 	@Override
 	public void processContents(final MElementContainer<MUIElement> container) {
 		TabSheet parentPane = (TabSheet) container.getWidget();
-
+		
+		vaatab2Element.clear();
+		
 		for (MUIElement element : container.getChildren()) {
-			MUILabel mLabel;
-			if (element instanceof MPlaceholder)
-				mLabel = (MUILabel) ((MPlaceholder) element).getRef();
-			else
-				mLabel = (MUILabel) element;
-			
-			boolean closable = false;
-			if (mLabel instanceof MPart)
-				closable = ((MPart) mLabel).isCloseable();
-			
-			Resource icon = mLabel.getIconURI() != null ? new ThemeResource(Utils.convertPath(mLabel.getIconURI())) : null;
-			Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon);
-			tab.setClosable(closable);
+			if (element instanceof MStackElement)
+				addTab(parentPane, (MStackElement) element, parentPane.getComponentCount());
 		}
+	}
+
+	private void addTab(TabSheet parentPane, MStackElement element, int pos)
+	{
+		MUILabel mLabel;
+		if (element instanceof MPlaceholder)
+			mLabel = (MUILabel) ((MPlaceholder) element).getRef();
+		else
+			mLabel = (MUILabel) element;
+		
+		boolean closable = false;
+		if (mLabel instanceof MPart)
+			closable = ((MPart) mLabel).isCloseable();
+		
+		Resource icon = mLabel.getIconURI() != null ? new ThemeResource(Utils.convertPath(mLabel.getIconURI())) : null;
+		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
+		tab.setClosable(closable);
+		
+		vaatab2Element.put((Component) element.getWidget(), element);
 	}
 	
 	@Override
 	public void hookControllerLogic(final MUIElement element)
 	{
+		final StackWidget sw = (StackWidget)element.getWidget();
+		
 		int location = modelService.getElementLocation(element);
 		if (location != EModelService.IN_SHARED_AREA) //if the stack not in shared area
 		{
-			final StackWidget sw = (StackWidget)element.getWidget();
 			sw.addStateListener(new StateListener() {
 				
 				@Override
@@ -173,12 +209,28 @@ public class StackRenderer extends GenericRenderer {
 						element.getTags().remove(IPresentationEngine.MAXIMIZED);
 					}
 				}
-			});	
+			});
 		}
 		else
 		{
 			System.out.println("in shared area");
 		}
+		
+		sw.addListener(new SelectedTabChangeListener() {
+			
+			public void selectedTabChange(SelectedTabChangeEvent event)
+			{
+				MStackElement stackElement = vaatab2Element.get(sw.getSelectedTab());
+				if (stackElement != null)
+				{
+					MPartStack stack = (MPartStack)(MElementContainer<?>)stackElement.getParent();
+					if (stack != null && stack.getSelectedElement() != stackElement)
+					{
+						stack.setSelectedElement(stackElement);	
+					}
+				}
+			}
+		});
 	}
 
 	@Override

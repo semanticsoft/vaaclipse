@@ -22,7 +22,6 @@ import org.semanticsoft.vaaclipse.api.Behaviour;
 
 @SuppressWarnings("restriction")
 public class MinMaxProcessor {
-	private static final String BUNDLE_ID = "platform:/plugin/org.semanticsoft.vaaclipse.behaviour";
 	private static final String BUNDLE_CLASS = "bundleclass://org.semanticsoft.vaaclipse.behaviour";
 
 	public static final String MIN_MAX_CONTRIBUTION_URI = BUNDLE_CLASS

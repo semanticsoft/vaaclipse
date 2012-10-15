@@ -124,6 +124,7 @@ public class PerspectiveStackRenderer extends GenericRenderer
 				phComponent.addComponent(refComponent);
 				ph.getRef().setCurSharedRef(ph);
 				
+				System.out.println("sfaf");
 				MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
 				if (topLeftStack != null)
 				{

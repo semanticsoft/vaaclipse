@@ -38,14 +38,15 @@ public class HierarchyUtils
 		else if (container instanceof MPartSashContainer)
 		{
 			MPartSashContainer sash = (MPartSashContainer) container;
-			if (sash.isHorizontal() && sash.getChildren().get(1) instanceof MElementContainer<?>)
-			{
-				return findTopLeftFolder((MElementContainer) sash.getChildren().get(1));
-			}
-			else if (!sash.isHorizontal() && sash.getChildren().get(0) instanceof MElementContainer<?>)
-			{
+			
+			if (sash.getChildren().isEmpty())
+				return null;
+			else if (sash.getChildren().size() == 1)
 				return findTopLeftFolder((MElementContainer) sash.getChildren().get(0));
-			}
+			else if (sash.isHorizontal() && sash.getChildren().get(1) instanceof MElementContainer<?>)
+				return findTopLeftFolder((MElementContainer) sash.getChildren().get(1));
+			else if (!sash.isHorizontal() && sash.getChildren().get(0) instanceof MElementContainer<?>)
+				return findTopLeftFolder((MElementContainer) sash.getChildren().get(0));
 		}
 
 		return null;

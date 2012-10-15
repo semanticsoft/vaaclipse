@@ -261,7 +261,15 @@ width: 0px;
     padding: 0;
 }
 
+.mparttoolbararea {
+	padding-right: 4px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
 
+.mparttoolbar {
+	float: right;
+}
 /************* jhighlight styles**************************/
 .xml_plain {
 color: rgb(0,0,0);

@@ -73,6 +73,7 @@ public class PlaceholderRenderer extends GenericRenderer
 		//VerticalLayout phComp = new VerticalLayout();
 		BoundsinfoVerticalLayout phComp = new BoundsinfoVerticalLayout();
 		phComp.setSizeFull();
+		phComp.setMargin(false);
 		ph.setWidget(phComp);
 		
 		Component refWidget = (Component) ref.getWidget();

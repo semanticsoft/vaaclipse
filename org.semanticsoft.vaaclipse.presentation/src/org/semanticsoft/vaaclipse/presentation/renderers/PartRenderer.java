@@ -11,31 +11,69 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import javax.inject.Inject;
+
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.workbench.IPresentationEngine;
 
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.AbstractLayout;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
 public class PartRenderer extends GenericRenderer {
-
+	
+	@Inject
+	IPresentationEngine renderingEngine;
+	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
-		Panel pane = new Panel();
+		VerticalLayout pane = new VerticalLayout();
 		pane.setSizeFull();
 		final MPart part = (MPart) element;
 
-		// Create a context for this part
+		CssLayout toolbarArea = new CssLayout();
+		toolbarArea.setStyleName("mparttoolbararea");
+		toolbarArea.setSizeUndefined();
+		toolbarArea.setWidth("100%");
+		pane.addComponent(toolbarArea);
+		
+		//create toolbar
+		MToolBar toolbar = part.getToolbar();
+		if (toolbar != null && toolbar.isVisible())
+		{
+			Component toolbarWidget = (Component) renderingEngine.createGui(toolbar);
+			((AbstractLayout)toolbarWidget).setSizeUndefined();
+			toolbarWidget.setStyleName("mparttoolbar");
+			toolbarArea.addComponent(toolbarWidget);
+		}
+		
+		VerticalLayout contributionArea = new VerticalLayout();
+		contributionArea.setSizeFull();
+		pane.addComponent(contributionArea);
+		pane.setExpandRatio(contributionArea, 100);
+		
 		IEclipseContext localContext = part.getContext();
-		localContext.set(Panel.class, pane);
+		localContext.set(Component.class, contributionArea);
+		localContext.set(ComponentContainer.class, contributionArea);
+		localContext.set(VerticalLayout.class, contributionArea);
+		localContext.set(MPart.class, part);
+		if (part instanceof MInputPart)
+			localContext.set(MInputPart.class, (MInputPart)part);
 
 		IContributionFactory contributionFactory = (IContributionFactory) localContext.get(IContributionFactory.class
 				.getName());
 		Object newPart = contributionFactory.create(part.getContributionURI(), localContext);
+		
 		part.setObject(newPart);
 		
 		pane.setStyleName("page_component");

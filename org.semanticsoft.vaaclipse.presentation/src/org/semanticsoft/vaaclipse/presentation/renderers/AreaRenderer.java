@@ -67,9 +67,9 @@ public class AreaRenderer extends GenericRenderer
 		return null;
 	}
 	
-//	@Override
-//	public void refreshPlatformElement(MElementContainer<?> element)
-//	{
-//		processContents((MElementContainer<MUIElement>) element);
-//	}
+	@Override
+	public void refreshPlatformElement(MElementContainer<?> element)
+	{
+		processContents((MElementContainer<MUIElement>) element);
+	}
 }
