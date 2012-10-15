@@ -212,7 +212,8 @@ public class PackageExplorer
 		if (editorArea == null)
 			editorArea = (MArea) modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.editorarea", application);
 		
-		partServiceExt.openUri(editorArea, file.getAbsolutePath());
+		MInputPart part = partServiceExt.openUri(editorArea, file.getAbsolutePath());
+		part.setLabel("test");
 		getConsole().println("Open file: " + file.getAbsolutePath());
 	}
 	
