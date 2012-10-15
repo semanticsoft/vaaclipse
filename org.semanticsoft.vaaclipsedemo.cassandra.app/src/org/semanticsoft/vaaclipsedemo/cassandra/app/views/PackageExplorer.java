@@ -96,6 +96,16 @@ public class PackageExplorer
 	void registerHandler()
 	{
 		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);
+		
+//		eventBroker.subscribe("test1", new EventHandler() {
+//			
+//			public void handleEvent(Event event)
+//			{
+//				String msg = event.getProperty(IEventBroker.DATA).toString();
+//				String str = String.format("workbench with instanceid %s receive message from workbench with instanceid=%s ", context.get("e4ApplicationInstanceId"), msg);
+//				System.out.println(str);
+//			}
+//		});
 	}
 	
 	@PreDestroy

@@ -13,6 +13,7 @@ package org.semanticsoft.vaaclipse.vaadinapp;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.UUID;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -107,6 +108,7 @@ public class VaadinApplication extends Application
 		args = (String[]) applicationContext.getArguments().get(IApplicationContext.APPLICATION_ARGS);
 
 		IEclipseContext appContext = createDefaultContext(applicationContext);
+		appContext.set("e4ApplicationInstanceId", UUID.randomUUID().toString());
 		appContext.set("vaadinapp", this);
 		appContext.set(Application.class, this);
 
