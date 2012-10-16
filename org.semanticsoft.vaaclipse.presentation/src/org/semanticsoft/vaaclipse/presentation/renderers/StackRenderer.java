@@ -12,10 +12,14 @@
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 
+import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
@@ -23,6 +27,7 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -46,6 +51,8 @@ import com.vaadin.ui.TabSheet.Tab;
 @SuppressWarnings("restriction")
 public class StackRenderer extends GenericRenderer {
 	
+	@Inject
+	private EventBroker eventBroker;
 	private Map<Component, MStackElement> vaatab2Element = new HashMap<Component, MStackElement>();
 	
 	private EventHandler tagListener = new EventHandler() {
@@ -122,14 +129,106 @@ public class StackRenderer extends GenericRenderer {
 		}
 	};
 	
-	@PostConstruct
-	public void postConstruct(EventBroker eventBroker)
+	EventHandler itemUpdater = new EventHandler() {
+		public void handleEvent(Event event) {
+			MUIElement element = (MUIElement) event
+					.getProperty(UIEvents.EventTags.ELEMENT);
+			if (!(element instanceof MPart))
+				return;
+
+			MPart part = (MPart) element;
+
+			String attName = (String) event
+					.getProperty(UIEvents.EventTags.ATTNAME);
+			Object newValue = event
+					.getProperty(UIEvents.EventTags.NEW_VALUE);
+
+			MPartStack stack = null;
+			// is this a direct child of the stack?
+			if (element.getParent() != null
+					&& element.getParent().getRenderer() == StackRenderer.this) {
+				stack = (MPartStack)(MElementContainer<?>)element.getParent();
+			}
+			else
+			{
+				// Do we have any stacks with place holders for the element
+				// that's changed?
+				MWindow win = modelService.getTopLevelWindowFor(part);
+				List<MPlaceholder> refs = modelService.findElements(win, null,
+						MPlaceholder.class, null);
+				if (refs != null) {
+					for (MPlaceholder ref : refs) {
+						if (ref.getRef() != part)
+							continue;
+
+						MElementContainer<?> refParent = ref
+								.getParent();
+						// can be null, see bug 328296
+						if (refParent != null
+								&& refParent.getRenderer() instanceof StackRenderer) {
+							stack = (MPartStack)refParent;
+						}
+					}
+				}	
+			}
+			
+			if (stack != null)
+			{
+				Tab tab = ((StackWidget)stack.getWidget()).getTab((Component) part.getWidget());
+				updateTab(tab, part, attName, newValue);	
+			}
+		}
+	};
+	
+	private void updateTab(Tab tab, MPart part, String attName, Object newValue)
 	{
-		eventBroker.unsubscribe(selectElementHandler);
-		eventBroker.unsubscribe(tagListener);
-		
+		if (UIEvents.UILabel.LABEL.equals(attName)) {
+			String newName = (String) newValue;
+			tab.setCaption(getLabel(part, newName));
+		} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
+			Resource icon = part.getIconURI() != null ? new ThemeResource(Utils.convertPath(part.getIconURI())) : null;
+			tab.setIcon(icon);
+		} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
+			String newTTip = (String) newValue;
+			tab.setDescription(newTTip);
+		} else if (UIEvents.Dirtyable.DIRTY.equals(attName)) {
+			Boolean dirtyState = (Boolean) newValue;
+			String text = tab.getCaption();
+			boolean hasAsterisk = text.length() > 0 && text.charAt(0) == '*';
+			if (dirtyState.booleanValue()) {
+				if (!hasAsterisk) {
+					tab.setCaption('*' + text);
+				}
+			} else if (hasAsterisk) {
+				tab.setCaption(text.substring(1));
+			}
+		}
+	}
+	
+	private String getLabel(MUILabel itemPart, String newName) {
+		if (newName == null) {
+			newName = ""; //$NON-NLS-1$
+		}
+		if (itemPart instanceof MDirtyable && ((MDirtyable) itemPart).isDirty()) {
+			newName = '*' + newName;
+		}
+		return newName;
+	}
+	
+	@PostConstruct
+	public void postConstruct()
+	{
 		eventBroker.subscribe(UIEvents.ApplicationElement.TOPIC_TAGS, tagListener);
-		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);
+		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);	
+		eventBroker.subscribe(UIEvents.UILabel.TOPIC_ALL, itemUpdater);
+	}
+	
+	@PreDestroy
+	public void preDestroy()
+	{
+		eventBroker.unsubscribe(tagListener);
+		eventBroker.unsubscribe(selectElementHandler);
+		eventBroker.unsubscribe(itemUpdater);
 	}
 	
 	@Override
@@ -166,6 +265,7 @@ public class StackRenderer extends GenericRenderer {
 		Resource icon = mLabel.getIconURI() != null ? new ThemeResource(Utils.convertPath(mLabel.getIconURI())) : null;
 		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
 		tab.setClosable(closable);
+		tab.setDescription(mLabel.getLocalizedTooltip());
 		
 		vaatab2Element.put((Component) element.getWidget(), element);
 	}
@@ -240,5 +340,4 @@ public class StackRenderer extends GenericRenderer {
 		tabPane.getParent().requestRepaintRequests();
 		tabPane.setVisible(visible);
 	}
-
 }
