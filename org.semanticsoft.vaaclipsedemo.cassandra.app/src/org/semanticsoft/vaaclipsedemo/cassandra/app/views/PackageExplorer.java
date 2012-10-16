@@ -53,6 +53,8 @@ public class PackageExplorer
 	private static final Action ACTION_ADD = new Action("Add child item");
 	private static final Action ACTION_DELETE = new Action("Delete");
 	private static final Action[] ACTIONS = new Action[] { ACTION_ADD, ACTION_DELETE };
+	private static final String fs = System.getProperty("file.separator");
+	private static final String PROJECT_TREE_ROOT = "Cassandra Demo";
 	
 	@Inject
 	private IEclipseContext context;
@@ -76,6 +78,8 @@ public class PackageExplorer
 	public Panel panel;
 	
 	IEventBroker eventBroker;
+	
+	
 
 	@Inject
 	public void PackageExplorer(VerticalLayout parent, IEclipseContext context)
@@ -133,7 +137,7 @@ public class PackageExplorer
 
 	private void createProjectTree(File demoRoot)
 	{
-		tree = new Tree("Cassandra Demo");
+		tree = new Tree(PROJECT_TREE_ROOT);
 		tree.setSizeFull();
 		tree.setImmediate(true);
 		panel.addComponent(tree);
@@ -212,9 +216,22 @@ public class PackageExplorer
 		if (editorArea == null)
 			editorArea = (MArea) modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.editorarea", application);
 		
-		MInputPart part = partServiceExt.openUri(editorArea, file.getAbsolutePath());
-		part.setLabel("test");
-		getConsole().println("Open file: " + file.getAbsolutePath());
+		String path = file.getAbsolutePath();
+		MInputPart part = partServiceExt.openUri(editorArea, path);
+		int lastLsIndex = path.lastIndexOf(fs);
+		if (lastLsIndex > 0)
+			part.setLabel(path.substring(lastLsIndex + 1));	
+		
+		
+		String pathStr = path;
+		int projectTreeRootIndex = path.indexOf(".cassandra");
+		if (projectTreeRootIndex > -1)
+		{
+			int i = path.indexOf(fs, projectTreeRootIndex);
+			pathStr = projectTreeRootIndex > -1 ? path.substring(i + 1) : path;
+		}
+		
+		getConsole().println("Open file: " + pathStr);
 	}
 	
 	private Console getConsole()
