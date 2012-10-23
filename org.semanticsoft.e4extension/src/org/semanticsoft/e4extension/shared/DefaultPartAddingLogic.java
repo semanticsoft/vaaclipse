@@ -39,8 +39,8 @@ public class DefaultPartAddingLogic
 				MArea marea = (MArea) area;
 				stack = MBasicFactory.INSTANCE.createPartStack();
 				marea.getChildren().add(stack);
-				engine.createGui(stack);
-				((GenericRenderer)marea.getRenderer()).refreshPlatformElement(marea);
+//				engine.createGui(stack);
+//				((GenericRenderer)marea.getRenderer()).refreshPlatformElement(marea);
 			}
 			else
 				throw new IllegalStateException(String.format("Can not add the part %s to area %s", part, area));
