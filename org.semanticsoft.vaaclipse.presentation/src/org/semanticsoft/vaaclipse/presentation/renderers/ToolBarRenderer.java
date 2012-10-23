@@ -26,6 +26,9 @@ import org.eclipse.e4.ui.internal.workbench.ContributionsAnalyzer;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.SideValue;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
@@ -60,25 +63,25 @@ public class ToolBarRenderer extends GenericRenderer {
 	@Inject
 	IEventBroker eventBroker;
 
-	private EventHandler childAdditionUpdater = new EventHandler() {
-		public void handleEvent(Event event) {
-			// Ensure that this event is for a MMenuItem
-			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MToolBar))
-				return;
-			MToolBar toolbarModel = (MToolBar) event
-					.getProperty(UIEvents.EventTags.ELEMENT);
-			String eventType = (String) event
-					.getProperty(UIEvents.EventTags.TYPE);
-			if (UIEvents.EventTypes.ADD.equals(eventType)) {
-				Object obj = toolbarModel;
-				processContents((MElementContainer<MUIElement>) obj);
-			}
-		}
-	};
+//	private EventHandler childAdditionUpdater = new EventHandler() {
+//		public void handleEvent(Event event) {
+//			// Ensure that this event is for a MMenuItem
+//			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MToolBar))
+//				return;
+//			MToolBar toolbarModel = (MToolBar) event
+//					.getProperty(UIEvents.EventTags.ELEMENT);
+//			String eventType = (String) event
+//					.getProperty(UIEvents.EventTags.TYPE);
+//			if (UIEvents.EventTypes.ADD.equals(eventType)) {
+//				Object obj = toolbarModel;
+//				processContents((MElementContainer<MUIElement>) obj);
+//			}
+//		}
+//	};
 
 	@PostConstruct
 	public void init() {
-		eventBroker.subscribe(ElementContainer.TOPIC_CHILDREN, childAdditionUpdater);
+		//eventBroker.subscribe(ElementContainer.TOPIC_CHILDREN, childAdditionUpdater);
 		
 		context.set(ToolBarRenderer.class, this);
 
@@ -86,7 +89,7 @@ public class ToolBarRenderer extends GenericRenderer {
 
 	@PreDestroy
 	public void contextDisposed() {
-		eventBroker.unsubscribe(childAdditionUpdater);
+		//eventBroker.unsubscribe(childAdditionUpdater);
 	}
 	
 	@Override
@@ -247,5 +250,45 @@ public class ToolBarRenderer extends GenericRenderer {
 				}
 			}	
 		}
+	}
+	
+	@Override
+	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MToolBarElement && (MElementContainer<?>)element instanceof MToolBar))
+			return;
+		
+		super.addChild(child, element);
+		
+		CssLayout toolbarWidget = (CssLayout) element.getWidget();
+		Component childWidget = (Component) child.getWidget();
+		if (toolbarWidget == null || childWidget == null)
+			return;
+		int index = element.getChildren().indexOf(child);
+		int pos = toolbarWidget.getComponentCount();
+		if (index == 0)
+			pos = index;
+		else
+		{
+			MUIElement prevChild = element.getChildren().get(index - 1);
+			for (int k = 0; k < toolbarWidget.getComponentCount(); k++)
+			{
+				if (toolbarWidget.getComponent(k).equals(prevChild.getWidget()))
+				{
+					pos = k + 1;
+					break;
+				}
+			}
+		}
+		
+		if (element instanceof MToolBarSeparator) 
+		{
+			toolbarWidget.addComponent(new Label("Separator"), pos);
+		} 
+		else  {
+			toolbarWidget.addComponent(childWidget, pos);
+		}
+		
+		toolbarWidget.requestRepaint();
 	}
 }

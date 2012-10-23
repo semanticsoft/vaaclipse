@@ -93,7 +93,8 @@ public class SashRenderer extends GenericRenderer {
 	}
 	
 	@Override
-	public void refreshPlatformElement(MElementContainer<? extends MUIElement> element)
+	@Deprecated
+	public void refreshPlatformElement(MElementContainer<?> element)
 	{
 		for (MUIElement e : element.getChildren())
 		{

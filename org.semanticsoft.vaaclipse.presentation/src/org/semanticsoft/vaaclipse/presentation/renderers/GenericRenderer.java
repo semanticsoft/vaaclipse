@@ -21,6 +21,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 
 /**
  * This renderer was adopted from Kai Toedter's generic renderer project. I place it in vaaclipse packages temproraly -
@@ -47,29 +48,42 @@ public class GenericRenderer {
 	}
 
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
-		System.out.println("GenericRenderer.createWidget(): " + element + ", parent: " + parent);
+		
 	}
 
 	public void removeWidget(MUIElement element, MElementContainer<MUIElement> parent) {
-		System.out.println("GenericRenderer.removeWidget(): " + element);
-	}
-
-	public void bindModelToWidget(MUIElement element) {
-		System.out.println("GenericRenderer.bindModelToWidget(): " + element);
+		if (parent.getWidget() instanceof ComponentContainer && element.getWidget() != null)
+		{
+			((ComponentContainer)parent.getWidget()).removeComponent((Component) element.getWidget());
+		}
 	}
 
 	public void processContents(MElementContainer<MUIElement> element) {
 		System.out.println("GenericRenderer.processContents(): " + element);
 	}
 	
+	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		
+	}
+	
+	public void removeChild(MUIElement element, MElementContainer<MUIElement> parent) {
+		if (parent.getWidget() instanceof ComponentContainer && element.getWidget() != null)
+		{
+			((ComponentContainer)parent.getWidget()).removeComponent((Component) element.getWidget());
+		}
+	}
+	
+	/**
+	 * This method will be removed as soon as possible
+	 * @param element
+	 */
+	@Deprecated
 	public void refreshPlatformElement(MElementContainer<?> element)
 	{
 		
 	}
 
-	public void removeChild(MUIElement element, MElementContainer<MUIElement> parent) {
-		System.out.println("GenericRenderer.removeChild(): " + element + " from parent: " + parent);
-	}
 
 	public void hookControllerLogic(MUIElement element) {
 		// System.out.println("GenericRenderer.hookControllerLogic(): " +

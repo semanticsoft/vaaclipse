@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -20,9 +22,15 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
+import org.eclipse.e4.ui.workbench.UIEvents;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
+import org.w3c.dom.events.UIEvent;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Component;
@@ -38,6 +46,64 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 	
 	@Inject
 	Application vaadinapp;
+	
+	@Inject
+	EventBroker eventBroker;
+	
+	EventHandler trimHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event)
+		{
+			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MTrimmedWindow))
+				return;
+			
+			MTrimmedWindow window = (MTrimmedWindow) event.getProperty(UIEvents.EventTags.ELEMENT);
+			WorkbenchWindow vWindow = (WorkbenchWindow) window.getWidget();
+			PresentationEngine engine = (PresentationEngine) context.get(IPresentationEngine.class.getName());
+			Object attType = event.getProperty(UIEvents.EventTags.TYPE);
+			
+			Component c;
+			MTrimBar trimBar;
+			if (attType.equals("ADD"))
+			{
+				trimBar = (MTrimBar) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+				c = trimBar.getWidget() == null ? (Component) engine.createGui(trimBar) : (Component)trimBar.getWidget();
+			}
+			else
+			{
+				trimBar = (MTrimBar) event.getProperty(UIEvents.EventTags.OLD_VALUE);
+				c = null;
+			}
+			
+			switch (trimBar.getSide()) {
+			case BOTTOM:
+				vWindow.setBottomBar(c);
+				break;
+			case LEFT:
+				vWindow.setLeftBar(c);
+				break;
+			case RIGHT:
+				vWindow.setRightBar(c);
+				break;
+			case TOP:
+				vWindow.setTopBar(c);
+				break;
+			}
+		}
+	};
+	
+	@PostConstruct
+	public void init()
+	{
+		eventBroker.subscribe(UIEvents.TrimmedWindow.TOPIC_TRIMBARS, trimHandler);
+	}
+	
+	@PreDestroy
+	public void deinit()
+	{
+		eventBroker.unsubscribe(trimHandler);
+	}
 
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
@@ -141,35 +207,40 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 		}
 	}
 
-	@Override
-	public void refreshPlatformElement(MElementContainer<?> element) {
-		if ((MUIElement) element instanceof MTrimmedWindow) {
-			MTrimmedWindow window = (MTrimmedWindow) ((MUIElement) element);
-			WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
-			
-			for (MTrimBar trim : window.getTrimBars()) {
-				Component c = (Component) trim.getWidget();
-				switch (trim.getSide()) {
-				case BOTTOM:
-					vWindow.setBottomBar(c);
-					break;
-				case LEFT:
-					vWindow.setLeftBar(c);
-					break;
-				case RIGHT:
-					vWindow.setRightBar(c);
-					break;
-				case TOP:
-					vWindow.setTopBar(c);
-					break;
-				}
-			}
-		
-		}
-	}
-
-	@Override
-	public void removeChild(MUIElement element, MElementContainer<MUIElement> parent) {
-		
-	}
+//	@Override
+//	public void refreshPlatformElement(MElementContainer<?> element) {
+//		if ((MUIElement) element instanceof MTrimmedWindow) {
+//			MTrimmedWindow window = (MTrimmedWindow) ((MUIElement) element);
+//			WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+//			
+//			for (MTrimBar trim : window.getTrimBars()) {
+//				Component c = (Component) trim.getWidget();
+//				switch (trim.getSide()) {
+//				case BOTTOM:
+//					vWindow.setBottomBar(c);
+//					break;
+//				case LEFT:
+//					vWindow.setLeftBar(c);
+//					break;
+//				case RIGHT:
+//					vWindow.setRightBar(c);
+//					break;
+//				case TOP:
+//					vWindow.setTopBar(c);
+//					break;
+//				}
+//			}
+//		
+//		}
+//	}
+	
+//	@Override
+//	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+//	{
+//		if (!(child instanceof MWindowElement && (MElementContainer<?>)element instanceof MWindow))
+//			return;
+//		
+//		super.addChild(child, element);
+//		
+//	}
 }

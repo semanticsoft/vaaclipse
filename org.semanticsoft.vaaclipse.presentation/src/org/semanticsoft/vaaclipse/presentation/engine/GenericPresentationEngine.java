@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -71,18 +72,24 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 			@SuppressWarnings("unchecked")
 			MElementContainer<MUIElement> changedElement = (MElementContainer<MUIElement>) changedObj;
-
+			GenericRenderer parentRenderer = (GenericRenderer) changedElement.getRenderer();
+			
+			if (parentRenderer == null)
+				return;
+			
 			String eventType = (String) event.getProperty(UIEvents.EventTags.TYPE);
 			if (UIEvents.EventTypes.ADD.equals(eventType)) {
-				System.out.println("ADD " + changedElement);
-			} else if (UIEvents.EventTypes.REMOVE.equals(eventType)) {
-				System.out.println("REMOVE " + changedElement);
+				MUIElement added = (MUIElement) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+				
+				if (added.getWidget() == null)
+					createGui(added);
+				parentRenderer.addChild(added, changedElement);
+			} 
+			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
+			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-
-				removeGui(removed);
+				parentRenderer.removeChild(removed, changedElement);
 			}
-
-			System.out.println(event);
 		}
 	};
 
@@ -326,8 +333,16 @@ public class GenericPresentationEngine implements PresentationEngine {
 		// Add the presentation engine to the context
 		context.set(IPresentationEngine.class.getName(), this);
 		
-		eventBroker.subscribe(UIEvents.ElementContainer.CHILDREN, childrenHandler);
+		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, childrenHandler);
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_VISIBLE, visibilityHandler);
+	}
+	
+	@PreDestroy
+	public void destroy(IEclipseContext context) {
+		context.remove(IPresentationEngine.class.getName());
+		
+		eventBroker.unsubscribe(childrenHandler);
+		eventBroker.unsubscribe(visibilityHandler);
 	}
 
 	@Override

@@ -15,6 +15,9 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
@@ -68,8 +71,15 @@ public class AreaRenderer extends GenericRenderer
 	}
 	
 	@Override
-	public void refreshPlatformElement(MElementContainer<?> element)
+	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
 	{
-		processContents((MElementContainer<MUIElement>) element);
+		if (!(child instanceof MPartSashContainerElement))
+			return;
+		
+		super.addChild(child, element);
+		
+		AbstractOrderedLayout areaWidget = (AbstractOrderedLayout) element.getWidget();
+		int index = element.getChildren().indexOf(child);
+		areaWidget.addComponent((Component) child.getWidget(), index);
 	}
 }

@@ -11,10 +11,24 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+import javax.inject.Inject;
+
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.contexts.RunAndTrack;
+import org.eclipse.e4.ui.internal.workbench.ContributionsAnalyzer;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.SideValue;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
+import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
@@ -24,6 +38,11 @@ import com.vaadin.ui.Panel;
 @SuppressWarnings("restriction")
 public class TrimBarRenderer extends GenericRenderer {
 
+	@Inject
+	MApplication app;
+	
+	private HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>> pendingCleanup = new HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>>();
+	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
 		if (!(element instanceof MTrimBar)) {
@@ -87,13 +106,113 @@ public class TrimBarRenderer extends GenericRenderer {
 				isFirst = false;
 			}
 		}
+		
+		//---
+		IEclipseContext ctx = getContext(container);
+		ExpressionContext eContext = new ExpressionContext(ctx);
+		ArrayList<MTrimContribution> toContribute = new ArrayList<MTrimContribution>();
+		ContributionsAnalyzer.gatherTrimContributions(trimBar,
+				app.getTrimContributions(), trimBar.getElementId(),
+				toContribute, eContext);
+		addTrimContributions(trimBar, toContribute, ctx, eContext);
 	}
 	
-	@SuppressWarnings("unchecked")
+	private void addTrimContributions(final MTrimBar trimModel,
+			ArrayList<MTrimContribution> toContribute, IEclipseContext ctx,
+			final ExpressionContext eContext) {
+		HashSet<String> existingToolbarIds = new HashSet<String>();
+		for (MTrimElement item : trimModel.getChildren()) {
+			String id = item.getElementId();
+			if (item instanceof MToolBar && id != null) {
+				existingToolbarIds.add(id);
+			}
+		}
+
+		boolean done = toContribute.size() == 0;
+		while (!done) {
+			ArrayList<MTrimContribution> curList = new ArrayList<MTrimContribution>(
+					toContribute);
+			int retryCount = toContribute.size();
+			toContribute.clear();
+
+			for (final MTrimContribution contribution : curList) {
+				final ArrayList<MTrimElement> toRemove = new ArrayList<MTrimElement>();
+				if (!ContributionsAnalyzer.processAddition(trimModel,
+						contribution, toRemove, existingToolbarIds)) {
+					toContribute.add(contribution);
+				} else {
+					if (contribution.getVisibleWhen() != null) {
+						ctx.runAndTrack(new RunAndTrack() {
+							@Override
+							public boolean changed(IEclipseContext context) {
+								if (!trimModel.isToBeRendered()
+										|| !trimModel.isVisible()
+										|| trimModel.getWidget() == null) {
+									return false;
+								}
+								boolean rc = ContributionsAnalyzer.isVisible(
+										contribution, eContext);
+								for (MTrimElement child : toRemove) {
+									child.setToBeRendered(rc);
+								}
+								return true;
+							}
+						});
+					}
+					ArrayList<ArrayList<MTrimElement>> lists = pendingCleanup
+							.get(trimModel);
+					if (lists == null) {
+						lists = new ArrayList<ArrayList<MTrimElement>>();
+						pendingCleanup.put(trimModel, lists);
+					}
+					lists.add(toRemove);
+				}
+			}
+			// We're done if the retryList is now empty (everything done) or
+			// if the list hasn't changed at all (no hope)
+			done = (toContribute.size() == 0)
+					|| (toContribute.size() == retryCount);
+		}
+	}
+	
 	@Override
-	public void refreshPlatformElement(MElementContainer<?> element)
+	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
 	{
-		processContents((MElementContainer<MUIElement>) element);
-		((Component)element.getWidget()).requestRepaint();
+		if (!(child instanceof MTrimElement && (MElementContainer<?>)element instanceof MTrimBar))
+			return;
+		
+		super.addChild(child, element);
+		
+		MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element;
+		int orientation = trimBar.getSide().getValue();
+		
+		final Component childWidget = (Component) child.getWidget();
+		childWidget.setVisible(child.isVisible());
+		childWidget.setSizeUndefined();
+		if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
+			childWidget.addStyleName("horizontaltoolbar");
+		else
+			childWidget.addStyleName("verticaltoolbar");
+		
+		CssLayout trimWidget = (CssLayout) element.getWidget();
+		int index = element.getChildren().indexOf(child);
+		int pos = trimWidget.getComponentCount();
+		if (index == 0)
+			pos = index;
+		else
+		{
+			MUIElement prevChild = element.getChildren().get(index - 1);
+			for (int k = 0; k < trimWidget.getComponentCount(); k++)
+			{
+				if (trimWidget.getComponent(k).equals(prevChild.getWidget()))
+				{
+					pos = k + 1;
+					break;
+				}
+			}
+		}
+		trimWidget.addComponent(childWidget, pos);
+		
+		trimWidget.requestRepaint();
 	}
 }

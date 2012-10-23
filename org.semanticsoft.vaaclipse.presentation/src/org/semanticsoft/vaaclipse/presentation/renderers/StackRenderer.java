@@ -340,4 +340,17 @@ public class StackRenderer extends GenericRenderer {
 		tabPane.getParent().requestRepaintRequests();
 		tabPane.setVisible(visible);
 	}
+	
+	@Override
+	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MStackElement))
+			return;
+		
+		super.addChild(child, element);
+		
+		StackWidget sw = (StackWidget) element.getWidget();
+		int index = element.getChildren().indexOf(child);
+		addTab(sw, (MStackElement) child, index);
+	}
 }
