@@ -130,8 +130,6 @@ public class PartServiceExtImpl implements EPartServiceExt
 		EditorPartDescriptor editorPartDescriptor = findEditorPartDescriptor(inputUri);
 		MInputPart part = ensurePartAdded(getWindow(), area, editorPartDescriptor, inputUri);
 		
-		part.setInputURI(inputUri);
-		
 		partService.showPart(part, PartState.ACTIVATE);
 		return part;
 	}
@@ -174,6 +172,7 @@ public class PartServiceExtImpl implements EPartServiceExt
 			
 			//create part
 			part = createInputPart(editorPartDescriptor);
+			part.setInputURI(inputUri);
 			
 			//create context for add logic and set context info
 			IEclipseContext localContext = application.getContext().createChild();
