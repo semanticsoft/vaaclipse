@@ -74,7 +74,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_MjCfsOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.8" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/help.png" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_QyaqMOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.9" label="Javadoc" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/javadoc.png" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_YVR-sOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.10" label="JUnit" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/junit.png"/>
-    <trimBars xmi:id="_SeXUAu8EEd6FC9cDb6iV7g" elementId="toolbar:org.eclipse.ui.main.toolbar">
+    <trimBars xmi:id="_SeXUAu8EEd6FC9cDb6iV7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toptrimbar" side="Top">
       <children xsi:type="menu:ToolBar" xmi:id="_YKLDFJLKJDFFDFDFFFFFFF" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main">
         <children xsi:type="menu:HandledToolItem" xmi:id="_MBzEwOsjEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main.save" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/save.png" tooltip="Save" command="contacts.save"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_MaSdQOsjEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main.saveall" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/save_all.png" tooltip="Save all" command="_DGvDsOsiEeGZOI_suq-2CQ"/>
@@ -83,6 +83,7 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_9UPfUBqZEeGFVucrmhucYg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handledtoolitem.2" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/print.png" tooltip="Print" command="_FEAosOsiEeGZOI_suq-2CQ"/>
       </children>
     </trimBars>
+    <trimBars xmi:id="_SeXUAu8EEd6FC9FFFFFFFF" elementId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar" side="Bottom"/>
   </children>
   <handlers xmi:id="_SeXUGO8EEd6FC9cDb6iV7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.SaveHandler" command="contacts.save"/>
   <handlers xmi:id="_CYbMMOsiEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handler.1" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.SaveAllHandler" command="_DGvDsOsiEeGZOI_suq-2CQ"/>
@@ -109,6 +110,12 @@
     <!-- visibleWhen xsi:type="ui:CoreExpression" xmi:id="_ITYmEBr2EeKmpbrEZ1tscA" coreExpressionId="org.semanticsoft.e4test.testexpression1"/ -->
     <children xsi:type="menu:DirectToolItem" xmi:id="_YkAj4BfgEeKmpbrEZ1tscA" elementId="org.semanticsoft.e4test.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/collapse_all.png" tooltip="igogo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.CollapseAll"/>
   </toolBarContributions>
+  
+  <trimContributions xmi:id="_OTArABgpEeKmpbrEZ1tscB" elementId="org.semanticsoft.vaaclipsedemo.trimcontribution.0" parentId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar">
+    <children xsi:type="menu:ToolBar" xmi:id="_PThs0BgpEeKmpbrEZ1tscA" elementId="org.semanticsoft.vaaclipsedemo.toolbar.codeline">
+      <children xsi:type="menu:HandledToolItem" xmi:id="_nclNEBuCEeKmpbrEZ1tscA" elementId="org.semanticsoft.e4test.contribtoolbar.item.1" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/collapse_all.png" command="contacts.save"/>
+    </children>
+  </trimContributions>
   
   <commands xmi:id="contacts.save" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.command.1" commandName="Save" description=""/>
   <commands xmi:id="_DGvDsOsiEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.command.2" commandName="Save all"/>
