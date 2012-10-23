@@ -55,7 +55,11 @@ public class WorkbenchWindow extends Window
 		topBarContainer.setHeight(-1);
 		topBarContainer.setWidth("100%");
 		topBarContainer.setMargin(false);
-		bottomBarContainer.setSizeFull();
+		
+		//bottomBarContainer.setSizeFull();
+		bottomBarContainer.setHeight(-1);
+		bottomBarContainer.setWidth("100%");
+		bottomBarContainer.setMargin(false);
 		
 		windowContent = new VerticalLayout();
 		windowContent.setSizeFull();
