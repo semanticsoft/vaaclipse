@@ -83,12 +83,14 @@ public class GenericPresentationEngine implements PresentationEngine {
 				
 				if (added.getWidget() == null)
 					createGui(added);
-				parentRenderer.addChild(added, changedElement);
+				if (added.getWidget() != null && changedElement.getWidget() != null)
+					parentRenderer.addChild(added, changedElement);
 			} 
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
 			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-				parentRenderer.removeChild(removed, changedElement);
+				if (removed.getWidget() != null && changedElement.getWidget() != null)
+					parentRenderer.removeChild(removed, changedElement);
 			}
 		}
 	};

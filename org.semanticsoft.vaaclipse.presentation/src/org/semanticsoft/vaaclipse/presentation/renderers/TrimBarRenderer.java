@@ -31,8 +31,8 @@ import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Panel;
 
 
 @SuppressWarnings("restriction")
@@ -77,31 +77,16 @@ public class TrimBarRenderer extends GenericRenderer {
 		toolBar.removeAllComponents();
 		for (MUIElement element : container.getChildren()) {
 			//CssLayout subToolbar = (CssLayout) renderer.createGui(element);
-			CssLayout subToolbar = (CssLayout) element.getWidget();
+			ComponentContainer subToolbar = (ComponentContainer) element.getWidget();
 			subToolbar.setVisible(element.isVisible());
 			if (subToolbar != null) {
 				if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-					subToolbar.addStyleName("horizontaltoolbar");
+					subToolbar.addStyleName("horizontaltrimelement");
 				else
-					subToolbar.addStyleName("verticaltoolbar");
+					subToolbar.addStyleName("verticaltrimelement");
 				
 				subToolbar.setSizeUndefined();
 				
-				if (!isFirst) {
-					//TODO: исправить
-					com.vaadin.ui.Panel separator = new Panel();
-					separator.setSizeUndefined();
-					if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-					{
-						separator.addStyleName("horizontalseparator");
-					}
-					else
-					{
-						separator.addStyleName("verticalseparator");
-					}
-					
-					toolBar.addComponent(separator);
-				}
 				toolBar.addComponent(subToolbar);
 				isFirst = false;
 			}
@@ -184,34 +169,36 @@ public class TrimBarRenderer extends GenericRenderer {
 		super.addChild(child, element);
 		
 		MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element;
-		int orientation = trimBar.getSide().getValue();
 		
 		final Component childWidget = (Component) child.getWidget();
 		childWidget.setVisible(child.isVisible());
 		childWidget.setSizeUndefined();
+		int orientation = trimBar.getSide().getValue();
 		if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-			childWidget.addStyleName("horizontaltoolbar");
+			childWidget.addStyleName("horizontaltrimelement");
 		else
-			childWidget.addStyleName("verticaltoolbar");
+			childWidget.addStyleName("verticaltrimelement");
 		
 		CssLayout trimWidget = (CssLayout) element.getWidget();
 		int index = element.getChildren().indexOf(child);
-		int pos = trimWidget.getComponentCount();
-		if (index == 0)
-			pos = index;
-		else
-		{
-			MUIElement prevChild = element.getChildren().get(index - 1);
-			for (int k = 0; k < trimWidget.getComponentCount(); k++)
-			{
-				if (trimWidget.getComponent(k).equals(prevChild.getWidget()))
-				{
-					pos = k + 1;
-					break;
-				}
-			}
-		}
-		trimWidget.addComponent(childWidget, pos);
+		trimWidget.addComponent(childWidget, index);
+		
+//		int pos = trimWidget.getComponentCount();
+//		if (index == 0)
+//			pos = index;
+//		else
+//		{
+//			MUIElement prevChild = element.getChildren().get(index - 1);
+//			for (int k = 0; k < trimWidget.getComponentCount(); k++)
+//			{
+//				if (trimWidget.getComponent(k).equals(prevChild.getWidget()))
+//				{
+//					pos = k + 1;
+//					break;
+//				}
+//			}
+//		}
+//		trimWidget.addComponent(childWidget, pos);
 		
 		trimWidget.requestRepaint();
 	}

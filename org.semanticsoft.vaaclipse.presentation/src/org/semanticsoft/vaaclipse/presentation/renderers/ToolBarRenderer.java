@@ -44,6 +44,7 @@ import org.osgi.service.event.EventHandler;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 
 
 @SuppressWarnings("restriction")
@@ -84,7 +85,6 @@ public class ToolBarRenderer extends GenericRenderer {
 		//eventBroker.subscribe(ElementContainer.TOPIC_CHILDREN, childAdditionUpdater);
 		
 		context.set(ToolBarRenderer.class, this);
-
 	}
 
 	@PreDestroy
@@ -101,8 +101,26 @@ public class ToolBarRenderer extends GenericRenderer {
 		MToolBar toolbarModel = (MToolBar) element;
 		processContribution(toolbarModel);
 
-		CssLayout toolBar = new CssLayout();
-		element.setWidget(toolBar);
+		CssLayout toolBarWidget = new CssLayout();
+		toolBarWidget.setSizeUndefined();
+		if ((MElementContainer<?>)toolbarModel.getParent() instanceof MTrimBar)
+		{
+			MTrimBar parentTrimBar = (MTrimBar)(MElementContainer<?>)toolbarModel.getParent();
+			int orientation = parentTrimBar.getSide().getValue();
+			
+			if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
+				toolBarWidget.addStyleName("horizontaltoolbar");
+			else
+				toolBarWidget.addStyleName("verticaltoolbar");
+			
+			
+			Component separator = createSeparator(toolbarModel);
+			if (separator != null)
+				toolBarWidget.addComponent(separator);
+		}
+		
+		
+		element.setWidget(toolBarWidget);
 	}
 	
 	/**
@@ -238,15 +256,15 @@ public class ToolBarRenderer extends GenericRenderer {
 
 	@Override
 	public void processContents(final MElementContainer<MUIElement> container) {
-		CssLayout toolBar = (CssLayout) container.getWidget();
-		if (toolBar != null)
+		MToolBar toolBar = (MToolBar)(MElementContainer<?>)container;
+		CssLayout toolBarWidget = (CssLayout) container.getWidget();
+		if (toolBarWidget != null)
 		{
-			toolBar.removeAllComponents();
 			for (MUIElement element : container.getChildren()) {
 				if (element instanceof MHandledToolItem || element instanceof MDirectToolItem) {
-					toolBar.addComponent((Component) element.getWidget());
+					toolBarWidget.addComponent((Component) element.getWidget());
 				} else if (element instanceof MToolBarSeparator) {
-					toolBar.addComponent(new Label("Separator"));
+					toolBarWidget.addComponent(createSeparator(toolBar));
 				}
 			}	
 		}
@@ -260,35 +278,46 @@ public class ToolBarRenderer extends GenericRenderer {
 		
 		super.addChild(child, element);
 		
+		MToolBar toolBar = (MToolBar)(MElementContainer<?>)element;
+		
 		CssLayout toolbarWidget = (CssLayout) element.getWidget();
 		Component childWidget = (Component) child.getWidget();
 		if (toolbarWidget == null || childWidget == null)
 			return;
-		int index = element.getChildren().indexOf(child);
-		int pos = toolbarWidget.getComponentCount();
-		if (index == 0)
-			pos = index;
-		else
-		{
-			MUIElement prevChild = element.getChildren().get(index - 1);
-			for (int k = 0; k < toolbarWidget.getComponentCount(); k++)
-			{
-				if (toolbarWidget.getComponent(k).equals(prevChild.getWidget()))
-				{
-					pos = k + 1;
-					break;
-				}
-			}
-		}
-		
+		int index = element.getChildren().indexOf(child) + 1; //+1 becouse the first element is toolbar drag handler (separator)
 		if (element instanceof MToolBarSeparator) 
 		{
-			toolbarWidget.addComponent(new Label("Separator"), pos);
+			toolbarWidget.addComponent(createSeparator(toolBar), index);
 		} 
 		else  {
-			toolbarWidget.addComponent(childWidget, pos);
+			toolbarWidget.addComponent(childWidget, index);
 		}
 		
 		toolbarWidget.requestRepaint();
+	}
+	
+	private Component createSeparator(MToolBar toolBar)
+	{
+		if ((MElementContainer<?>)toolBar.getParent() instanceof MTrimBar)
+		{
+			Panel separator = new Panel();
+			separator.setSizeUndefined();
+			
+			MTrimBar parentTrimBar = (MTrimBar)(MElementContainer<?>)toolBar.getParent();
+			int orientation = parentTrimBar.getSide().getValue();
+			
+			if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
+			{
+				separator.addStyleName("horizontalseparator");
+			}
+			else
+			{
+				separator.addStyleName("verticalseparator");
+			}
+			return separator;
+		}
+		else
+			return null;
+		
 	}
 }
