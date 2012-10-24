@@ -28,6 +28,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolControl;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.semanticsoft.vaaclipse.presentation.engine.GenericRendererFactory;
 
@@ -37,6 +38,7 @@ public class VaadinRendererFactory extends GenericRendererFactory
 
 	private WorkbenchWindowRenderer workbenchWindowRenderer;
 	private TrimBarRenderer trimRenderer;
+	private ToolControlRenderer toolControlRenderer;
 	private SashRenderer sashRenderer;
 	private StackRenderer partStackRenderer;
 	private PartRenderer partRenderer;
@@ -75,6 +77,14 @@ public class VaadinRendererFactory extends GenericRendererFactory
 				trimRenderer = ContextInjectionFactory.make(TrimBarRenderer.class, context);
 			}
 			return trimRenderer;
+		}
+		else if (uiElement instanceof MToolControl)
+		{
+			if (toolControlRenderer == null)
+			{
+				toolControlRenderer = ContextInjectionFactory.make(ToolControlRenderer.class, context);
+			}
+			return toolControlRenderer;
 		}
 		else if (uiElement instanceof MPartStack)
 		{
