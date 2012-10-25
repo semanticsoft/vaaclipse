@@ -3,9 +3,8 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems;
 
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
-
-import com.vaadin.ui.VerticalLayout;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 
@@ -16,8 +15,12 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 public class CodeLineToolItem
 {
 	@Inject
-	public void CodeLabelToolItem(VerticalLayout parent, IEclipseContext context)
+	public void CodeLabelToolItem(ComponentContainer parent, IEclipseContext context)
 	{
-		parent.addComponent(new Label("170 : 20"));
+		//the parent - is toolcontrol widget, we must add style for layouting in trimbar to parent widget, not to user control 
+		parent.addStyleName("codeline");
+		
+		final Label label = new Label("170 : 20");
+		parent.addComponent(label);
 	}
 }

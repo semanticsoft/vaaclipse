@@ -52,14 +52,20 @@
 	position: relative;
 	float: top;
 	padding: 0px;
-	margin: 0px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 .horizontaltrimelement {
 	position: relative;
 	float: left;
 	padding: 0px;
-	margin: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 3px;
+	margin-right: 3px;
 }
 
 .horizontaltoolbar {
@@ -73,7 +79,10 @@
 .horizontalseparator {
 	position: relative;
 	float: left;
-	margin: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 4px;
+	margin-right: 4px;
 	width: 2px;
 	height: 18px;
 	background-image: url('img/separator.png');
@@ -82,7 +91,10 @@
 .verticalseparator {
 	position: relative;
 	float: top;
-	margin: 0px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	margin-left: 0px;
+	margin-right: 0px;
 	width: 18px;
 	height: 2px;
 	background-image: url('img/separator_v.png');

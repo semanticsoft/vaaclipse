@@ -112,10 +112,9 @@
   </toolBarContributions>
   
   <trimContributions xmi:id="_OTArABgpEeKmpbrEZ1tscB" elementId="org.semanticsoft.vaaclipsedemo.trimcontribution.0" parentId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar">
-    <children xsi:type="menu:ToolBar" xmi:id="_PThs0BgpEeKmpbrEZ1tscA" elementId="org.semanticsoft.vaaclipsedemo.toolbar.codeline">
-      <children xsi:type="menu:HandledToolItem" xmi:id="_nclNEBuCEeKmpbrEZ1tscA" elementId="org.semanticsoft.e4test.contribtoolbar.item.1" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/collapse_all.png" command="contacts.save"/>
-    </children>
-    <children xsi:type="menu:ToolControl" xmi:id="_DFDFDFDFDFDFDFDFDDF" elementId="org.semanticsoft.vaaclipsedemo.label.codeline" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems.CodeLineToolItem"/>
+  	<children xsi:type="menu:ToolControl" xmi:id="_DFDFDFDFDFDFDFDFDDF" elementId="org.semanticsoft.vaaclipsedemo.toolitem.codeline" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems.CodeLineToolItem"/>
+  	<children xsi:type="menu:ToolControl" xmi:id="_DLFJFHJKFDHAHFDWWFH" elementId="org.semanticsoft.vaaclipsedemo.toolitem.editstatus" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems.EditStatusToolItem"/>
+  	<children xsi:type="menu:ToolControl" xmi:id="_FAMCXIJLJKHKJWWLDJE" elementId="org.semanticsoft.vaaclipsedemo.toolitem.editmode" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems.EditModeToolItem"/>
   </trimContributions>
   
   <commands xmi:id="contacts.save" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.command.1" commandName="Save" description=""/>

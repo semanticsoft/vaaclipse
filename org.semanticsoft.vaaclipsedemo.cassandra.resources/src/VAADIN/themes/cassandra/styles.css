@@ -1,2 +1,17 @@
 @import "../reindeer/styles.css";
 @import "../vaadock_eclipse_demo/styles.css";
+
+.editstatus {
+	margin-right: 35px;
+	float: right;
+}
+
+.editmode {
+	margin-right: 35px;
+	float: right;
+}
+
+.codeline {
+	margin-right: 300px;
+	float: right;
+}
