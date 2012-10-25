@@ -40,6 +40,7 @@ import org.eclipse.e4.ui.workbench.UIEvents.ElementContainer;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.utils.GuiUtils;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
@@ -114,7 +115,7 @@ public class ToolBarRenderer extends GenericRenderer {
 				toolBarWidget.addStyleName("verticaltoolbar");
 			
 			
-			Component separator = createSeparator(toolbarModel);
+			Component separator = GuiUtils.createSeparator(toolbarModel);
 			if (separator != null)
 				toolBarWidget.addComponent(separator);
 		}
@@ -264,7 +265,7 @@ public class ToolBarRenderer extends GenericRenderer {
 				if (element instanceof MHandledToolItem || element instanceof MDirectToolItem) {
 					toolBarWidget.addComponent((Component) element.getWidget());
 				} else if (element instanceof MToolBarSeparator) {
-					toolBarWidget.addComponent(createSeparator(toolBar));
+					toolBarWidget.addComponent(GuiUtils.createSeparator(toolBar));
 				}
 			}	
 		}
@@ -287,37 +288,12 @@ public class ToolBarRenderer extends GenericRenderer {
 		int index = element.getChildren().indexOf(child) + 1; //+1 becouse the first element is toolbar drag handler (separator)
 		if (element instanceof MToolBarSeparator) 
 		{
-			toolbarWidget.addComponent(createSeparator(toolBar), index);
+			toolbarWidget.addComponent(GuiUtils.createSeparator(toolBar), index);
 		} 
 		else  {
 			toolbarWidget.addComponent(childWidget, index);
 		}
 		
 		toolbarWidget.requestRepaint();
-	}
-	
-	private Component createSeparator(MToolBar toolBar)
-	{
-		if ((MElementContainer<?>)toolBar.getParent() instanceof MTrimBar)
-		{
-			Panel separator = new Panel();
-			separator.setSizeUndefined();
-			
-			MTrimBar parentTrimBar = (MTrimBar)(MElementContainer<?>)toolBar.getParent();
-			int orientation = parentTrimBar.getSide().getValue();
-			
-			if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-			{
-				separator.addStyleName("horizontalseparator");
-			}
-			else
-			{
-				separator.addStyleName("verticalseparator");
-			}
-			return separator;
-		}
-		else
-			return null;
-		
 	}
 }
