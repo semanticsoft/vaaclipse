@@ -7,11 +7,16 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.SideValue;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolControl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.semanticsoft.vaaclipse.presentation.utils.GuiUtils;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -27,9 +32,21 @@ public class ToolControlRenderer extends GenericRenderer {
 		if (!(element instanceof MToolControl))
 			return;
 		
-		VerticalLayout toolControlContainer = new VerticalLayout();
-		
 		MToolControl toolControl = (MToolControl) element;
+		
+		ComponentContainer toolControlContainer;
+		if ((MElementContainer<?>)element.getParent() instanceof MTrimBar)
+		{
+			MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element.getParent();
+			if (trimBar.getSide() == SideValue.LEFT || trimBar.getSide() == SideValue.RIGHT)
+				toolControlContainer = new VerticalLayout();
+			else
+				toolControlContainer = new HorizontalLayout();
+			//add the drag handler (separator)
+			toolControlContainer.addComponent(GuiUtils.createSeparator(toolControl));
+		}
+		else
+			toolControlContainer = new VerticalLayout();
 		
 		IEclipseContext parentContext = modelService.getContainingContext(element);
 
@@ -41,7 +58,6 @@ public class ToolControlRenderer extends GenericRenderer {
 
 		localContext.set(Component.class, toolControlContainer);
 		localContext.set(ComponentContainer.class, toolControlContainer);
-		localContext.set(VerticalLayout.class, toolControlContainer);
 		localContext.set(MToolControl.class, toolControl);
 		
 		Object tcImpl = contributionFactory.create(toolControl.getContributionURI(), parentContext, localContext);
