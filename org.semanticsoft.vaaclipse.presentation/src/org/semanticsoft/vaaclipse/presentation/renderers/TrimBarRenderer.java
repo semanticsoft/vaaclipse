@@ -45,7 +45,8 @@ public class TrimBarRenderer extends GenericRenderer {
 	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
-		if (!(element instanceof MTrimBar)) {
+		if (!(element instanceof MTrimBar)) 
+		{
 			return;
 		}
 		
