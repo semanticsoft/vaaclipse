@@ -19,6 +19,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
@@ -33,6 +35,8 @@ import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.Utils;
@@ -54,6 +58,7 @@ public class StackRenderer extends GenericRenderer {
 	@Inject
 	private EventBroker eventBroker;
 	private Map<Component, MStackElement> vaatab2Element = new HashMap<Component, MStackElement>();
+	private boolean ignoreTabSelChanges = false;
 	
 	private EventHandler tagListener = new EventHandler() {
 		@Override
@@ -124,7 +129,9 @@ public class StackRenderer extends GenericRenderer {
 					addTab((TabSheet) stack.getWidget(), stack.getSelectedElement(), i);
 				}
 				
+				ignoreTabSelChanges = true;
 				((TabSheet)stack.getWidget()).setSelectedTab((Component) stack.getSelectedElement().getWidget());
+				ignoreTabSelChanges = false;
 			}
 		}
 	};
@@ -323,14 +330,66 @@ public class StackRenderer extends GenericRenderer {
 				MStackElement stackElement = vaatab2Element.get(sw.getSelectedTab());
 				if (stackElement != null)
 				{
+					if (ignoreTabSelChanges)
+						return;
+					
 					MPartStack stack = (MPartStack)(MElementContainer<?>)stackElement.getParent();
 					if (stack != null && stack.getSelectedElement() != stackElement)
 					{
-						stack.setSelectedElement(stackElement);	
+						stack.setSelectedElement(stackElement);
+						
+						// Ensure we're activating a stack in the current perspective,
+						// when using a dialog to open a perspective
+						// we end up in the situation where this stack is in the
+						// previously active perspective
+						int location = modelService.getElementLocation(stack);
+						if ((location & EModelService.IN_ACTIVE_PERSPECTIVE) == 0
+								&& (location & EModelService.OUTSIDE_PERSPECTIVE) == 0
+								&& (location & EModelService.IN_SHARED_AREA) == 0)
+							return;
+
+						if (!isValid(stackElement))
+							return;
+
+						if (stackElement instanceof MPlaceholder)
+							stackElement = (MStackElement) ((MPlaceholder) stackElement).getRef();
+						
+						IEclipseContext curContext = getContext(stackElement);
+						if (curContext != null) {
+							EPartService ps = (EPartService) curContext.get(EPartService.class
+									.getName());
+							if (ps != null)
+								ps.activate((MPart) stackElement, true);
+						}
 					}
 				}
 			}
 		});
+	}
+	
+	private boolean isValid(MUIElement element) {
+		if (element == null || !element.isToBeRendered()) {
+			return false;
+		}
+
+		if (element instanceof MApplication) {
+			return true;
+		}
+
+		MUIElement parent = element.getParent();
+		if (parent == null && element instanceof MWindow) {
+			// might be a detached window
+			parent = (MUIElement) ((EObject) element).eContainer();
+		}
+
+		if (parent == null) {
+			// might be a shared part, try to find the placeholder
+			MWindow window = modelService.getTopLevelWindowFor(element);
+			return window == null ? false : isValid(modelService
+					.findPlaceholderFor(window, element));
+		}
+
+		return isValid(parent);
 	}
 
 	@Override
