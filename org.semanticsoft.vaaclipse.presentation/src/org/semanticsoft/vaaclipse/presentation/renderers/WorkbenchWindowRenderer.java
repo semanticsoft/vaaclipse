@@ -16,6 +16,7 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
@@ -43,6 +44,9 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 
 	@Inject
 	private IEclipseContext eclipseContext;
+	
+	@Inject
+	MApplication app;
 	
 	@Inject
 	Application vaadinapp;
@@ -117,9 +121,16 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 			window.setCaption(mWindow.getLocalizedLabel());
 			element.setWidget(window);
 			((MWindow) element).getContext().set(Window.class, window);
-			//TODO:temp
+			
+			//TODO:begin temp hack
 			window.setSizeFull();
 			vaadinapp.setMainWindow(window);
+			
+			app.setSelectedElement(mWindow);
+			mWindow.getContext().activate();
+			//end temp hack
+			
+			
 			eclipseContext.set(Window.class, window); //main window - temp hack
 		}
 	}

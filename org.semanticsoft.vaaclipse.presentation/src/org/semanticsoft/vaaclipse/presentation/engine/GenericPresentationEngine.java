@@ -218,7 +218,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 				}
 
 				E4Workbench.processHierarchy(element);
-				eclipseContext.activate();
+				//eclipseContext.activate();
 			}
 		}
 
