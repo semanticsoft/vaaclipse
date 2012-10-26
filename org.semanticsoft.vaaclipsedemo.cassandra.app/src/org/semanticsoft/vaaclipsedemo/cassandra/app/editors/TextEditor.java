@@ -11,6 +11,26 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+
+import javax.annotation.PreDestroy;
+
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+
+import com.vaadin.Application;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
+import org.eclipse.e4.ui.workbench.UIEvents;
+
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
+
+import javax.annotation.PostConstruct;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -26,6 +46,10 @@ public class TextEditor extends FileView
 {
 	protected Label text;
 	protected String content;
+	@Inject
+	EventBroker eventBroker;
+	@Inject
+	IEclipseContext context;
 	
 	@Inject
 	public TextEditor(VerticalLayout container, MInputPart inputPart)
@@ -40,6 +64,26 @@ public class TextEditor extends FileView
 		text = new Label(readContent());
 		e.addComponent(text);
 		container.addComponent(e);
+		
+		subscribe();
+	}
+	
+	private static EventHandler activateHandler;
+	
+	protected void subscribe()
+	{
+		if (activateHandler == null)
+		{
+			activateHandler = new EventHandler() {
+				
+				public void handleEvent(Event event)
+				{
+					System.out.println("test");
+					context.set("editortype", "texteditor");
+				}
+			};
+			eventBroker.subscribe(UIEvents.UILifeCycle.ACTIVATE, activateHandler);
+		}
 	}
 
 	protected TextEditor(String inputURI)

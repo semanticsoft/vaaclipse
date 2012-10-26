@@ -33,4 +33,17 @@
          </property>
       </product>
    </extension>
+   
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.semanticsoft.vaaclipsedemo.cassandra.expression.texteditor">
+         <with
+               variable="editortype">
+            <equals
+                  value="texteditor">
+            </equals>
+         </with>
+      </definition>
+   </extension>
 </plugin>
