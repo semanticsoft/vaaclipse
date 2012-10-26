@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -28,7 +30,11 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
@@ -41,7 +47,54 @@ public class TrimBarRenderer extends GenericRenderer {
 	@Inject
 	MApplication app;
 	
+	@Inject
+	EventBroker eventBroker;
+	
 	private HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>> pendingCleanup = new HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>>();
+	
+	EventHandler toBeRendered = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event)
+		{
+			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+			if (!(changedElement instanceof MTrimElement))
+				return;
+			MTrimBar trimbar = (MTrimBar)(MElementContainer<?>)changedElement.getParent();
+			if (!(trimbar.getRenderer().equals(TrimBarRenderer.this)))
+				return;
+			CssLayout trimWidget = (CssLayout) trimbar.getWidget();
+			Component changedWidget = (Component) changedElement.getWidget();
+			
+			boolean toBeRendered = (boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+			if (!toBeRendered)
+			{
+				trimWidget.removeComponent(changedWidget);
+			}
+			else
+			{
+				int pos = trimbar.getChildren().indexOf(changedElement);
+				trimWidget.addComponent(changedWidget, pos);
+			}
+			
+			if (trimWidget.getComponentCount() == 0)
+				trimWidget.setVisible(false);
+			else
+				trimWidget.setVisible(true);
+		}
+	};
+	
+	@PostConstruct
+	public void subsrcribe()
+	{
+		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toBeRendered);
+	}
+	
+	@PreDestroy
+	public void unsubscribe()
+	{
+		eventBroker.unsubscribe(toBeRendered);
+	}
 	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
