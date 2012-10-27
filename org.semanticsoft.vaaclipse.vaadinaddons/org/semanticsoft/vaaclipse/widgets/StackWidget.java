@@ -21,8 +21,6 @@ import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsParser;
 
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.TabSheet;
 
 import fi.jasoft.dragdroplayouts.DDTabSheet;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
@@ -43,7 +41,6 @@ public class StackWidget extends DDTabSheet
 	private Integer offsetWidth;
 	private Integer offsetHeight;
 	
-	private transient CloseHandler userCloseHandler;
 	public transient boolean maximizeEnabled = true;
 	public transient boolean minimizeEnabled = true;
 	private int state = 0;
@@ -54,27 +51,6 @@ public class StackWidget extends DDTabSheet
 		this.addStyleName("folder_vaa_component");
 		this.setDragMode(LayoutDragMode.CLONE);
 //		this.setDropHandler(new VaadinDropHandler(workbench, this));
-		
-		super.setCloseHandler(new CloseHandler() {
-			
-			public void onTabClose(TabSheet tabsheet, Component tabContent) {
-				tabsheet.removeComponent(tabContent);
-				//TODO:
-			}
-		});
-		
-		this.addListener(new SelectedTabChangeListener() {
-			
-			public void selectedTabChange(SelectedTabChangeEvent event)
-			{
-				//TODO:
-			}
-		});
-	}
-	
-	@Override
-	public void setCloseHandler(CloseHandler handler) {
-		this.userCloseHandler = handler;
 	}
 	
 	@Override
