@@ -84,6 +84,7 @@ public class PartServiceExtImpl implements EPartServiceExt
 		part.getHandlers().addAll(EcoreUtil.copyAll(descriptor.getHandlers()));
 		part.getTags().addAll(descriptor.getTags());
 		part.getBindingContexts().addAll(descriptor.getBindingContexts());
+		part.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
 		return part;
 	}
 
