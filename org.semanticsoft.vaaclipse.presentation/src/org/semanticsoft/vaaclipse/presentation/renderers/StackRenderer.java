@@ -47,6 +47,7 @@ import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.CloseHandler;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.TabSheet.Tab;
@@ -248,9 +249,6 @@ public class StackRenderer extends GenericRenderer {
 	@Override
 	public void processContents(final MElementContainer<MUIElement> container) {
 		TabSheet parentPane = (TabSheet) container.getWidget();
-		
-		vaatab2Element.clear();
-		
 		for (MUIElement element : container.getChildren()) {
 			if (element instanceof MStackElement)
 				addTab(parentPane, (MStackElement) element, parentPane.getComponentCount());
@@ -365,6 +363,14 @@ public class StackRenderer extends GenericRenderer {
 				}
 			}
 		});
+		
+		sw.setCloseHandler(new CloseHandler() {
+					
+					public void onTabClose(TabSheet tabsheet, Component tabContent) {
+						MStackElement stackElement = vaatab2Element.get(tabContent);
+						closePart(stackElement);
+					}
+				});
 	}
 	
 	private boolean isValid(MUIElement element) {
@@ -390,6 +396,41 @@ public class StackRenderer extends GenericRenderer {
 		}
 
 		return isValid(parent);
+	}
+	
+	private boolean isClosable(MPart part) {
+		// if it's a shared part check its current ref
+		if (part.getCurSharedRef() != null) {
+			return !(part.getCurSharedRef().getTags()
+					.contains(IPresentationEngine.NO_CLOSE));
+		}
+
+		return part.isCloseable();
+	}
+	
+	private boolean closePart(MStackElement stackElement) {
+		
+		MPart part = (MPart) ((stackElement instanceof MPart) ? stackElement
+				: ((MPlaceholder) stackElement).getRef());
+		if (!isClosable(part)) {
+			return false;
+		}
+		
+		IEclipseContext partContext = part.getContext();
+		IEclipseContext parentContext = getContextForParent(part);
+		// a part may not have a context if it hasn't been rendered
+		IEclipseContext context = partContext == null ? parentContext
+				: partContext;
+		// Allow closes to be 'canceled'
+		EPartService partService = (EPartService) context
+				.get(EPartService.class.getName());
+		if (partService.savePart(part, true)) {
+			partService.hidePart(part);
+			return true;
+		}
+		// the user has canceled out of the save operation, so don't close the
+		// part
+		return false;
 	}
 
 	@Override
