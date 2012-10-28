@@ -9,5 +9,9 @@
             beforefragment="true"
             class="org.semanticsoft.vaaclipse.behaviour.MinMaxProcessor">
       </processor>
+      <processor
+            beforefragment="true"
+            class="org.semanticsoft.vaaclipse.behaviour.cleanup.CleanupProcessor">
+      </processor>
    </extension>
 </plugin>
