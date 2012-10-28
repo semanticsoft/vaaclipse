@@ -442,15 +442,15 @@ public class StackRenderer extends GenericRenderer {
 	}
 	
 	@Override
-	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
 		if (!(child instanceof MStackElement))
 			return;
 		
-		super.addChild(child, element);
+		super.addChildGui(child, element);
 		
 		StackWidget sw = (StackWidget) element.getWidget();
-		int index = element.getChildren().indexOf(child);
+		int index = indexOf(child, element);
 		addTab(sw, (MStackElement) child, index);
 	}
 }

@@ -29,6 +29,7 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -84,14 +85,62 @@ public class GenericPresentationEngine implements PresentationEngine {
 				if (added.getWidget() == null)
 					createGui(added);
 				if (added.getWidget() != null && changedElement.getWidget() != null)
-					parentRenderer.addChild(added, changedElement);
+					parentRenderer.addChildGui(added, changedElement);
 			} 
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
 			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
 				if (removed.getWidget() != null && changedElement.getWidget() != null)
-					parentRenderer.removeChild(removed, changedElement);
+					parentRenderer.removeChildGui(removed, changedElement);
 			}
+		}
+	};
+	
+	private EventHandler toBeRenderedHandler = new EventHandler() {
+		public void handleEvent(Event event) {
+
+			MUIElement changedElement = (MUIElement) event
+					.getProperty(UIEvents.EventTags.ELEMENT);
+			MElementContainer<?> parent = changedElement.getParent();
+			
+			if (parent == null)
+				return;
+			
+			GenericRenderer parentRenderer = (GenericRenderer) parent.getRenderer();
+			
+			if (parentRenderer == null)
+				return;
+
+			// Handle Detached Windows
+			if (parent == null) {
+				parent = (MElementContainer<?>) ((EObject) changedElement)
+						.eContainer();
+			}
+
+			boolean menuChild = parent instanceof MMenu;
+
+			// If the parent isn't displayed who cares?
+			if (!(parent instanceof MApplication)
+					&& (parent == null || parent.getWidget() == null || menuChild))
+				return;
+
+			if (changedElement.isToBeRendered()) 
+			{
+				parentRenderer.addChildGui(changedElement, (MElementContainer<MUIElement>) parent);				
+			} 
+			else {
+				// Ensure that the element about to be removed is not the
+				// selected element
+				if (parent.getSelectedElement() == changedElement)
+					parent.setSelectedElement(null);
+
+				// Un-maximize the element before tearing it down
+				if (changedElement.getTags().contains(MAXIMIZED))
+					changedElement.getTags().remove(MAXIMIZED);
+
+				parentRenderer.removeChildGui(changedElement, (MElementContainer<MUIElement>) parent);
+			}
+
 		}
 	};
 
@@ -331,20 +380,21 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 	@PostConstruct
 	public void postConstruct(IEclipseContext context) {
-		System.out.println("GenericPresentationEngine.postConstruct()");
 		// Add the presentation engine to the context
 		context.set(IPresentationEngine.class.getName(), this);
 		
-		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, childrenHandler);
+		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toBeRenderedHandler);
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_VISIBLE, visibilityHandler);
+		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, childrenHandler);
 	}
 	
 	@PreDestroy
 	public void destroy(IEclipseContext context) {
 		context.remove(IPresentationEngine.class.getName());
 		
-		eventBroker.unsubscribe(childrenHandler);
+		eventBroker.unsubscribe(toBeRenderedHandler);
 		eventBroker.unsubscribe(visibilityHandler);
+		eventBroker.unsubscribe(childrenHandler);
 	}
 
 	@Override

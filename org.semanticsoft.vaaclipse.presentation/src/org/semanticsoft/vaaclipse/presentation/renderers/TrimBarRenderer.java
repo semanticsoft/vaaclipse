@@ -52,48 +52,16 @@ public class TrimBarRenderer extends GenericRenderer {
 	
 	private HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>> pendingCleanup = new HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>>();
 	
-	EventHandler toBeRendered = new EventHandler() {
-		
-		@Override
-		public void handleEvent(Event event)
-		{
-			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-			if (!(changedElement instanceof MTrimElement))
-				return;
-			MTrimBar trimbar = (MTrimBar)(MElementContainer<?>)changedElement.getParent();
-			if (!(trimbar.getRenderer().equals(TrimBarRenderer.this)))
-				return;
-			CssLayout trimWidget = (CssLayout) trimbar.getWidget();
-			Component changedWidget = (Component) changedElement.getWidget();
-			
-			boolean toBeRendered = (boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
-			if (!toBeRendered)
-			{
-				trimWidget.removeComponent(changedWidget);
-			}
-			else
-			{
-				int pos = trimbar.getChildren().indexOf(changedElement);
-				trimWidget.addComponent(changedWidget, pos);
-			}
-			
-			if (trimWidget.getComponentCount() == 0)
-				trimWidget.setVisible(false);
-			else
-				trimWidget.setVisible(true);
-		}
-	};
-	
 	@PostConstruct
 	public void subsrcribe()
 	{
-		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toBeRendered);
+		
 	}
 	
 	@PreDestroy
 	public void unsubscribe()
 	{
-		eventBroker.unsubscribe(toBeRendered);
+		
 	}
 	
 	@Override
@@ -215,12 +183,12 @@ public class TrimBarRenderer extends GenericRenderer {
 	}
 	
 	@Override
-	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
 		if (!(child instanceof MTrimElement && (MElementContainer<?>)element instanceof MTrimBar))
 			return;
 		
-		super.addChild(child, element);
+		super.addChildGui(child, element);
 		
 		MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element;
 		
@@ -234,25 +202,31 @@ public class TrimBarRenderer extends GenericRenderer {
 			childWidget.addStyleName("verticaltrimelement");
 		
 		CssLayout trimWidget = (CssLayout) element.getWidget();
-		int index = element.getChildren().indexOf(child);
+		int index = indexOf(child, element);
 		trimWidget.addComponent(childWidget, index);
 		
-//		int pos = trimWidget.getComponentCount();
-//		if (index == 0)
-//			pos = index;
-//		else
-//		{
-//			MUIElement prevChild = element.getChildren().get(index - 1);
-//			for (int k = 0; k < trimWidget.getComponentCount(); k++)
-//			{
-//				if (trimWidget.getComponent(k).equals(prevChild.getWidget()))
-//				{
-//					pos = k + 1;
-//					break;
-//				}
-//			}
-//		}
-//		trimWidget.addComponent(childWidget, pos);
+		if (trimWidget.getComponentCount() == 0)
+			trimWidget.setVisible(false);
+		else
+			trimWidget.setVisible(true);
+		
+		trimWidget.requestRepaint();
+	}
+	
+	@Override
+	public void removeChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MTrimElement && (MElementContainer<?>)element instanceof MTrimBar))
+			return;
+		
+		super.removeChildGui(child, element);
+		
+		CssLayout trimWidget = (CssLayout) element.getWidget();
+		
+		if (trimWidget.getComponentCount() == 0)
+			trimWidget.setVisible(false);
+		else
+			trimWidget.setVisible(true);
 		
 		trimWidget.requestRepaint();
 	}

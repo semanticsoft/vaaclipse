@@ -272,12 +272,12 @@ public class ToolBarRenderer extends GenericRenderer {
 	}
 	
 	@Override
-	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
 		if (!(child instanceof MToolBarElement && (MElementContainer<?>)element instanceof MToolBar))
 			return;
 		
-		super.addChild(child, element);
+		super.addChildGui(child, element);
 		
 		MToolBar toolBar = (MToolBar)(MElementContainer<?>)element;
 		
@@ -285,7 +285,7 @@ public class ToolBarRenderer extends GenericRenderer {
 		Component childWidget = (Component) child.getWidget();
 		if (toolbarWidget == null || childWidget == null)
 			return;
-		int index = element.getChildren().indexOf(child) + 1; //+1 becouse the first element is toolbar drag handler (separator)
+		int index = indexOf(child, element) + 1; //+1 becouse the first element is toolbar drag handler (separator)
 		if (element instanceof MToolBarSeparator) 
 		{
 			toolbarWidget.addComponent(GuiUtils.createSeparator(toolBar), index);

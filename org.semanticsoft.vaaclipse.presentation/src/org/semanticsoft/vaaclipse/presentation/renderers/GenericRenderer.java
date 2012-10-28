@@ -62,16 +62,29 @@ public class GenericRenderer {
 		System.out.println("GenericRenderer.processContents(): " + element);
 	}
 	
-	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
 		
 	}
 	
-	public void removeChild(MUIElement element, MElementContainer<MUIElement> parent) {
+	public void removeChildGui(MUIElement element, MElementContainer<MUIElement> parent) {
 		if (parent.getWidget() instanceof ComponentContainer && element.getWidget() != null)
 		{
 			((ComponentContainer)parent.getWidget()).removeComponent((Component) element.getWidget());
 		}
+	}
+	
+	protected int indexOf(MUIElement element, MElementContainer<MUIElement> parent)
+	{
+		for (int i = 0; i < parent.getChildren().size(); i++)
+		{
+			MUIElement child = parent.getChildren().get(i);
+			if (child.isToBeRendered() && child.equals(element))
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	/**
