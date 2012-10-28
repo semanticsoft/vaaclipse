@@ -21,6 +21,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueMenuItem;
 import org.semanticsoft.vaaclipse.presentation.utils.Utils;
 
 import com.vaadin.terminal.Resource;
@@ -81,5 +82,12 @@ public class MenuItemRenderer extends ItemRenderer {
 	protected void setupContext(IEclipseContext context, MItem item)
 	{
 		context.set(MMenuItem.class, (MMenuItem)item);
+		
+		if (item instanceof MDirectMenuItem)
+			context.set(MDirectMenuItem.class, (MDirectMenuItem)item);
+		else if (item instanceof MHandledMenuItem)
+			context.set(MHandledMenuItem.class, (MHandledMenuItem)item);
+		else if (item instanceof MOpaqueMenuItem)
+			context.set(MOpaqueMenuItem.class, (MOpaqueMenuItem)item);
 	}
 }

@@ -24,6 +24,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
@@ -205,5 +206,11 @@ public class ToolItemRenderer extends ItemRenderer
 	protected void setupContext(IEclipseContext context, MItem item)
 	{
 		context.set(MToolItem.class, (MToolItem)item);
+		if (item instanceof MDirectToolItem)
+			context.set(MDirectToolItem.class, (MDirectToolItem)item);
+		else if (item instanceof MHandledToolItem)
+			context.set(MHandledToolItem.class, (MHandledToolItem)item);
+		else if (item instanceof MOpaqueToolItem)
+			context.set(MOpaqueToolItem.class, (MOpaqueToolItem)item);
 	}
 }
