@@ -11,6 +11,12 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
+
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+
+import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
+
 import java.util.concurrent.Executors;
 
 import java.util.concurrent.ExecutorService;
@@ -78,12 +84,20 @@ public class PackageExplorer
 	@Inject
 	private EPartServiceExt partServiceExt;
 	
+	@Inject
+	private MPart part;
+	
+	private MToolItem linkWithEditorItem;
+	
 	private MArea editorArea;
 	private Console console;
 
 	// Gui components
 	public Tree tree;
 	public Panel panel;
+	
+	//State
+	private boolean linkWithEditor = false;
 	
 	IEventBroker eventBroker;
 	
@@ -107,7 +121,19 @@ public class PackageExplorer
 	@PostConstruct
 	void registerHandler()
 	{
-		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);
+		//this is not work, becouse the find service search only in childs
+		//linkWithEditorItem = (MToolItem) modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.linkwitheditor", application);
+		
+		for (MToolBarElement e : part.getToolbar().getChildren())
+		{
+			if ("org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.linkwitheditor".equals(e.getElementId()))
+			{
+				linkWithEditorItem = (MToolItem) e;
+			}
+		}
+		
+		if (linkWithEditorItem != null)
+			setLinkWithEditor(linkWithEditorItem.isSelected());
 		
 //		eventBroker.subscribe("test1", new EventHandler() {
 //			
@@ -251,5 +277,21 @@ public class PackageExplorer
 		}
 		
 		return console;
+	}
+	
+	public boolean isLinkWithEditor()
+	{
+		return linkWithEditor;
+	}
+	
+	public void setLinkWithEditor(boolean linkWithEditor)
+	{	
+		this.linkWithEditor = linkWithEditor;
+		
+		if (this.linkWithEditor)
+			eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);
+		else
+			eventBroker.unsubscribe(selectElementHandler);
+			
 	}
 }
