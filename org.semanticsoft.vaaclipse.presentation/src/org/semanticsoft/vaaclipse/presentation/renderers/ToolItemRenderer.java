@@ -19,6 +19,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.menu.ItemType;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
@@ -151,9 +152,17 @@ public class ToolItemRenderer extends ItemRenderer
 		if (element instanceof MHandledToolItem || element instanceof MDirectToolItem)
 		{
 			MToolItem item = (MToolItem) element;
-
-			NativeButton button = new NativeButton();
-			button.addStyleName("vaadock-toolbar-button");
+			
+			NativeButton button;
+			if (item.getType() == ItemType.CHECK)
+				button = new TwoStateToolbarButton();
+			else if (item.getType() == ItemType.PUSH)
+			{
+				button = new NativeButton();
+				button.addStyleName("vaadock-toolbar-button");
+			}
+			else
+				throw new RuntimeException("this item type not implemented yet");
 
 			if (item.getIconURI() != null)
 			{
@@ -176,12 +185,17 @@ public class ToolItemRenderer extends ItemRenderer
 			final MDirectToolItem item = (MDirectToolItem) me;
 			item.setObject(contributionFactory.create(item.getContributionURI(), getContext(item)));
 
-			Button button = (Button) item.getWidget();
+			final Button button = (Button) item.getWidget();
 			button.addListener(new ClickListener() {
 
 				@Override
 				public void buttonClick(ClickEvent event)
 				{
+					if (item.getType() == ItemType.CHECK)
+					{
+						item.setSelected(((TwoStateToolbarButton)button).getState());
+					}
+					
 					processAction(item);
 				}
 			});
@@ -190,12 +204,17 @@ public class ToolItemRenderer extends ItemRenderer
 		{
 			final MHandledItem item = (MHandledToolItem) me;
 
-			Button button = (Button) item.getWidget();
+			final Button button = (Button) item.getWidget();
 			button.addListener(new ClickListener() {
 
 				@Override
 				public void buttonClick(ClickEvent event)
 				{
+					if (item.getType() == ItemType.CHECK)
+					{
+						item.setSelected(((TwoStateToolbarButton)button).getState());
+					}
+					
 					processParametrizedAction(item);
 				}
 			});
