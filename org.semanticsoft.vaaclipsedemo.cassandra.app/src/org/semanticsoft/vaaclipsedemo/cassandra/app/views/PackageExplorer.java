@@ -11,6 +11,10 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -82,6 +86,9 @@ public class PackageExplorer
 	private EModelService modelService;
 	
 	@Inject
+	private EPartService partService;
+	
+	@Inject
 	private EPartServiceExt partServiceExt;
 	
 	@Inject
@@ -149,23 +156,17 @@ public class PackageExplorer
 	@PreDestroy
 	void unregisterHandlers()
 	{
-		eventBroker.unsubscribe(selectElementHandler);
+		eventBroker.unsubscribe(activatePartHandler);
 	}
 	
-	private EventHandler selectElementHandler = new EventHandler() {
+	private EventHandler activatePartHandler = new EventHandler() {
 		public void handleEvent(Event event) {
 			Object element = event.getProperty(UIEvents.EventTags.ELEMENT);
-
-			if (!(element instanceof MPartStack))
+			
+			if (!(element instanceof MInputPart))
 				return;
 			
-			MPartStack stack = (MPartStack) element;
-			if (stack.getSelectedElement() instanceof MInputPart)
-			{
-				MInputPart inputPart = (MInputPart)stack.getSelectedElement();
-				final File f = new File(inputPart.getInputURI());
-				tree.select(f);	
-			}
+			selectTreeNode((MInputPart) element);
 		}
 	};
 
@@ -289,9 +290,21 @@ public class PackageExplorer
 		this.linkWithEditor = linkWithEditor;
 		
 		if (this.linkWithEditor)
-			eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);
-		else
-			eventBroker.unsubscribe(selectElementHandler);
+		{
+			MInputPart inputPart = (MInputPart) partService.getActivePart();
+			if (inputPart != null)
+				selectTreeNode(inputPart);
 			
+			eventBroker.subscribe(UIEvents.UILifeCycle.ACTIVATE, activatePartHandler);
+		}
+		else
+			eventBroker.unsubscribe(activatePartHandler);
+			
+	}
+
+	private void selectTreeNode(MInputPart inputPart)
+	{
+		final File f = new File(inputPart.getInputURI());
+		tree.select(f);
 	}
 }
