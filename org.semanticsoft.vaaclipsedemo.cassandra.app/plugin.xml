@@ -46,4 +46,14 @@
          </with>
       </definition>
    </extension>
+   
+   <extension
+         id="AddonSnippet"
+         name="Addon Snippet"
+         point="org.eclipse.e4.workbench.model">
+      <processor
+            beforefragment="true"
+            class="org.semanticsoft.vaaclipsedemo.cassandra.app.processor.TextEditorProcessor">
+      </processor>
+   </extension>
 </plugin>

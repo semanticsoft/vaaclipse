@@ -64,26 +64,6 @@ public class TextEditor extends FileView
 		text = new Label(readContent());
 		e.addComponent(text);
 		container.addComponent(e);
-		
-		subscribe();
-	}
-	
-	private static EventHandler activateHandler;
-	
-	protected void subscribe()
-	{
-		if (activateHandler == null)
-		{
-			activateHandler = new EventHandler() {
-				
-				public void handleEvent(Event event)
-				{
-					System.out.println("test");
-					context.set("editortype", "texteditor");
-				}
-			};
-			eventBroker.subscribe(UIEvents.UILifeCycle.ACTIVATE, activateHandler);
-		}
 	}
 
 	protected TextEditor(String inputURI)
