@@ -13,11 +13,13 @@ package org.semanticsoft.vaaclipse.presentation.renderers;
 
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.semanticsoft.vaaclipse.presentation.utils.Utils;
 
@@ -73,5 +75,11 @@ public class MenuItemRenderer extends ItemRenderer {
 	@Override
 	public void hookControllerLogic(MUIElement me) {
 		//the listener already attached (when created - vaadin API issue)
+	}
+
+	@Override
+	protected void setupContext(IEclipseContext context, MItem item)
+	{
+		context.set(MMenuItem.class, (MMenuItem)item);
 	}
 }

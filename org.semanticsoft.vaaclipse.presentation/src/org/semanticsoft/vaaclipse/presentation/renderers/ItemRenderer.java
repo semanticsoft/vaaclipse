@@ -104,7 +104,8 @@ public abstract class ItemRenderer extends GenericRenderer {
 			System.err.println("Failed to execute: " + item.getCommand());
 			return;
 		}
-		eclipseContext.set(MItem.class.getName(), item);
+		eclipseContext.set(MItem.class, item);
+		setupContext(eclipseContext, item);
 		service.executeHandler(command);
 		eclipseContext.remove(MItem.class.getName());
 	}
@@ -113,6 +114,7 @@ public abstract class ItemRenderer extends GenericRenderer {
 	{
 		final IEclipseContext eclipseContext = getContext(item);
 		eclipseContext.set(MItem.class, item);
+		setupContext(eclipseContext, item);
 		if (item instanceof MDirectToolItem) {
 			ContextInjectionFactory.invoke(((MDirectToolItem) item).getObject(), Execute.class, eclipseContext);
 		} else if (item instanceof MDirectMenuItem) {
@@ -120,4 +122,6 @@ public abstract class ItemRenderer extends GenericRenderer {
 		}
 		eclipseContext.remove(MItem.class);
 	}
+	
+	protected abstract void setupContext(IEclipseContext context, MItem item);
 }

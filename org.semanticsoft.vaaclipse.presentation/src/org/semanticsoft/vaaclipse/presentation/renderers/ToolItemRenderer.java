@@ -15,12 +15,15 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
@@ -196,5 +199,11 @@ public class ToolItemRenderer extends ItemRenderer
 				}
 			});
 		}
+	}
+	
+	@Override
+	protected void setupContext(IEclipseContext context, MItem item)
+	{
+		context.set(MToolItem.class, (MToolItem)item);
 	}
 }
