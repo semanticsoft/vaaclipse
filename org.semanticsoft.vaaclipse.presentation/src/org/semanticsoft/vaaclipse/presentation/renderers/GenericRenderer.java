@@ -31,6 +31,8 @@ import com.vaadin.ui.ComponentContainer;
 @SuppressWarnings("restriction")
 public class GenericRenderer {
 
+	//public static final String OWNING_ME = "modelElement";
+	
 	protected IEclipseContext context;
 	protected EModelService modelService;
 
@@ -76,12 +78,14 @@ public class GenericRenderer {
 	
 	protected int indexOf(MUIElement element, MElementContainer<MUIElement> parent)
 	{
-		for (int i = 0; i < parent.getChildren().size(); i++)
+		int i = 0;
+		for (MUIElement child : parent.getChildren())
 		{
-			MUIElement child = parent.getChildren().get(i);
-			if (child.isToBeRendered() && child.equals(element))
+			if (child.isToBeRendered())
 			{
-				return i;
+				if (child.equals(element))
+					return i;
+				i++;
 			}
 		}
 		return -1;
