@@ -39,7 +39,14 @@ public class CleanupAddon {
 	MApplication app;
 
 	private EventHandler childrenHandler = new EventHandler() {
+		
+		private boolean ignoreChildrenChanges = false;
+		
 		public void handleEvent(Event event) {
+			
+			if (ignoreChildrenChanges)
+				return;
+			
 			Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
 			String eventType = (String) event.getProperty(UIEvents.EventTags.TYPE);
 			if (UIEvents.EventTypes.REMOVE.equals(eventType)) {
@@ -94,12 +101,14 @@ public class CleanupAddon {
 					MElementContainer<MUIElement> parentContainer = container
 							.getParent();
 					if (parentContainer != null) {
+						ignoreChildrenChanges = true;
 						int index = parentContainer.getChildren().indexOf(container);
 						theChild.setContainerData(container.getContainerData());
 						container.getChildren().remove(theChild);
 						parentContainer.getChildren().add(index, theChild);
 						container.setToBeRendered(false);
 						parentContainer.getChildren().remove(container);
+						ignoreChildrenChanges = false;
 					}
 				}
 			}
