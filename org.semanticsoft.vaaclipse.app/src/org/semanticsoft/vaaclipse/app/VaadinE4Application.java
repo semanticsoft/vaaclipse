@@ -13,6 +13,8 @@ package org.semanticsoft.vaaclipse.app;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
@@ -128,6 +130,14 @@ public class VaadinE4Application implements IApplication {
 				shutdown();
 			}
 		});
+		
+		//centering frame
+		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (screenDimension.width - frame.getSize().width)/2;
+		int y = (screenDimension.height - frame.getSize().height)/2;
+		 
+		// Move the window
+		frame.setLocation(x, y);
 		
 		frame.setVisible(true);
 	}
