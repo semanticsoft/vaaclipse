@@ -14,6 +14,9 @@ package org.semanticsoft.vaaclipse.presentation.renderers;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
@@ -44,5 +47,18 @@ public class PerspectiveRenderer extends GenericRenderer
 				perspectivePanel.addComponent((Component) e.getWidget());
 			}
 		}
+	}
+	
+	@Override
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MPartSashContainerElement))
+			return;
+		
+		super.addChildGui(child, element);
+		
+		VerticalLayout sw = (VerticalLayout) element.getWidget();
+		int index = indexOf(child, element);
+		sw.addComponent((Component)child.getWidget(), index);
 	}
 }
