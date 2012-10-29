@@ -95,9 +95,12 @@
       <plugin id="org.semanticsoft.e4extension"/>
       <plugin id="org.semanticsoft.e4modelextension"/>
       <plugin id="org.semanticsoft.vaaclipse.api"/>
+      <plugin id="org.semanticsoft.vaaclipse.app"/>
+      <plugin id="org.semanticsoft.vaaclipse.behaviour"/>
       <plugin id="org.semanticsoft.vaaclipse.presentation"/>
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
+      <plugin id="org.semanticsoft.vaaclipse.vaadinapp"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.app"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons"/>
