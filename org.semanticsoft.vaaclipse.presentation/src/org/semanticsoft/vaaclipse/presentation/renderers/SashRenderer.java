@@ -18,12 +18,14 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
 
 import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 
 @SuppressWarnings("restriction")
 public class SashRenderer extends GenericRenderer {
@@ -151,5 +153,21 @@ public class SashRenderer extends GenericRenderer {
 //		};
 //
 //		eventBroker.subscribe(UIEvents.UIElement.TOPIC_CONTAINERDATA, sashWeightHandler);
+	}
+	
+	@Override
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MPartSashContainerElement) || !((MElementContainer<?>)element instanceof MPartSashContainer))
+			return;
+		
+		if (element.getChildren().size() == 2)
+		{
+			refreshPlatformElement(element);
+		}
+		else if (element.getChildren().size() == 1)
+		{
+			((ComponentContainer)element.getWidget()).addComponent((Component) child.getWidget());
+		}
 	}
 }
