@@ -4,6 +4,7 @@
 <product name="Cassandra" uid="org.semanticsoft.vaaclipsedemo.cassandra.app.product" id="org.semanticsoft.vaaclipsedemo.cassandra.app.product" application="org.semanticsoft.vaaclipse.app.application" version="1.0.0" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
+      <win32>/org.semanticsoft.vaaclipsedemo.cassandra.app/config.ini</win32>
    </configIni>
 
    <launcherArgs>
@@ -79,11 +80,20 @@
       <plugin id="org.eclipse.equinox.concurrent"/>
       <plugin id="org.eclipse.equinox.ds"/>
       <plugin id="org.eclipse.equinox.event"/>
+      <plugin id="org.eclipse.equinox.http.jetty"/>
       <plugin id="org.eclipse.equinox.http.registry"/>
+      <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jetty.continuation"/>
+      <plugin id="org.eclipse.jetty.http"/>
+      <plugin id="org.eclipse.jetty.io"/>
+      <plugin id="org.eclipse.jetty.security"/>
+      <plugin id="org.eclipse.jetty.server"/>
+      <plugin id="org.eclipse.jetty.servlet"/>
+      <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.osgi"/>
@@ -105,10 +115,27 @@
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.app"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons"/>
+      <plugin id="org.vaadin.osgi"/>
+      <plugin id="org.vaadin.osgi.staticres"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
    </plugins>
 
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
+      <plugin id="org.semanticsoft.vaaclipse.behaviour" autoStart="true" startLevel="0" />
+      <plugin id="org.semanticsoft.vaaclipse.presentation" autoStart="true" startLevel="0" />
+      <plugin id="org.semanticsoft.vaaclipse.vaadinapp" autoStart="true" startLevel="0" />
+      <plugin id="org.vaadin.osgi" autoStart="true" startLevel="0" />
+      <plugin id="org.vaadin.osgi.staticres" autoStart="true" startLevel="0" />
+   </configurations>
 
 </product>
