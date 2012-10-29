@@ -11,7 +11,22 @@
 
 package org.semanticsoft.vaaclipse.app;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.concurrent.ArrayBlockingQueue;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.internal.workbench.WorkbenchLogger;
@@ -28,6 +43,10 @@ public class VaadinE4Application implements IApplication {
 	private IApplicationContext appContext;
 	
 	private static VaadinE4Application instance;
+	
+	public static final String EXIT = "EXIT";
+	
+	JFrame frame;
 	
 	public static VaadinE4Application getInstance()
 	{
@@ -60,13 +79,74 @@ public class VaadinE4Application implements IApplication {
 		context.applicationRunning();
 		
 		queue = new ArrayBlockingQueue<>(10);
+		
+		showFrame();
+		
 		String msg;
-		while ((msg = queue.take()) != "EXIT") 
+		while (!(msg = queue.take()).equals(EXIT)) 
 		{
 	        System.out.println(msg);
 		}
 		
+		frame.setVisible(false);
+		frame.dispose();
+		
 		return EXIT_OK;
+	}
+
+	private void showFrame()
+	{
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setSize(400, 80);
+		frame.setResizable(false);
+		frame.setTitle("Vaaclipse server");
+		final Container contentPane = frame.getContentPane();
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		JButton exitButton = new JButton("Shutdown");
+		exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		exitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				shutdown();
+			}
+		});
+		final JLabel label = new JLabel("Vaaclipse server started at http://localhost:80/vaadinapp");
+		label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(label);
+		contentPane.add(Box.createVerticalStrut(5));
+		contentPane.add(exitButton);
+		
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				super.windowClosing(e);
+				
+				shutdown();
+			}
+		});
+		
+		frame.setVisible(true);
+	}
+	
+	private void shutdown()
+	{
+		int choice = JOptionPane.showOptionDialog(frame, "Are you really want shutdown server?", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.CANCEL_OPTION);
+		if (choice == JOptionPane.OK_OPTION)
+		{
+			try
+			{
+				queue.put(EXIT);
+			}
+			catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
