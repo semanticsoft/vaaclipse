@@ -103,11 +103,11 @@ public class CleanupAddon {
 					if (parentContainer != null) {
 						ignoreChildrenChanges = true;
 						int index = parentContainer.getChildren().indexOf(container);
-						theChild.setContainerData(container.getContainerData());
+						//theChild.setContainerData(container.getContainerData());
 						container.getChildren().remove(theChild);
+						parentContainer.getChildren().remove(container);
 						parentContainer.getChildren().add(index, theChild);
 						container.setToBeRendered(false);
-						parentContainer.getChildren().remove(container);
 						ignoreChildrenChanges = false;
 					}
 				}
