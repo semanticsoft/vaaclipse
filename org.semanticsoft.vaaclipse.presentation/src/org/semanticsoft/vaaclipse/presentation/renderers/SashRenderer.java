@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -59,22 +61,24 @@ public class SashRenderer extends GenericRenderer {
 
 	@Override
 	public void processContents(final MElementContainer<MUIElement> element) {
-		if (element.getChildren().size() == 2) {
-			MUIElement child1 = element.getChildren().get(0);
-			MUIElement child2 = element.getChildren().get(1);
-			
-			Component childWidget1 = (Component) child1.getWidget();
-			Component childWidget2 = (Component) child2.getWidget();
-			//TODO:temp, remove after testing that widget visibility sync work ok
-			childWidget1.setVisible(child1.isVisible());
-			childWidget2.setVisible(child2.isVisible());
-			
-			AbstractSplitPanel sash = (AbstractSplitPanel) element.getWidget();
-			sash.setFirstComponent(childWidget1);
-			sash.setSecondComponent(childWidget2);
-		} else {
-			System.err.println("A sash has to have 2 children");
-		}
+//		if (element.getChildren().size() == 2) {
+//			MUIElement child1 = element.getChildren().get(0);
+//			MUIElement child2 = element.getChildren().get(1);
+//			
+//			Component childWidget1 = (Component) child1.getWidget();
+//			Component childWidget2 = (Component) child2.getWidget();
+//			//TODO:temp, remove after testing that widget visibility sync work ok
+//			childWidget1.setVisible(child1.isVisible());
+//			childWidget2.setVisible(child2.isVisible());
+//			
+//			AbstractSplitPanel sash = (AbstractSplitPanel) element.getWidget();
+//			sash.setFirstComponent(childWidget1);
+//			sash.setSecondComponent(childWidget2);
+//		} else {
+//			System.err.println("A sash has to have 2 children");
+//		}
+		
+		refreshSashContainer((MPartSashContainer)(MElementContainer<?>)element);
 	}
 	
 	@Override
@@ -94,16 +98,44 @@ public class SashRenderer extends GenericRenderer {
 		}
 	}
 	
+	public void refreshSashContainer(MPartSashContainer sash)
+	{
+		AbstractSplitPanel splitPane = (AbstractSplitPanel) sash.getWidget();
+		
+		List<MPartSashContainerElement> children = sash.getChildren();
+		
+		MPartSashContainerElement first = children.size() > 0 && children.get(0).isToBeRendered()? children.get(0) : null;
+		MPartSashContainerElement second = children.size() > 1 && children.get(1).isToBeRendered()? children.get(1) : null;
+		
+		if (first != null)
+		{
+			splitPane.setFirstComponent((Component) first.getWidget());
+			splitPane.getFirstComponent().setVisible(first.isVisible());
+		}
+		if (second != null)
+		{
+			splitPane.setSecondComponent((Component) second.getWidget());
+			splitPane.getSecondComponent().setVisible(second.isVisible());
+		}
+	}
+	
 	@Override
 	@Deprecated
 	public void refreshPlatformElement(MElementContainer<?> element)
 	{
+		MPartSashContainer sash = (MPartSashContainer) element;
+		refreshSashContainer(sash);
+		refreshRecursive(element);
+	}
+
+	private void refreshRecursive(MElementContainer<?> element)
+	{
 		for (MUIElement e : element.getChildren())
 		{
 			if (e instanceof MElementContainer<?>)
-				refreshPlatformElement((MElementContainer<? extends MUIElement>) e);
+				refreshRecursive((MElementContainer<? extends MUIElement>) e);
 			else if (e instanceof MPlaceholder && ((MPlaceholder)e).getRef() instanceof MElementContainer<?>)
-				refreshPlatformElement((MElementContainer<? extends MUIElement>) ((MPlaceholder)e).getRef());
+				refreshRecursive((MElementContainer<? extends MUIElement>) ((MPlaceholder)e).getRef());
 		}
 		
 		if (element.getWidget() instanceof SashWidgetHorizontal)
@@ -161,13 +193,15 @@ public class SashRenderer extends GenericRenderer {
 		if (!(child instanceof MPartSashContainerElement) || !((MElementContainer<?>)element instanceof MPartSashContainer))
 			return;
 		
-		if (element.getChildren().size() == 2)
-		{
-			refreshPlatformElement(element);
-		}
-		else if (element.getChildren().size() == 1)
-		{
-			((ComponentContainer)element.getWidget()).addComponent((Component) child.getWidget());
-		}
+		refreshPlatformElement(element);
+	}
+	
+	@Override
+	public void removeChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MPartSashContainerElement) || !((MElementContainer<?>)element instanceof MPartSashContainer))
+			return;
+		
+		refreshPlatformElement(element);
 	}
 }
