@@ -12,6 +12,7 @@
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
 
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 
@@ -84,13 +86,13 @@ public class GenericPresentationEngine implements PresentationEngine {
 				
 				if (added.getWidget() == null)
 					createGui(added);
-				if (added.getWidget() != null && changedElement.getWidget() != null)
+				if (added.getWidget() != null && changedElement.getWidget() != null && added.isToBeRendered())
 					parentRenderer.addChildGui(added, changedElement);
 			} 
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
 			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-				if (removed.getWidget() != null && changedElement.getWidget() != null)
+				if (removed.getWidget() != null && changedElement.getWidget() != null && removed.isToBeRendered())
 					parentRenderer.removeChildGui(removed, changedElement);
 			}
 		}
@@ -279,6 +281,11 @@ public class GenericPresentationEngine implements PresentationEngine {
 			System.out.println("GenericPresentationEngine.createGui(): no parent: " + element + " parent: " + parent);
 		}
 		renderer.createWidget(element, parent);
+		if (element.getWidget() != null && element.getWidget() instanceof AbstractComponent)
+		{
+			AbstractComponent component = (AbstractComponent) element.getWidget();
+			component.setData(element);
+		}
 
 		// Does not work: why?
 		// if (parent != null) {
