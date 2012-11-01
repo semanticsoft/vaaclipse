@@ -291,7 +291,7 @@
 }
 
 .vaadock-tabsheet-button-panel {
-	background: url(../../../themes/dragdrop/vaadock/img/button_panel_bgcolor.png) repeat-x scroll left -1px transparent;
+	background: url(img/button_panel_bgcolor.png) repeat-x scroll left -1px transparent;
     float: right;
     height: 31px;
     margin-top: -31px;
@@ -308,7 +308,7 @@
 	float: right;
 	margin-top: 5px;
     border : none;
-    background: url(../../../themes/dragdrop/vaadock/img/vaadock_sprites.png) no-repeat 0 0;
+    background: url(img/vaadock_sprites.png) no-repeat 0 0;
 }
 
 .v-vaadock-tabsheet-maximize-button:hover { 
@@ -327,7 +327,7 @@
 	margin-right: 20px;
 	margin-top: -18px;
     border : none;
-    background: url(../../../themes/dragdrop/vaadock/img/vaadock_sprites.png) no-repeat 0 0;
+    background: url(img/vaadock_sprites.png) no-repeat 0 0;
     background-position: 0 -54px;
 }
 
@@ -346,7 +346,7 @@
 	float: right;
 	margin-top: 5px;
     border : none;
-    background: url(../../../themes/dragdrop/vaadock/img/vaadock_sprites.png) no-repeat 0 0;
+    background: url(img/vaadock_sprites.png) no-repeat 0 0;
     background-position: 0 -108px;
 }
 
