@@ -13,7 +13,6 @@ import com.vaadin.terminal.gwt.server.CommunicationManager;
 
 public class VaadinOSGiCommunicationManager extends CommunicationManager
 {
-	//List<Runnable> runnables = new ArrayList<>();
 	Queue<Runnable> runnables = new LinkedList<>();
 	
 	public VaadinOSGiCommunicationManager(Application application)
