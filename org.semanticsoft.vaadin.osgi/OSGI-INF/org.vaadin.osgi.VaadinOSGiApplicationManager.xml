@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<component name='org.vaadin.osgi.VaadinOSGiApplicationManager' xmlns='http://www.osgi.org/xmlns/scr/v1.1.0' activate='start' deactivate='stop'>
+  <implementation class='org.vaadin.osgi.VaadinOSGiApplicationManager'/>
+  <property name='productionMode' value='false'/>
+  <reference name='applicationregistered' interface='org.osgi.service.component.ComponentFactory' cardinality='0..n' bind='applicationRegistered' unbind='applicationRemoved' policy='dynamic' target='(component.factory=vaadin.app)'/>
+  <reference name='httpService' interface='org.osgi.service.http.HttpService' bind='bindHttpService'/>
+</component>
