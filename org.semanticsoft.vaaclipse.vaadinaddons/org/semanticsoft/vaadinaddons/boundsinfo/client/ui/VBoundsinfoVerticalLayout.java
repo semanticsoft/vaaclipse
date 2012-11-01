@@ -11,14 +11,16 @@
 
 package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Event;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
 import com.vaadin.terminal.gwt.client.Paintable;
 import com.vaadin.terminal.gwt.client.RenderSpace;
 import com.vaadin.terminal.gwt.client.UIDL;
+import com.vaadin.terminal.gwt.client.ValueMap;
 import com.vaadin.terminal.gwt.client.ui.VVerticalLayout;
 
 /**
@@ -32,11 +34,17 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 	public static final String CLASSNAME = "v-boundsinfoverticallayout";
 
 	public static final String CLICK_EVENT_IDENTIFIER = "click";
+	
+	public static final String VARIABLES = "_variables_";
+	public static final String ENABLE_BOUNDS_UPDATE = "enable_bounds_update";
 
 	/** The client side widget identifier */
 	protected String paintableId;
 	
 	private BoundsUpdateManager updateManager;
+	
+	private Map<String, String> variables = new HashMap<String, String>();
+	private Boolean enableBoundsUpdate = true;
 
 	/** Reference to the server connection object. */
 	// protected ApplicationConnection client;
@@ -57,7 +65,6 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 	 */
 	public void updateFromUIDL(UIDL uidl, ApplicationConnection client)
 	{
-
 		super.updateFromUIDL(uidl, client);
 
 		// This call should be made first.
@@ -77,7 +84,17 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 		// Save the client side identifier (paintable id) for the widget
 		paintableId = uidl.getId();
 		
-		updateManager = new BoundsUpdateManager(this, paintableId, client);
+		if(uidl.hasAttribute(VARIABLES)){	
+    		ValueMap vmap = uidl.getMapAttribute(VARIABLES);
+    		Set<String> indexes = vmap.getKeySet();
+    		for(String index : indexes){
+    			variables.put(index, vmap.getString(index));
+    		}
+    	}
+		
+		this.enableBoundsUpdate = uidl.getBooleanAttribute(ENABLE_BOUNDS_UPDATE);
+		if (this.enableBoundsUpdate)
+			updateManager = new BoundsUpdateManager(this, paintableId, client);
 	}
 
 	@Override
@@ -86,5 +103,15 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 		if (updateManager != null)
 			updateManager.update();
 		return super.getAllocatedSpace(child);
+	}
+	
+	public String getVariableValue(String varName)
+	{
+		return this.variables.get(varName);
+	}
+	
+	public void setVariableValue(String varName, String varValue)
+	{
+		this.variables.put(varName, varValue);
 	}
 }

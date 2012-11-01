@@ -5,7 +5,6 @@ package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
-import com.vaadin.terminal.gwt.client.Paintable;
 
 /**
  * @author rushan
@@ -76,7 +75,7 @@ public class BoundsUpdateManager
 	private ApplicationConnection client;
 	private Bounds prevBounds;
 	private long prevTime;
-	private static double OVERLAP = 0.05;
+	private static double OVERLAP = 0.1;
 	private static double PERIOD = 1000;
 	
 	public BoundsUpdateManager(Widget widget, String paintableId, ApplicationConnection client)
@@ -98,9 +97,9 @@ public class BoundsUpdateManager
 		else if (!bounds.equals(prevBounds)) //the necessary condition of update - bounds must change since last update
 		{
 			Bounds overlap = prevBounds.intersection(bounds);
-			int prevS = prevBounds.getSquare();
-			int s = bounds.getSquare();
-			int overlapS = overlap.getSquare();
+			float prevS = prevBounds.getSquare();
+			float s = bounds.getSquare();
+			float overlapS = overlap.getSquare();
 			
 			if ( (s - overlapS) /s < OVERLAP && (prevS - overlapS)/prevS < OVERLAP )
 			{//the bounds changes are small
