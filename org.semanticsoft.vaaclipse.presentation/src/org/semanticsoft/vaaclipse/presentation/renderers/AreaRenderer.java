@@ -16,6 +16,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
@@ -39,7 +40,12 @@ public class AreaRenderer extends GenericRenderer
 		if (area.isHorizontal())
 			areaComp = new HorizontalLayout();
 		else
-			areaComp = new VerticalLayout();
+		{
+			BoundsinfoVerticalLayout bi = new BoundsinfoVerticalLayout();
+			bi.setEnableBoundsUpdate(false);
+			bi.setVariableValue("e4ElementType", "area");
+			areaComp = bi;
+		}
 		areaComp.addStyleName("area_background");
 		areaComp.setSizeFull();
 		element.setWidget(areaComp);
