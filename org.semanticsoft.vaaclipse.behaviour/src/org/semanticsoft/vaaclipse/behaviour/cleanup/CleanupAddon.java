@@ -25,8 +25,15 @@ import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.ecore.EObject;
+import org.osgi.service.application.ApplicationAdminPermission;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.vaadin.osgi.VaadinOSGiApplicationManager;
+import org.vaadin.osgi.VaadinOSGiCommunicationManager;
+
+import com.vaadin.Application;
+import com.vaadin.service.ApplicationContext;
+import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
 public class CleanupAddon {
 	@Inject
@@ -37,6 +44,9 @@ public class CleanupAddon {
 
 	@Inject
 	MApplication app;
+	
+	@Inject
+	Application vaadinapp;
 
 	private EventHandler childrenHandler = new EventHandler() {
 		
@@ -67,53 +77,65 @@ public class CleanupAddon {
 
 				// Stall the removal to handle cases where the container is only transiently empty
 
-				// Remove it from the display if no visible children
-				int tbrCount = modelService.toBeRenderedCount(container);
+				getCommunicationManager().invokeLater(new Runnable() {
+					
+					@Override
+					public void run()
+					{
+						// Remove it from the display if no visible children
+						int tbrCount = modelService.toBeRenderedCount(container);
 
-				// Cache the value since setting the TBR may change the result
-				boolean lastStack = isLastEditorStack(container);
-				if (tbrCount == 0 && !lastStack) {
-					container.setToBeRendered(false);
-				}
+						// Cache the value since setting the TBR may change the result
+						boolean lastStack = isLastEditorStack(container);
+						if (tbrCount == 0 && !lastStack) {
+							container.setToBeRendered(false);
+						}
 
-				// Remove it from the model if it has no children at all
-				MElementContainer<?> lclContainer = container;
-				if (lclContainer.getChildren().size() == 0) {
-					MElementContainer<MUIElement> parent = container.getParent();
-					if (parent != null && !lastStack) {
-						container.setToBeRendered(false);
-						parent.getChildren().remove(container);
-					} else if (container instanceof MWindow) {
-						// Must be a Detached Window
-						MUIElement eParent = (MUIElement) ((EObject) container)
-								.eContainer();
-						if (eParent instanceof MPerspective) {
-							((MPerspective) eParent).getWindows().remove(container);
-						} else if (eParent instanceof MWindow) {
-							((MWindow) eParent).getWindows().remove(container);
+						// Remove it from the model if it has no children at all
+						MElementContainer<?> lclContainer = container;
+						if (lclContainer.getChildren().size() == 0) {
+							MElementContainer<MUIElement> parent = container.getParent();
+							if (parent != null && !lastStack) {
+								container.setToBeRendered(false);
+								parent.getChildren().remove(container);
+							} else if (container instanceof MWindow) {
+								// Must be a Detached Window
+								MUIElement eParent = (MUIElement) ((EObject) container)
+										.eContainer();
+								if (eParent instanceof MPerspective) {
+									((MPerspective) eParent).getWindows().remove(container);
+								} else if (eParent instanceof MWindow) {
+									((MWindow) eParent).getWindows().remove(container);
+								}
+							}
+						} else if (container.getChildren().size() == 1
+								&& container instanceof MPartSashContainer) {
+							// if a sash container has only one element then remove it and move
+							// its child up to where it used to be
+							MUIElement theChild = container.getChildren().get(0);
+							MElementContainer<MUIElement> parentContainer = container
+									.getParent();
+							if (parentContainer != null) {
+								ignoreChildrenChanges = true;
+								int index = parentContainer.getChildren().indexOf(container);
+								//theChild.setContainerData(container.getContainerData());
+								container.getChildren().remove(theChild);
+								parentContainer.getChildren().remove(container);
+								parentContainer.getChildren().add(index, theChild);
+								container.setToBeRendered(false);
+								ignoreChildrenChanges = false;
+							}
 						}
 					}
-				} else if (container.getChildren().size() == 1
-						&& container instanceof MPartSashContainer) {
-					// if a sash container has only one element then remove it and move
-					// its child up to where it used to be
-					MUIElement theChild = container.getChildren().get(0);
-					MElementContainer<MUIElement> parentContainer = container
-							.getParent();
-					if (parentContainer != null) {
-						ignoreChildrenChanges = true;
-						int index = parentContainer.getChildren().indexOf(container);
-						//theChild.setContainerData(container.getContainerData());
-						container.getChildren().remove(theChild);
-						parentContainer.getChildren().remove(container);
-						parentContainer.getChildren().add(index, theChild);
-						container.setToBeRendered(false);
-						ignoreChildrenChanges = false;
-					}
-				}
+				});
 			}
 		}
 	};
+	
+	VaadinOSGiCommunicationManager getCommunicationManager()
+	{
+		return VaadinOSGiApplicationManager.getInstance().getComminucationManager();
+	}
 
 	private EventHandler renderingChangeHandler = new EventHandler() {
 		public void handleEvent(Event event) {
@@ -157,8 +179,15 @@ public class CleanupAddon {
 				// model)
 				final MElementContainer<MUIElement> theContainer = container;
 				if (visCount == 0) {
-					if (!isLastEditorStack(theContainer))
-						theContainer.setToBeRendered(false);
+					getCommunicationManager().invokeLater(new Runnable() {
+						
+						@Override
+						public void run()
+						{
+							if (!isLastEditorStack(theContainer))
+								theContainer.setToBeRendered(false);
+						}
+					});
 				} else {
 					// if there are rendered elements but none are 'visible' we should
 					// make the container invisible as well
