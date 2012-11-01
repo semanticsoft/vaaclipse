@@ -11,10 +11,12 @@
 
 package org.semanticsoft.vaadinaddons.boundsinfo;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsParser;
+import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.VBoundsinfoVerticalLayout;
 
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
@@ -34,6 +36,9 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 	private Integer absoluteTop;
 	private Integer offsetWidth;
 	private Integer offsetHeight;
+	
+	private Map<String, String> variables = new HashMap<String, String>();
+	private boolean enableBoundsUpdate = true;
 
 	@Override
 	public void paintContent(PaintTarget target) throws PaintException
@@ -45,8 +50,8 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 		target.addAttribute("clicks", clicks);
 		target.addAttribute("message", message);
 
-		// We could also set variables in which values can be returned
-		// but declaring variables here is not required
+		target.addAttribute(VBoundsinfoVerticalLayout.ENABLE_BOUNDS_UPDATE, enableBoundsUpdate);
+		target.addAttribute(VBoundsinfoVerticalLayout.VARIABLES, variables);
 	}
 
 	/**
@@ -128,5 +133,25 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 			return new Bounds(absoluteLeft, absoluteTop, offsetWidth, offsetHeight);
 		else
 			return null;
+	}
+	
+	public String getVariableValue(String varName)
+	{
+		return this.variables.get(varName);
+	}
+	
+	public void setVariableValue(String varName, String varValue)
+	{
+		this.variables.put(varName, varValue);
+	}
+	
+	public boolean isEnableBoundsUpdate()
+	{
+		return enableBoundsUpdate;
+	}
+	
+	public void setEnableBoundsUpdate(boolean enableBoundsUpdate)
+	{
+		this.enableBoundsUpdate = enableBoundsUpdate;
 	}
 }
