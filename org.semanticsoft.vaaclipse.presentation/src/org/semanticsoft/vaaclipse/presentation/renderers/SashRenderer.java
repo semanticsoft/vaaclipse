@@ -11,29 +11,38 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
-import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
-import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
 
 import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.VerticalSplitPanel;
 
 @SuppressWarnings("restriction")
 public class SashRenderer extends GenericRenderer {
 
+	@Inject
+	EventBroker eventBroker;
+	
 	private EventHandler sashOrientationHandler;
 	
 	private EventHandler sashWeightHandler = new EventHandler() {
@@ -46,10 +55,33 @@ public class SashRenderer extends GenericRenderer {
 				return;
 
 			MPartSashContainer sash = (MPartSashContainer)(MElementContainer<?>)element.getParent();
-			AbstractSplitPanel sashWidget = (AbstractSplitPanel) sash.getWidget();
-			float pos = computeSashDividerPosition((MPartSashContainer) (MElementContainer<?>)element.getParent());
-			if (pos > -1)
-				sashWidget.setSplitPosition(pos);
+			setWeights((MPartSashContainer) (MElementContainer<?>)element.getParent());
+		}
+	};
+	
+	private final EventHandler visibilityHandler = new EventHandler() {
+		@Override
+		public void handleEvent(Event event) {
+			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+			
+			if ((MElementContainer<?>)changedElement.getParent() instanceof MPartSashContainer)
+			{
+				MPartSashContainer sash = (MPartSashContainer) (MElementContainer<?>)changedElement.getParent();
+				
+				((SashRenderer)sash.getRenderer()).refreshSashContainer(sash);
+				
+				boolean visible = false;
+				for (MPartSashContainerElement child : sash.getChildren())
+				{
+					if (child.isVisible())
+					{
+						visible = true;
+						break;
+					}
+				}
+				if (sash.isVisible() != visible)
+					sash.setVisible(visible);
+			}
 		}
 	};
 
@@ -60,21 +92,10 @@ public class SashRenderer extends GenericRenderer {
 		}
 		final MPartSashContainer partSashContainer = (MPartSashContainer) element;
 		
-		AbstractSplitPanel widget = null;
+		VerticalLayout layout = new VerticalLayout();
+		layout.setSizeFull();
 		
-		if (partSashContainer.isHorizontal()) {
-			widget = new SashWidgetHorizontal();
-		} else {
-			widget = new SashWidgetVertical();
-		}	
-		
-		widget.setSizeFull();
-		
-		float pos = computeSashDividerPosition((MPartSashContainer) element);
-		if (pos > -1)
-			widget.setSplitPosition(pos);
-		
-		element.setWidget(widget);
+		element.setWidget(layout);
 	}
 
 	@Override
@@ -99,12 +120,122 @@ public class SashRenderer extends GenericRenderer {
 		refreshSashContainer((MPartSashContainer)(MElementContainer<?>)element);
 	}
 	
+	public void generateSplitPanelStructure(MPartSashContainer sash)
+	{
+		VerticalLayout layout = (VerticalLayout) sash.getWidget();
+		layout.removeAllComponents();
+		
+		ComponentContainer sashWidget = null;
+		
+		List<MPartSashContainerElement> renderableAndVisible = filterRenderableAndVisibleElements(sash);
+		
+		if (renderableAndVisible.isEmpty())
+		{
+			sashWidget = new VerticalLayout();
+		}
+		else if (renderableAndVisible.size() == 1)
+		{
+			sashWidget = new VerticalLayout();
+			MPartSashContainerElement child = renderableAndVisible.get(0);
+			sashWidget.addComponent((Component) child.getWidget());
+		}
+		else
+		{
+			sashWidget = sash.isHorizontal() ? new HorizontalSplitPanel() : new VerticalSplitPanel();
+			AbstractSplitPanel currentSashWidget = (AbstractSplitPanel) sashWidget;
+			for (int i = 0; i < renderableAndVisible.size(); i++)
+			{
+				MPartSashContainerElement child = renderableAndVisible.get(i);
+				
+				if (currentSashWidget.getFirstComponent() == null)
+				{
+					currentSashWidget.setFirstComponent((Component) child.getWidget());
+				}
+				else
+				{
+					if (i == renderableAndVisible.size() -1)
+					{
+						currentSashWidget.setSecondComponent((Component) child.getWidget());
+					}
+					else
+					{
+						AbstractSplitPanel newSashWidget = sash.isHorizontal() ? new HorizontalSplitPanel() : new VerticalSplitPanel();
+						newSashWidget.setFirstComponent((Component) child.getWidget());
+						currentSashWidget.setSecondComponent(newSashWidget);
+						currentSashWidget = newSashWidget;	
+					}
+				}
+			}
+		}
+		
+		sashWidget.setSizeFull();
+		layout.addComponent(sashWidget);
+		
+		setWeights(sash);
+	}
+
+	private List<MPartSashContainerElement> filterRenderableAndVisibleElements(MPartSashContainer sash)
+	{
+		List<MPartSashContainerElement> renderableAndVisible = new ArrayList<>();
+		for (MPartSashContainerElement e : sash.getChildren())
+		{
+			if (e.isToBeRendered() && e.isVisible())
+				renderableAndVisible.add(e);
+		}
+		return renderableAndVisible;
+	}
+	
+	void setWeights(MPartSashContainer sash)
+	{
+		List<MPartSashContainerElement> renderableAndVisible = filterRenderableAndVisibleElements(sash);
+		if (renderableAndVisible.size() < 2)
+			return;
+		
+		Map<MPartSashContainerElement, Double> weights = new HashMap<>();
+		Map<Component, MPartSashContainerElement> map = new HashMap<>();
+		double total_weight = 0;
+		for (MPartSashContainerElement children : renderableAndVisible)
+		{
+			String data = children.getContainerData();
+			double weight = 0;
+			if (data != null)
+			{
+				try
+				{
+					weight = Double.parseDouble(data);
+				}
+				catch (NumberFormatException e) {}
+			}
+			
+			map.put((Component) children.getWidget(), children);
+			weights.put(children, weight);
+			total_weight += weight;
+		}
+		
+		AbstractSplitPanel topSashWidget = (AbstractSplitPanel) ((VerticalLayout)sash.getWidget()).getComponent(0);
+		AbstractSplitPanel currentSashWidget = topSashWidget;
+		while (true)
+		{
+			MPartSashContainerElement e1 = map.get(currentSashWidget.getFirstComponent());
+			//the first - is always element
+			double w = weights.get(e1);
+			double pos = (w/total_weight)*100;
+			currentSashWidget.setSplitPosition((float) pos);
+			
+			if (map.containsKey(currentSashWidget.getSecondComponent()))
+				break;
+			
+			currentSashWidget = (AbstractSplitPanel) currentSashWidget.getSecondComponent();
+			total_weight = total_weight - w;
+		}
+	}
+	
 	@Override
 	public void hookControllerLogic(MUIElement element) {
 		if (element instanceof MPartSashContainer) {
 			final MPartSashContainer partSashContainer = (MPartSashContainer) element;
 
-			final AbstractSplitPanel splitPane = (AbstractSplitPanel) partSashContainer.getWidget();
+//			final AbstractSplitPanel splitPane = (AbstractSplitPanel) partSashContainer.getWidget();
 //			splitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener() {
 //				@Override
 //				public void propertyChange(PropertyChangeEvent event) {
@@ -118,62 +249,11 @@ public class SashRenderer extends GenericRenderer {
 	
 	public void refreshSashContainer(MPartSashContainer sash)
 	{
-		AbstractSplitPanel splitPane = (AbstractSplitPanel) sash.getWidget();
-		
-		List<MPartSashContainerElement> children = sash.getChildren();
-		
-		MPartSashContainerElement first = children.size() > 0 && children.get(0).isToBeRendered()? children.get(0) : null;
-		MPartSashContainerElement second = children.size() > 1 && children.get(1).isToBeRendered()? children.get(1) : null;
-		
-		if (first != null)
-		{
-			final Component firstWidget = (Component) first.getWidget();
-			firstWidget.setVisible(first.isVisible());
-//			if (firstWidget.getParent() != null)
-//				((ComponentContainer)firstWidget.getParent()).removeComponent(firstWidget);
-			splitPane.setFirstComponent(firstWidget);
-		}
-		if (second != null)
-		{
-			final Component secondWidget = (Component) second.getWidget();
-			secondWidget.setVisible(second.isVisible());
-//			if (secondWidget.getParent() != null)
-//				((ComponentContainer)secondWidget.getParent()).removeComponent(secondWidget);
-			splitPane.setSecondComponent((Component) second.getWidget());
-		}
-		
-		float pos = computeSashDividerPosition(sash);
-		if (pos > -1)
-			splitPane.setSplitPosition(pos);
-	}
-	
-	@Override
-	@Deprecated
-	public void refreshPlatformElement(MElementContainer<?> element)
-	{
-		MPartSashContainer sash = (MPartSashContainer) element;
-		refreshSashContainer(sash);
-		refreshRecursive(element);
+		generateSplitPanelStructure(sash);
 	}
 
-	private void refreshRecursive(MElementContainer<?> element)
-	{
-		for (MUIElement e : element.getChildren())
-		{
-			if (e instanceof MElementContainer<?>)
-				refreshRecursive((MElementContainer<? extends MUIElement>) e);
-			else if (e instanceof MPlaceholder && ((MPlaceholder)e).getRef() instanceof MElementContainer<?>)
-				refreshRecursive((MElementContainer<? extends MUIElement>) ((MPlaceholder)e).getRef());
-		}
-		
-		if (element.getWidget() instanceof SashWidgetHorizontal)
-			((SashWidgetHorizontal)element.getWidget()).refreshState();
-		else if (element.getWidget() instanceof SashWidgetVertical)
-			((SashWidgetVertical)element.getWidget()).refreshState();
-	}
-
-	@Inject
-	void postConstruct(IEventBroker eventBroker) {
+	@PostConstruct
+	void postConstruct() {
 //		sashOrientationHandler = new EventHandler() {
 //			@Override
 //			public void handleEvent(Event event) {
@@ -196,6 +276,14 @@ public class SashRenderer extends GenericRenderer {
 //
 
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_CONTAINERDATA, sashWeightHandler);
+		eventBroker.subscribe(UIEvents.UIElement.TOPIC_VISIBLE, visibilityHandler);
+	}
+	
+	@PreDestroy
+	public void preDestroy()
+	{
+		eventBroker.unsubscribe(sashWeightHandler);
+		eventBroker.unsubscribe(visibilityHandler);
 	}
 	
 	@Override
@@ -204,7 +292,6 @@ public class SashRenderer extends GenericRenderer {
 		if (!(child instanceof MPartSashContainerElement) || !((MElementContainer<?>)element instanceof MPartSashContainer))
 			return;
 		
-		//refreshPlatformElement(element);
 		refreshSashContainer((MPartSashContainer)(MElementContainer<?>)element);
 	}
 	
@@ -214,53 +301,6 @@ public class SashRenderer extends GenericRenderer {
 		if (!(child instanceof MPartSashContainerElement) || !((MElementContainer<?>)element instanceof MPartSashContainer))
 			return;
 		
-		//refreshPlatformElement(element);
 		refreshSashContainer((MPartSashContainer)(MElementContainer<?>)element);
-	}
-	
-	float computeSashDividerPosition(MPartSashContainer container)
-	{
-		if (container.getChildren().size() == 2)
-		{
-			MPartSashContainerElement child1 = container.getChildren().get(0);
-			MPartSashContainerElement child2 = container.getChildren().get(1);
-			
-			double pos1, pos2;
-			try
-			{
-				pos1 = child1.getContainerData() != null && child1.getContainerData().length() > 0 ? Double.parseDouble(child1.getContainerData()) : -1;
-			}
-			catch (NumberFormatException e)
-			{
-				pos1 = -1;
-			}
-			
-			try
-			{
-				pos2 = child2.getContainerData() != null && child2.getContainerData().length() > 0 ? Double.parseDouble(child2.getContainerData()) : -1;
-			}
-			catch (NumberFormatException e)
-			{
-				pos2 = -1;
-			}
-			
-			if (pos1 < 0 && pos2 < 0)
-			{
-				pos1 = 50;
-				pos2 = 50;
-			}
-			else if (pos1 < 0)
-			{
-				pos1 = 100 - pos2;
-			}
-			else if (pos2 < 0)
-			{
-				pos2 = 100 - pos1;
-			}
-			
-			return (float) (100*pos1/(pos1 + pos2));
-		}
-		else
-			return -1.0f;
 	}
 }

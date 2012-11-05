@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Kai Toedter and others.
+ * Copyright (c) 2011 Kai Toedter, Rushan R. Gilmullin and others.
  * 
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  * 
  * Contributors:
  *     Kai Toedter - initial API and implementation
+ *     Rushan R. Gilmullin - adoption to vaaclipse and other changes
  ******************************************************************************/
 
 package org.semanticsoft.vaaclipse.presentation.renderers;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Kai Toedter and others.
+ * Copyright (c) 2011 Kai Toedter, Rushan R. Gilmullin and others.
  * 
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,11 +8,11 @@
  * 
  * Contributors:
  *     Kai Toedter - initial API and implementation
+ *     Rushan R. Gilmullin - adoption to vaaclipse and other changes
  ******************************************************************************/
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +75,12 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 			@SuppressWarnings("unchecked")
 			MElementContainer<MUIElement> changedElement = (MElementContainer<MUIElement>) changedObj;
+			
+			// if changedElement has no GUI, not process adding and removing. Add will be processed later, in createGui for changedElement - 
+			//the child GUI will be created in processContent
+			if (changedElement.getWidget() == null)
+				return;
+			
 			GenericRenderer parentRenderer = (GenericRenderer) changedElement.getRenderer();
 			
 			if (parentRenderer == null)
@@ -156,18 +162,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 			if (renderer == null) {
 				return;
 			}
-
+			
 			renderer.setVisible(changedElement, changedElement.isVisible());
-
-			MElementContainer<MUIElement> parent = changedElement.getParent();
-			if (parent == null) {
-				parent = (MElementContainer<MUIElement>) ((EObject) changedElement).eContainer();
-			}
-
-			GenericRenderer parentRenderer = (GenericRenderer) parent.getRenderer();
-			if (parentRenderer != null) {
-				parentRenderer.refreshPlatformElement(parent);
-			}
 		}
 	};
 
@@ -191,14 +187,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 			Component parentWidget = (Component) parent.getWidget();
 			if (parentWidget instanceof ComponentContainer) {
 				ComponentContainer currentParent = (ComponentContainer) control.getParent();
-				if (currentParent != parentWidget) {
-					// the parents are different so we should reparent it
-					// it was done the below int SWT renderer (see commented code bellow):
-					//control.setParent((Composite) parentWidget);
-					//but in Vaadin and some other toolkits it is unable do so in all cases
-					//so the best solution is use the processProcess method to allow the parent to add childs properly
-					//So call the process content of the parent rednerer for the parent element:
-					((GenericRenderer)parent.getRenderer()).processContents(parent);
+				if (currentParent != null && currentParent != parentWidget) {
+					currentParent.removeComponent(control);
 				}
 			}
 			
