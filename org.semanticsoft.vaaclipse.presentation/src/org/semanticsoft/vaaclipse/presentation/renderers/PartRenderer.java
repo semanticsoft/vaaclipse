@@ -76,7 +76,7 @@ public class PartRenderer extends GenericRenderer {
 		
 		part.setObject(newPart);
 		
-		pane.setStyleName("page_component");
+		pane.setStyleName("part");
 
 		element.setWidget(pane);
 	}

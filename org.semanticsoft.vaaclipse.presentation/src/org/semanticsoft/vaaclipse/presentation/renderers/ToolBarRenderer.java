@@ -28,31 +28,27 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.SideValue;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
-import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarContribution;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarSeparator;
-import org.eclipse.e4.ui.workbench.UIEvents;
-import org.eclipse.e4.ui.workbench.UIEvents.ElementContainer;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.GuiUtils;
 
+import com.vaadin.ui.AbstractLayout;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
 public class ToolBarRenderer extends GenericRenderer {
 
-	private Map<MToolBar, CssLayout> modelToManager = new HashMap<MToolBar, CssLayout>();
-	private Map<CssLayout, MToolBar> managerToModel = new HashMap<CssLayout, MToolBar>();
+	private Map<MToolBar, AbstractLayout> modelToManager = new HashMap<MToolBar, AbstractLayout>();
+	private Map<AbstractLayout, MToolBar> managerToModel = new HashMap<AbstractLayout, MToolBar>();
 	private Map<MToolBarElement, Component> modelToContribution = new HashMap<MToolBarElement, Component>();
 	private Map<Component, MToolBarElement> contributionToModel = new HashMap<Component, MToolBarElement>();
 	private Map<MToolBarElement, ToolBarContributionRecord> modelContributionToRecord = new HashMap<MToolBarElement, ToolBarContributionRecord>();
@@ -102,25 +98,33 @@ public class ToolBarRenderer extends GenericRenderer {
 		MToolBar toolbarModel = (MToolBar) element;
 		processContribution(toolbarModel);
 
-		CssLayout toolBarWidget = new CssLayout();
-		toolBarWidget.setSizeUndefined();
+		AbstractLayout toolBarWidget;
+		
 		if ((MElementContainer<?>)toolbarModel.getParent() instanceof MTrimBar)
 		{
 			MTrimBar parentTrimBar = (MTrimBar)(MElementContainer<?>)toolbarModel.getParent();
 			int orientation = parentTrimBar.getSide().getValue();
 			
 			if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
+			{
+				toolBarWidget = new HorizontalLayout();
 				toolBarWidget.addStyleName("horizontaltoolbar");
+			}
 			else
+			{
+				toolBarWidget = new VerticalLayout();
 				toolBarWidget.addStyleName("verticaltoolbar");
+			}
 			
 			
 			Component separator = GuiUtils.createSeparator(toolbarModel);
 			if (separator != null)
 				toolBarWidget.addComponent(separator);
 		}
+		else
+			toolBarWidget = new HorizontalLayout();
 		
-		
+		toolBarWidget.setSizeUndefined();
 		element.setWidget(toolBarWidget);
 	}
 	
@@ -142,7 +146,7 @@ public class ToolBarRenderer extends GenericRenderer {
 	private void generateContributions(MToolBar toolbarModel,
 			ArrayList<MToolBarContribution> toContribute) {
 
-		CssLayout manager = getManager(toolbarModel);
+		AbstractLayout manager = getManager(toolbarModel);
 		boolean done = toContribute.size() == 0;
 		while (!done) {
 			ArrayList<MToolBarContribution> curList = new ArrayList<MToolBarContribution>(
@@ -170,7 +174,7 @@ public class ToolBarRenderer extends GenericRenderer {
 	 * @return <code>true</code> if the contribution was successfuly processed
 	 */
 	private boolean processAddition(final MToolBar toolbarModel,
-			final CssLayout manager, MToolBarContribution contribution) {
+			final AbstractLayout manager, MToolBarContribution contribution) {
 		final ToolBarContributionRecord record = new ToolBarContributionRecord(
 				toolbarModel, contribution, this);
 		if (!record.mergeIntoModel()) {
@@ -197,20 +201,20 @@ public class ToolBarRenderer extends GenericRenderer {
 		return true;
 	}
 	
-	public CssLayout getManager(MToolBar model) {
+	public AbstractLayout getManager(MToolBar model) {
 		return modelToManager.get(model);
 	}
 
-	public MToolBar getToolBarModel(CssLayout manager) {
+	public MToolBar getToolBarModel(AbstractLayout manager) {
 		return managerToModel.get(manager);
 	}
 
-	public void linkModelToManager(MToolBar model, CssLayout manager) {
+	public void linkModelToManager(MToolBar model, AbstractLayout manager) {
 		modelToManager.put(model, manager);
 		managerToModel.put(manager, model);
 	}
 
-	public void clearModelToManager(MToolBar model, CssLayout manager) {
+	public void clearModelToManager(MToolBar model, AbstractLayout manager) {
 		modelToManager.remove(model);
 		managerToModel.remove(manager);
 	}
@@ -258,7 +262,7 @@ public class ToolBarRenderer extends GenericRenderer {
 	@Override
 	public void processContents(final MElementContainer<MUIElement> container) {
 		MToolBar toolBar = (MToolBar)(MElementContainer<?>)container;
-		CssLayout toolBarWidget = (CssLayout) container.getWidget();
+		AbstractLayout toolBarWidget = (AbstractLayout) container.getWidget();
 		if (toolBarWidget != null)
 		{
 			for (MUIElement element : container.getChildren()) {
@@ -281,7 +285,7 @@ public class ToolBarRenderer extends GenericRenderer {
 		
 		MToolBar toolBar = (MToolBar)(MElementContainer<?>)element;
 		
-		CssLayout toolbarWidget = (CssLayout) element.getWidget();
+		AbstractOrderedLayout toolbarWidget = (AbstractOrderedLayout) element.getWidget();
 		Component childWidget = (Component) child.getWidget();
 		if (toolbarWidget == null || childWidget == null)
 			return;

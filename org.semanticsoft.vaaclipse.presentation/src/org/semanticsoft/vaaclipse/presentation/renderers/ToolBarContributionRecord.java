@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Rushan R. Gilmullin - adoption to vaadin
  ******************************************************************************/
 
 package org.semanticsoft.vaaclipse.presentation.renderers;

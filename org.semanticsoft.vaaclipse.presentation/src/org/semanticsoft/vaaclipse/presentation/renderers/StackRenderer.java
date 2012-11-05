@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
@@ -39,6 +40,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.dnd.VaadinDropHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.Utils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
@@ -52,12 +54,16 @@ import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.TabSheet.Tab;
 
+import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
+
 
 @SuppressWarnings("restriction")
 public class StackRenderer extends GenericRenderer {
 	
 	@Inject
 	private EventBroker eventBroker;
+	@Inject
+	private EModelService modelService;
 	private Map<Component, MStackElement> vaatab2Element = new HashMap<Component, MStackElement>();
 	private boolean ignoreTabSelChanges = false;
 	
@@ -241,9 +247,21 @@ public class StackRenderer extends GenericRenderer {
 	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
+		if (!(element instanceof MPartStack))
+			return;
+		
+		MPartStack stack = (MPartStack) element;
 		StackWidget stackWidget = new StackWidget();
+		stackWidget.setDragMode(LayoutDragMode.CLONE);
+		
 		stackWidget.setSizeFull();
 		element.setWidget(stackWidget);
+		
+		IEclipseContext context = modelService.getContainingContext(stack).createChild();
+		context.set(MPartStack.class, stack);
+		
+		VaadinDropHandler dropHandler = ContextInjectionFactory.make(VaadinDropHandler.class, context);
+		stackWidget.setDropHandler(dropHandler);
 	}
 
 	@Override

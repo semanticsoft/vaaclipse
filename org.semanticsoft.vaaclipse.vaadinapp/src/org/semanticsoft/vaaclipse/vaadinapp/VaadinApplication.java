@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipse.vaadinapp;
 
-import java.io.IOException;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -45,6 +44,7 @@ import org.eclipse.osgi.service.datalocation.Location;
 import org.semanticsoft.vaaclipse.app.VaadinE4Application;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.gwt.server.WebApplicationContext;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
@@ -77,9 +77,22 @@ public class VaadinApplication extends Application
 		
 		context = VaadinE4Application.getInstance().getAppContext();
 		logger = VaadinE4Application.getInstance().getLogger();
-		Window mainWindow = new Window("Vaadin_development2 Application");
-		mainWindow.addComponent(new Label("test"));
+		Window mainWindow = new Window("Vaaclipse");
 		setMainWindow(mainWindow);
+		
+		//--user agent detection
+		if (this.getContext() instanceof WebApplicationContext) {
+		   String userAgent = ((WebApplicationContext)this.getContext()).getBrowser().getBrowserApplication();
+		   if (userAgent.contains("MSIE"))
+		   {
+			   String str = "<html><br/>Vaaclipse currently does not support Internet Explorer.<br/><br/>" +
+			   		"Please use one of the browser from list:<br/><ul><li>Mozilla Firefox (recomended)</li> <li>Google Chrome or Chromium</li> <li>Opera</li> <li>Safari</li> <li>Rekonq</li> <li>Any other not listed browser based on Webkit</li></ul></html>";
+			   Label errorLabel = new Label(str, Label.CONTENT_XHTML);
+			   mainWindow.getContent().addComponent(errorLabel);
+			   return;
+		   }
+		}
+		//--
 		
 		//-------------------------------------
 		e4Workbench = createE4Workbench(context);

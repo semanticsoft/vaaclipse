@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Commons
 Bundle-SymbolicName: org.semanticsoft.commons
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.commons.geom

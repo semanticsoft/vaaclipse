@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: E4extension
 Bundle-SymbolicName: org.semanticsoft.e4extension; singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.M1
 Bundle-Activator: org.semanticsoft.e4extension.Activator
 Bundle-Vendor: Rushan R. Gilmullin
 Require-Bundle: org.eclipse.ui,

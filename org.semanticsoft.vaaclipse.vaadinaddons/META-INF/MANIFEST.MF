@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Vaadinaddons
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadinaddons
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan R. Gilmullin
 Export-Package: com.vaadin.incubator.dashlayout.client.ui,
  com.vaadin.incubator.dashlayout.client.util.css,

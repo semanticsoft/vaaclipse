@@ -369,8 +369,6 @@ public class MinMaxAddon {
 		if (currentParent != realParent) //if the current parent is not equal (or null) the real parent,
 		{//then reattach the widget to real parent
 			((GenericRenderer)element.getParent().getRenderer()).processContents(element.getParent());
-			//and then set the visible of elelment's widget to false
-			((GenericRenderer)element.getRenderer()).setVisible(element, false);
 		}
 		
 		element.getTags().remove(MINIMIZED_BY_ZOOM);

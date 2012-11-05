@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Resources
 Bundle-SymbolicName: org.semanticsoft.vaaclipsedemo.cassandra.resources
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan Gilmullin
 Fragment-Host: com.vaadin;bundle-version="6.8.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
