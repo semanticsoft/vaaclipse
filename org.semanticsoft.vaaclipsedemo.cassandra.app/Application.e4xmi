@@ -111,6 +111,9 @@
     <children xsi:type="menu:DirectToolItem" xmi:id="_YkAj4BfgEeKmpbrEZ1tscA" elementId="org.semanticsoft.e4test.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/collapse_all.png" tooltip="igogo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.CollapseAll"/>
   </toolBarContributions>
   
+  <trimContributions xmi:id="_SLFJFLZZJZJZJAKLJAW" elementId="org.semanticsoft.vaaclipsedemo.trimcontribution.statusbar" parentId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar">
+  	<children xsi:type="menu:ToolControl" xmi:id="_AFLSJLKJFLAJLAJLAA" elementId="org.semanticsoft.vaaclipsedemo.toolitem.statusbar" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems.StatusBar"/>
+  </trimContributions>
   <trimContributions xmi:id="_OTArABgpEeKmpbrEZ1tscB" elementId="org.semanticsoft.vaaclipsedemo.trimcontribution.0" parentId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar">
   	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="_LSFJLKDSJFLSDFJLSFJKDF" coreExpressionId="org.semanticsoft.vaaclipsedemo.cassandra.expression.texteditor"/>
   	<children xsi:type="menu:ToolControl" xmi:id="_DFDFDFDFDFDFDFDFDDF" elementId="org.semanticsoft.vaaclipsedemo.toolitem.codeline" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.toolitems.CodeLineToolItem"/>
