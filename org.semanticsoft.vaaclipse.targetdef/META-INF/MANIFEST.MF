@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Targetdef
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.targetdef
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Rushan R. Gilmullin
