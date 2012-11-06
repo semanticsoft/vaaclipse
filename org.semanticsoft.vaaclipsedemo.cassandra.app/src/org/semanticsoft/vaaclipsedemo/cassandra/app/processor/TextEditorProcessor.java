@@ -11,6 +11,12 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.processor;
 
+import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
+
+import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
+
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -34,8 +40,17 @@ public class TextEditorProcessor
 
 		public void handleEvent(Event event)
 		{
-			System.out.println("test");
-			context.set("editortype", "texteditor");
+			System.out.println("afdasdfs");
+			MPart part = (MPart) event.getProperty(UIEvents.EventTags.ELEMENT);
+			if (part instanceof MInputPart)
+			{
+				if (part.getObject() instanceof TextEditor)
+					context.set("editortype", "texteditor");
+				else
+					context.set("editortype", "editor");
+			}
+			else
+				context.set("editortype", "");
 		}
 	};
 	
