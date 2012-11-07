@@ -113,6 +113,10 @@ public class VaadinDropHandler implements DropHandler
 					int modelOldPos = sourceFolder.getChildren().indexOf(draggingElement);
 					
 					Tab tabInNewPos = targetTabSheet.getTab(idx);
+					
+					if (tabInNewPos == null)
+						return;
+					
 					MUIElement elementInInsertPos = (MUIElement) ((AbstractComponent)tabInNewPos.getComponent()).getData();
 					int modelNewPos = targetPartStack.getChildren().indexOf(elementInInsertPos);
 					
