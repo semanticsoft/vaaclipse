@@ -71,11 +71,17 @@ public class VaadinApplication extends Application
 
 	@Override
 	public void init()
-	{
-		//setTheme("vaadock_eclipse_demo");
-		setTheme("cassandra");
-		
+	{	
 		context = VaadinE4Application.getInstance().getAppContext();
+		
+		String themeName = context.getBrandingProperty("contextPath");
+		if (themeName != null)
+		{
+			themeName = themeName.trim();
+			if (!themeName.isEmpty())
+				setTheme(themeName);
+		}
+		
 		logger = VaadinE4Application.getInstance().getLogger();
 		Window mainWindow = new Window("Vaaclipse");
 		setMainWindow(mainWindow);
