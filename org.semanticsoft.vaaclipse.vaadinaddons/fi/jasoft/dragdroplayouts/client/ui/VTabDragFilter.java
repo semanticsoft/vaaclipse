@@ -63,6 +63,20 @@ public class VTabDragFilter extends VDragFilter {
     			dragmap.put(Integer.valueOf(index), draggable);
     		}
     	}
+    	
+    	//hack - now we initialize all visible tabs with draggable=true, because there are strange bug - dragmap is empty
+    	if (tabsheet instanceof VDDTabSheet)
+    	{
+    		VDDTabSheet ts = (VDDTabSheet) tabsheet;
+    		for (int i = 0; i < ts.getWidgetCount(); i++)
+    		{
+    			Widget w = ts.getWidget(i);
+    			if (w.isVisible())
+    			{
+    				dragmap.put(Integer.valueOf(i), true);
+    			}
+    		}
+    	}
 	}
 	
 	/*
