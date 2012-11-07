@@ -115,7 +115,6 @@ public class PackageExplorer
 	{
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.setScrollable(true);
 		parent.addComponent(panel);
 		
 		File demoRoot = BundleActivatorImpl.getInstance().getHomeDirectory();
