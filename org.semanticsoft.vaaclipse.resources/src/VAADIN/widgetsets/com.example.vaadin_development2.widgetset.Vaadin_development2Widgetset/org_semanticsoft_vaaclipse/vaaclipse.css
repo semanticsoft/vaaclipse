@@ -1,0 +1,71 @@
+.v-etot-sukin-syn{
+	position: absolute; top: 10px; left: 3px; width: 240px; height: 150px; background-color: pink;
+}
+
+.vaadock-tabsheet-button-panel {
+	background: url(img/button_panel_bgcolor.png) repeat-x scroll left -1px transparent;
+    float: right;
+    height: 31px;
+    margin-top: -31px;
+    padding: 0 3px 0 4px;
+    position: relative;
+    border-left: 1px solid #CFCFCF;
+    width: 44px;
+}
+
+.v-vaadock-tabsheet-maximize-button {
+	width: 18px;
+    height: 18px;
+	position: relative;
+	float: right;
+	margin-top: 5px;
+    border : none;
+    background: url(img/vaadock_sprites.png) no-repeat 0 0;
+}
+
+.v-vaadock-tabsheet-maximize-button:hover { 
+	background-position: 0 -18px;
+}
+
+.v-vaadock-tabsheet-maximize-button:active { 
+	background-position: 0 -36px;
+}
+
+.v-vaadock-tabsheet-minimize-button {
+	width: 18px;
+    height: 18px;
+	position: relative;
+	float: right;
+	margin-right: 20px;
+	margin-top: -18px;
+    border : none;
+    background: url(img/vaadock_sprites.png) no-repeat 0 0;
+    background-position: 0 -54px;
+}
+
+.v-vaadock-tabsheet-minimize-button:hover { 
+	background-position: 0 -72px;
+}
+
+.v-vaadock-tabsheet-minimize-button:active { 
+	background-position: 0 -90px;
+}
+
+.v-vaadock-tabsheet-restore-button {
+	width: 18px;
+    height: 18px;
+	position: relative;
+	float: right;
+	margin-top: 5px;
+    border : none;
+    background: url(img/vaadock_sprites.png) no-repeat 0 0;
+    background-position: 0 -108px;
+}
+
+.v-vaadock-tabsheet-restore-button:hover { 
+	background-position: 0 -126px;
+}
+
+.v-vaadock-tabsheet-restore-button:active { 
+	background-position: 0 -144px;
+}
