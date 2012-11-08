@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<component name='org.vaadin.osgi.staticres.StaticResources' xmlns='http://www.osgi.org/xmlns/scr/v1.1.0' activate='start' deactivate='stop'>
+  <implementation class='org.vaadin.osgi.staticres.StaticResources'/>
+  <property name='http.alias' value='/VAADIN'/>
+  <reference name='bind' interface='org.osgi.service.http.HttpService' bind='bind'/>
+</component>
