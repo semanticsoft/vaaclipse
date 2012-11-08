@@ -17,6 +17,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 
 /**
@@ -29,7 +30,7 @@ public class GuiUtils
 	{
 		if ((MElementContainer<?>)trimElement.getParent() instanceof MTrimBar)
 		{
-			Panel separator = new Panel();
+			Label separator = new Label();
 			separator.setSizeUndefined();
 			
 			MTrimBar parentTrimBar = (MTrimBar)(MElementContainer<?>)trimElement.getParent();
@@ -38,10 +39,12 @@ public class GuiUtils
 			if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
 			{
 				separator.addStyleName("horizontalseparator");
+				separator.setHeight("100%");
 			}
 			else
 			{
 				separator.addStyleName("verticalseparator");
+				separator.setWidth("100%");
 			}
 			return separator;
 		}
