@@ -35,6 +35,8 @@ import org.w3c.dom.events.UIEvent;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Window;
 
@@ -180,8 +182,8 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 				if (e.getWidget() != null) {
 					if (e instanceof MPerspectiveStack)
 					{
-						vWindow.setPerspectiveStackPanel(
-							((PerspectiveStackRenderer)e.getRenderer()).getPerspectivestack2PerspectiveswitcherMapping().get(e));
+						final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer)e.getRenderer()).getPerspectivestack2PerspectiveswitcherMapping().get(e);
+						vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
 					}
 					
 					vWindow.getClientArea().addComponent((com.vaadin.ui.Component) e.getWidget());

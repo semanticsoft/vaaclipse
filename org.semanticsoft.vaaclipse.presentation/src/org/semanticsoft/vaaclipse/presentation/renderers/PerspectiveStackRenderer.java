@@ -42,7 +42,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
-import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -51,7 +51,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class PerspectiveStackRenderer extends GenericRenderer
 {
-	private Map<MUIElement, CssLayout> perspectivestack_perspectiveswitcher = new HashMap<>();
+	private Map<MUIElement, HorizontalLayout> perspectivestack_perspectiveswitcher = new HashMap<>();
 	private Map<MUIElement, TwoStateToolbarButton> perspective_button = new HashMap<>();
 	
 	public Map<MUIElement, TwoStateToolbarButton> getPerspective2ButtonMapping()
@@ -59,7 +59,7 @@ public class PerspectiveStackRenderer extends GenericRenderer
 		return perspective_button;
 	}
 	
-	public Map<MUIElement, CssLayout> getPerspectivestack2PerspectiveswitcherMapping()
+	public Map<MUIElement, HorizontalLayout> getPerspectivestack2PerspectiveswitcherMapping()
 	{
 		return perspectivestack_perspectiveswitcher;
 	}
@@ -152,8 +152,8 @@ public class PerspectiveStackRenderer extends GenericRenderer
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)
 	{
-		CssLayout perspectiveSwitcher = new CssLayout();
-		perspectiveSwitcher.setStyleName("perspective-panel");
+		HorizontalLayout perspectiveSwitcher = new HorizontalLayout();
+		perspectiveSwitcher.setStyleName("perspectivepanel");
 		perspectiveSwitcher.setSizeUndefined();
 		
 		perspectivestack_perspectiveswitcher.put(element, perspectiveSwitcher);
@@ -198,7 +198,7 @@ public class PerspectiveStackRenderer extends GenericRenderer
 				}
 			});
 			
-			CssLayout perspectiveStackPanel = perspectivestack_perspectiveswitcher.get(perspectiveStack);
+			HorizontalLayout perspectiveStackPanel = perspectivestack_perspectiveswitcher.get(perspectiveStack);
 			perspectiveStackPanel.addComponent(perspectiveButton);
 			
 			perspective_button.put(perspective, perspectiveButton);
