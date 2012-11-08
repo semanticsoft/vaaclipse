@@ -4,9 +4,29 @@
 	background-color: white;
 }
 
+/*
+ * Perspective panel
+ */
+.perspectivepanel {
+	position: relative;
+	float: right;
+	padding-left:    10px;
+	padding-top:    6px;
+ 	padding-bottom: 6px;
+	border: none;
+	background-color: transparent;
+}
+
+.toptrimbar {
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 4px;
+	background-color: #d9e4e5;
+	border: solid 1px;
+}
+
 .horizontaltrimbar {
 	padding-left:   5px;
-	padding-right:  5px;
 	padding-top:    6px;
  	padding-bottom: 6px;
 }
@@ -15,7 +35,6 @@
 	padding-left:   4px;
 	padding-right:  4px;
 	padding-top:    5px;
- 	padding-bottom: 5px;
 }
 
 .verticaltrimelement {
@@ -46,8 +65,9 @@
 	margin-left: 4px;
 	margin-right: 4px;
 	width: 2px;
-	height: 18px;
 	background-image: url('img/separator.png');
+	background-position: 0px 0px;
+	background-repeat: repeat;
 }
 
 .verticalseparator {
@@ -57,18 +77,8 @@
 	margin-bottom: 4px;
 	margin-left: 0px;
 	margin-right: 0px;
-	width: 18px;
 	height: 2px;
 	background-image: url('img/separator_v.png');
-}
-
-.perspective-panel {
-	position: relative;
-	float: left;
-	margin-left: 5px;
-	margin-top: 4px;
-	border: none;
-	background-color: transparent;
 }
 
 /*
