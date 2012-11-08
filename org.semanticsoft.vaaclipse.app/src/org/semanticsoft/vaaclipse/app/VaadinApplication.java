@@ -93,17 +93,17 @@ public class VaadinApplication extends Application
 		setMainWindow(mainWindow);
 		
 		//--user agent detection
-		if (this.getContext() instanceof WebApplicationContext) {
-		   String userAgent = ((WebApplicationContext)this.getContext()).getBrowser().getBrowserApplication();
-		   if (userAgent.contains("MSIE"))
-		   {
-			   String str = "<html><br/>Vaaclipse currently does not support Internet Explorer.<br/><br/>" +
-			   		"Please use one of the browser from list:<br/><ul><li>Mozilla Firefox (recomended)</li> <li>Google Chrome or Chromium</li> <li>Opera</li> <li>Safari</li> <li>Rekonq</li> <li>Any other not listed browser based on Webkit</li></ul></html>";
-			   Label errorLabel = new Label(str, Label.CONTENT_XHTML);
-			   mainWindow.getContent().addComponent(errorLabel);
-			   return;
-		   }
-		}
+//		if (this.getContext() instanceof WebApplicationContext) {
+//		   String userAgent = ((WebApplicationContext)this.getContext()).getBrowser().getBrowserApplication();
+//		   if (userAgent.contains("MSIE"))
+//		   {
+//			   String str = "<html><br/>Vaaclipse currently does not support Internet Explorer.<br/><br/>" +
+//			   		"Please use one of the browser from list:<br/><ul><li>Mozilla Firefox (recomended)</li> <li>Google Chrome or Chromium</li> <li>Opera</li> <li>Safari</li> <li>Rekonq</li> <li>Any other not listed browser based on Webkit</li></ul></html>";
+//			   Label errorLabel = new Label(str, Label.CONTENT_XHTML);
+//			   mainWindow.getContent().addComponent(errorLabel);
+//			   return;
+//		   }
+//		}
 		//--
 		
 		//-------------------------------------

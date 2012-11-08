@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -39,6 +40,8 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
@@ -80,7 +83,7 @@ public class VaadinE4Application implements IApplication {
 		return logger;
 	}
 	
-	String getProp(IApplicationContext context, String propName, boolean exitOnNull)
+	String getProp(IApplicationContext context, String propName, boolean showMsg)
 	{
 		String result = null;
 		String val = context.getBrandingProperty(propName);
@@ -91,10 +94,9 @@ public class VaadinE4Application implements IApplication {
 				result = val;
 		}
 		
-		if (exitOnNull && result == null)
+		if (showMsg && result == null)
 		{
 			JOptionPane.showMessageDialog(null, "Application start failed. Property " + propName + " is not specified.");
-			shutdown(false);
 		}
 		
 		return val;
@@ -110,7 +112,9 @@ public class VaadinE4Application implements IApplication {
 		
 		queue = new ArrayBlockingQueue<>(10);
 		
-		startHttpService();
+		if (!startHttpService())
+			return EXIT_OK;
+		
 		showFrame();
 		
 		String msg;
@@ -125,7 +129,7 @@ public class VaadinE4Application implements IApplication {
 		return EXIT_OK;
 	}
 
-	private void startHttpService()
+	private boolean startHttpService()
 	{
 		contextPath = getProp(appContext, "contextPath", true);
 		widgetset = getProp(appContext, "vaadinWidgetset", true);
@@ -133,17 +137,38 @@ public class VaadinE4Application implements IApplication {
 		productionMode = getProp(appContext, "vaadinProductionMode", false);
 		
 		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
-		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference("org.osgi.service.http.HttpService");
+		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference(HttpService.class.getName());
 		if (httpServiceRef == null)
 		{
 			JOptionPane.showMessageDialog(null, "HttpService is not accessible");
-			shutdown(false);
+			return false;
 		}
 		
 		HttpService httpService = (HttpService) bundleContext.getService(httpServiceRef);
 		
-		Dictionary<String, String> initParams;
-		initParams = new Hashtable<String, String>();
+//		ServiceReference<?> configAdminRef = bundleContext.getServiceReference(ConfigurationAdmin.class.getName());
+//		if (configAdminRef == null)
+//		{
+//			JOptionPane.showMessageDialog(null, "ConfigurationAdmin is not accessible");
+//			return false;
+//		}
+//		
+//		ConfigurationAdmin configAdmin = (ConfigurationAdmin) bundleContext.getService(configAdminRef);
+//		try
+//		{
+//			Configuration config = configAdmin.getConfiguration("org.eclipse.equinox.http.jetty.config");
+//			Dictionary<String, Object> prop = config.getProperties();
+//			prop.put("org.osgi.service.http.port", "8888");
+//			config.update(prop);
+//		}
+//		catch (IOException e1)
+//		{
+//			e1.printStackTrace();
+//			return false;
+//		}
+		
+		
+		Dictionary<String, String> initParams = new Hashtable<String, String>();
 		initParams.put("widgetset", widgetset);
 		if (productionMode != null)
 			initParams.put("productionMode", productionMode);
@@ -159,7 +184,10 @@ public class VaadinE4Application implements IApplication {
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			return false;
 		}
+		
+		return true;
 	}
 
 	private void showFrame()
@@ -204,6 +232,7 @@ public class VaadinE4Application implements IApplication {
 			public void actionPerformed(ActionEvent arg0)
 			{
 				shutdown(true);
+				return;
 			}
 		});
 		contentPane.add(exitButton);
@@ -215,6 +244,7 @@ public class VaadinE4Application implements IApplication {
 				super.windowClosing(e);
 				
 				shutdown(true);
+				return;
 			}
 		});
 		
@@ -229,7 +259,7 @@ public class VaadinE4Application implements IApplication {
 		frame.setVisible(true);
 	}
 	
-	private void shutdown(boolean confirm)
+	private boolean shutdown(boolean confirm)
 	{
 		boolean exit = true;
 		if (confirm)
@@ -249,6 +279,7 @@ public class VaadinE4Application implements IApplication {
 				e.printStackTrace();
 			}
 		}
+		return exit;
 	}
 
 	@Override
