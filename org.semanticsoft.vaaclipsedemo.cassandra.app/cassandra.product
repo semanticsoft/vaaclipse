@@ -113,7 +113,7 @@
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.app"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons"/>
-      <plugin id="org.vaadin.osgi.staticres"/>
+      <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
@@ -130,7 +130,7 @@
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
       <plugin id="org.semanticsoft.vaaclipse.behaviour" autoStart="true" startLevel="0" />
       <plugin id="org.semanticsoft.vaaclipse.presentation" autoStart="true" startLevel="0" />
-      <plugin id="org.vaadin.osgi.staticres" autoStart="true" startLevel="0" />
+      <plugin id="org.semanticsoft.vaadin.osgi.staticres" autoStart="true" startLevel="0" />
    </configurations>
 
 </product>
