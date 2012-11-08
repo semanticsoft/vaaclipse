@@ -37,7 +37,7 @@
          </property>
          <property
                name="contextPath"
-               value="vaadinapp">
+               value="cassandra">
          </property>
          <property
                name="vaadinWidgetset"
