@@ -9,7 +9,7 @@
  *     Rushan R. Gilmullin - initial API and implementation
  *******************************************************************************/
 
-package org.semanticsoft.vaaclipse.vaadinapp;
+package org.semanticsoft.vaaclipse.app;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -41,7 +41,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
-import org.semanticsoft.vaaclipse.app.VaadinE4Application;
+import org.osgi.framework.Bundle;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
@@ -67,22 +67,26 @@ public class VaadinApplication extends Application
 	private Location instanceLocation;
 
 	private IApplicationContext context;
-	
 
+	private VaadinOSGiServlet servlet;
+	
+	public VaadinApplication(VaadinOSGiServlet servlet)
+	{
+		this.servlet = servlet;
+	}
+	
 	@Override
 	public void init()
 	{
-		setTheme("cassandra");
-		
 		context = VaadinE4Application.getInstance().getAppContext();
 		
-//		String themeName = context.getBrandingProperty("contextPath");
-//		if (themeName != null)
-//		{
-//			themeName = themeName.trim();
-//			if (!themeName.isEmpty())
-//				setTheme(themeName);
-//		}
+		String themeName = context.getBrandingProperty("vaadinTheme");
+		if (themeName != null)
+		{
+			themeName = themeName.trim();
+			if (!themeName.isEmpty())
+				setTheme(themeName);
+		}
 		
 		logger = VaadinE4Application.getInstance().getLogger();
 		Window mainWindow = new Window("Vaaclipse");
@@ -132,6 +136,7 @@ public class VaadinApplication extends Application
 		appContext.set("e4ApplicationInstanceId", UUID.randomUUID().toString());
 		appContext.set("vaadinapp", this);
 		appContext.set(Application.class, this);
+		appContext.set(VaadinOSGiCommunicationManager.class, servlet.getCommunicationManager());
 
 		// Create the app model and its context
 		MApplication appModel = loadApplicationModel(applicationContext, appContext);

@@ -31,6 +31,18 @@
                name="startupProgressRect"
                value="5,275,445,15">
          </property>
+         <property
+               name="vaadinTheme"
+               value="cassandra">
+         </property>
+         <property
+               name="contextPath"
+               value="vaadinapp">
+         </property>
+         <property
+               name="vaadinWidgetset"
+               value="vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset">
+         </property>
       </product>
    </extension>
    

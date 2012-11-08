@@ -11,8 +11,6 @@
 
 package org.semanticsoft.vaaclipse.behaviour.cleanup;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -25,9 +23,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
-import org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
@@ -36,15 +32,11 @@ import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.ecore.EObject;
-import org.osgi.service.application.ApplicationAdminPermission;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.vaadin.osgi.VaadinOSGiApplicationManager;
-import org.vaadin.osgi.VaadinOSGiCommunicationManager;
+import org.semanticsoft.vaaclipse.app.VaadinOSGiCommunicationManager;
 
 import com.vaadin.Application;
-import com.vaadin.service.ApplicationContext;
-import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
 public class CleanupAddon {
 	@Inject
@@ -58,6 +50,9 @@ public class CleanupAddon {
 	
 	@Inject
 	Application vaadinapp;
+	
+	@Inject
+	VaadinOSGiCommunicationManager communicationManager;
 
 	private EventHandler childrenHandler = new EventHandler() {
 		
@@ -88,7 +83,7 @@ public class CleanupAddon {
 
 				// Stall the removal to handle cases where the container is only transiently empty
 
-				getCommunicationManager().invokeLater(new Runnable() {
+				communicationManager.invokeLater(new Runnable() {
 					
 					@Override
 					public void run()
@@ -142,13 +137,9 @@ public class CleanupAddon {
 			}
 		}
 	};
-	
-	VaadinOSGiCommunicationManager getCommunicationManager()
-	{
-		return VaadinOSGiApplicationManager.getInstance().getComminucationManager();
-	}
 
 	private EventHandler renderingChangeHandler = new EventHandler() {
+		
 		public void handleEvent(Event event) {
 			MUIElement changedObj = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
 			MElementContainer<MUIElement> container = null;
@@ -190,7 +181,7 @@ public class CleanupAddon {
 				// model)
 				final MElementContainer<MUIElement> theContainer = container;
 				if (visCount == 0) {
-					getCommunicationManager().invokeLater(new Runnable() {
+					communicationManager.invokeLater(new Runnable() {
 						
 						@Override
 						public void run()

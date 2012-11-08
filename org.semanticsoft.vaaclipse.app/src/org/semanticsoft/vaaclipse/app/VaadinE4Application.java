@@ -17,12 +17,14 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,6 +37,10 @@ import org.eclipse.e4.ui.internal.workbench.WorkbenchLogger;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.http.HttpService;
+import org.osgi.service.http.NamespaceException;
 
 @SuppressWarnings("restriction")
 public class VaadinE4Application implements IApplication {
@@ -49,6 +55,10 @@ public class VaadinE4Application implements IApplication {
 	public static final String EXIT = "EXIT";
 	
 	JFrame frame;
+	private String contextPath;
+	private String themeName;
+	private String productionMode;
+	private String widgetset;
 	
 	public static VaadinE4Application getInstance()
 	{
@@ -70,7 +80,25 @@ public class VaadinE4Application implements IApplication {
 		return logger;
 	}
 	
-//	private Object monitor = new Object();
+	String getProp(IApplicationContext context, String propName, boolean exitOnNull)
+	{
+		String result = null;
+		String val = context.getBrandingProperty(propName);
+		if (val != null)
+		{
+			val = val.trim();
+			if (!val.isEmpty())
+				result = val;
+		}
+		
+		if (exitOnNull && result == null)
+		{
+			JOptionPane.showMessageDialog(null, "Application start failed. Property " + propName + " is not specified.");
+			shutdown(false);
+		}
+		
+		return val;
+	}
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -82,6 +110,7 @@ public class VaadinE4Application implements IApplication {
 		
 		queue = new ArrayBlockingQueue<>(10);
 		
+		startHttpService();
 		showFrame();
 		
 		String msg;
@@ -96,15 +125,77 @@ public class VaadinE4Application implements IApplication {
 		return EXIT_OK;
 	}
 
+	private void startHttpService()
+	{
+		contextPath = getProp(appContext, "contextPath", true);
+		widgetset = getProp(appContext, "vaadinWidgetset", true);
+		themeName = getProp(appContext, "vaadinTheme", true);
+		productionMode = getProp(appContext, "vaadinProductionMode", false);
+		
+		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
+		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference("org.osgi.service.http.HttpService");
+		if (httpServiceRef == null)
+		{
+			JOptionPane.showMessageDialog(null, "HttpService is not accessible");
+			shutdown(false);
+		}
+		
+		HttpService httpService = (HttpService) bundleContext.getService(httpServiceRef);
+		
+		Dictionary<String, String> initParams;
+		initParams = new Hashtable<String, String>();
+		initParams.put("widgetset", widgetset);
+		if (productionMode != null)
+			initParams.put("productionMode", productionMode);
+		
+		System.out.println("New Vaadin context : " + contextPath);
+		
+		final HttpServlet servlet = new VaadinOSGiServlet();
+
+		try
+		{
+			httpService.registerServlet("/" + contextPath, servlet, initParams, null);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	private void showFrame()
 	{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setSize(400, 80);
+		frame.setSize(500, 150);
 		frame.setResizable(false);
 		frame.setTitle("Vaaclipse server");
 		final Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		
+		final JLabel label = new JLabel("Vaaclipse server started at http://localhost:80/" + contextPath);
+		label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(label);
+		
+		contentPane.add(Box.createVerticalStrut(5));
+		
+		final JLabel themeLabel = new JLabel("Theme: " + themeName);
+		themeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(themeLabel);
+		
+		contentPane.add(Box.createVerticalStrut(5));
+		
+		final JLabel widgetsetLabel = new JLabel("Widgetset: " + widgetset);
+		widgetsetLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(widgetsetLabel);
+		
+		contentPane.add(Box.createVerticalStrut(5));
+		
+		final JLabel productionModeLabel = new JLabel("ProductionMode: " + productionMode != null ? productionMode : "false");
+		productionModeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(productionModeLabel);
+		
+		contentPane.add(Box.createVerticalStrut(20));
+		
 		JButton exitButton = new JButton("Shutdown");
 		exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		exitButton.addActionListener(new ActionListener() {
@@ -112,13 +203,9 @@ public class VaadinE4Application implements IApplication {
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				shutdown();
+				shutdown(true);
 			}
 		});
-		final JLabel label = new JLabel("Vaaclipse server started at http://localhost:80/vaadinapp");
-		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		contentPane.add(label);
-		contentPane.add(Box.createVerticalStrut(5));
 		contentPane.add(exitButton);
 		
 		frame.addWindowListener(new WindowAdapter() {
@@ -127,7 +214,7 @@ public class VaadinE4Application implements IApplication {
 			{
 				super.windowClosing(e);
 				
-				shutdown();
+				shutdown(true);
 			}
 		});
 		
@@ -142,10 +229,16 @@ public class VaadinE4Application implements IApplication {
 		frame.setVisible(true);
 	}
 	
-	private void shutdown()
+	private void shutdown(boolean confirm)
 	{
-		int choice = JOptionPane.showOptionDialog(frame, "Are you really want shutdown server?", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.CANCEL_OPTION);
-		if (choice == JOptionPane.OK_OPTION)
+		boolean exit = true;
+		if (confirm)
+		{
+			exit = JOptionPane.OK_OPTION == JOptionPane.showOptionDialog(frame, 
+						"Are you really want shutdown server?", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.CANCEL_OPTION);
+		}
+		
+		if (exit)
 		{
 			try
 			{
@@ -153,7 +246,6 @@ public class VaadinE4Application implements IApplication {
 			}
 			catch (InterruptedException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
