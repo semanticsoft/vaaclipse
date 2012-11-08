@@ -15,6 +15,7 @@ import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;
@@ -29,8 +30,7 @@ public class WorkbenchWindow extends Window
 	private VerticalLayout windowBody;
 	private BoundsinfoVerticalLayout windowCenterArea;
 	private HorizontalLayout helperLayout;
-	private SashWidgetHorizontal topSplitPanel;
-	private CssLayout  perspectiveStackPanelContainer;
+	private GridLayout topContainerPanel;
 	private VerticalLayout windowContent;
 	
 	private VerticalLayout leftBarContainer = new VerticalLayout(); 
@@ -78,17 +78,13 @@ public class WorkbenchWindow extends Window
 		helperLayout.setSizeFull();
 		
 		//Top panel - it contains the top trimbar and the perspective stack panel
-		topSplitPanel = new SashWidgetHorizontal();
-		topSplitPanel.setWidth("100%");
-		topSplitPanel.setHeight(-1);
-		topSplitPanel.setSplitPosition(85);
-		perspectiveStackPanelContainer  = new CssLayout();
-		perspectiveStackPanelContainer.setWidth("100px");
-		perspectiveStackPanelContainer.setSizeUndefined();
+		topContainerPanel = new GridLayout(2, 1);
+		topContainerPanel.setColumnExpandRatio(0, 100);
+		topContainerPanel.setColumnExpandRatio(1, 0);
+		topContainerPanel.setSizeUndefined();
+		topContainerPanel.setWidth("100%");
 		
-		topSplitPanel.setFirstComponent(null);
-		topSplitPanel.setSecondComponent(perspectiveStackPanelContainer);
-		windowBody.addComponent(topSplitPanel);
+		windowBody.addComponent(topContainerPanel);
 		//------------------------
 		helperLayout.addComponent(leftBarContainer);
 		helperLayout.addComponent(windowCenterArea);
@@ -120,19 +116,15 @@ public class WorkbenchWindow extends Window
 		windowContent.addComponent(menuBar, 0);
 	}
 	
-	public CssLayout getPerspectiveStackPanel()
+	public HorizontalLayout getPerspectiveStackPanel()
 	{
-		return (CssLayout) perspectiveStackPanelContainer.getComponentIterator().next();
+		return (HorizontalLayout) topContainerPanel.getComponent(0, 1);
 	}
 	
-	public void setPerspectiveStackPanel(Component perspectiveStackPanel)
+	public void setPerspectiveStackPanel(HorizontalLayout perspectiveStackPanel)
 	{
-		perspectiveStackPanelContainer.removeAllComponents();
-		if (perspectiveStackPanel != null)
-		{
-			perspectiveStackPanelContainer.addComponent(perspectiveStackPanel);
-			topSplitPanel.refreshState();
-		}
+		perspectiveStackPanel.setSizeUndefined();
+		this.topContainerPanel.addComponent(perspectiveStackPanel, 1, 0);		
 	}
 	
 	public void setLeftBar(Component bar)
@@ -182,15 +174,8 @@ public class WorkbenchWindow extends Window
 	
 	public void setTopBar(Component bar)
 	{
-		if (bar == null)
-		{
-			topSplitPanel.setFirstComponent(bar);
-			return;
-		}
-		
-		bar.setWidth("99%");
-		bar.setHeight(-1);
-		topSplitPanel.setFirstComponent(bar);
-		topSplitPanel.refreshState();
+		bar.setSizeUndefined();
+		bar.setWidth("100%");
+		this.topContainerPanel.addComponent(bar, 0, 0);
 	}
 }
