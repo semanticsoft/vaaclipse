@@ -174,11 +174,14 @@ public class PerspectiveStackRenderer extends GenericRenderer
 		{
 			final TwoStateToolbarButton perspectiveButton = new TwoStateToolbarButton();
 			
+			String uri;
 			if (perspective.getIconURI() != null)
-			{
-				Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(perspective.getIconURI()));
-				perspectiveButton.setIcon(icon);
-			}
+				uri = perspective.getIconURI();
+			else
+				uri = "platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/blank_perspective.png";
+			
+			Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(uri));
+			perspectiveButton.setIcon(icon);
 			
 			//TODO: uncoment
 //			if (perspective.getLabel() != null)
