@@ -178,7 +178,7 @@ public class PerspectiveStackRenderer extends GenericRenderer
 			if (perspective.getIconURI() != null)
 				uri = perspective.getIconURI();
 			else
-				uri = "platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/VAADIN/themes/cassandra/img/blank_perspective.png";
+				uri = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaadock_eclipse_demo/img/blank_perspective.png";
 			
 			Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(uri));
 			perspectiveButton.setIcon(icon);
