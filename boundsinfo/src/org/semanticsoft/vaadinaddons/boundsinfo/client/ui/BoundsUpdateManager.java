@@ -12,6 +12,7 @@ package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
+import com.vaadin.terminal.gwt.client.VConsole;
 
 /**
  * @author rushan
@@ -94,8 +95,14 @@ public class BoundsUpdateManager
 	
 	public void update()
 	{
+		if (!widget.isAttached() || widget.getParent() == null || !widget.isVisible())
+			return;
+		
 		Bounds bounds = new Bounds(widget.getAbsoluteLeft(), widget.getAbsoluteTop(),
 				widget.getOffsetWidth(), widget.getOffsetHeight());
+		
+		if (bounds.width == 0 && bounds.height == 0)
+			return;
 		
 		if (prevBounds == null)
 		{
@@ -122,7 +129,8 @@ public class BoundsUpdateManager
 	
 	private void doUpdate(Bounds bounds)
 	{
-		client.updateVariable(paintableId, "bounds", BoundsParser.toString(bounds.x, bounds.y, bounds.width, bounds.height), true);
+		final String boundsStr = BoundsParser.toString(bounds.x, bounds.y, bounds.width, bounds.height);
+		client.updateVariable(paintableId, "bounds", boundsStr, true);
 		
 		prevBounds = bounds;
 		prevTime = System.currentTimeMillis();
