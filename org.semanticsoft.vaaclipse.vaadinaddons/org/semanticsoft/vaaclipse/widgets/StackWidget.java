@@ -64,18 +64,19 @@ public class StackWidget extends DDTabSheet
 			fireStateChangedEvent(state, oldState);
         }
 		
-		System.out.println("update bounds of StackWidget");
-		String boundsStr = (String) variables.get("bounds");
-		if (boundsStr != null)
+		if (variables.containsKey("bounds"))
 		{
-			int[] bounds = BoundsParser.fromString(boundsStr);
-			absoluteLeft = bounds[0];
-			absoluteTop = bounds[1];
-			offsetWidth = bounds[2];
-			offsetHeight = bounds[3];
+			System.out.println("update bounds of StackWidget");
+			String boundsStr = (String) variables.get("bounds");
+			if (boundsStr != null)
+			{
+				int[] bounds = BoundsParser.fromString(boundsStr);
+				absoluteLeft = bounds[0];
+				absoluteTop = bounds[1];
+				offsetWidth = bounds[2];
+				offsetHeight = bounds[3];
+			}
 		}
-		else
-			System.err.println("Error update bounds of StackWidget");
 	}
 	
 	public void setState(int state)

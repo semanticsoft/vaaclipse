@@ -68,16 +68,12 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 		{
 			System.out.println("update bounds of BoundsInfoVerticalLayout");
 			String boundsStr = (String) variables.get("bounds");
-			if (boundsStr != null)
-			{
-				int[] bounds = BoundsParser.fromString(boundsStr);
-				absoluteLeft = bounds[0];
-				absoluteTop = bounds[1];
-				offsetWidth = bounds[2];
-				offsetHeight = bounds[3];
-			}
-			else
-				System.err.println("Error update bounds of BoundsInfoVerticalLayout");
+
+			int[] bounds = BoundsParser.fromString(boundsStr);
+			absoluteLeft = bounds[0];
+			absoluteTop = bounds[1];
+			offsetWidth = bounds[2];
+			offsetHeight = bounds[3];
 		}
 		
 		if (variables.containsKey("absolute_top"))

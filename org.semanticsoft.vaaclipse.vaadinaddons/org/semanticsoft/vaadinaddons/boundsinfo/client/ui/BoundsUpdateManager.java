@@ -1,6 +1,13 @@
-/**
+/*******************************************************************************
+ * Copyright (c) 2012 Rushan R. Gilmullin and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
- */
+ * Contributors:
+ *     Rushan R. Gilmullin - initial API and implementation
+ *******************************************************************************/
 package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -87,8 +94,14 @@ public class BoundsUpdateManager
 	
 	public void update()
 	{
+		if (!widget.isAttached() || widget.getParent() == null || !widget.isVisible())
+			return;
+		
 		Bounds bounds = new Bounds(widget.getAbsoluteLeft(), widget.getAbsoluteTop(),
 				widget.getOffsetWidth(), widget.getOffsetHeight());
+		
+		if (bounds.width == 0 && bounds.height == 0)
+			return;
 		
 		if (prevBounds == null)
 		{

@@ -135,6 +135,11 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
         DOM.appendChild(buttonPanel, minimizeButton);
 	}
 	
+	public int getState()
+	{
+		return state;
+	}
+	
 	public void setState(int state)
     {
     	if (state != MINIMIZED && state != NORMAL && state != MAXIMIZED)
@@ -674,7 +679,7 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 	@Override
 	public RenderSpace getAllocatedSpace(Widget child)
 	{
-		if (updateManager != null)
+		if (updateManager != null && this.getState() != MINIMIZED)
 			updateManager.update();
 		return super.getAllocatedSpace(child);
 	}
