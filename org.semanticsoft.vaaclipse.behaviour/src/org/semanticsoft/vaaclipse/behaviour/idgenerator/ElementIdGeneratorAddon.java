@@ -23,8 +23,6 @@ public class ElementIdGeneratorAddon {
 	
 	@Inject
 	MApplication app;
-	
-	private Map<String, MUIElement> id2element = new HashMap<String, MUIElement>(); 
 
 	private EventHandler childrenHandler = new EventHandler() {
 		
@@ -47,27 +45,6 @@ public class ElementIdGeneratorAddon {
 				{
 					element.setElementId(UUID.randomUUID().toString());
 				}
-				else
-				{
-					//check that there are not element in model with this id
-					//MUIElement someElement = modelService.find(element.getElementId(), app); //this search recursive - very long, so use map
-					MUIElement someElement = id2element.get(element.getElementId());
-					if (someElement != null && someElement != element)
-					{
-						element.setElementId(element.getElementId() + "_" + UUID.randomUUID().toString());
-					}
-				}
-				
-				id2element.put(element.getElementId(), element);
-			}
-			else if (UIEvents.EventTypes.ADD.equals(eventType)) {
-				Object oldValue = event.getProperty(UIEvents.EventTags.OLD_VALUE);
-				if (!(oldValue instanceof MUIElement))
-					return;
-				
-				MUIElement element = (MUIElement) oldValue;
-				
-				id2element.remove(element.getElementId());
 			}
 		}
 	};
