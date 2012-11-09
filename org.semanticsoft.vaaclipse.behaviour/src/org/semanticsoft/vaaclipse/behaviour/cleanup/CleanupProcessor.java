@@ -32,8 +32,7 @@ public class CleanupProcessor {
 		// Insert the addon into the system
 		MAddon cleanupAddon = ApplicationFactoryImpl.eINSTANCE.createAddon();
 		cleanupAddon.setElementId("CleanupAddon"); //$NON-NLS-1$
-		cleanupAddon
-				.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.cleanup.CleanupAddon"); //$NON-NLS-1$
+		cleanupAddon.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.cleanup.CleanupAddon"); //$NON-NLS-1$
 		app.getAddons().add(cleanupAddon);
 		
 		System.out.println("Cleanup processor is started");
