@@ -11,7 +11,9 @@
 
 package org.semanticsoft.vaaclipse.app;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.core.runtime.Assert;
@@ -33,6 +35,8 @@ import org.eclipse.e4.ui.internal.workbench.ResourceHandler;
 import org.eclipse.e4.ui.internal.workbench.WorkbenchLogger;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MContribution;
+import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.IExceptionHandler;
 import org.eclipse.e4.ui.workbench.IModelResourceHandler;
@@ -69,6 +73,8 @@ public class VaadinApplication extends Application
 	private IApplicationContext context;
 
 	private VaadinOSGiServlet servlet;
+	
+	private Map<String, MUIElement> id2element = new HashMap<String, MUIElement>();
 	
 	public VaadinApplication(VaadinOSGiServlet servlet)
 	{
@@ -140,6 +146,7 @@ public class VaadinApplication extends Application
 
 		// Create the app model and its context
 		MApplication appModel = loadApplicationModel(applicationContext, appContext);
+		fixNullElementIds(appModel);
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
 
@@ -154,6 +161,38 @@ public class VaadinApplication extends Application
 		return e4Workbench;
 	}
 	
+	private void fixNullElementIds(MUIElement element)
+	{
+		if (!(element instanceof MApplication))
+		{
+			if (element.getElementId() == null || element.getElementId().trim().isEmpty())
+			{
+				element.setElementId(UUID.randomUUID().toString());
+			}
+			else
+			{
+				//check that there are not element in model with this id
+				//MUIElement someElement = modelService.find(element.getElementId(), app); //this search recursive - very long, so use map
+				MUIElement someElement = id2element.get(element.getElementId());
+				if (someElement != null && someElement != element)
+				{
+					final String randomUUID = UUID.randomUUID().toString();
+					element.setElementId(element.getElementId() + "_" + randomUUID);
+				}
+			}
+			
+			id2element.put(element.getElementId(), element);
+		}
+		
+		if (element instanceof MElementContainer<?>)
+		{
+			for (MUIElement child : ((MElementContainer<?>) element).getChildren())
+			{
+				fixNullElementIds(child);
+			}
+		}
+	}
+
 	private MApplication loadApplicationModel(IApplicationContext appContext, IEclipseContext eclipseContext) {
 		logger.debug("VaadinE4Application.loadApplicationModel()");
 		MApplication theApp = null;
