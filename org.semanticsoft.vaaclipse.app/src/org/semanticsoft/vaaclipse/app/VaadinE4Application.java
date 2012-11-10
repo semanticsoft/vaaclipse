@@ -131,7 +131,15 @@ public class VaadinE4Application implements IApplication {
 	private boolean startHttpService()
 	{
 		contextPath = getProp(appContext, "contextPath", true);
+		
+		if (contextPath == null)
+			return false;
+		
 		themeName = getProp(appContext, "vaadinTheme", true);
+		
+		if (themeName == null)
+			return false;
+		
 		productionMode = getProp(appContext, "vaadinProductionMode", false);
 		
 		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
