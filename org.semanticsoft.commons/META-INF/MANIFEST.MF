@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.semanticsoft.commons
 Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.semanticsoft.commons.geom
+Export-Package: org.semanticsoft.commons.general,
+ org.semanticsoft.commons.geom
