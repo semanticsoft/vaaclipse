@@ -216,4 +216,10 @@ public class PerspectiveStackRenderer extends GenericRenderer
 			partService.switchPerspective(selectedPerspective);
 		}
 	}
+	
+	@Override
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		//Do nothing
+	}
 }
