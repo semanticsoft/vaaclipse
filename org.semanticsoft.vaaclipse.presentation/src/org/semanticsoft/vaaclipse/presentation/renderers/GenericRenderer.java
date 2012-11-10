@@ -20,6 +20,7 @@ import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.semanticsoft.commons.general.Condition;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
@@ -79,10 +80,16 @@ public class GenericRenderer {
 	
 	protected int indexOf(MUIElement element, MElementContainer<MUIElement> parent)
 	{
+		return indexOf(element, parent, null);
+	}
+	
+	protected int indexOf(MUIElement element, MElementContainer<MUIElement> parent, Condition<MUIElement> condition)
+	{
 		int i = 0;
 		for (MUIElement child : parent.getChildren())
 		{
-			if (child.isToBeRendered())
+			boolean additionalConditionRes = condition != null ? condition.check(child) : true;
+			if (child.isToBeRendered() && additionalConditionRes)
 			{
 				if (child.equals(element))
 					return i;
