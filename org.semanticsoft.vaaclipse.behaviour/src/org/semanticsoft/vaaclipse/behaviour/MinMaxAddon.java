@@ -551,7 +551,7 @@ public class MinMaxAddon {
 		toolBar.getChildren().clear();
 		
 		MDirectToolItem toolItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
-		toolItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaadock_eclipse_demo/img/restore1.png");
+		toolItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/restore1.png");
 		toolItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.RestoreHandler");
 		toolItem.setContainerData(element.getElementId());
 		toolBar.getChildren().add(toolItem);

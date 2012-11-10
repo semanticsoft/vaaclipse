@@ -10,6 +10,6 @@ Export-Package: VAADIN.themes.dragdrop,
  VAADIN.themes.dragdrop.vaadock.img,
  VAADIN.themes.vaadock,
  VAADIN.themes.vaadock.img,
- VAADIN.themes.vaadock_eclipse_demo,
- VAADIN.themes.vaadock_eclipse_demo.img,
+ VAADIN.themes.vaaclipse_default_theme,
+ VAADIN.themes.vaaclipse_default_theme.img,
  VAADIN.widgetsets
