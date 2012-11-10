@@ -197,7 +197,8 @@ public class PerspectiveStackRenderer extends GenericRenderer
 				public void buttonClick(ClickEvent event)
 				{
 					MPerspectiveStack perspectiveStack = (MPerspectiveStack)(MElementContainer<?>)perspective.getParent();
-					perspectiveStack.setSelectedElement(perspective);
+					//perspectiveStack.setSelectedElement(perspective);
+					partService.switchPerspective(perspective);
 				}
 			});
 			
