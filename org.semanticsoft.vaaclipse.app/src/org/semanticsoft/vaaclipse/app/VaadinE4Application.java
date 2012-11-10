@@ -192,7 +192,7 @@ public class VaadinE4Application implements IApplication {
 	{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setSize(500, 110);
+		frame.setSize(500, 120);
 		frame.setResizable(false);
 		frame.setTitle("Vaaclipse server");
 		final Container contentPane = frame.getContentPane();
