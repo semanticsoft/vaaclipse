@@ -20,6 +20,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
@@ -29,7 +30,9 @@ import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.commons.general.Condition;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 import org.w3c.dom.events.UIEvent;
 
@@ -256,4 +259,50 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 //		super.addChild(child, element);
 //		
 //	}
+	
+	@Override
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MWindowElement))
+			return;
+		
+		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+		
+		if (child instanceof MPerspectiveStack)
+		{
+			final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer)child.getRenderer()).getPerspectivestack2PerspectiveswitcherMapping().get(child);
+			vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
+		}
+		else
+		{
+			int index = indexOf(child, element, new Condition<MUIElement>() {
+				
+				@Override
+				public boolean check(MUIElement child)
+				{
+					return !(child instanceof MPerspectiveStack);
+				}
+			});
+			
+			vWindow.getClientArea().addComponent((com.vaadin.ui.Component) child.getWidget(), index);
+		}
+	}
+	
+	@Override
+	public void removeChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		if (!(child instanceof MWindowElement))
+			return;
+		
+		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+		
+		if (child instanceof MPerspectiveStack)
+		{
+			vWindow.setPerspectiveStackPanel(null);
+		}
+		else
+		{
+			vWindow.getClientArea().removeComponent((com.vaadin.ui.Component) child.getWidget());
+		}
+	}
 }
