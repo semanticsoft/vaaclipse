@@ -75,7 +75,6 @@ public class VaadinDropHandler implements DropHandler
 		
 		if (transferable.getSourceComponent() instanceof StackWidget)
 		{
-			// это компонент-контейнер, из которого перетаскивается компонент c
 			StackWidget sourceTabSheet = (StackWidget) transferable.getSourceComponent();
 			
 			MPartStack targetFolder = targetPartStack;
@@ -90,10 +89,6 @@ public class VaadinDropHandler implements DropHandler
 			if (!sourceFolder.getChildren().contains(draggingElement))
 				return;
 			
-			//Это таб компонента, который перетаскивается 
-			Tab tab = sourceTabSheet.getTab(draggingComponent);
-			
-			String targetWidgetClassName = (String) details.getData("targetWidgetClassName");
 			String dropType = (String) details.getData("dropType");
 			
 			if (dropType.equals("DropToTabsheetBar"))
@@ -138,7 +133,6 @@ public class VaadinDropHandler implements DropHandler
 				}
 				else
 				{// Adding new tab
-					//draggingElement.setToBeRendered(false);
 					sourceFolder.getChildren().remove(draggingElement);
 					
 					if (idx == -1)
@@ -156,7 +150,6 @@ public class VaadinDropHandler implements DropHandler
 							targetFolder.getChildren().add(modelNewPos + 1, draggingElement);
 						}	
 					}
-					//draggingElement.setToBeRendered(true);
 				}
 				targetFolder.setSelectedElement(draggingElement);
 				
@@ -164,8 +157,6 @@ public class VaadinDropHandler implements DropHandler
 			}
 			else if (dropType.equals("DropToTabsheetBody"))
 			{
-				//vaadinapp.getMainWindow().showNotification("targetWidetClassName: " + targetWidgetClassName);
-				
 				//target widget coordinates:
 				int x0 = (Integer) details.getData("targetWidgetAbsoluteLeft");
 				int y0 = (Integer) details.getData("targetWidgetAbsoluteTop");
@@ -193,36 +184,6 @@ public class VaadinDropHandler implements DropHandler
 					}
 					else
 					{//if drop to sides, we must different what kind is target widget - tabsheet or area
-						
-						
-//						PageElementContainer pageElementParent = pageElement.getParentElement();
-//						pageElementParent.removeChildElement(pageElement);
-//						
-//						SplitArea splitArea = workbench.getContext().getFactory().createSplitArea();
-//						if (side == GeomUtils.Side.LEFT || side == Side.RIGHT)
-//							splitArea.setOrientation(Orientation.HORIZONTAL);
-//						else
-//							splitArea.setOrientation(Orientation.VERTICAL);
-//		                
-//						//new MPartStack will be created in any case (regardless value of dragFromOuterDocAreaToInnerDocArea)
-//		                MPartStack newFolder = workbench.getContext().getFactory().createFolder();
-//		                newFolder.addPlaceholder(draggingPlaceholder);
-//						
-//						if (side == Side.LEFT || side == Side.TOP)
-//						{
-//							splitArea.setFirstLayout(newFolder);
-//							splitArea.setSecondLayout(pageElement);
-//							splitArea.setSplitPosition(docPrcnt);
-//						}
-//						else
-//						{
-//							splitArea.setFirstLayout(pageElement);
-//							splitArea.setSecondLayout(newFolder);
-//							splitArea.setSplitPosition(100 - docPrcnt);
-//						}
-//						
-//						pageElementParent.addChildElement(splitArea);
-						
 						boolean onEdge = false;
 						
 						// Find the root of the targetFolder's sash structure
@@ -266,8 +227,6 @@ public class VaadinDropHandler implements DropHandler
 						// Force the new sash to have the same weight as the original element
 						if (relTo.getParent() != relToParent && !onEdge)
 							relTo.getParent().setContainerData(containerDataBeforeModelOperations);
-						
-						System.out.println("bp");
 					}
 				}
 			}
