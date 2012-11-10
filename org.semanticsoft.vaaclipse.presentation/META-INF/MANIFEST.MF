@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Presentation
-Bundle-SymbolicName: org.semanticsoft.vaaclipse.presentation
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.presentation;singleton:=true
 Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipse.presentation.widgetinfo;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Execute;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.WidgetInfo;
 import org.semanticsoft.vaaclipse.presentation.renderers.StackRenderer;
@@ -26,8 +28,10 @@ import com.vaadin.ui.Window;
  */
 public class WidgetInfoImpl implements WidgetInfo
 {
-	public void activate()
+	@Execute
+	public void activate(IEclipseContext context)
 	{
+		context.set(WidgetInfo.class, this);
 		System.out.println("widgetinfo started");
 	}
 

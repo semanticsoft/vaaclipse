@@ -81,6 +81,9 @@ public class MinMaxAddon {
 
 	@Inject
 	private EHandlerService handlerService;
+	
+	@Inject
+	private WidgetInfo widgetInfo;
 
 	private final MApplication application;
 	
@@ -363,7 +366,6 @@ public class MinMaxAddon {
 		//if the element is minimized, then the widget of this element maybe (but not fact) detached from its real parent
 		//and attached to popup window and the widget's visible property is true. We must undo this changes
 		//before start the restore operation
-		WidgetInfo widgetInfo = BehaviourComponent.instance.widgetInfo;
 		Object currentParent = widgetInfo.getParent(element.getWidget());
 		Object realParent = element.getParent().getWidget();
 		if (currentParent != realParent) //if the current parent is not equal (or null) the real parent,
@@ -622,9 +624,9 @@ public class MinMaxAddon {
 		SideValue side = SideValue.LEFT;
 //		SideValue side = getCachedBar(element);
 //		if (side == null) {
-			Bounds winBounds = BehaviourComponent.instance.widgetInfo.getBounds(window.getWidget());
+			Bounds winBounds = widgetInfo.getBounds(window.getWidget());
 			int winCenterX = winBounds.w / 2;
-			Bounds stackBounds = BehaviourComponent.instance.widgetInfo.getBounds(element.getWidget());
+			Bounds stackBounds = widgetInfo.getBounds(element.getWidget());
 			int stackCenterX = stackBounds.x + (stackBounds.w / 2);
 			side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;
 //		}

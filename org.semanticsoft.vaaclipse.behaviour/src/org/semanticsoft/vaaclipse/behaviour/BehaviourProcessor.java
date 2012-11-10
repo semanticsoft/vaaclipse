@@ -11,27 +11,21 @@
 
 package org.semanticsoft.vaaclipse.behaviour;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.semanticsoft.vaaclipse.api.Behaviour;
-import org.semanticsoft.vaaclipse.api.WidgetInfo;
 
-/**
- * @author rushan
- *
- */
-public class BehaviourComponent implements Behaviour
-{
-	public static BehaviourComponent instance;
-	
-	public WidgetInfo widgetInfo;
-	
-	public void activate()
-	{
-		System.out.println("behaviour activated");
-		instance = this;
+public class BehaviourProcessor implements Behaviour {
+	@Execute
+	void execute(IEclipseContext context) {
+		
+		context.set(Behaviour.class, this);
+		
+		System.out.println("Behaviour processor is started");
 	}
 
 	@Override
@@ -50,10 +44,5 @@ public class BehaviourComponent implements Behaviour
 	public MUIElement getMinimizedParentForPart(MPart part)
 	{
 		throw new RuntimeException("Not implemented yet");
-	}
-	
-	public void bindWidgetInfo(WidgetInfo widgetInfo)
-	{
-		this.widgetInfo = widgetInfo;
 	}
 }
