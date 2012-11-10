@@ -61,7 +61,6 @@ public class VaadinE4Application implements IApplication {
 	private String contextPath;
 	private String themeName;
 	private String productionMode;
-	private String widgetset;
 	
 	public static VaadinE4Application getInstance()
 	{
@@ -132,7 +131,6 @@ public class VaadinE4Application implements IApplication {
 	private boolean startHttpService()
 	{
 		contextPath = getProp(appContext, "contextPath", true);
-		widgetset = getProp(appContext, "vaadinWidgetset", true);
 		themeName = getProp(appContext, "vaadinTheme", true);
 		productionMode = getProp(appContext, "vaadinProductionMode", false);
 		
@@ -169,7 +167,7 @@ public class VaadinE4Application implements IApplication {
 		
 		
 		Dictionary<String, String> initParams = new Hashtable<String, String>();
-		initParams.put("widgetset", widgetset);
+		initParams.put("widgetset", "vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset");
 		if (productionMode != null)
 			initParams.put("productionMode", productionMode);
 		
@@ -194,7 +192,7 @@ public class VaadinE4Application implements IApplication {
 	{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setSize(500, 150);
+		frame.setSize(500, 110);
 		frame.setResizable(false);
 		frame.setTitle("Vaaclipse server");
 		final Container contentPane = frame.getContentPane();
@@ -209,12 +207,6 @@ public class VaadinE4Application implements IApplication {
 		final JLabel themeLabel = new JLabel("Theme: " + themeName);
 		themeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(themeLabel);
-		
-		contentPane.add(Box.createVerticalStrut(5));
-		
-		final JLabel widgetsetLabel = new JLabel("Widgetset: " + widgetset);
-		widgetsetLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		contentPane.add(widgetsetLabel);
 		
 		contentPane.add(Box.createVerticalStrut(5));
 		

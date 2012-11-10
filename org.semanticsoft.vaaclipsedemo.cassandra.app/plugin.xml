@@ -39,10 +39,6 @@
                name="contextPath"
                value="cassandra">
          </property>
-         <property
-               name="vaadinWidgetset"
-               value="vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset">
-         </property>
       </product>
    </extension>
    
