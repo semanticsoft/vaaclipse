@@ -55,8 +55,6 @@ public class PerspectiveRenderer extends GenericRenderer
 		if (!(child instanceof MPartSashContainerElement))
 			return;
 		
-		super.addChildGui(child, element);
-		
 		VerticalLayout sw = (VerticalLayout) element.getWidget();
 		int index = indexOf(child, element);
 		sw.addComponent((Component)child.getWidget(), index);

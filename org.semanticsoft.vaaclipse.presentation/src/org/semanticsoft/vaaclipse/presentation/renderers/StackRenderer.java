@@ -465,8 +465,6 @@ public class StackRenderer extends GenericRenderer {
 		if (!(child instanceof MStackElement))
 			return;
 		
-		super.addChildGui(child, element);
-		
 		StackWidget sw = (StackWidget) element.getWidget();
 		int index = indexOf(child, element);
 		addTab(sw, (MStackElement) child, index);

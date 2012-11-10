@@ -281,8 +281,6 @@ public class ToolBarRenderer extends GenericRenderer {
 		if (!(child instanceof MToolBarElement && (MElementContainer<?>)element instanceof MToolBar))
 			return;
 		
-		super.addChildGui(child, element);
-		
 		MToolBar toolBar = (MToolBar)(MElementContainer<?>)element;
 		
 		AbstractOrderedLayout toolbarWidget = (AbstractOrderedLayout) element.getWidget();

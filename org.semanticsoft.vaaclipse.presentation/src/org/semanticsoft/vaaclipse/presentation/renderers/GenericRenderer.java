@@ -68,7 +68,7 @@ public class GenericRenderer {
 	
 	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
-		
+		throw new RuntimeException("addChildGui not implemented for renderer " + this);
 	}
 	
 	public void removeChildGui(MUIElement element, MElementContainer<MUIElement> parent) {

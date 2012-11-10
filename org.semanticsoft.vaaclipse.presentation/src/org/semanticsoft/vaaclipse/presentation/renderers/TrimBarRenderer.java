@@ -191,8 +191,6 @@ public class TrimBarRenderer extends GenericRenderer {
 		if (!(child instanceof MTrimElement && (MElementContainer<?>)element instanceof MTrimBar))
 			return;
 		
-		super.addChildGui(child, element);
-		
 		MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element;
 		
 		final Component childWidget = (Component) child.getWidget();

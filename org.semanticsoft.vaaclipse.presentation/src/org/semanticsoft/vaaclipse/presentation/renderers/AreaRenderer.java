@@ -80,8 +80,6 @@ public class AreaRenderer extends GenericRenderer
 		if (!(child instanceof MPartSashContainerElement))
 			return;
 		
-		super.addChildGui(child, element);
-		
 		AbstractOrderedLayout areaWidget = (AbstractOrderedLayout) element.getWidget();
 		int index = indexOf(child, element);
 		areaWidget.addComponent((Component) child.getWidget(), index);
