@@ -38,6 +38,8 @@ public class WorkbenchWindow extends Window
 	private VerticalLayout topBarContainer = new VerticalLayout(); 
 	private HorizontalLayout bottomBarContainer = new HorizontalLayout();
 	
+	private TopbarComponent topbar;
+	
 	public WorkbenchWindow()
 	{
 //		leftBarContainer.setVisible(false);
@@ -174,8 +176,18 @@ public class WorkbenchWindow extends Window
 	
 	public void setTopBar(Component bar)
 	{
-		bar.setSizeUndefined();
-		bar.setWidth("100%");
-		this.topContainerPanel.addComponent(bar, 0, 0);
+		if (bar == null)
+		{
+			this.topContainerPanel.removeComponent(topbar);
+			return;
+		}
+		
+		if (topbar == null)
+		{
+			topbar = new TopbarComponent();
+			this.topContainerPanel.addComponent(topbar, 0, 0);
+		}
+		
+		topbar.setContent(bar);
 	}
 }

@@ -38,6 +38,7 @@ import com.vaadin.terminal.gwt.client.ui.VPanel;
 import com.vaadin.terminal.gwt.client.ui.VTabsheet;
 import com.vaadin.terminal.gwt.client.ui.VTabsheetPanel;
 import com.vaadin.terminal.gwt.client.ui.VVerticalLayout;
+import com.vaadin.terminal.gwt.client.ui.VWindow;
 import com.vaadin.terminal.gwt.client.ui.dd.HorizontalDropLocation;
 import com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler;
 import com.vaadin.terminal.gwt.client.ui.dd.VAcceptCallback;
@@ -50,6 +51,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import fi.jasoft.dragdroplayouts.client.ui.Constants;
@@ -535,7 +537,12 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 					_w = dx - 2*d;
 					_h = dy - 2*d;
 				}
-				 
+				else
+					return;
+				
+				_x = x0 + _x;
+				_y = y0 + _y;
+				
 				if (dockZone1 == null)
 				{
 					dockZone1 = DOM.createDiv();
@@ -566,7 +573,8 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 					dockZone4.setAttribute("style", style4);
 					
 	    	        //setStyleName(dockZone, "v-etot-sukin-syn");
-	    	        dockZoneContainer = boundingWidget.getElement();
+	    	        //dockZoneContainer = boundingWidget.getElement();
+					dockZoneContainer = RootPanel.get().getElement();
 	    	        DOM.appendChild(dockZoneContainer, dockZone1);
 	    	        DOM.appendChild(dockZoneContainer, dockZone2);
 	    	        DOM.appendChild(dockZoneContainer, dockZone3);
@@ -617,7 +625,7 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
         event.getDropDetails().put(Constants.DROP_DETAIL_MOUSE_EVENT,
                 details.serialize());
     }
-	
+		
 	private VBoundsinfoVerticalLayout findOuterArea(Widget w)
     {
     	if (w instanceof VBoundsinfoVerticalLayout)
@@ -679,7 +687,7 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 	@Override
 	public RenderSpace getAllocatedSpace(Widget child)
 	{
-		if (updateManager != null && this.getState() != MINIMIZED)
+		if (updateManager != null && this.getState() != MINIMIZED && (this.getOffsetWidth() >0 || this.getOffsetHeight() > 0) )
 			updateManager.update();
 		return super.getAllocatedSpace(child);
 	}
