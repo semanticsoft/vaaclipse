@@ -76,12 +76,15 @@ public class TrimBarRenderer extends GenericRenderer {
 		
 		CssLayout trimBar = new CssLayout();
 		
-		if (orientation == SideValue.TOP_VALUE)
-			trimBar.addStyleName("toptrimbar");
-		
-		if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
+		if (orientation == SideValue.BOTTOM_VALUE)
+		{
 			trimBar.addStyleName("horizontaltrimbar");
-		else
+		}
+		else if (orientation == SideValue.TOP_VALUE)
+		{
+			trimBar.addStyleName("toptrimbar_11");
+		}
+		else if (orientation == SideValue.LEFT_VALUE || orientation == SideValue.RIGHT_VALUE)
 			trimBar.addStyleName("verticaltrimbar");
 		
 		trimBar.setSizeUndefined();

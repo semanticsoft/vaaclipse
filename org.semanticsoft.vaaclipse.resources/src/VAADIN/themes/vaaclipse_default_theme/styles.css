@@ -19,11 +19,68 @@
 
 .toptrimbar {
 	float: left;
-	margin-right: 15px;
-	margin-bottom: 4px;
-	background-color: #d9e4e5;
-	border: solid 1px;
 }
+
+/*
+ * toptrimbarborder border
+ */
+ 
+ .toptrimbar_11 {
+	background-color: #d2d2d2;
+}
+
+.toptrimbar_00 {
+	background-image: url('img/toptrimbar_00.png');
+	width: 8px;
+	height: 8px;
+}
+
+.toptrimbar_01 {
+	background-image: url('img/toptrimbar_01.png');
+	height: 8px;
+	background-repeat: repeat-x;
+}
+
+.toptrimbar_02 {
+	background-image: url('img/toptrimbar_02.png');
+	width: 6px;
+	height: 8px;
+}
+
+.toptrimbar_10 {
+	background-image: url('img/toptrimbar_10.png');
+	width: 8px;
+	min-width: 8px;
+	background-repeat: repeat-y;
+}
+
+.toptrimbar_12 {
+	background-image: url('img/toptrimbar_12.png');
+	width: 6px;
+	background-repeat: repeat-y;
+}
+
+.toptrimbar_20 {
+	background-image: url('img/toptrimbar_20.png');
+	width: 7px;
+	height: 6px;
+}
+
+.toptrimbar_21 {
+	background-image: url('img/toptrimbar_21.png');
+	height: 6px;
+	background-repeat: repeat-x;
+}
+
+.toptrimbar_22 {
+	background-image: url('img/toptrimbar_22.png');
+	width: 6px;
+	height: 6px;
+}
+ 
+/*
+ *end border 
+ */
 
 .horizontaltrimbar {
 	padding-left:   5px;
