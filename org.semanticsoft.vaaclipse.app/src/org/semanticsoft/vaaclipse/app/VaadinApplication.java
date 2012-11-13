@@ -86,7 +86,7 @@ public class VaadinApplication extends Application
 	{
 		context = VaadinE4Application.getInstance().getAppContext();
 		
-		String themeName = context.getBrandingProperty("vaadinTheme");
+		String themeName = context.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.theme");
 		if (themeName != null)
 		{
 			themeName = themeName.trim();

@@ -32,11 +32,7 @@
                value="5,275,445,15">
          </property>
          <property
-               name="vaadinTheme"
-               value="cassandra">
-         </property>
-         <property
-               name="contextPath"
+               name="org.semanticsoft.vaaclipse.app.vaadin.theme"
                value="cassandra">
          </property>
       </product>

@@ -20,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -59,6 +61,7 @@ public class VaadinE4Application implements IApplication {
 	
 	JFrame frame;
 	private String contextPath;
+	private String port;
 	private String themeName;
 	private String productionMode;
 	
@@ -81,25 +84,6 @@ public class VaadinE4Application implements IApplication {
 	{
 		return logger;
 	}
-	
-	String getProp(IApplicationContext context, String propName, boolean showMsg)
-	{
-		String result = null;
-		String val = context.getBrandingProperty(propName);
-		if (val != null)
-		{
-			val = val.trim();
-			if (!val.isEmpty())
-				result = val;
-		}
-		
-		if (showMsg && result == null)
-		{
-			JOptionPane.showMessageDialog(null, "Application start failed. Property " + propName + " is not specified.");
-		}
-		
-		return val;
-	}
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -111,9 +95,7 @@ public class VaadinE4Application implements IApplication {
 		
 		queue = new ArrayBlockingQueue<>(10);
 		
-		if (!startHttpService())
-			return EXIT_OK;
-		
+		startHttpService();
 		showFrame();
 		
 		String msg;
@@ -128,72 +110,42 @@ public class VaadinE4Application implements IApplication {
 		return EXIT_OK;
 	}
 
-	private boolean startHttpService()
+	private void startHttpService() throws Exception
 	{
-		contextPath = getProp(appContext, "contextPath", true);
+		port = System.getProperty("org.osgi.service.http.port");
+		
+		if (port == null)
+			port = "80";
+		
+		contextPath = System.getProperty("org.eclipse.equinox.http.jetty.context.path");
 		
 		if (contextPath == null)
-			return false;
+			contextPath = "/";
 		
-		themeName = getProp(appContext, "vaadinTheme", true);
+		themeName = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.theme");
 		
 		if (themeName == null)
-			return false;
+			themeName = "vaaclipse_default_theme";
 		
-		productionMode = getProp(appContext, "vaadinProductionMode", false);
+		productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
 		
 		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
 		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference(HttpService.class.getName());
 		if (httpServiceRef == null)
 		{
 			JOptionPane.showMessageDialog(null, "HttpService is not accessible");
-			return false;
+			throw new Exception();
 		}
 		
 		HttpService httpService = (HttpService) bundleContext.getService(httpServiceRef);
-		
-//		ServiceReference<?> configAdminRef = bundleContext.getServiceReference(ConfigurationAdmin.class.getName());
-//		if (configAdminRef == null)
-//		{
-//			JOptionPane.showMessageDialog(null, "ConfigurationAdmin is not accessible");
-//			return false;
-//		}
-//		
-//		ConfigurationAdmin configAdmin = (ConfigurationAdmin) bundleContext.getService(configAdminRef);
-//		try
-//		{
-//			Configuration config = configAdmin.getConfiguration("org.eclipse.equinox.http.jetty.config");
-//			Dictionary<String, Object> prop = config.getProperties();
-//			prop.put("org.osgi.service.http.port", "8888");
-//			config.update(prop);
-//		}
-//		catch (IOException e1)
-//		{
-//			e1.printStackTrace();
-//			return false;
-//		}
-		
-		
 		Dictionary<String, String> initParams = new Hashtable<String, String>();
 		initParams.put("widgetset", "vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset");
 		if (productionMode != null)
 			initParams.put("productionMode", productionMode);
 		
-		System.out.println("New Vaadin context : " + contextPath);
-		
 		final HttpServlet servlet = new VaadinOSGiServlet();
 
-		try
-		{
-			httpService.registerServlet("/" + contextPath, servlet, initParams, null);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			return false;
-		}
-		
-		return true;
+		httpService.registerServlet("/", servlet, initParams, null);
 	}
 
 	private void showFrame()
@@ -206,7 +158,18 @@ public class VaadinE4Application implements IApplication {
 		final Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-		final JLabel label = new JLabel("Vaaclipse server started at http://localhost:80/" + contextPath);
+		String host;
+		try
+		{
+			InetAddress thisIp = InetAddress.getLocalHost();
+			host = thisIp.getHostAddress().toString();
+		}
+		catch (UnknownHostException e1)
+		{
+			host = "localhost";
+		}
+	       
+		final JLabel label = new JLabel(String.format("Vaaclipse server started at http://%s:%s%s", host, port, contextPath));
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(label);
 		
