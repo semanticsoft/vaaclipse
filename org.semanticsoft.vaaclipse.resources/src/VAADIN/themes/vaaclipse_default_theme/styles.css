@@ -138,17 +138,25 @@
 	background-image: url('img/separator_v.png');
 }
 
+/**
+ * toolbar
+ */
+.toolbar {
+	background-color: transparent;
+}
+
 /*
 	vaadock-toolbar-button horizontal
 */
 .vaadock-toolbar-button {
-	background-color: inherit;
+	background-color: transparent;
 	border: none;
 	margin: 0px;
 	padding: 0;
 }
 
 .v-ie .vaadock-toolbar-button {
+	background-color: transparent;
 	width: 0;
 	overflow: visible;
 }
@@ -172,15 +180,13 @@
 }
 
 .vaadock-toolbar-button:hover {
-	background:
-		url('img/toolbar_button_background_hover_23x20.png')
-		no-repeat 0 0;
+	background-color: transparent;
+	background: url('img/toolbar_button_background_hover_23x20.png') no-repeat 0 0;
 }
 
 .vaadock-toolbar-button:active {
-	background:
-		url('img/toolbar_button_background_active_23x20.png')
-		no-repeat 0 0;
+	background-color: transparent;
+	background: url('img/toolbar_button_background_active_23x20.png') no-repeat 0 0;
 }
 
 .vaadock-toolbar-button_selected {
