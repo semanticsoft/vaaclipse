@@ -125,6 +125,7 @@ public class ToolBarRenderer extends GenericRenderer {
 			toolBarWidget = new HorizontalLayout();
 		
 		toolBarWidget.setSizeUndefined();
+		toolBarWidget.addStyleName("toolbar");
 		element.setWidget(toolBarWidget);
 	}
 	
