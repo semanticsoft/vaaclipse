@@ -15,8 +15,6 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
-import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
-import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;

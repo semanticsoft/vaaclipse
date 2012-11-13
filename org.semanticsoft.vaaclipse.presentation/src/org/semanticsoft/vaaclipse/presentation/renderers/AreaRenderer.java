@@ -21,7 +21,6 @@ import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan

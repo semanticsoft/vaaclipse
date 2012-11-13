@@ -31,10 +31,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
-import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;

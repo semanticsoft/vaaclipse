@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -85,8 +86,10 @@ public class StaticResources extends HttpServlet {
 		String resourcePath = alias + path;
 
 		URL u = vaadin.getResource(resourcePath);
-		// System.err
-		// .println("StaticResources.doGet: " + resourcePath + " = " + u);
+		
+		
+		
+		System.err.println("StaticResources.doGet: " + resourcePath + " = " + u);
 		if (null == u) {
 			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -105,6 +108,11 @@ public class StaticResources extends HttpServlet {
 		while (-1 != (read = in.read(buffer))) {
 			out.write(buffer, 0, read);
 		}
+	}
+	
+	public String restoreBundlePath(String vaadinPath)
+	{
+		
 	}
 
 }

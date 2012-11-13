@@ -9,7 +9,7 @@
  *     Rushan R. Gilmullin - initial API and implementation
  *******************************************************************************/
 
-package org.semanticsoft.vaaclipse.presentation.utils;
+package org.semanticsoft.vaaclipse.util;
 
 import org.eclipse.emf.common.util.URI;
 

@@ -22,7 +22,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueMenuItem;
-import org.semanticsoft.vaaclipse.presentation.utils.Utils;
+import org.semanticsoft.vaaclipse.util.Utils;
 
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
