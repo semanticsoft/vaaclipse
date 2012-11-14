@@ -178,14 +178,14 @@ public class PackageExplorer
 		
 		FilesystemContainer fsc = new FilesystemContainer(demoRoot, true);
 		FileTypeResolver.addExtension("java", "java");
-		FileTypeResolver.addIcon("java", new ThemeResource("img/java.png"));
+		FileTypeResolver.addIcon("java", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/java.png"));
 		FileTypeResolver.addExtension("xml", "xml");
-		FileTypeResolver.addIcon("xml", new ThemeResource("img/xml.png"));
+		FileTypeResolver.addIcon("xml", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/xml.png"));
 		FileTypeResolver.addExtension("css", "css");
-		FileTypeResolver.addIcon("css", new ThemeResource("img/css.png"));
-		FileTypeResolver.addIcon("image/png", new ThemeResource("img/img.png"));
+		FileTypeResolver.addIcon("css", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/css.png"));
+		FileTypeResolver.addIcon("image/png", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/img.png"));
 		
-		FileTypeResolver.addIcon("inode/directory", new ThemeResource("img/folder.png"));
+		FileTypeResolver.addIcon("inode/directory", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/folder.png"));
 
 		tree.setContainerDataSource(fsc);
 
