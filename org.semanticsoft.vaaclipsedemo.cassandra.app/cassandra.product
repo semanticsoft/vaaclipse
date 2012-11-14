@@ -111,9 +111,9 @@
       <plugin id="org.semanticsoft.vaaclipse.behaviour"/>
       <plugin id="org.semanticsoft.vaaclipse.presentation"/>
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
+      <plugin id="org.semanticsoft.vaaclipse.util"/>
       <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.app"/>
-      <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
       <plugin id="org.w3c.css.sac"/>
