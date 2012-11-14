@@ -68,8 +68,8 @@ public class BundleActivatorImpl implements BundleActivator
 				cassandraHome.mkdir();
 				
 				try {
-					Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.resources");
-					URL url = resourcesBundle.getEntry("src/cassandra.zip");
+					Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
+					URL url = resourcesBundle.getEntry("data/cassandra.zip");
 					//URL url = new URL("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/src/cassandra.zip");
 				    InputStream inputStream = url.openConnection().getInputStream();
 				    extractFolder(cassandraHome, inputStream);

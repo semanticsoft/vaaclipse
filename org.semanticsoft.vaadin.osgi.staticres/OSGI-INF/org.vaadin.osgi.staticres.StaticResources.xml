@@ -3,4 +3,5 @@
   <implementation class='org.vaadin.osgi.staticres.StaticResources'/>
   <property name='http.alias' value='/VAADIN'/>
   <reference name='bind' interface='org.osgi.service.http.HttpService' bind='bind'/>
+  <reference bind="bindResourceInfoProvider" cardinality="1..1" interface="org.semanticsoft.vaaclipse.api.ResourceInfoProvider" name="ResourceInfoProvider" policy="static"/>
 </component>

@@ -29,5 +29,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-Activator: org.semanticsoft.vaaclipsedemo.cassandra.app.BundleActivatorImpl
 Bundle-Localization: plugin
+Export-Package: css,
+ img
 
 

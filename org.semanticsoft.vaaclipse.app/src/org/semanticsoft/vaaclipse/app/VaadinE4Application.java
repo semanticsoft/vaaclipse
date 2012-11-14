@@ -46,9 +46,11 @@ import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
+import org.osgi.util.tracker.ServiceTracker;
+import org.semanticsoft.vaaclipse.api.ResourceInfoProvider;
 
 @SuppressWarnings("restriction")
-public class VaadinE4Application implements IApplication {
+public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	
 	private ArrayBlockingQueue<String> queue;
 	private Logger logger = new WorkbenchLogger("org.semanticsoft.vaaclipse.app");
@@ -60,14 +62,28 @@ public class VaadinE4Application implements IApplication {
 	public static final String EXIT = "EXIT";
 	
 	JFrame frame;
-	private String contextPath;
-	private String port;
-	private String themeName;
+	private String contextPath = "/";
+	private String port = "80";
 	private String productionMode;
+	private String appCss = "platform:/plugin/org.semanticsoft.vaaclipse.app/css/default_user_css.css";
+	
+	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
 	
 	public static VaadinE4Application getInstance()
 	{
 		return instance;
+	}
+	
+	@Override
+	public String getApplicationCSS()
+	{
+		return appCss;
+	}
+	
+	@Override
+	public String getUserVaadinTheme()
+	{
+		return VAACLIPSE_USER_THEME;
 	}
 	
 	public Location getInstanceLocation()
@@ -90,6 +106,8 @@ public class VaadinE4Application implements IApplication {
 		instance = this;
 		appContext = context;
 		
+		registerServices();
+		
 		logger.debug("VaadinE4Application.start()");
 		context.applicationRunning();
 		
@@ -110,6 +128,11 @@ public class VaadinE4Application implements IApplication {
 		return EXIT_OK;
 	}
 
+	private void registerServices()
+	{
+		Activator.getDefault().getBundle().getBundleContext().registerService(ResourceInfoProvider.class.getName(), this, null);
+	}
+
 	private void startHttpService() throws Exception
 	{
 		port = System.getProperty("org.osgi.service.http.port");
@@ -122,10 +145,10 @@ public class VaadinE4Application implements IApplication {
 		if (contextPath == null)
 			contextPath = "/";
 		
-		themeName = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.theme");
+		appCss = appContext.getBrandingProperty("applicationCSS");
 		
-		if (themeName == null)
-			themeName = "vaaclipse_default_theme";
+		if (appCss == null)
+			appCss = 
 		
 		productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
 		
@@ -152,7 +175,7 @@ public class VaadinE4Application implements IApplication {
 	{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setSize(500, 120);
+		frame.setSize(500, 90);
 		frame.setResizable(false);
 		frame.setTitle("Vaaclipse server");
 		final Container contentPane = frame.getContentPane();
@@ -172,12 +195,6 @@ public class VaadinE4Application implements IApplication {
 		final JLabel label = new JLabel(String.format("Vaaclipse server started at http://%s:%s%s", host, port, contextPath));
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(label);
-		
-		contentPane.add(Box.createVerticalStrut(5));
-		
-		final JLabel themeLabel = new JLabel("Theme: " + themeName);
-		themeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		contentPane.add(themeLabel);
 		
 		contentPane.add(Box.createVerticalStrut(5));
 		

@@ -38,7 +38,6 @@ import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan

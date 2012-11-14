@@ -61,8 +61,8 @@ public class Console
 		Bundle appBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
 		println(appBundle.getSymbolicName() + ", " + "version:" + appBundle.getVersion().toString());
 		
-		Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.resources");
-		println(resourcesBundle.getSymbolicName() + ", " + "version:" + resourcesBundle.getVersion().toString());
+//		Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.resources");
+//		println(resourcesBundle.getSymbolicName() + ", " + "version:" + resourcesBundle.getVersion().toString());
 	}
 	
 	public void print(String msg)

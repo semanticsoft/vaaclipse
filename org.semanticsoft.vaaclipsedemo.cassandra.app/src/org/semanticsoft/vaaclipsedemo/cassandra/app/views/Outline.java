@@ -131,14 +131,14 @@ public class Outline
 		
 		packageItem = tree.addItem("package");
 		tree.setChildrenAllowed("package", false);
-		packageItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("img/package_declaration.png"));
+		packageItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_declaration.png"));
 		packageItem.getItemProperty(CAPTION_PROP).setValue(pkg);
 		
 		importsItem = tree.addItem("import_declarations");
 		importsItem.getItemProperty(CAPTION_PROP).setValue("import declarations");
 		
 		classItem = tree.addItem("class");
-		classItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("img/class_declaration.png"));
+		classItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/class_declaration.png"));
 		classItem.getItemProperty(CAPTION_PROP).setValue(className);
 		
 		for (String imp : imports)
@@ -146,7 +146,7 @@ public class Outline
 			Item item = tree.addItem(imp);
 			tree.setChildrenAllowed(imp, false);
 			item.getItemProperty("caption").setValue(imp);
-			item.getItemProperty("icon").setValue(new ThemeResource("img/package_declaration.png"));
+			item.getItemProperty("icon").setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_declaration.png"));
 			tree.setParent(imp, "import_declarations");
 		}
 		
@@ -165,7 +165,7 @@ public class Outline
 			Item item = tree.addItem(m.name);
 			tree.setChildrenAllowed(m.name, false);
 			item.getItemProperty("caption").setValue(m.name);
-			item.getItemProperty("icon").setValue(new ThemeResource("img/" + type));
+			item.getItemProperty("icon").setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/" + type));
 			tree.setParent(m.name, "class");
 		}
 		

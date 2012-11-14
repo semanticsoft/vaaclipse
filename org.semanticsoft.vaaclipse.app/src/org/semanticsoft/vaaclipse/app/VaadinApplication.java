@@ -45,11 +45,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
-import org.osgi.framework.Bundle;
 
 import com.vaadin.Application;
-import com.vaadin.terminal.gwt.server.WebApplicationContext;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
 public class VaadinApplication extends Application
@@ -86,13 +83,8 @@ public class VaadinApplication extends Application
 	{
 		context = VaadinE4Application.getInstance().getAppContext();
 		
-		String themeName = context.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.theme");
-		if (themeName != null)
-		{
-			themeName = themeName.trim();
-			if (!themeName.isEmpty())
-				setTheme(themeName);
-		}
+		String themeName = VaadinE4Application.getInstance().getUserVaadinTheme();
+		setTheme(themeName);
 		
 		logger = VaadinE4Application.getInstance().getLogger();
 		Window mainWindow = new Window("Vaaclipse");

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -30,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpService;
+import org.semanticsoft.vaaclipse.api.ResourceInfoProvider;
+import org.semanticsoft.vaaclipse.util.Utils;
 
 /**
  * This class runs as an OSGi component and serves the themes and widgetsets
@@ -52,6 +55,7 @@ import org.osgi.service.http.HttpService;
 public class StaticResources extends HttpServlet {
 
 	private HttpService httpService;
+	private ResourceInfoProvider resourceInfoProvider;
 
 	private String alias;
 
@@ -59,6 +63,11 @@ public class StaticResources extends HttpServlet {
 
 	public void bind(HttpService httpService) {
 		this.httpService = httpService;
+	}
+	
+	public void bindResourceInfoProvider(ResourceInfoProvider provider)
+	{
+		this.resourceInfoProvider = provider;
 	}
 
 	public void start(BundleContext ctx, Map<String, String> properties)
@@ -81,29 +90,37 @@ public class StaticResources extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		if (this.resourceInfoProvider == null)
+			resp.sendError(HttpServletResponse.SC_CONFLICT);
+		
 		String path = req.getPathInfo();
-		String resourcePath = alias + path;
-
-		URL u = vaadin.getResource(resourcePath);
-		// System.err
-		// .println("StaticResources.doGet: " + resourcePath + " = " + u);
-		if (null == u) {
-			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		}
 		
 		if (path.endsWith("css"))
 		{
 			resp.setContentType("text/css");
 		}
+		
+		String resourcePath = alias + path;
+		
+		String bundlePath = Utils.restorePath(resourcePath, resourceInfoProvider.getUserVaadinTheme(), resourceInfoProvider.getApplicationCSS());
+		
+		try {
+			URL u = new URL(bundlePath);
 
-		InputStream in = u.openStream();
-		OutputStream out = resp.getOutputStream();
+			InputStream in = u.openStream();
+			OutputStream out = resp.getOutputStream();
 
-		byte[] buffer = new byte[1024];
-		int read = 0;
-		while (-1 != (read = in.read(buffer))) {
-			out.write(buffer, 0, read);
+			byte[] buffer = new byte[1024];
+			int read = 0;
+			while (-1 != (read = in.read(buffer))) {
+				out.write(buffer, 0, read);
+			}	
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
 	}
 

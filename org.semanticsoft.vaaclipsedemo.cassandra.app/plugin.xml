@@ -32,8 +32,8 @@
                value="5,275,445,15">
          </property>
          <property
-               name="org.semanticsoft.vaaclipse.app.vaadin.theme"
-               value="cassandra">
+               name="applicationCSS"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/css/default.css">
          </property>
       </product>
    </extension>
