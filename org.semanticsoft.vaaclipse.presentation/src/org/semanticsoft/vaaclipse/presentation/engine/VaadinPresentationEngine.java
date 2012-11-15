@@ -30,6 +30,9 @@ import org.semanticsoft.vaaclipse.presentation.renderers.WorkbenchWindowRenderer
 @SuppressWarnings("restriction")
 public class VaadinPresentationEngine extends GenericPresentationEngine {
 	
+	//Vaadin specific tag to inhibit resizing of sashes if needed
+	public static final String NO_RESIZE= "NoResize";
+	
 	@Override
 	public Object run(final MApplicationElement uiRoot, IEclipseContext appContext) {
 		

@@ -28,6 +28,7 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
 
 import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.Component;
@@ -165,6 +166,7 @@ public class SashRenderer extends GenericRenderer {
 					}
 				}
 			}
+			currentSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
 		}
 		
 		sashWidget.setSizeFull();
