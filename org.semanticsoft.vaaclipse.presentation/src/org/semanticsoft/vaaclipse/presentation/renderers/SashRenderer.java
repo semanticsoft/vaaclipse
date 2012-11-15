@@ -160,6 +160,7 @@ public class SashRenderer extends GenericRenderer {
 					else
 					{
 						AbstractSplitPanel newSashWidget = sash.isHorizontal() ? new HorizontalSplitPanel() : new VerticalSplitPanel();
+						newSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
 						newSashWidget.setFirstComponent((Component) child.getWidget());
 						currentSashWidget.setSecondComponent(newSashWidget);
 						currentSashWidget = newSashWidget;	
