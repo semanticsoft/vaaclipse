@@ -1,0 +1,17 @@
+@import "../reindeer/styles.css";
+@import "../vaaclipse_default_theme/styles.css";
+
+.editstatus {
+	margin-right: 35px;
+	float: right;
+}
+
+.editmode {
+	margin-right: 35px;
+	float: right;
+}
+
+.codeline {
+	margin-right: 300px;
+	float: right;
+}
