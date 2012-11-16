@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="org.semanticsoft.vaaclipse.demo.contacts"
+            application="org.semanticsoft.vaaclipse.app.application">
+         <property
+               name="clearPersistedState"
+               value="true">
+         </property>
+          <property
+               name="applicationXMI"
+               value="org.semanticsoft.vaaclipse.demo.contacts/Application.e4xmi">
+         </property>
+          <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/org.semanticsoft.vaaclipse.demo.contacts/css/default.css">
+         </property>
+         <property
+               name="appName"
+               value="org.semanticsoft.vaaclipse.demo.contacts">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
