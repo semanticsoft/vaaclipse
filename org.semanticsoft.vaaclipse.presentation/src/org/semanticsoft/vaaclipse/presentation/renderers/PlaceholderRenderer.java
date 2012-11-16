@@ -44,9 +44,7 @@ import com.vaadin.ui.Component;
  *
  */
 public class PlaceholderRenderer extends GenericRenderer
-{
-	private static Map<MUIElement, List<MPlaceholder>> renderedMap = new HashMap<MUIElement, List<MPlaceholder>>();
-	
+{	
 	@Inject
 	IPresentationEngine renderingEngine;
 	
@@ -59,16 +57,7 @@ public class PlaceholderRenderer extends GenericRenderer
 		MPlaceholder ph = (MPlaceholder) element;
 		final MUIElement ref = ph.getRef();
 		ref.setCurSharedRef(ph);
-
-		List<MPlaceholder> renderedRefs = renderedMap.get(ref);
-		if (renderedRefs == null) {
-			renderedRefs = new ArrayList<MPlaceholder>();
-			renderedMap.put(ref, renderedRefs);
-		}
-
-		if (!renderedRefs.contains(ph))
-			renderedRefs.add(ph);
-
+		
 		//VerticalLayout phComp = new VerticalLayout();
 		BoundsinfoVerticalLayout phComp = new BoundsinfoVerticalLayout();
 		phComp.setSizeFull();
