@@ -10,11 +10,12 @@ public class SeparatedEventBrokerFactory extends ContextFunction {
 	
 	public SeparatedEventBrokerFactory()
 	{
-		System.out.println("separated event broker factory start");
+		//System.out.println("separated event broker factory start");
 	}
 	
 	@Override
 	public Object compute(IEclipseContext context) {
+		System.err.println("Separated event broker is started! This is very good! If you don't see this message in your console log, then multisession doesn't work and you must correct your bundle start levels!");
 		SeparatedEventBroker broker = context.getLocal(SeparatedEventBroker.class);
 		if (broker == null) {
             broker = ContextInjectionFactory.make(SeparatedEventBroker.class, context);

@@ -65,10 +65,6 @@ public class SeparatedEventBroker extends EventBroker implements IEventBroker {
 			}
 		}
 	}
-	
-	public SeparatedEventBroker() {
-		System.out.println("separated event broker start");
-	}
 
 	public boolean send(String topic, Object data) {
 		Event event = constructEvent(topic, data);
