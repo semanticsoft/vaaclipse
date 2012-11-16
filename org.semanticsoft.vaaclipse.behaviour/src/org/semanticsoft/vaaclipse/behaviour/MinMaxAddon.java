@@ -62,12 +62,12 @@ import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
 public class MinMaxAddon {
 	public static final String ADDONS_MINMAX_TRIM_STACK_ID = "org.semanticsoft.vaaclipse.behaviour.trimStackId";
 
-	static String ID_SUFFIX = "(minimized)"; //$NON-NLS-1$
+	static final String ID_SUFFIX = "(minimized)"; //$NON-NLS-1$
 
 	// tags representing the min/max state
-	public static String MINIMIZED = IPresentationEngine.MINIMIZED;
-	public static String MAXIMIZED = IPresentationEngine.MAXIMIZED;
-	public static String MINIMIZED_BY_ZOOM = IPresentationEngine.MINIMIZED_BY_ZOOM;
+	public static final String MINIMIZED = IPresentationEngine.MINIMIZED;
+	public static final String MAXIMIZED = IPresentationEngine.MAXIMIZED;
+	public static final String MINIMIZED_BY_ZOOM = IPresentationEngine.MINIMIZED_BY_ZOOM;
 
 	private final IEventBroker eventBroker;
 	private final EModelService modelService;
