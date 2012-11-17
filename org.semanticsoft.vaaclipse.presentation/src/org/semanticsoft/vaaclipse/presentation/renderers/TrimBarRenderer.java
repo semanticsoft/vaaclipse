@@ -28,10 +28,14 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.SideValue;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
+import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
+import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
@@ -46,6 +50,9 @@ public class TrimBarRenderer extends GenericRenderer {
 	
 	@Inject
 	EventBroker eventBroker;
+	
+	@Inject
+	EModelService modelService;
 	
 	private HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>> pendingCleanup = new HashMap<MTrimBar, ArrayList<ArrayList<MTrimElement>>>();
 	
@@ -92,14 +99,14 @@ public class TrimBarRenderer extends GenericRenderer {
 	public void processContents(MElementContainer<MUIElement> container) {
 		MTrimBar trimBar = (MTrimBar)((MElementContainer<?>)container);
 		int orientation = trimBar.getSide().getValue();
-		CssLayout toolBar = (CssLayout) container.getWidget();
+		CssLayout trimBarWidget = (CssLayout) container.getWidget();
 		if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-			toolBar.setHeight(-1);
+			trimBarWidget.setHeight(-1);
 		else
-			toolBar.setWidth(-1);
+			trimBarWidget.setWidth(-1);
 
 		boolean isFirst = true;
-		toolBar.removeAllComponents();
+		trimBarWidget.removeAllComponents();
 		for (MUIElement element : container.getChildren()) {
 			//CssLayout subToolbar = (CssLayout) renderer.createGui(element);
 			ComponentContainer subToolbar = (ComponentContainer) element.getWidget();
@@ -112,7 +119,7 @@ public class TrimBarRenderer extends GenericRenderer {
 				
 				subToolbar.setSizeUndefined();
 				
-				toolBar.addComponent(subToolbar);
+				trimBarWidget.addComponent(subToolbar);
 				isFirst = false;
 			}
 		}
@@ -125,6 +132,26 @@ public class TrimBarRenderer extends GenericRenderer {
 				app.getTrimContributions(), trimBar.getElementId(),
 				toContribute, eContext);
 		addTrimContributions(trimBar, toContribute, ctx, eContext);
+		
+		refreshVisibility(trimBar);
+	}
+
+	private void refreshVisibility(MTrimBar trimBar) {
+		
+		CssLayout trimBarWidget = (CssLayout) trimBar.getWidget();
+		int orientation = trimBar.getSide().getValue();
+		
+		trimBarWidget.setVisible(trimBarWidget.getComponentCount() != 0);
+		
+		if (orientation == SideValue.TOP_VALUE)
+		{
+			MWindow window = modelService.getTopLevelWindowFor(trimBar);
+			WorkbenchWindow windowWidget = (WorkbenchWindow) window.getWidget();
+			
+			TopbarComponent topbar = windowWidget.getTopbar();
+			if (topbar != null)
+				topbar.setVisible(trimBarWidget.getComponentCount() != 0);
+		}
 	}
 	
 	private void addTrimContributions(final MTrimBar trimModel,
@@ -206,10 +233,7 @@ public class TrimBarRenderer extends GenericRenderer {
 		int index = indexOf(child, element);
 		trimWidget.addComponent(childWidget, index);
 		
-		if (trimWidget.getComponentCount() == 0)
-			trimWidget.setVisible(false);
-		else
-			trimWidget.setVisible(true);
+		refreshVisibility(trimBar);
 		
 		trimWidget.requestRepaint();
 	}
@@ -224,10 +248,8 @@ public class TrimBarRenderer extends GenericRenderer {
 		
 		CssLayout trimWidget = (CssLayout) element.getWidget();
 		
-		if (trimWidget.getComponentCount() == 0)
-			trimWidget.setVisible(false);
-		else
-			trimWidget.setVisible(true);
+		MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element;
+		refreshVisibility(trimBar);
 		
 		trimWidget.requestRepaint();
 	}
