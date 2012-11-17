@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +126,8 @@ public class SashRenderer extends GenericRenderer {
 		
 		ComponentContainer sashWidget = null;
 		
-		List<MPartSashContainerElement> renderableAndVisible = filterRenderableAndVisibleElements(sash);
+		@SuppressWarnings("unchecked")
+		List<MPartSashContainerElement> renderableAndVisible = (List<MPartSashContainerElement>) filterRenderableAndVisibleElements(sash);
 		
 		if (renderableAndVisible.isEmpty())
 		{
@@ -175,21 +175,11 @@ public class SashRenderer extends GenericRenderer {
 		
 		setWeights(sash);
 	}
-
-	private List<MPartSashContainerElement> filterRenderableAndVisibleElements(MPartSashContainer sash)
-	{
-		List<MPartSashContainerElement> renderableAndVisible = new ArrayList<>();
-		for (MPartSashContainerElement e : sash.getChildren())
-		{
-			if (e.isToBeRendered() && e.isVisible())
-				renderableAndVisible.add(e);
-		}
-		return renderableAndVisible;
-	}
 	
 	void setWeights(MPartSashContainer sash)
 	{
-		List<MPartSashContainerElement> renderableAndVisible = filterRenderableAndVisibleElements(sash);
+		@SuppressWarnings("unchecked")
+		List<MPartSashContainerElement> renderableAndVisible = (List<MPartSashContainerElement>) filterRenderableAndVisibleElements(sash);
 		if (renderableAndVisible.size() < 2)
 			return;
 		

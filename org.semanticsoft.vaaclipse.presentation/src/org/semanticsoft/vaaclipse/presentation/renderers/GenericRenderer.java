@@ -13,6 +13,9 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -76,6 +79,17 @@ public class GenericRenderer {
 		{
 			((ComponentContainer)parent.getWidget()).removeComponent((Component) element.getWidget());
 		}
+	}
+	
+	protected List<? extends MUIElement> filterRenderableAndVisibleElements(MElementContainer<?> sash)
+	{
+		List<MUIElement> renderableAndVisible = new ArrayList<>();
+		for (MUIElement e : sash.getChildren())
+		{
+			if (e.isToBeRendered() && e.isVisible())
+				renderableAndVisible.add(e);
+		}
+		return renderableAndVisible;
 	}
 	
 	protected int indexOf(MUIElement element, MElementContainer<MUIElement> parent)
