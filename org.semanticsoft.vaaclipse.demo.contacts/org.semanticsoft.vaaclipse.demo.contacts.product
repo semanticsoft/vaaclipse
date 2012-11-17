@@ -9,10 +9,21 @@
 
    <launcherArgs>
       <programArgs>-clearPersistedState</programArgs>
+      <vmArgs>-Dosgi.framework.extensions=at.bestsolution.efxclipse.runtime.osgi -Dorg.eclipse.equinox.http.jetty.context.path=/contacts -Dorg.osgi.service.http.port=8080</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
+
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
 
    <plugins>
       <plugin id="com.ibm.icu"/>
