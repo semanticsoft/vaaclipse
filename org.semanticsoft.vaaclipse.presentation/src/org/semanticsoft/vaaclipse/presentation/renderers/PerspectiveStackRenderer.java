@@ -40,6 +40,8 @@ import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.AbstractLayout;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HorizontalLayout;
@@ -172,55 +174,73 @@ public class PerspectiveStackRenderer extends GenericRenderer
 		MPerspectiveStack perspectiveStack = (MPerspectiveStack)(MElementContainer<?>)element;
 		for (final MPerspective perspective : perspectiveStack.getChildren())
 		{
-			final TwoStateToolbarButton perspectiveButton = new TwoStateToolbarButton();
-			
-			String uri;
-			if (perspective.getIconURI() != null)
-				uri = perspective.getIconURI();
-			else
-				uri = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png";
-			
-			Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(uri));
-			perspectiveButton.setIcon(icon);
-			
-			//TODO: uncoment
-//			if (perspective.getLabel() != null)
-//				perspectiveButton.setCaption(perspective.getLabel());
-			
-			if (perspective.getTooltip() != null)
+			if (perspective.isToBeRendered() && perspective.isVisible())
 			{
-				perspectiveButton.setDescription(perspective.getLocalizedTooltip());
-			}
-			
-			perspectiveButton.addListener(new ClickListener() {
-
-				public void buttonClick(ClickEvent event)
+				final TwoStateToolbarButton perspectiveButton = new TwoStateToolbarButton();
+				
+				String uri;
+				if (perspective.getIconURI() != null)
+					uri = perspective.getIconURI();
+				else
+					uri = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png";
+				
+				Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(uri));
+				perspectiveButton.setIcon(icon);
+				
+				//TODO: uncoment
+//				if (perspective.getLabel() != null)
+//					perspectiveButton.setCaption(perspective.getLabel());
+				
+				if (perspective.getTooltip() != null)
 				{
-					MPerspectiveStack perspectiveStack = (MPerspectiveStack)(MElementContainer<?>)perspective.getParent();
-					//perspectiveStack.setSelectedElement(perspective);
-					partService.switchPerspective(perspective);
+					perspectiveButton.setDescription(perspective.getLocalizedTooltip());
 				}
-			});
-			
-			HorizontalLayout perspectiveStackPanel = perspectivestack_perspectiveswitcher.get(perspectiveStack);
-			perspectiveStackPanel.addComponent(perspectiveButton);
-			
-			perspective_button.put(perspective, perspectiveButton);
+				
+				perspectiveButton.addListener(new ClickListener() {
+
+					public void buttonClick(ClickEvent event)
+					{
+						MPerspectiveStack perspectiveStack = (MPerspectiveStack)(MElementContainer<?>)perspective.getParent();
+						//perspectiveStack.setSelectedElement(perspective);
+						partService.switchPerspective(perspective);
+					}
+				});
+				
+				HorizontalLayout perspectiveStackPanel = perspectivestack_perspectiveswitcher.get(perspectiveStack);
+				perspectiveStackPanel.addComponent(perspectiveButton);
+				
+				perspective_button.put(perspective, perspectiveButton);	
+			}
 		}
 		
 		MPerspective selectedPerspective = perspectiveStack.getSelectedElement();
+		
 		if (selectedPerspective == null)
 		{
 			selectedPerspective = perspectiveStack.getChildren().get(0);
-			System.out.println("test");
 			//perspectiveStack.setSelectedElement(selectedPerspective);
 			partService.switchPerspective(selectedPerspective);
 		}
+		else
+		{
+			//reset selected element (set selected element handler will work)
+			perspectiveStack.setSelectedElement(null);
+			perspectiveStack.setSelectedElement(selectedPerspective);
+		}
+		
+		refreshPerspectiveStackVisibility(perspectiveStack);
+	}
+	
+	private void refreshPerspectiveStackVisibility(MPerspectiveStack stack) {
+		AbstractOrderedLayout perspectiveStackPanel = perspectivestack_perspectiveswitcher.get(stack);
+		
+		perspectiveStackPanel.setVisible(perspectiveStackPanel.getComponentCount() > 1);
 	}
 	
 	@Override
 	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
-		//Do nothing
+		MPerspectiveStack stack = (MPerspectiveStack)(MElementContainer<?>)element;
+		refreshPerspectiveStackVisibility(stack);
 	}
 }
