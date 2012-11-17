@@ -15,6 +15,7 @@ import org.semanticsoft.vaaclipse.widgets.client.ui.GeomUtils.Side;
 import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsUpdateManager;
 import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.VBoundsinfoVerticalLayout;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
 import com.vaadin.terminal.gwt.client.MouseEventDetails;
@@ -100,6 +101,8 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 	
 	private boolean maximizeEnabled = true;
 	private boolean minimizeEnabled = true;
+	
+	private String baseURL;
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	/**
@@ -108,6 +111,8 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 	 */
 	public VStackWidget() {
 		super();
+		
+		this.baseURL = GWT.getHostPageBaseURL();
 		
 		Element tabs = (Element) getElement().getChild(0);
         
@@ -557,19 +562,19 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 	    		{
 	    			int l = 3;
 	    			String style1 = "position: absolute; left: " + _x + "px; top: " + _y + 
-	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(/VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
 					dockZone1.setAttribute("style", style1);
 					
 					String style2 = "position: absolute; left: " + _x + "px; top: " + (_y + _h - l) + 
-	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(/VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
 					dockZone2.setAttribute("style", style2);
 					
 					String style3 = "position: absolute; left: " + _x + "px; top: " + _y + 
-	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(/VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
 					dockZone3.setAttribute("style", style3);
 					
 					String style4 = "position: absolute; left: " + (_x + _w - l) + "px; top: " + _y + 
-	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(/VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
 					dockZone4.setAttribute("style", style4);
 					
 	    	        //setStyleName(dockZone, "v-etot-sukin-syn");

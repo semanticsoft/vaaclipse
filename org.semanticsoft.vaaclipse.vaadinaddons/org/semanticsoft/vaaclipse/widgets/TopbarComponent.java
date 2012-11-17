@@ -98,7 +98,6 @@ public class TopbarComponent extends CustomComponent
 		layout.addComponent(content, 1, 1);
 		
 		this.content = content;
-		content.addStyleName("toptrimbar_11");
 		content.setSizeUndefined();
 		content.setWidth("100%");
 	}
