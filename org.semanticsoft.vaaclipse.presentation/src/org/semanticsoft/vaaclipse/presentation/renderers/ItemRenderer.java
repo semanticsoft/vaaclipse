@@ -32,12 +32,10 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
-
 @SuppressWarnings("restriction")
 public abstract class ItemRenderer extends GenericRenderer {
-	
-	protected String prepareText(MMenuItem model)
-	{
+
+	protected String prepareText(MMenuItem model) {
 		String text = model.getLocalizedLabel();
 		if (model instanceof MHandledItem) {
 			MHandledItem handledItem = (MHandledItem) model;
@@ -53,10 +51,11 @@ public abstract class ItemRenderer extends GenericRenderer {
 		}
 		return text;
 	}
-	
-	protected ParameterizedCommand generateParameterizedCommand(final MHandledItem item,
-			final IEclipseContext lclContext) {
-		ECommandService cmdService = (ECommandService) lclContext.get(ECommandService.class.getName());
+
+	protected ParameterizedCommand generateParameterizedCommand(
+			final MHandledItem item, final IEclipseContext lclContext) {
+		ECommandService cmdService = (ECommandService) lclContext
+				.get(ECommandService.class.getName());
 		Map<String, Object> parameters = null;
 		List<MParameter> modelParms = item.getParameters();
 		if (modelParms != null && !modelParms.isEmpty()) {
@@ -65,17 +64,22 @@ public abstract class ItemRenderer extends GenericRenderer {
 				parameters.put(mParm.getName(), mParm.getValue());
 			}
 		}
-		ParameterizedCommand cmd = cmdService.createCommand(item.getCommand().getElementId(), parameters);
-		item.setWbCommand(cmd);
-		return cmd;
+		if (item.getCommand() != null) {
+			ParameterizedCommand cmd = cmdService.createCommand(item
+					.getCommand().getElementId(), parameters);
+			item.setWbCommand(cmd);
+
+			return cmd;
+		} else
+			return null;
 	}
 
-	protected Command createParametrizedCommandEventHandler(final MHandledItem item) {
+	protected Command createParametrizedCommandEventHandler(
+			final MHandledItem item) {
 		return new Command() {
 
 			@Override
-			public void menuSelected(MenuItem selectedItem)
-			{
+			public void menuSelected(MenuItem selectedItem) {
 				processParametrizedAction(item);
 			}
 		};
@@ -85,17 +89,16 @@ public abstract class ItemRenderer extends GenericRenderer {
 		return new Command() {
 
 			@Override
-			public void menuSelected(MenuItem selectedItem)
-			{
+			public void menuSelected(MenuItem selectedItem) {
 				processAction(item);
 			}
 		};
 	}
-	
-	protected void processParametrizedAction(final MHandledItem item)
-	{
+
+	protected void processParametrizedAction(final MHandledItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
-		EHandlerService service = (EHandlerService) eclipseContext.get(EHandlerService.class.getName());
+		EHandlerService service = (EHandlerService) eclipseContext
+				.get(EHandlerService.class.getName());
 		ParameterizedCommand command = item.getWbCommand();
 		if (command == null) {
 			command = generateParameterizedCommand(item, eclipseContext);
@@ -109,19 +112,22 @@ public abstract class ItemRenderer extends GenericRenderer {
 		service.executeHandler(command);
 		eclipseContext.remove(MItem.class.getName());
 	}
-	
-	protected void processAction(final MItem item)
-	{
+
+	protected void processAction(final MItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
 		eclipseContext.set(MItem.class, item);
 		setupContext(eclipseContext, item);
 		if (item instanceof MDirectToolItem) {
-			ContextInjectionFactory.invoke(((MDirectToolItem) item).getObject(), Execute.class, eclipseContext);
+			ContextInjectionFactory.invoke(
+					((MDirectToolItem) item).getObject(), Execute.class,
+					eclipseContext);
 		} else if (item instanceof MDirectMenuItem) {
-			ContextInjectionFactory.invoke(((MDirectMenuItem) item).getObject(), Execute.class, eclipseContext);
+			ContextInjectionFactory.invoke(
+					((MDirectMenuItem) item).getObject(), Execute.class,
+					eclipseContext);
 		}
 		eclipseContext.remove(MItem.class);
 	}
-	
+
 	protected abstract void setupContext(IEclipseContext context, MItem item);
 }
