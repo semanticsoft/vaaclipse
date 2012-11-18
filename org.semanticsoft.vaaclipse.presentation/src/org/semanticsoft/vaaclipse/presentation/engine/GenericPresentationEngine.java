@@ -175,7 +175,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 	@Override
 	public Object createGui(MUIElement element, MElementContainer<MUIElement> parent, IEclipseContext parentContext) {
-		
+		if (!element.isToBeRendered()) return null;
 		Object currentWidget = element.getWidget();
 		if (currentWidget != null) {
 

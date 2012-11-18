@@ -87,7 +87,7 @@
     </trimBars>
     <trimBars xmi:id="_SeXUAu8EEd6FC9FFFFFFFF" elementId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar" side="Bottom"/>
   </children>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_BKZowDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.trimmedwindow.0" label="PopUpWindow" x="500" y="100" width="300" height="300">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_BKZowDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.trimmedwindow.0" toBeRendered="false" label="PopUpWindow" x="500" y="100" width="300" height="300">
     <tags>popup</tags>
     <mainMenu xmi:id="_Jy36cDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.0">
       <children xsi:type="menu:Menu" xmi:id="_vH7sYDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.1" label="File menu">
