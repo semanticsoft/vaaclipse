@@ -65,9 +65,14 @@ public abstract class ItemRenderer extends GenericRenderer {
 				parameters.put(mParm.getName(), mParm.getValue());
 			}
 		}
-		ParameterizedCommand cmd = cmdService.createCommand(item.getCommand().getElementId(), parameters);
-		item.setWbCommand(cmd);
-		return cmd;
+		if (item.getCommand() != null) {
+			ParameterizedCommand cmd = cmdService.createCommand(item
+					.getCommand().getElementId(), parameters);
+			item.setWbCommand(cmd);
+
+			return cmd;
+		} else
+			return null;
 	}
 
 	protected Command createParametrizedCommandEventHandler(final MHandledItem item) {
