@@ -23,5 +23,6 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.semanticsoft.e4modelextension;bundle-version="1.0.0",
  com.vaadin;bundle-version="6.8.1",
  org.semanticsoft.vaaclipse.app;bundle-version="1.0.0",
- javax.annotation
+ org.eclipse.osgi.services;bundle-version="3.3.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: javax.annotation;version="1.1.0"
