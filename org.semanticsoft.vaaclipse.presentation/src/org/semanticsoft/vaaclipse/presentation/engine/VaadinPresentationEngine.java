@@ -32,6 +32,7 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 	
 	//Vaadin specific tag to inhibit resizing of sashes if needed
 	public static final String NO_RESIZE= "NoResize";
+	public static final String MAIN_WINDOW= "mainWindow";
 	
 	@Override
 	public Object run(final MApplicationElement uiRoot, IEclipseContext appContext) {

@@ -31,6 +31,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.general.Condition;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
+import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 
 import com.vaadin.Application;
@@ -109,30 +110,45 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 	{
 		eventBroker.unsubscribe(trimHandler);
 	}
-
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
 		if (element instanceof MWindow) {
-			MWindow mWindow = (MWindow) element;
-			WorkbenchWindow window = new WorkbenchWindow();
-			window.setPositionX(mWindow.getX());
-			window.setPositionX(mWindow.getY());
-			window.setWidth(mWindow.getWidth());
-			window.setHeight(mWindow.getHeight());
-			window.setCaption(mWindow.getLocalizedLabel());
-			element.setWidget(window);
-			((MWindow) element).getContext().set(Window.class, window);
-			
-			//TODO:begin temp hack
-			window.setSizeFull();
-			vaadinapp.setMainWindow(window);
-			
-			app.setSelectedElement(mWindow);
-			mWindow.getContext().activate();
-			//end temp hack
-			
-			
-			eclipseContext.set(Window.class, window); //main window - temp hack
+			if (element.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW)) {
+				MWindow mWindow = (MWindow) element;
+				WorkbenchWindow window = new WorkbenchWindow();
+				window.setPositionX(mWindow.getX());
+				window.setPositionY(mWindow.getY());
+				window.setWidth(mWindow.getWidth());
+				window.setHeight(mWindow.getHeight());
+				window.setCaption(mWindow.getLocalizedLabel());
+				element.setWidget(window);
+				((MWindow) element).getContext().set(Window.class, window);
+//
+				// TODO:begin temp hack
+				window.setSizeFull();
+				vaadinapp.setMainWindow(window);
+
+				app.setSelectedElement(mWindow);
+				mWindow.getContext().activate();
+				// end temp hack
+
+				eclipseContext.set(Window.class, window); // main window - temp
+															// hack
+			}
+			// case of modal windows
+			else {
+				MWindow mWindow = (MWindow) element;
+				WorkbenchWindow window = new WorkbenchWindow();
+				window.setPositionX(mWindow.getX());
+				window.setPositionY(mWindow.getY());
+				window.setWidth(mWindow.getWidth());
+				window.setHeight(mWindow.getHeight());
+				window.setCaption(mWindow.getLocalizedLabel());
+				element.setWidget(window);
+				eclipseContext.set(Window.class, window);
+//not call for null elements				
+				vaadinapp.getMainWindow().addWindow(window);
+			}
 		}
 	}
 
