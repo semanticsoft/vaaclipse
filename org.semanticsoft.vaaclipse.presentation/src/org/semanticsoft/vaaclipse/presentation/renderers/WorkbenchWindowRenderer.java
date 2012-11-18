@@ -39,48 +39,48 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Window;
 
-
 @SuppressWarnings("restriction")
 public class WorkbenchWindowRenderer extends GenericRenderer {
 
 	@Inject
 	private IEclipseContext eclipseContext;
-	
+
 	@Inject
 	MApplication app;
-	
+
 	@Inject
 	Application vaadinapp;
-	
+
 	@Inject
 	EventBroker eventBroker;
-	
+
 	EventHandler trimHandler = new EventHandler() {
-		
+
 		@Override
-		public void handleEvent(Event event)
-		{
+		public void handleEvent(Event event) {
 			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MTrimmedWindow))
 				return;
-			
-			MTrimmedWindow window = (MTrimmedWindow) event.getProperty(UIEvents.EventTags.ELEMENT);
+
+			MTrimmedWindow window = (MTrimmedWindow) event
+					.getProperty(UIEvents.EventTags.ELEMENT);
 			WorkbenchWindow vWindow = (WorkbenchWindow) window.getWidget();
-			PresentationEngine engine = (PresentationEngine) context.get(IPresentationEngine.class.getName());
+			PresentationEngine engine = (PresentationEngine) context
+					.get(IPresentationEngine.class.getName());
 			Object attType = event.getProperty(UIEvents.EventTags.TYPE);
-			
+
 			Component c;
 			MTrimBar trimBar;
-			if (attType.equals("ADD"))
-			{
-				trimBar = (MTrimBar) event.getProperty(UIEvents.EventTags.NEW_VALUE);
-				c = trimBar.getWidget() == null ? (Component) engine.createGui(trimBar) : (Component)trimBar.getWidget();
-			}
-			else
-			{
-				trimBar = (MTrimBar) event.getProperty(UIEvents.EventTags.OLD_VALUE);
+			if (attType.equals("ADD")) {
+				trimBar = (MTrimBar) event
+						.getProperty(UIEvents.EventTags.NEW_VALUE);
+				c = trimBar.getWidget() == null ? (Component) engine
+						.createGui(trimBar) : (Component) trimBar.getWidget();
+			} else {
+				trimBar = (MTrimBar) event
+						.getProperty(UIEvents.EventTags.OLD_VALUE);
 				c = null;
 			}
-			
+
 			switch (trimBar.getSide()) {
 			case BOTTOM:
 				vWindow.setBottomBar(c);
@@ -97,208 +97,241 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 			}
 		}
 	};
-	
+
 	@PostConstruct
-	public void init()
-	{
-		eventBroker.subscribe(UIEvents.TrimmedWindow.TOPIC_TRIMBARS, trimHandler);
+	public void init() {
+		eventBroker.subscribe(UIEvents.TrimmedWindow.TOPIC_TRIMBARS,
+				trimHandler);
 	}
-	
+
 	@PreDestroy
-	public void deinit()
-	{
+	public void deinit() {
 		eventBroker.unsubscribe(trimHandler);
 	}
 
 	@Override
-	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
+	public void createWidget(MUIElement element,
+			MElementContainer<MUIElement> parent) {
 		if (element instanceof MWindow) {
-			MWindow mWindow = (MWindow) element;
-			WorkbenchWindow window = new WorkbenchWindow();
-			window.setPositionX(mWindow.getX());
-			window.setPositionX(mWindow.getY());
-			window.setWidth(mWindow.getWidth());
-			window.setHeight(mWindow.getHeight());
-			window.setCaption(mWindow.getLocalizedLabel());
-			element.setWidget(window);
-			((MWindow) element).getContext().set(Window.class, window);
-			
-			//TODO:begin temp hack
-			window.setSizeFull();
-			vaadinapp.setMainWindow(window);
-			
-			app.setSelectedElement(mWindow);
-			mWindow.getContext().activate();
-			//end temp hack
-			
-			
-			eclipseContext.set(Window.class, window); //main window - temp hack
+			if (element.getElementId().equals("mainWindow")) {
+				MWindow mWindow = (MWindow) element;
+				WorkbenchWindow window = new WorkbenchWindow();
+				window.setPositionX(mWindow.getX());
+				window.setPositionX(mWindow.getY());
+				window.setWidth(mWindow.getWidth());
+				window.setHeight(mWindow.getHeight());
+				window.setCaption(mWindow.getLocalizedLabel());
+				element.setWidget(window);
+				((MWindow) element).getContext().set(Window.class, window);
+
+				// TODO:begin temp hack
+				window.setSizeFull();
+				vaadinapp.setMainWindow(window);
+
+				app.setSelectedElement(mWindow);
+				mWindow.getContext().activate();
+				// end temp hack
+
+				eclipseContext.set(Window.class, window); // main window - temp
+															// hack
+			}
+			// case of modal windows
+			else {
+				MWindow mWindow = (MWindow) element;
+				WorkbenchWindow window = new WorkbenchWindow();
+				vaadinapp.getMainWindow().addWindow(window);
+				window.setPositionX(mWindow.getX());
+				window.setPositionX(mWindow.getY());
+				window.setWidth(mWindow.getWidth());
+				window.setHeight(mWindow.getHeight());
+				window.setCaption(mWindow.getLocalizedLabel());
+				element.setWidget(window);
+				eclipseContext.set(Window.class, window);
+
+			}
 		}
 	}
 
 	@Override
 	public void hookControllerLogic(final MUIElement element) {
-//		if (element instanceof MWindow) {
-//			final MWindow mWindow = (MWindow) element;
-//			Window window = (Window) mWindow.getWidget();
-//			window.addWindowListener(new WindowAdapter() {
-//				@Override
-//				public void windowClosing(WindowEvent evt) {
-//					if ((MUIElement) element.getParent() instanceof MApplication) {
-//						MApplication application = (MApplication) (MUIElement) element.getParent();
-//						synchronized (application) {
-//							application.notifyAll();
-//						}
-//					}
-//				}
-//			});
-//
-//			window.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
-//
-//				@Override
-//				public void ancestorMoved(HierarchyEvent e) {
-//					mWindow.setX(e.getChanged().getX());
-//					mWindow.setY(e.getChanged().getY());
-//				}
-//
-//				@Override
-//				public void ancestorResized(HierarchyEvent e) {
-//					mWindow.setWidth(e.getChanged().getWidth());
-//					mWindow.setHeight(e.getChanged().getHeight());
-//				}
-//			});
-//		}
+		// if (element instanceof MWindow) {
+		// final MWindow mWindow = (MWindow) element;
+		// Window window = (Window) mWindow.getWidget();
+		// window.addWindowListener(new WindowAdapter() {
+		// @Override
+		// public void windowClosing(WindowEvent evt) {
+		// if ((MUIElement) element.getParent() instanceof MApplication) {
+		// MApplication application = (MApplication) (MUIElement)
+		// element.getParent();
+		// synchronized (application) {
+		// application.notifyAll();
+		// }
+		// }
+		// }
+		// });
+		//
+		// window.getContentPane().addHierarchyBoundsListener(new
+		// HierarchyBoundsListener() {
+		//
+		// @Override
+		// public void ancestorMoved(HierarchyEvent e) {
+		// mWindow.setX(e.getChanged().getX());
+		// mWindow.setY(e.getChanged().getY());
+		// }
+		//
+		// @Override
+		// public void ancestorResized(HierarchyEvent e) {
+		// mWindow.setWidth(e.getChanged().getWidth());
+		// mWindow.setHeight(e.getChanged().getHeight());
+		// }
+		// });
+		// }
 	}
 
 	@Override
 	public void processContents(MElementContainer<MUIElement> element) {
 		if ((MUIElement) element instanceof MWindow) {
-			MWindow window = (MWindow) ((MUIElement) element);
-			WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
-			PresentationEngine engine = (PresentationEngine) context.get(IPresentationEngine.class.getName());
-			
-			for (MUIElement e : element.getChildren()) {
-				if (e.getWidget() != null) {
-					if (e instanceof MPerspectiveStack)
-					{
-						final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer)e.getRenderer()).getPerspectivestack2PerspectiveswitcherMapping().get(e);
-						vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
-					}
-					
-					vWindow.getClientArea().addComponent((com.vaadin.ui.Component) e.getWidget());
+
+			if (element.getElementId().equals("mainWindow")) {
+				System.out.println(element.getElementId() + " id .......");
+				addChildsToWindow(element);
+			} else {
+
+				addChildsToWindow(element);
+			}
+		}
+	}
+
+	private void addChildsToWindow(MElementContainer<MUIElement> element) {
+		MWindow window = (MWindow) ((MUIElement) element);
+		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+		PresentationEngine engine = (PresentationEngine) context
+				.get(IPresentationEngine.class.getName());
+
+		for (MUIElement e : element.getChildren()) {
+			if (e.getWidget() != null) {
+				if (e instanceof MPerspectiveStack) {
+					final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer) e
+							.getRenderer())
+							.getPerspectivestack2PerspectiveswitcherMapping()
+							.get(e);
+					vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
 				}
+
+				vWindow.getClientArea().addComponent(
+						(com.vaadin.ui.Component) e.getWidget());
 			}
-			
-			if (window.getMainMenu() != null) {
-				engine.createGui(window.getMainMenu());
-				MenuBar menu = (MenuBar) window.getMainMenu().getWidget();
-				vWindow.setMenuBar(menu);
-			}
-			
-			//-------------------------------------------------------------------
-			if (window instanceof MTrimmedWindow) {
-				MTrimmedWindow tWindow = (MTrimmedWindow) window;
-				for (MTrimBar trim : tWindow.getTrimBars()) {
-					Component c = (com.vaadin.ui.Component) engine.createGui(trim);
-					switch (trim.getSide()) {
-					case BOTTOM:
-						vWindow.setBottomBar(c);
-						break;
-					case LEFT:
-						vWindow.setLeftBar(c);
-						break;
-					case RIGHT:
-						vWindow.setRightBar(c);
-						break;
-					case TOP:
-						vWindow.setTopBar(c);
-						break;
-					}
+		}
+
+		if (window.getMainMenu() != null) {
+			engine.createGui(window.getMainMenu());
+			MenuBar menu = (MenuBar) window.getMainMenu().getWidget();
+			vWindow.setMenuBar(menu);
+		}
+
+		// -------------------------------------------------------------------
+		if (window instanceof MTrimmedWindow) {
+			MTrimmedWindow tWindow = (MTrimmedWindow) window;
+			for (MTrimBar trim : tWindow.getTrimBars()) {
+				Component c = (com.vaadin.ui.Component) engine.createGui(trim);
+				switch (trim.getSide()) {
+				case BOTTOM:
+					vWindow.setBottomBar(c);
+					break;
+				case LEFT:
+					vWindow.setLeftBar(c);
+					break;
+				case RIGHT:
+					vWindow.setRightBar(c);
+					break;
+				case TOP:
+					vWindow.setTopBar(c);
+					break;
 				}
 			}
 		}
 	}
 
-//	@Override
-//	public void refreshPlatformElement(MElementContainer<?> element) {
-//		if ((MUIElement) element instanceof MTrimmedWindow) {
-//			MTrimmedWindow window = (MTrimmedWindow) ((MUIElement) element);
-//			WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
-//			
-//			for (MTrimBar trim : window.getTrimBars()) {
-//				Component c = (Component) trim.getWidget();
-//				switch (trim.getSide()) {
-//				case BOTTOM:
-//					vWindow.setBottomBar(c);
-//					break;
-//				case LEFT:
-//					vWindow.setLeftBar(c);
-//					break;
-//				case RIGHT:
-//					vWindow.setRightBar(c);
-//					break;
-//				case TOP:
-//					vWindow.setTopBar(c);
-//					break;
-//				}
-//			}
-//		
-//		}
-//	}
-	
-//	@Override
-//	public void addChild(MUIElement child, MElementContainer<MUIElement> element)
-//	{
-//		if (!(child instanceof MWindowElement && (MElementContainer<?>)element instanceof MWindow))
-//			return;
-//		
-//		super.addChild(child, element);
-//		
-//	}
-	
+	// @Override
+	// public void refreshPlatformElement(MElementContainer<?> element) {
+	// if ((MUIElement) element instanceof MTrimmedWindow) {
+	// MTrimmedWindow window = (MTrimmedWindow) ((MUIElement) element);
+	// WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+	//
+	// for (MTrimBar trim : window.getTrimBars()) {
+	// Component c = (Component) trim.getWidget();
+	// switch (trim.getSide()) {
+	// case BOTTOM:
+	// vWindow.setBottomBar(c);
+	// break;
+	// case LEFT:
+	// vWindow.setLeftBar(c);
+	// break;
+	// case RIGHT:
+	// vWindow.setRightBar(c);
+	// break;
+	// case TOP:
+	// vWindow.setTopBar(c);
+	// break;
+	// }
+	// }
+	//
+	// }
+	// }
+
+	// @Override
+	// public void addChild(MUIElement child, MElementContainer<MUIElement>
+	// element)
+	// {
+	// if (!(child instanceof MWindowElement && (MElementContainer<?>)element
+	// instanceof MWindow))
+	// return;
+	//
+	// super.addChild(child, element);
+	//
+	// }
+
 	@Override
-	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
-	{
+	public void addChildGui(MUIElement child,
+			MElementContainer<MUIElement> element) {
 		if (!(child instanceof MWindowElement))
 			return;
-		
+
 		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
-		
-		if (child instanceof MPerspectiveStack)
-		{
-			final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer)child.getRenderer()).getPerspectivestack2PerspectiveswitcherMapping().get(child);
+
+		if (child instanceof MPerspectiveStack) {
+			final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer) child
+					.getRenderer())
+					.getPerspectivestack2PerspectiveswitcherMapping()
+					.get(child);
 			vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
-		}
-		else
-		{
+		} else {
 			int index = indexOf(child, element, new Condition<MUIElement>() {
-				
+
 				@Override
-				public boolean check(MUIElement child)
-				{
+				public boolean check(MUIElement child) {
 					return !(child instanceof MPerspectiveStack);
 				}
 			});
-			
-			vWindow.getClientArea().addComponent((com.vaadin.ui.Component) child.getWidget(), index);
+
+			vWindow.getClientArea().addComponent(
+					(com.vaadin.ui.Component) child.getWidget(), index);
 		}
 	}
-	
+
 	@Override
-	public void removeChildGui(MUIElement child, MElementContainer<MUIElement> element)
-	{
+	public void removeChildGui(MUIElement child,
+			MElementContainer<MUIElement> element) {
 		if (!(child instanceof MWindowElement))
 			return;
-		
+
 		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
-		
-		if (child instanceof MPerspectiveStack)
-		{
+
+		if (child instanceof MPerspectiveStack) {
 			vWindow.setPerspectiveStackPanel(null);
-		}
-		else
-		{
-			vWindow.getClientArea().removeComponent((com.vaadin.ui.Component) child.getWidget());
+		} else {
+			vWindow.getClientArea().removeComponent(
+					(com.vaadin.ui.Component) child.getWidget());
 		}
 	}
 }
