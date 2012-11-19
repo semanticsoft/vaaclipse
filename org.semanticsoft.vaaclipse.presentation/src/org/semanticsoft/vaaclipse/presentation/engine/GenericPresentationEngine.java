@@ -134,6 +134,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 			if (changedElement.isToBeRendered()) 
 			{
+				if (changedElement.getWidget() == null)
+					createGui(changedElement);
 				parentRenderer.addChildGui(changedElement, (MElementContainer<MUIElement>) parent);				
 			} 
 			else {
