@@ -27,7 +27,7 @@ public class MediaInfoView
 	private HorizontalLayout layout = new HorizontalLayout();
 	private Label name = new Label();
 	private Label uri = new Label();
-	private Label description = new Label();
+	private Label description = new Label("", Label.CONTENT_XHTML);
 	
 	private GridLayout grid;
 	
@@ -36,6 +36,7 @@ public class MediaInfoView
 	{
 		layout.setSizeFull();
 		parent.addComponent(layout);
+		description.setSizeFull();
 	}
 	
 	public Media getMedia()
@@ -59,11 +60,17 @@ public class MediaInfoView
 			grid.addComponent(description, 1, 2);
 			layout.addComponent(grid);
 			
-			grid.setColumnExpandRatio(0, 30);
-			grid.setColumnExpandRatio(1, 70);
+			grid.setColumnExpandRatio(0, 20);
+			grid.setColumnExpandRatio(1, 80);
+			grid.setRowExpandRatio(0, 10);
+			grid.setRowExpandRatio(1, 10);
+			grid.setRowExpandRatio(2, 100);
+			
+			grid.setSizeFull();
 		}
 		
 		name.setPropertyDataSource(new ObjectProperty<String>(media.getName(), String.class));
 		uri.setPropertyDataSource(new ObjectProperty<String>(media.getUri(), String.class));
+		description.setPropertyDataSource(new ObjectProperty<String>(media.getDescription(), String.class));
 	}
 }

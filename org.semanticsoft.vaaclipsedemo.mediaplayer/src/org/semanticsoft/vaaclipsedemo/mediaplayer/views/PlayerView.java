@@ -2,6 +2,7 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
 import javax.inject.Inject;
 
+
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 
@@ -10,6 +11,10 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * @author rushan
+ *
+ */
 public class PlayerView
 {
 	private Media media;
