@@ -1,6 +1,7 @@
 package org.semanticsoft.vaaclipse.demo;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -38,6 +39,11 @@ public class ContactForm {
 	
 	private void setPerson(Person person){
 		form.setItemDataSource(new BeanItem<Person>(person));
+	}
+	
+	@PreDestroy
+	public void pd(IEventBroker broker){
+		broker.unsubscribe(eventHandler);
 	}
 
 }
