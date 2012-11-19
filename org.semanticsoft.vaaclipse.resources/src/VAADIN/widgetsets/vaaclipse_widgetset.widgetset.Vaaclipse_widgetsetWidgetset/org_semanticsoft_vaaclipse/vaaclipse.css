@@ -3,7 +3,7 @@
 }
 
 .vaadock-tabsheet-button-panel {
-	background: url(img/button_panel_bgcolor.png) repeat-x scroll left -1px transparent;
+	background-color: transparent;
     float: right;
     height: 31px;
     margin-top: -31px;
