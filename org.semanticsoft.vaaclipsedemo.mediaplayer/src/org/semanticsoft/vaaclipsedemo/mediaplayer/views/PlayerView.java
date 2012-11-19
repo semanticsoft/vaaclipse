@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
@@ -25,6 +26,9 @@ import com.vaadin.ui.VerticalLayout;
 public class PlayerView
 {
 
+	@Inject
+	MPart part;
+	
 	private Media media;
 	
 	private HorizontalLayout layout = new HorizontalLayout();
@@ -38,6 +42,7 @@ public class PlayerView
 			Object data = event.getProperty(EventUtils.DATA);
 			if (data instanceof Media){
 				setMedia((Media) data);
+				part.setLabel(((Media) data).getName());
 			}
 			
 		}
