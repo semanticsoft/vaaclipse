@@ -5,18 +5,18 @@
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_xC5CSDDGEeKcFLjGBzrJfw">
       <children xsi:type="advanced:Perspective" xmi:id="_xC5CSTDGEeKcFLjGBzrJfw">
         <children xsi:type="basic:PartSashContainer" xmi:id="_xC5CSjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" horizontal="true">
-          <children xsi:type="basic:PartSashContainer" xmi:id="_eXWZMDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.1" containerData="20">
-            <children xsi:type="basic:PartStack" xmi:id="_xC5CSzDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.left" containerData="70">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_eXWZMDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.1" containerData="25">
+            <children xsi:type="basic:PartStack" xmi:id="_xC5CSzDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.left" containerData="60">
               <children xsi:type="advanced:Placeholder" xmi:id="_YR2eIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.medialib" ref="_N5-gUDDdEeKcFLjGBzrJfw"/>
             </children>
-            <children xsi:type="basic:PartStack" xmi:id="_fmBLwDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.0" containerData="30">
+            <children xsi:type="basic:PartStack" xmi:id="_fmBLwDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.0" containerData="40">
               <children xsi:type="advanced:Placeholder" xmi:id="_amQJsDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.mediainfo" ref="_k6R6sDHDEeKcFLjGBzrJfw"/>
             </children>
           </children>
           <children xsi:type="basic:PartStack" xmi:id="_yBdhUDDcEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.center" containerData="60">
             <children xsi:type="advanced:Placeholder" xmi:id="_RYLQkDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.player" ref="_Odwi0DDdEeKcFLjGBzrJfw"/>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_32QgEDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.right" containerData="20">
+          <children xsi:type="basic:PartStack" xmi:id="_32QgEDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.right" containerData="15">
             <children xsi:type="advanced:Placeholder" xmi:id="_8plFIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.0" ref="_9iMIIDIREeKcFLjGBzrJfw"/>
           </children>
         </children>
