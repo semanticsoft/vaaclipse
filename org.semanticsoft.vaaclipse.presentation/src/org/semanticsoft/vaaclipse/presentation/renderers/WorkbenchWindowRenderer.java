@@ -320,11 +320,8 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 	
 	@Override
 	public void setVisible(MUIElement changedElement, boolean visible) {
-		super.setVisible(changedElement, visible);
-		if (!(changedElement instanceof MWindow)&&(!(changedElement.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW)))){
-			WorkbenchWindow ww = (WorkbenchWindow) changedElement.getWidget();
-			if (visible) ww.setVisible(true);
-			else ww.setVisible(false);
+		if (changedElement instanceof MWindow && !(changedElement.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW))){
+			super.setVisible(changedElement, visible);
 		}
 	}
 }
