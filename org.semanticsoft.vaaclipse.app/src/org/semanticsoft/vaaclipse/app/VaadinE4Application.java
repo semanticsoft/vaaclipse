@@ -66,6 +66,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private String port = "80";
 	private String productionMode;
 	private String appCss = "platform:/plugin/org.semanticsoft.vaaclipse.app/css/default_user_css.css";
+	private boolean debugMode = false;
 	
 	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
 	
@@ -114,7 +115,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		queue = new ArrayBlockingQueue<>(10);
 		
 		startHttpService();
-		showFrame();
+		if (debugMode)
+		showFrame();//it was getting really annoying :)
 		
 		String msg;
 		while (!(msg = queue.take()).equals(EXIT)) 

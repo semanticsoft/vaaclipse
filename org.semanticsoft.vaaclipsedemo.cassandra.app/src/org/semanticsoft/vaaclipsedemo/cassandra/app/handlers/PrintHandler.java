@@ -25,7 +25,7 @@ public class PrintHandler
 {
 	@CanExecute
 	public boolean canExecute() {
-		return true;
+		return false;
 	}
 	
 	@Execute

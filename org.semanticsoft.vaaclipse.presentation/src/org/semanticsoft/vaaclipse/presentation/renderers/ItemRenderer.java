@@ -21,6 +21,7 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.commands.MParameter;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
@@ -121,9 +122,13 @@ public abstract class ItemRenderer extends GenericRenderer {
 		eclipseContext.set(MItem.class, item);
 		setupContext(eclipseContext, item);
 		if (item instanceof MDirectToolItem) {
-			ContextInjectionFactory.invoke(((MDirectToolItem) item).getObject(), Execute.class, eclipseContext);
+			Object toolItem = ((MDirectToolItem) item).getObject();
+			if ((Boolean) ContextInjectionFactory.invoke(toolItem, CanExecute.class, eclipseContext))
+			ContextInjectionFactory.invoke(toolItem, Execute.class, eclipseContext);
 		} else if (item instanceof MDirectMenuItem) {
-			ContextInjectionFactory.invoke(((MDirectMenuItem) item).getObject(), Execute.class, eclipseContext);
+			Object menuItem = ((MDirectMenuItem) item).getObject();
+			if ((Boolean) ContextInjectionFactory.invoke(menuItem, CanExecute.class, eclipseContext))
+			ContextInjectionFactory.invoke(menuItem, Execute.class, eclipseContext);
 		}
 		eclipseContext.remove(MItem.class);
 	}
