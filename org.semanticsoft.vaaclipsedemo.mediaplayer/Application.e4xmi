@@ -36,6 +36,9 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_N5-gUDDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaLibraryView" label="Media Library" tooltip="Media Library"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_k6R6sDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaInfoView" label="Media Information"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_9iMIIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.playlist" label="Playlist" tooltip="Playlist"/>
+    <trimBars xmi:id="_qsDW4DKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.trimbar.0">
+      <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.PlayerToolControl"/>
+    </trimBars>
   </children>
   <handlers xmi:id="_xC4bOTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.QuitHandler" command="_xC4bODDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bPTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.OpenHandler" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
