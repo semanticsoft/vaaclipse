@@ -167,6 +167,9 @@ public class ToolItemRenderer extends ItemRenderer
 			{
 				Resource icon = new ThemeResource(Utils.convertPath(item.getIconURI()));
 				button.setIcon(icon);
+			}// server started
+			else {
+				button=new NativeButton(item.getLabel());
 			}
 			if (item.getTooltip() != null)
 			{

@@ -317,4 +317,14 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 			vWindow.getClientArea().removeComponent((com.vaadin.ui.Component) child.getWidget());
 		}
 	}
+	
+	@Override
+	public void setVisible(MUIElement changedElement, boolean visible) {
+		super.setVisible(changedElement, visible);
+		if (!(changedElement instanceof MWindow)&&(!(changedElement.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW)))){
+			WorkbenchWindow ww = (WorkbenchWindow) changedElement.getWidget();
+			if (visible) ww.setVisible(true);
+			else ww.setVisible(false);
+		}
+	}
 }
