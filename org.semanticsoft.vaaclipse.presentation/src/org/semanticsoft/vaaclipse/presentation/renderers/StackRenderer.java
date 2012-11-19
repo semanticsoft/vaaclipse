@@ -159,6 +159,7 @@ public class StackRenderer extends GenericRenderer {
 
 			MPartStack stack = null;
 			// is this a direct child of the stack?
+			MPlaceholder placeholder = null;
 			if (element.getParent() != null
 					&& element.getParent().getRenderer() == StackRenderer.this) {
 				stack = (MPartStack)(MElementContainer<?>)element.getParent();
@@ -174,12 +175,13 @@ public class StackRenderer extends GenericRenderer {
 					for (MPlaceholder ref : refs) {
 						if (ref.getRef() != part)
 							continue;
-
+						
 						MElementContainer<?> refParent = ref
 								.getParent();
 						// can be null, see bug 328296
 						if (refParent != null
 								&& refParent.getRenderer() instanceof StackRenderer) {
+							placeholder = ref;
 							stack = (MPartStack)refParent;
 						}
 					}
@@ -188,7 +190,7 @@ public class StackRenderer extends GenericRenderer {
 			
 			if (stack != null)
 			{
-				Tab tab = ((StackWidget)stack.getWidget()).getTab((Component) part.getWidget());
+				Tab tab = ((StackWidget)stack.getWidget()).getTab((Component) (placeholder == null ? part.getWidget() : placeholder.getWidget()));
 				updateTab(tab, part, attName, newValue);	
 			}
 		}
