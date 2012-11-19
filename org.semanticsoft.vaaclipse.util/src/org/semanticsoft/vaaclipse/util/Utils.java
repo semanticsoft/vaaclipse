@@ -11,6 +11,9 @@
 
 package org.semanticsoft.vaaclipse.util;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.eclipse.emf.common.util.URI;
 
 public class Utils {
@@ -104,15 +107,24 @@ public class Utils {
 				}
 				else
 				{
-					if (themeEntry.endsWith("css"))
+					if (url.endsWith("css"))
 					{
-						//TODO: todo process
-						throw new RuntimeException("Not implemented yet");
+						//calculate relative to e4CssUri path
+//						String base = "/" + buildSegments(Arrays.copyOfRange(segments, 0, 3), 0);
+//						URI baseUri = URI.createURI(base);
+//						URI uri = URI.createURI(url);
+//						URI relative = uri.deresolve(baseUri);
+//						URI e4Css = URI.createURI(e4CssUri);
+//						URI result = relative.resolve(e4Css);						
+//						return result.toPlatformString(false);
+						
+						String relPath = buildSegments(segments, 3);
+						return e4CssUri.substring(0, e4CssUri.lastIndexOf("/")) + "/" + relPath;
 					}
 					else
 					{//this is theme name
 						String bundleName = segments[3];
-						return "platform:/plugin/" + bundleName + "/" + splitSegments(segments, 4);
+						return "platform:/plugin/" + bundleName + "/" + buildSegments(segments, 4);
 					}
 				}
 			}
@@ -125,7 +137,7 @@ public class Utils {
 			throw new IllegalArgumentException("хз что такое");
 	}
 	
-	private static String splitSegments(String[] segments, int start)
+	private static String buildSegments(String[] segments, int start)
 	{
 		StringBuffer b = new StringBuffer();
 		for (int i = start; i < segments.length; i++)
