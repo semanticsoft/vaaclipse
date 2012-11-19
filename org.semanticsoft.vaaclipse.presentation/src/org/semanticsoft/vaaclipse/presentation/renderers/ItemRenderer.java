@@ -123,12 +123,12 @@ public abstract class ItemRenderer extends GenericRenderer {
 		setupContext(eclipseContext, item);
 		if (item instanceof MDirectToolItem) {
 			Object toolItem = ((MDirectToolItem) item).getObject();
-			if ((Boolean) ContextInjectionFactory.invoke(toolItem, CanExecute.class, eclipseContext))
-			ContextInjectionFactory.invoke(toolItem, Execute.class, eclipseContext);
+			if ((Boolean) ContextInjectionFactory.invoke(toolItem, CanExecute.class, eclipseContext, true))
+				ContextInjectionFactory.invoke(toolItem, Execute.class, eclipseContext);
 		} else if (item instanceof MDirectMenuItem) {
 			Object menuItem = ((MDirectMenuItem) item).getObject();
-			if ((Boolean) ContextInjectionFactory.invoke(menuItem, CanExecute.class, eclipseContext))
-			ContextInjectionFactory.invoke(menuItem, Execute.class, eclipseContext);
+			if ((Boolean) ContextInjectionFactory.invoke(menuItem, CanExecute.class, eclipseContext, true))
+				ContextInjectionFactory.invoke(menuItem, Execute.class, eclipseContext);
 		}
 		eclipseContext.remove(MItem.class);
 	}
