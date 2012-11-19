@@ -3,9 +3,16 @@
  */
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
+import org.eclipse.e4.core.services.events.IEventBroker;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 
 import com.vaadin.data.util.ObjectProperty;
@@ -30,6 +37,18 @@ public class MediaInfoView
 	private Label description = new Label("", Label.CONTENT_XHTML);
 	
 	private GridLayout grid;
+
+	private EventHandler meidaSelectedHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event) {
+			Object data = event.getProperty(EventUtils.DATA);
+			if (data instanceof Media){
+				setMedia((Media) data);
+			}
+			
+		}
+	};
 	
 	@Inject
 	public void PlayerView(VerticalLayout parent, IEclipseContext context)
@@ -37,6 +56,11 @@ public class MediaInfoView
 		layout.setSizeFull();
 		parent.addComponent(layout);
 		description.setSizeFull();
+	}
+	
+	@PostConstruct
+	public void pc(IEventBroker broker){
+		broker.subscribe(IMediaConstants.mediaSelected, meidaSelectedHandler);
 	}
 	
 	public Media getMedia()
@@ -72,5 +96,10 @@ public class MediaInfoView
 		name.setPropertyDataSource(new ObjectProperty<String>(media.getName(), String.class));
 		uri.setPropertyDataSource(new ObjectProperty<String>(media.getUri(), String.class));
 		description.setPropertyDataSource(new ObjectProperty<String>(media.getDescription(), String.class));
+	}
+	
+	@PreDestroy
+	public void pd(IEventBroker broker){
+		broker.unsubscribe(meidaSelectedHandler);
 	}
 }

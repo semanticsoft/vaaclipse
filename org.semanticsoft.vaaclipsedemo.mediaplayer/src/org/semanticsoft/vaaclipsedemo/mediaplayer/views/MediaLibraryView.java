@@ -3,25 +3,20 @@
  */
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
-import java.io.File;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 
-import com.vaadin.Application;
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.Hierarchical;
 import com.vaadin.data.Item;
-import com.vaadin.data.util.FilesystemContainer;
-import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.terminal.ThemeResource;
@@ -41,8 +36,8 @@ public class MediaLibraryView {
 	
 	private Panel panel;
 	private Tree tree;
-	private MPart playerPart;
-	private MPart mediaInfoPart;
+//	private MPart playerPart;
+//	private MPart mediaInfoPart;
 	
 	@Inject
 	MediaLibrary mediaLibrary;
@@ -52,6 +47,9 @@ public class MediaLibraryView {
 	
 	@Inject
 	MApplication app;
+	
+	@Inject
+	IEventBroker broker;
 	
 	@Inject
 	public void MedialibraryView(VerticalLayout parent, IEclipseContext context)
@@ -75,6 +73,8 @@ public class MediaLibraryView {
 
 		tree.addListener(new ItemClickEvent.ItemClickListener() {
 
+			private static final long serialVersionUID = 1L;
+
 			public void itemClick(final ItemClickEvent event)
 			{
 				if (event.getButton() == ItemClickEvent.BUTTON_LEFT)
@@ -88,14 +88,17 @@ public class MediaLibraryView {
 					{
 						Media media = (Media)object;
 						
-						MPart mediaInfoPart = getMediaInfoPart();
-						MediaInfoView mediaInfoView = (MediaInfoView) mediaInfoPart.getObject();
-						mediaInfoView.setMedia(media);
+//						MPart mediaInfoPart = getMediaInfoPart();
+//						MediaInfoView mediaInfoView = (MediaInfoView) mediaInfoPart.getObject();
+//						mediaInfoView.setMedia(media);
+//						
+//						MPart playerPart = getPlayerPart();
+//						playerPart.setLabel(media.getName());
+//						PlayerView playerView = (PlayerView) playerPart.getObject();
+//						playerView.setMedia(media);
 						
-						MPart playerPart = getPlayerPart();
-						playerPart.setLabel(media.getName());
-						PlayerView playerView = (PlayerView) playerPart.getObject();
-						playerView.setMedia(media);
+						broker.send(IMediaConstants.mediaSelected, media);
+						
 					}
 				}
 			}
@@ -113,36 +116,36 @@ public class MediaLibraryView {
 		}
 	}
 	
-	private MPart getMediaInfoPart()
-	{
-		if (mediaInfoPart == null)
-		{
-			mediaInfoPart = findPart("org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo");
-			return mediaInfoPart;
-		}
-		return mediaInfoPart;
-	}
-	
-	private MPart getPlayerPart()
-	{
-		if (playerPart == null)
-		{
-			playerPart = findPart("org.semanticsoft.vaaclipsedemo.mediaplayer.part.player");
-			return playerPart;
-		}
-		return playerPart;
-	}
-	
-	private MPart findPart(String id)
-	{
-		List<MPart> elements = modelService.findElements(app, id, MPart.class, null, EModelService.IN_ACTIVE_PERSPECTIVE);
-		if (!elements.isEmpty())
-		{
-			return elements.get(0);
-		}
-		else
-			return null;
-	}
+//	private MPart getMediaInfoPart()
+//	{
+//		if (mediaInfoPart == null)
+//		{
+//			mediaInfoPart = findPart("org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo");
+//			return mediaInfoPart;
+//		}
+//		return mediaInfoPart;
+//	}
+//	
+//	private MPart getPlayerPart()
+//	{
+//		if (playerPart == null)
+//		{
+//			playerPart = findPart("org.semanticsoft.vaaclipsedemo.mediaplayer.part.player");
+//			return playerPart;
+//		}
+//		return playerPart;
+//	}
+//	
+//	private MPart findPart(String id)
+//	{
+//		List<MPart> elements = modelService.findElements(app, id, MPart.class, null, EModelService.IN_ACTIVE_PERSPECTIVE);
+//		if (!elements.isEmpty())
+//		{
+//			return elements.get(0);
+//		}
+//		else
+//			return null;
+//	}
 	
 	private Container.Hierarchical createMediaLibraryDataSource()
 	{

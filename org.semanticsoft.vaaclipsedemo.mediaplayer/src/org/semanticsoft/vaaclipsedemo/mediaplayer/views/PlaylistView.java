@@ -22,9 +22,6 @@ import com.vaadin.ui.VerticalLayout;
 public class PlaylistView
 {
 	private Panel panel;
-	private Tree tree;
-	private MPart playerPart;
-	private MPart mediaInfoPart;
 	
 	@Inject
 	MediaLibrary mediaLibrary;
@@ -36,7 +33,7 @@ public class PlaylistView
 	MApplication app;
 	
 	@Inject
-	public void PlaylistView(VerticalLayout parent, IEclipseContext context)
+	public PlaylistView(VerticalLayout parent, IEclipseContext context)
 	{
 		panel = new Panel();
 		panel.setSizeFull();

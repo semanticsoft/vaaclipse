@@ -21,7 +21,7 @@
          </property>
       </product>
    </extension>
-   <extension
+   <extension id="processor"
          point="org.eclipse.e4.workbench.model">
          
         <processor
