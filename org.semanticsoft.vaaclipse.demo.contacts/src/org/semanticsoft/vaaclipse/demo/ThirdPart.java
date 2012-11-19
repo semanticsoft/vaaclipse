@@ -5,14 +5,13 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
 import com.vaadin.ui.Table;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
 public class ThirdPart {
@@ -30,20 +29,21 @@ public class ThirdPart {
 		;
 	}
 
-	// @Inject
-	// @Optional
-	// public void respond(@UIEventTopic("MyEvent") String s){
-	// System.err.println("HEREEEEEE");
-	// if (s!=null)
-	// c.setCaption("I am an evented object");
-	// }
+	 @Inject
+	 @Optional
+	 public void respond(@EventTopic("MyEvent") String s){
+	 System.err.println("HEREEEEEE");
+	 if (s!=null)
+	 c.setCaption("I am an evented object");
+	 }
 
 	public void subscribictions() {
 		eventHandler = new EventHandler() {
 
 			@Override
 			public void handleEvent(Event event) {
-				System.err.println("Clicked");
+				System.err.println(event);
+				System.err.println("Testing");
 
 			}
 		};

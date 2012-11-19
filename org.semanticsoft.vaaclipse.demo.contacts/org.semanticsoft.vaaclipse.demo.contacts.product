@@ -124,6 +124,8 @@
    </plugins>
 
    <configurations>
+      <plugin id="org.eclipse.e4.core.di.extensions" autoStart="false" startLevel="1" />
+      <plugin id="org.eclipse.e4.ui.di" autoStart="false" startLevel="1" />
       <plugin id="org.eclipse.e4.ui.services" autoStart="false" startLevel="1" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />

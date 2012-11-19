@@ -108,8 +108,6 @@ public class VaadinApplication extends Application
 		e4Workbench = createE4Workbench(context);
 		e4Workbench.createAndRunUI(e4Workbench.getApplication());
 
-		//TODO: разобраться с этой хренью
-		//если это раскомментарить, то приложение будет имитировать жизнь в то время как workbench будет чуть менее чем мертв
 //		try {
 //			if (e4Workbench != null && e4Workbench.getContext() != null) {
 //				modelResourceHandler.save();
@@ -131,7 +129,7 @@ public class VaadinApplication extends Application
 		args = (String[]) applicationContext.getArguments().get(IApplicationContext.APPLICATION_ARGS);
 
 		IEclipseContext appContext = createDefaultContext(applicationContext);
-		appContext.set("e4ApplicationInstanceId", UUID.randomUUID().toString());
+		appContext.set("e4ApplicationInstanceId","Sopot");
 		appContext.set("vaadinapp", this);
 		appContext.set(Application.class, this);
 		appContext.set(VaadinOSGiCommunicationManager.class, servlet.getCommunicationManager());
