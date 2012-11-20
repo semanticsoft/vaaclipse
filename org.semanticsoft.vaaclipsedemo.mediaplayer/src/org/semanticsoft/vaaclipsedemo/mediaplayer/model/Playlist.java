@@ -4,6 +4,7 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,6 +17,11 @@ public class Playlist
 	
 	public List<Media> getMediaList()
 	{
-		return mediaList;
+		return Collections.unmodifiableList(this.mediaList);
+	}
+	
+	public void addMedia(Media media)
+	{
+		this.mediaList.add(media);
 	}
 }
