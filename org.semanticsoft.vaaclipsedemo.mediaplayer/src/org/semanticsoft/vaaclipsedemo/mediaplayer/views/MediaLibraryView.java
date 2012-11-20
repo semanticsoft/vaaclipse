@@ -6,10 +6,8 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
@@ -22,6 +20,7 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -58,12 +57,13 @@ public class MediaLibraryView {
 		panel.setSizeFull();
 		parent.addComponent(panel);
 		
-		createProjectTree();
+		createMediaLibraryTree();
 	}
 	
-	private void createProjectTree()
+	private void createMediaLibraryTree()
 	{
 		tree = new Tree();
+		tree.setDragMode(TreeDragMode.NODE);
 		tree.setSizeFull();
 		tree.setImmediate(true);
 		panel.addComponent(tree);
@@ -182,5 +182,10 @@ public class MediaLibraryView {
 			mediaItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/media.png"));
 			mediaItem.getItemProperty(OBJECT_PROP).setValue(media);
 		}
+	}
+	
+	public Tree getTree()
+	{
+		return tree;
 	}
 }
