@@ -26,6 +26,7 @@ import com.vaadin.event.dd.acceptcriteria.ClientSideCriterion;
 import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.ui.AbstractSelect.AbstractSelectTargetDetails;
 import com.vaadin.ui.AbstractSelect.AcceptItem;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.TableDragMode;
@@ -63,21 +64,11 @@ public class PlaylistView
 
 	public void addMedia(Media media)
 	{
-		if (this.playlist.getMediaList().isEmpty())
-			tableContainer.removeAllItems(); // drop the dummy media with help
-												// text
-
-		table.setCaption("");
 		tableContainer.addItem(media);
 	}
 
 	public void addMediaAfter(Media prevMedia, Media media)
 	{
-		if (this.playlist.getMediaList().isEmpty())
-			tableContainer.removeAllItems(); // drop the dummy media with help
-												// text
-
-		table.setCaption(null);
 		tableContainer.addItemAfter(prevMedia, media);
 	}
 
@@ -88,13 +79,6 @@ public class PlaylistView
 		for (Media media : this.playlist.getMediaList())
 		{
 			addMedia(media);
-		}
-
-		if (this.playlist.getMediaList().isEmpty())
-		{
-			Media dummyMedia = new Media();
-			dummyMedia.setName("Drag the media from library");
-			addMedia(dummyMedia);
 		}
 	}
 
