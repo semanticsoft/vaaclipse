@@ -258,6 +258,8 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		dialogEClass.getESuperTypes().add(theMenuPackage.getHandledItem());
 		dialogEClass.getESuperTypes().add(theBasicPackage_1.getWindowElement());
 		dialogEClass.getESuperTypes().add(theBasicPackage_1.getPartStack());
+		dialogEClass.getESuperTypes().add(theApplicationPackage.getContribution());
+		dialogEClass.getESuperTypes().add(theUiPackage.getContext());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(editorPartDescriptorEClass, EditorPartDescriptor.class, "EditorPartDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

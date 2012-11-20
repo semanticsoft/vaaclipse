@@ -2,6 +2,8 @@
  */
 package e4modelextension;
 
+import org.eclipse.e4.ui.model.application.MContribution;
+import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 
@@ -22,5 +24,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Dialog extends EObject, MDirtyable, MHandledItem, MWindowElement, MPartStack {
+public interface Dialog extends EObject, MDirtyable, MHandledItem, MWindowElement, MPartStack, MContribution, MContext {
 } // Dialog

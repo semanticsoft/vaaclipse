@@ -11,13 +11,16 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.core.commands.ParameterizedCommand;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
+import org.eclipse.e4.ui.model.application.MContribution;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MParameter;
 
 import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
 import org.eclipse.e4.ui.model.application.impl.StringToObjectMapImpl;
 import org.eclipse.e4.ui.model.application.impl.StringToStringMapImpl;
+import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MExpression;
 import org.eclipse.e4.ui.model.application.ui.MGenericStack;
@@ -95,6 +98,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link e4modelextension.impl.DialogImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link e4modelextension.impl.DialogImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link e4modelextension.impl.DialogImpl#getSelectedElement <em>Selected Element</em>}</li>
+ *   <li>{@link e4modelextension.impl.DialogImpl#getContributionURI <em>Contribution URI</em>}</li>
+ *   <li>{@link e4modelextension.impl.DialogImpl#getObject <em>Object</em>}</li>
+ *   <li>{@link e4modelextension.impl.DialogImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link e4modelextension.impl.DialogImpl#getVariables <em>Variables</em>}</li>
+ *   <li>{@link e4modelextension.impl.DialogImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -530,6 +538,86 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 	 * @ordered
 	 */
 	protected MStackElement selectedElement;
+
+	/**
+	 * The default value of the '{@link #getContributionURI() <em>Contribution URI</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContributionURI()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTRIBUTION_URI_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContributionURI() <em>Contribution URI</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContributionURI()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contributionURI = CONTRIBUTION_URI_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getObject() <em>Object</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Object OBJECT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getObject() <em>Object</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object object = OBJECT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final IEclipseContext CONTEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected IEclipseContext context = CONTEXT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> variables;
+
+	/**
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, String> properties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1171,6 +1259,93 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getContributionURI() {
+		return contributionURI;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContributionURI(String newContributionURI) {
+		String oldContributionURI = contributionURI;
+		contributionURI = newContributionURI;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, E4modelextensionPackage.DIALOG__CONTRIBUTION_URI, oldContributionURI, contributionURI));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getObject() {
+		return object;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setObject(Object newObject) {
+		Object oldObject = object;
+		object = newObject;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, E4modelextensionPackage.DIALOG__OBJECT, oldObject, object));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IEclipseContext getContext() {
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(IEclipseContext newContext) {
+		IEclipseContext oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, E4modelextensionPackage.DIALOG__CONTEXT, oldContext, context));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<String> getVariables() {
+		if (variables == null) {
+			variables = new EDataTypeUniqueEList<String>(String.class, this, E4modelextensionPackage.DIALOG__VARIABLES);
+		}
+		return variables;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map<String, String> getProperties() {
+		if (properties == null) {
+			properties = new EcoreEMap<String,String>(ApplicationPackageImpl.Literals.STRING_TO_STRING_MAP, StringToStringMapImpl.class, this, E4modelextensionPackage.DIALOG__PROPERTIES);
+		}
+		return properties.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getLocalizedLabel() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -1238,6 +1413,8 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 			case E4modelextensionPackage.DIALOG__CHILDREN:
 				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
+			case E4modelextensionPackage.DIALOG__PROPERTIES:
+				return ((InternalEList<?>)((EMap.InternalMapView<String, String>)getProperties()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1323,6 +1500,17 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 			case E4modelextensionPackage.DIALOG__SELECTED_ELEMENT:
 				if (resolve) return getSelectedElement();
 				return basicGetSelectedElement();
+			case E4modelextensionPackage.DIALOG__CONTRIBUTION_URI:
+				return getContributionURI();
+			case E4modelextensionPackage.DIALOG__OBJECT:
+				return getObject();
+			case E4modelextensionPackage.DIALOG__CONTEXT:
+				return getContext();
+			case E4modelextensionPackage.DIALOG__VARIABLES:
+				return getVariables();
+			case E4modelextensionPackage.DIALOG__PROPERTIES:
+				if (coreType) return ((EMap.InternalMapView<String, String>)getProperties()).eMap();
+				else return getProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1420,6 +1608,22 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 			case E4modelextensionPackage.DIALOG__SELECTED_ELEMENT:
 				setSelectedElement((MStackElement)newValue);
 				return;
+			case E4modelextensionPackage.DIALOG__CONTRIBUTION_URI:
+				setContributionURI((String)newValue);
+				return;
+			case E4modelextensionPackage.DIALOG__OBJECT:
+				setObject(newValue);
+				return;
+			case E4modelextensionPackage.DIALOG__CONTEXT:
+				setContext((IEclipseContext)newValue);
+				return;
+			case E4modelextensionPackage.DIALOG__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends String>)newValue);
+				return;
+			case E4modelextensionPackage.DIALOG__PROPERTIES:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, String>)getProperties()).eMap()).set(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1513,6 +1717,21 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 			case E4modelextensionPackage.DIALOG__SELECTED_ELEMENT:
 				setSelectedElement((MStackElement)null);
 				return;
+			case E4modelextensionPackage.DIALOG__CONTRIBUTION_URI:
+				setContributionURI(CONTRIBUTION_URI_EDEFAULT);
+				return;
+			case E4modelextensionPackage.DIALOG__OBJECT:
+				setObject(OBJECT_EDEFAULT);
+				return;
+			case E4modelextensionPackage.DIALOG__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
+			case E4modelextensionPackage.DIALOG__VARIABLES:
+				getVariables().clear();
+				return;
+			case E4modelextensionPackage.DIALOG__PROPERTIES:
+				getProperties().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1579,6 +1798,16 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 				return children != null && !children.isEmpty();
 			case E4modelextensionPackage.DIALOG__SELECTED_ELEMENT:
 				return selectedElement != null;
+			case E4modelextensionPackage.DIALOG__CONTRIBUTION_URI:
+				return CONTRIBUTION_URI_EDEFAULT == null ? contributionURI != null : !CONTRIBUTION_URI_EDEFAULT.equals(contributionURI);
+			case E4modelextensionPackage.DIALOG__OBJECT:
+				return OBJECT_EDEFAULT == null ? object != null : !OBJECT_EDEFAULT.equals(object);
+			case E4modelextensionPackage.DIALOG__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+			case E4modelextensionPackage.DIALOG__VARIABLES:
+				return variables != null && !variables.isEmpty();
+			case E4modelextensionPackage.DIALOG__PROPERTIES:
+				return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1663,6 +1892,21 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 		}
 		if (baseClass == MPartStack.class) {
 			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == MContribution.class) {
+			switch (derivedFeatureID) {
+				case E4modelextensionPackage.DIALOG__CONTRIBUTION_URI: return ApplicationPackageImpl.CONTRIBUTION__CONTRIBUTION_URI;
+				case E4modelextensionPackage.DIALOG__OBJECT: return ApplicationPackageImpl.CONTRIBUTION__OBJECT;
+				default: return -1;
+			}
+		}
+		if (baseClass == MContext.class) {
+			switch (derivedFeatureID) {
+				case E4modelextensionPackage.DIALOG__CONTEXT: return UiPackageImpl.CONTEXT__CONTEXT;
+				case E4modelextensionPackage.DIALOG__VARIABLES: return UiPackageImpl.CONTEXT__VARIABLES;
+				case E4modelextensionPackage.DIALOG__PROPERTIES: return UiPackageImpl.CONTEXT__PROPERTIES;
 				default: return -1;
 			}
 		}
@@ -1752,6 +1996,21 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 				default: return -1;
 			}
 		}
+		if (baseClass == MContribution.class) {
+			switch (baseFeatureID) {
+				case ApplicationPackageImpl.CONTRIBUTION__CONTRIBUTION_URI: return E4modelextensionPackage.DIALOG__CONTRIBUTION_URI;
+				case ApplicationPackageImpl.CONTRIBUTION__OBJECT: return E4modelextensionPackage.DIALOG__OBJECT;
+				default: return -1;
+			}
+		}
+		if (baseClass == MContext.class) {
+			switch (baseFeatureID) {
+				case UiPackageImpl.CONTEXT__CONTEXT: return E4modelextensionPackage.DIALOG__CONTEXT;
+				case UiPackageImpl.CONTEXT__VARIABLES: return E4modelextensionPackage.DIALOG__VARIABLES;
+				case UiPackageImpl.CONTEXT__PROPERTIES: return E4modelextensionPackage.DIALOG__PROPERTIES;
+				default: return -1;
+			}
+		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
@@ -1801,6 +2060,14 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 		result.append(type);
 		result.append(", wbCommand: ");
 		result.append(wbCommand);
+		result.append(", contributionURI: ");
+		result.append(contributionURI);
+		result.append(", object: ");
+		result.append(object);
+		result.append(", context: ");
+		result.append(context);
+		result.append(", variables: ");
+		result.append(variables);
 		result.append(')');
 		return result.toString();
 	}

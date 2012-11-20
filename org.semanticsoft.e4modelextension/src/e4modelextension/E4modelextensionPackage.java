@@ -831,13 +831,58 @@ public interface E4modelextensionPackage extends EPackage
 	int DIALOG__SELECTED_ELEMENT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 25;
 
 	/**
+	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__CONTRIBUTION_URI = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 26;
+
+	/**
+	 * The feature id for the '<em><b>Object</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__OBJECT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 27;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__CONTEXT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 28;
+
+	/**
+	 * The feature id for the '<em><b>Variables</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__VARIABLES = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 29;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__PROPERTIES = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 30;
+
+	/**
 	 * The number of structural features of the '<em>Dialog</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIALOG_FEATURE_COUNT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 26;
+	int DIALOG_FEATURE_COUNT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 31;
 
 
 	/**

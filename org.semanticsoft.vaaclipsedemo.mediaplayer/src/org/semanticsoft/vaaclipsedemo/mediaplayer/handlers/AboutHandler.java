@@ -36,6 +36,7 @@ public class AboutHandler {
 		MPart part = partService.createPart("dialog.pd");
 		dialog.getChildren().add(part);
 		dialog.setSelectedElement(part);
+		dialog.setContributionURI("bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.FooterLayout");
 		MCommand command = MCommandsFactory.INSTANCE.createCommand();
 		command.setCategory(null);
 		command.setElementId("C1");

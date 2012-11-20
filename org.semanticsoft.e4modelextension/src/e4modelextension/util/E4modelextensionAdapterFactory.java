@@ -7,6 +7,7 @@ import e4modelextension.*;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 
+import org.eclipse.e4.ui.model.application.MContribution;
 import org.eclipse.e4.ui.model.application.commands.MBindingTableContainer;
 import org.eclipse.e4.ui.model.application.commands.MBindings;
 import org.eclipse.e4.ui.model.application.commands.MHandlerContainer;
@@ -196,6 +197,10 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 			@Override
 			public Adapter casePartStack(MPartStack object) {
 				return createPartStackAdapter();
+			}
+			@Override
+			public Adapter caseContribution(MContribution object) {
+				return createContributionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -582,6 +587,20 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createPartStackAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.MContribution <em>Contribution</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.MContribution
+	 * @generated
+	 */
+	public Adapter createContributionAdapter() {
 		return null;
 	}
 

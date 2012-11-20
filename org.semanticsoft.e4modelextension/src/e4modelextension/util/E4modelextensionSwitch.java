@@ -7,6 +7,7 @@ import e4modelextension.*;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 
+import org.eclipse.e4.ui.model.application.MContribution;
 import org.eclipse.e4.ui.model.application.commands.MBindingTableContainer;
 import org.eclipse.e4.ui.model.application.commands.MBindings;
 import org.eclipse.e4.ui.model.application.commands.MHandlerContainer;
@@ -133,6 +134,8 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 				if (result == null) result = caseDirtyable(dialog);
 				if (result == null) result = caseHandledItem(dialog);
 				if (result == null) result = casePartStack(dialog);
+				if (result == null) result = caseContribution(dialog);
+				if (result == null) result = caseContext(dialog);
 				if (result == null) result = caseItem(dialog);
 				if (result == null) result = caseWindowElement(dialog);
 				if (result == null) result = caseGenericStack(dialog);
@@ -537,6 +540,21 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @generated
 	 */
 	public T1 casePartStack(MPartStack object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Contribution</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Contribution</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseContribution(MContribution object) {
 		return null;
 	}
 
