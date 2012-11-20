@@ -9,7 +9,7 @@ import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.osgi.service.event.Event;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.osgi.service.event.EventHandler;
 

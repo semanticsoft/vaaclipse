@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 
 import com.vaadin.data.util.ObjectProperty;

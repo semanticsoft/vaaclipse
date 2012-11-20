@@ -1,4 +1,4 @@
-package org.semanticsoft.vaaclipsedemo.mediaplayer.model;
+package org.semanticsoft.vaaclipsedemo.mediaplayer.constants;
 
 public class IMediaConstants {
 	
