@@ -9,7 +9,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
@@ -37,9 +37,7 @@ public class MediaLibraryView {
 	
 	private Panel panel;
 	private Tree tree;
-//	private MPart playerPart;
-//	private MPart mediaInfoPart;
-	
+
 	@Inject
 	MediaLibrary mediaLibrary;
 	
@@ -81,24 +79,11 @@ public class MediaLibraryView {
 			{
 				if (event.getButton() == ItemClickEvent.BUTTON_LEFT)
 				{
-//					tree.select(event.getItemId());
-//					getConsole().println("time: " + time + "; last time: " + lastTime);
-					
 					Item item = event.getItem();
 					Object object = item.getItemProperty(OBJECT_PROP).getValue();
 					if (object != null && object instanceof Media)
 					{
 						Media media = (Media)object;
-						
-//						MPart mediaInfoPart = getMediaInfoPart();
-//						MediaInfoView mediaInfoView = (MediaInfoView) mediaInfoPart.getObject();
-//						mediaInfoView.setMedia(media);
-//						
-//						MPart playerPart = getPlayerPart();
-//						playerPart.setLabel(media.getName());
-//						PlayerView playerView = (PlayerView) playerPart.getObject();
-//						playerView.setMedia(media);
-						
 						broker.send(IMediaConstants.mediaSelected, media);
 						
 					}
@@ -109,7 +94,6 @@ public class MediaLibraryView {
 		// Set tree to show the 'name' property as caption for items
 		tree.setItemCaptionPropertyId(NAME_PROP);
 		tree.setItemIconPropertyId(ICON_PROP);
-		// tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
 		
 		// Expand whole tree
 		for (Object id : tree.rootItemIds())
@@ -117,38 +101,7 @@ public class MediaLibraryView {
 			tree.expandItemsRecursively(id);
 		}
 	}
-	
-//	private MPart getMediaInfoPart()
-//	{
-//		if (mediaInfoPart == null)
-//		{
-//			mediaInfoPart = findPart("org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo");
-//			return mediaInfoPart;
-//		}
-//		return mediaInfoPart;
-//	}
-//	
-//	private MPart getPlayerPart()
-//	{
-//		if (playerPart == null)
-//		{
-//			playerPart = findPart("org.semanticsoft.vaaclipsedemo.mediaplayer.part.player");
-//			return playerPart;
-//		}
-//		return playerPart;
-//	}
-//	
-//	private MPart findPart(String id)
-//	{
-//		List<MPart> elements = modelService.findElements(app, id, MPart.class, null, EModelService.IN_ACTIVE_PERSPECTIVE);
-//		if (!elements.isEmpty())
-//		{
-//			return elements.get(0);
-//		}
-//		else
-//			return null;
-//	}
-	
+		
 	private Container.Hierarchical createMediaLibraryDataSource()
 	{
 		HierarchicalContainer container = new HierarchicalContainer();
