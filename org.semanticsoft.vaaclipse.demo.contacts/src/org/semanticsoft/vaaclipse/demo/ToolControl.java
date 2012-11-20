@@ -3,9 +3,6 @@ package org.semanticsoft.vaaclipse.demo;
 import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.semanticsoft.vaaclipse.demo.model.Address;
-import org.semanticsoft.vaaclipse.demo.model.IContactsConstants;
-import org.semanticsoft.vaaclipse.demo.model.Person;
 
 import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.Button;
@@ -26,7 +23,7 @@ public class ToolControl {
 		@Override
 		public void buttonClick(ClickEvent event) {
 			System.err.println("Clicked");
-			broker.send(IContactsConstants.personSelected, new Person("Frederick","Barbarossa",31,new Address()));
+			broker.post("MyEvent", new String("Here's your data"));
 			
 		}
 	}

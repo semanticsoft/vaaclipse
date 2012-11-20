@@ -70,6 +70,9 @@ public class VaadinDropHandler implements DropHandler
     }
 
 	public void drop(DragAndDropEvent event) {
+		if (!(event.getTransferable() instanceof LayoutBoundTransferable) )
+			return;
+		
 		LayoutBoundTransferable transferable = (LayoutBoundTransferable) event.getTransferable();
 		TabSheetTargetDetails details = (TabSheetTargetDetails) event.getTargetDetails();
 		

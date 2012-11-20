@@ -1,19 +1,18 @@
  
 package org.semanticsoft.vaaclipse.demo;
 
+import javax.inject.Inject;
 import javax.annotation.PostConstruct;
-
 import org.eclipse.e4.ui.di.Focus;
 
-import com.vaadin.ui.Button;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-public class ContactsList {
+public class TablePart {
 	
 	@PostConstruct
-	public void postConstruct(VerticalLayout layout) {
-		System.err.println("In postccccconstruct");
-		layout.addComponent(new Button("I am button 1"));
+	public void postConstruct(VerticalLayout vl) {
+		vl.addComponent(new TextArea("I am a new text Arela"));
 	}
 	
 	
