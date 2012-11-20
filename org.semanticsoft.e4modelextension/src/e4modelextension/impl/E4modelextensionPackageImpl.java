@@ -2,15 +2,19 @@
  */
 package e4modelextension.impl;
 
+import e4modelextension.Dialog;
 import e4modelextension.E4modelextensionFactory;
 import e4modelextension.E4modelextensionPackage;
 import e4modelextension.EditorPartDescriptor;
 import e4modelextension.VaaclipseApplication;
 
+import org.eclipse.e4.ui.model.application.commands.impl.CommandsPackageImpl;
 import org.eclipse.e4.ui.model.application.descriptor.basic.impl.BasicPackageImpl;
 
 import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
 
+import org.eclipse.e4.ui.model.application.ui.impl.UiPackageImpl;
+import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuPackageImpl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -39,6 +43,13 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * @generated
 	 */
 	private EClass vaaclipseApplicationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dialogEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -161,6 +172,15 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDialog() {
+		return dialogEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public E4modelextensionFactory getE4modelextensionFactory()
 	{
 		return (E4modelextensionFactory)getEFactoryInstance();
@@ -192,6 +212,8 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 
 		vaaclipseApplicationEClass = createEClass(VAACLIPSE_APPLICATION);
 		createEReference(vaaclipseApplicationEClass, VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS);
+
+		dialogEClass = createEClass(DIALOG);
 	}
 
 	/**
@@ -221,6 +243,9 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		// Obtain other dependent packages
 		BasicPackageImpl theBasicPackage = (BasicPackageImpl)EPackage.Registry.INSTANCE.getEPackage(BasicPackageImpl.eNS_URI);
 		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackageImpl.eNS_URI);
+		UiPackageImpl theUiPackage = (UiPackageImpl)EPackage.Registry.INSTANCE.getEPackage(UiPackageImpl.eNS_URI);
+		MenuPackageImpl theMenuPackage = (MenuPackageImpl)EPackage.Registry.INSTANCE.getEPackage(MenuPackageImpl.eNS_URI);
+		org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl theBasicPackage_1 = (org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl)EPackage.Registry.INSTANCE.getEPackage(org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl.eNS_URI);
 
 		// Create type parameters
 
@@ -229,6 +254,10 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		// Add supertypes to classes
 		editorPartDescriptorEClass.getESuperTypes().add(theBasicPackage.getPartDescriptor());
 		vaaclipseApplicationEClass.getESuperTypes().add(theApplicationPackage.getApplication());
+		dialogEClass.getESuperTypes().add(theUiPackage.getDirtyable());
+		dialogEClass.getESuperTypes().add(theMenuPackage.getHandledItem());
+		dialogEClass.getESuperTypes().add(theBasicPackage_1.getWindowElement());
+		dialogEClass.getESuperTypes().add(theBasicPackage_1.getPartStack());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(editorPartDescriptorEClass, EditorPartDescriptor.class, "EditorPartDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -237,6 +266,8 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 
 		initEClass(vaaclipseApplicationEClass, VaaclipseApplication.class, "VaaclipseApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVaaclipseApplication_EditorDescriptors(), this.getEditorPartDescriptor(), null, "editorDescriptors", null, 0, -1, VaaclipseApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(dialogEClass, Dialog.class, "Dialog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

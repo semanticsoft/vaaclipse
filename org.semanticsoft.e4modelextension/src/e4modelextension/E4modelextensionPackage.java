@@ -6,6 +6,7 @@ import org.eclipse.e4.ui.model.application.descriptor.basic.impl.BasicPackageImp
 
 import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
 
+import org.eclipse.e4.ui.model.application.ui.impl.UiPackageImpl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -577,6 +578,269 @@ public interface E4modelextensionPackage extends EPackage
 
 
 	/**
+	 * The meta object id for the '{@link e4modelextension.impl.DialogImpl <em>Dialog</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see e4modelextension.impl.DialogImpl
+	 * @see e4modelextension.impl.E4modelextensionPackageImpl#getDialog()
+	 * @generated
+	 */
+	int DIALOG = 2;
+
+	/**
+	 * The feature id for the '<em><b>Dirty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__DIRTY = UiPackageImpl.DIRTYABLE__DIRTY;
+
+	/**
+	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__ELEMENT_ID = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Persisted State</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__PERSISTED_STATE = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__TAGS = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Contributor URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__CONTRIBUTOR_URI = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Transient Data</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__TRANSIENT_DATA = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Widget</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__WIDGET = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Renderer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__RENDERER = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>To Be Rendered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__TO_BE_RENDERED = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>On Top</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__ON_TOP = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__VISIBLE = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__PARENT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Container Data</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__CONTAINER_DATA = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Cur Shared Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__CUR_SHARED_REF = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Visible When</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__VISIBLE_WHEN = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 13;
+
+	/**
+	 * The feature id for the '<em><b>Accessibility Phrase</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__ACCESSIBILITY_PHRASE = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 14;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__LABEL = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 15;
+
+	/**
+	 * The feature id for the '<em><b>Icon URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__ICON_URI = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 16;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__TOOLTIP = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 17;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__ENABLED = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 18;
+
+	/**
+	 * The feature id for the '<em><b>Selected</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__SELECTED = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 19;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__TYPE = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 20;
+
+	/**
+	 * The feature id for the '<em><b>Command</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__COMMAND = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 21;
+
+	/**
+	 * The feature id for the '<em><b>Wb Command</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__WB_COMMAND = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 22;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__PARAMETERS = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 23;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__CHILDREN = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 24;
+
+	/**
+	 * The feature id for the '<em><b>Selected Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG__SELECTED_ELEMENT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 25;
+
+	/**
+	 * The number of structural features of the '<em>Dialog</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG_FEATURE_COUNT = UiPackageImpl.DIRTYABLE_FEATURE_COUNT + 26;
+
+
+	/**
 	 * Returns the meta object for class '{@link e4modelextension.EditorPartDescriptor <em>Editor Part Descriptor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -628,6 +892,16 @@ public interface E4modelextensionPackage extends EPackage
 	 * @generated
 	 */
 	EReference getVaaclipseApplication_EditorDescriptors();
+
+	/**
+	 * Returns the meta object for class '{@link e4modelextension.Dialog <em>Dialog</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Dialog</em>'.
+	 * @see e4modelextension.Dialog
+	 * @generated
+	 */
+	EClass getDialog();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -695,6 +969,16 @@ public interface E4modelextensionPackage extends EPackage
 		 * @generated
 		 */
 		EReference VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS = eINSTANCE.getVaaclipseApplication_EditorDescriptors();
+
+		/**
+		 * The meta object literal for the '{@link e4modelextension.impl.DialogImpl <em>Dialog</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see e4modelextension.impl.DialogImpl
+		 * @see e4modelextension.impl.E4modelextensionPackageImpl#getDialog()
+		 * @generated
+		 */
+		EClass DIALOG = eINSTANCE.getDialog();
 
 	}
 

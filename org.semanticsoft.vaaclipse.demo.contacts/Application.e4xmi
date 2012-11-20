@@ -21,6 +21,7 @@
       <children xsi:type="menu:ToolControl" xmi:id="_dhWckDGHEeKGWviXsLyLkQ" elementId="org.semanticsoft.vaaclipse.demo.contacts.toolcontrol.0" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.ToolControl"/>
     </trimBars>
   </children>
+  <commands xmi:id="_r8escDMTEeKo_v-NHjN1hw" elementId="org.semanticsoft.vaaclipse.demo.contacts.command.0"/>
   <addons xmi:id="_XGB3wPZlEd-XstlTZ6nTXg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_XGB3wPZlEd-XstlTZ6nTXh" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_LK0NgPZmEd-XstlTZ6nTXj" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>

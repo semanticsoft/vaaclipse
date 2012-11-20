@@ -11,6 +11,7 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -32,6 +33,8 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolControl;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.semanticsoft.vaaclipse.presentation.engine.GenericRendererFactory;
 
+import e4modelextension.Dialog;
+
 @SuppressWarnings("restriction")
 public class VaadinRendererFactory extends GenericRendererFactory
 {
@@ -52,6 +55,7 @@ public class VaadinRendererFactory extends GenericRendererFactory
 	private AreaRenderer areaRenderer;
 
 	private final IEclipseContext context;
+	private DialogRenderer dialogRenderer;
 
 	@Inject
 	public VaadinRendererFactory(IEclipseContext context)
@@ -85,6 +89,12 @@ public class VaadinRendererFactory extends GenericRendererFactory
 				toolControlRenderer = ContextInjectionFactory.make(ToolControlRenderer.class, context);
 			}
 			return toolControlRenderer;
+		}
+		else if (uiElement instanceof Dialog){
+			if (dialogRenderer == null){
+				dialogRenderer = ContextInjectionFactory.make(DialogRenderer.class, context);
+			}
+			return dialogRenderer;
 		}
 		else if (uiElement instanceof MPartStack)
 		{

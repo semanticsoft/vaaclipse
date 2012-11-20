@@ -15,11 +15,18 @@ import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptorContainer;
 
 import org.eclipse.e4.ui.model.application.ui.MContext;
+import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MGenericStack;
 import org.eclipse.e4.ui.model.application.ui.MSnippetContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
 
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
+import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContributions;
@@ -57,8 +64,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 */
 	public E4modelextensionAdapterFactory()
 	{
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = E4modelextensionPackage.eINSTANCE;
 		}
 	}
@@ -74,12 +80,10 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	@Override
 	public boolean isFactoryForType(Object object)
 	{
-		if (object == modelPackage)
-		{
+		if (object == modelPackage) {
 			return true;
 		}
-		if (object instanceof EObject)
-		{
+		if (object instanceof EObject) {
 			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
@@ -92,96 +96,109 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	protected E4modelextensionSwitch<Adapter> modelSwitch =
-		new E4modelextensionSwitch<Adapter>()
-		{
+		new E4modelextensionSwitch<Adapter>() {
 			@Override
-			public Adapter caseEditorPartDescriptor(EditorPartDescriptor object)
-			{
+			public Adapter caseEditorPartDescriptor(EditorPartDescriptor object) {
 				return createEditorPartDescriptorAdapter();
 			}
 			@Override
-			public Adapter caseVaaclipseApplication(VaaclipseApplication object)
-			{
+			public Adapter caseVaaclipseApplication(VaaclipseApplication object) {
 				return createVaaclipseApplicationAdapter();
 			}
 			@Override
-			public Adapter caseApplicationElement(MApplicationElement object)
-			{
+			public Adapter caseDialog(Dialog object) {
+				return createDialogAdapter();
+			}
+			@Override
+			public Adapter caseApplicationElement(MApplicationElement object) {
 				return createApplicationElementAdapter();
 			}
 			@Override
-			public Adapter caseUILabel(MUILabel object)
-			{
+			public Adapter caseUILabel(MUILabel object) {
 				return createUILabelAdapter();
 			}
 			@Override
-			public Adapter caseHandlerContainer(MHandlerContainer object)
-			{
+			public Adapter caseHandlerContainer(MHandlerContainer object) {
 				return createHandlerContainerAdapter();
 			}
 			@Override
-			public Adapter caseBindings(MBindings object)
-			{
+			public Adapter caseBindings(MBindings object) {
 				return createBindingsAdapter();
 			}
 			@Override
-			public Adapter casePartDescriptor(MPartDescriptor object)
-			{
+			public Adapter casePartDescriptor(MPartDescriptor object) {
 				return createPartDescriptorAdapter();
 			}
 			@Override
-			public Adapter caseUIElement(MUIElement object)
-			{
+			public Adapter caseUIElement(MUIElement object) {
 				return createUIElementAdapter();
 			}
 			@Override
-			public <T extends MUIElement> Adapter caseElementContainer(MElementContainer<T> object)
-			{
+			public <T extends MUIElement> Adapter caseElementContainer(MElementContainer<T> object) {
 				return createElementContainerAdapter();
 			}
 			@Override
-			public Adapter caseContext(MContext object)
-			{
+			public Adapter caseContext(MContext object) {
 				return createContextAdapter();
 			}
 			@Override
-			public Adapter caseBindingTableContainer(MBindingTableContainer object)
-			{
+			public Adapter caseBindingTableContainer(MBindingTableContainer object) {
 				return createBindingTableContainerAdapter();
 			}
 			@Override
-			public Adapter casePartDescriptorContainer(MPartDescriptorContainer object)
-			{
+			public Adapter casePartDescriptorContainer(MPartDescriptorContainer object) {
 				return createPartDescriptorContainerAdapter();
 			}
 			@Override
-			public Adapter caseMenuContributions(MMenuContributions object)
-			{
+			public Adapter caseMenuContributions(MMenuContributions object) {
 				return createMenuContributionsAdapter();
 			}
 			@Override
-			public Adapter caseToolBarContributions(MToolBarContributions object)
-			{
+			public Adapter caseToolBarContributions(MToolBarContributions object) {
 				return createToolBarContributionsAdapter();
 			}
 			@Override
-			public Adapter caseTrimContributions(MTrimContributions object)
-			{
+			public Adapter caseTrimContributions(MTrimContributions object) {
 				return createTrimContributionsAdapter();
 			}
 			@Override
-			public Adapter caseSnippetContainer(MSnippetContainer object)
-			{
+			public Adapter caseSnippetContainer(MSnippetContainer object) {
 				return createSnippetContainerAdapter();
 			}
 			@Override
-			public Adapter caseApplication(MApplication object)
-			{
+			public Adapter caseApplication(MApplication object) {
 				return createApplicationAdapter();
 			}
 			@Override
-			public Adapter defaultCase(EObject object)
-			{
+			public Adapter caseDirtyable(MDirtyable object) {
+				return createDirtyableAdapter();
+			}
+			@Override
+			public Adapter caseItem(MItem object) {
+				return createItemAdapter();
+			}
+			@Override
+			public Adapter caseHandledItem(MHandledItem object) {
+				return createHandledItemAdapter();
+			}
+			@Override
+			public Adapter caseWindowElement(MWindowElement object) {
+				return createWindowElementAdapter();
+			}
+			@Override
+			public <T extends MUIElement> Adapter caseGenericStack(MGenericStack<T> object) {
+				return createGenericStackAdapter();
+			}
+			@Override
+			public Adapter casePartSashContainerElement(MPartSashContainerElement object) {
+				return createPartSashContainerElementAdapter();
+			}
+			@Override
+			public Adapter casePartStack(MPartStack object) {
+				return createPartStackAdapter();
+			}
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -228,6 +245,20 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 */
 	public Adapter createVaaclipseApplicationAdapter()
 	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link e4modelextension.Dialog <em>Dialog</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see e4modelextension.Dialog
+	 * @generated
+	 */
+	public Adapter createDialogAdapter() {
 		return null;
 	}
 
@@ -453,6 +484,104 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 */
 	public Adapter createApplicationAdapter()
 	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.MDirtyable <em>Dirtyable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.MDirtyable
+	 * @generated
+	 */
+	public Adapter createDirtyableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.menu.MItem <em>Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.menu.MItem
+	 * @generated
+	 */
+	public Adapter createItemAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.menu.MHandledItem <em>Handled Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.menu.MHandledItem
+	 * @generated
+	 */
+	public Adapter createHandledItemAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.basic.MWindowElement <em>Window Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.basic.MWindowElement
+	 * @generated
+	 */
+	public Adapter createWindowElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.MGenericStack <em>Generic Stack</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.MGenericStack
+	 * @generated
+	 */
+	public Adapter createGenericStackAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement <em>Part Sash Container Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement
+	 * @generated
+	 */
+	public Adapter createPartSashContainerElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.e4.ui.model.application.ui.basic.MPartStack <em>Part Stack</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.e4.ui.model.application.ui.basic.MPartStack
+	 * @generated
+	 */
+	public Adapter createPartStackAdapter() {
 		return null;
 	}
 

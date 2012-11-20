@@ -41,6 +41,15 @@ public interface E4modelextensionFactory extends EFactory
 	VaaclipseApplication createVaaclipseApplication();
 
 	/**
+	 * Returns a new object of class '<em>Dialog</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dialog</em>'.
+	 * @generated
+	 */
+	Dialog createDialog();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

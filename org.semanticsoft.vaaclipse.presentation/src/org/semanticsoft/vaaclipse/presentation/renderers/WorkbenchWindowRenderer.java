@@ -40,6 +40,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Window;
 
+import e4modelextension.Dialog;
+
 
 @SuppressWarnings("restriction")
 public class WorkbenchWindowRenderer extends GenericRenderer {
@@ -284,6 +286,10 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 		{
 			final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer)child.getRenderer()).getPerspectivestack2PerspectiveswitcherMapping().get(child);
 			vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
+		}
+		else if (child instanceof Dialog){
+			Window widget = (Window) child.getWidget();
+			vaadinapp.getMainWindow().addWindow(widget);
 		}
 		else
 		{

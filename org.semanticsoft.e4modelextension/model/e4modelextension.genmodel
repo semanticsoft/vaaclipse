@@ -7,9 +7,11 @@
   <genPackages prefix="E4modelextension" disposableProviderFactory="true" ecorePackage="e4modelextension.ecore#/">
     <genClasses ecoreClass="e4modelextension.ecore#//EditorPartDescriptor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute e4modelextension.ecore#//EditorPartDescriptor/uriFilter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute e4modelextension.ecore#//EditorPartDescriptor/partAddingLogicUri"/>
     </genClasses>
     <genClasses ecoreClass="e4modelextension.ecore#//VaaclipseApplication">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference e4modelextension.ecore#//VaaclipseApplication/editorDescriptors"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="e4modelextension.ecore#//Dialog"/>
   </genPackages>
 </genmodel:GenModel>

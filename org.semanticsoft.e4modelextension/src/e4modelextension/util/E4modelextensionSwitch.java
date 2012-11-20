@@ -15,11 +15,18 @@ import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptorContainer;
 
 import org.eclipse.e4.ui.model.application.ui.MContext;
+import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MGenericStack;
 import org.eclipse.e4.ui.model.application.ui.MSnippetContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
 
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
+import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContributions;
@@ -60,8 +67,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 */
 	public E4modelextensionSwitch()
 	{
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = E4modelextensionPackage.eINSTANCE;
 		}
 	}
@@ -90,10 +96,8 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	@Override
 	protected T1 doSwitch(int classifierID, EObject theEObject)
 	{
-		switch (classifierID)
-		{
-			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR:
-			{
+		switch (classifierID) {
+			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR: {
 				EditorPartDescriptor editorPartDescriptor = (EditorPartDescriptor)theEObject;
 				T1 result = caseEditorPartDescriptor(editorPartDescriptor);
 				if (result == null) result = casePartDescriptor(editorPartDescriptor);
@@ -104,8 +108,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case E4modelextensionPackage.VAACLIPSE_APPLICATION:
-			{
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION: {
 				VaaclipseApplication vaaclipseApplication = (VaaclipseApplication)theEObject;
 				T1 result = caseVaaclipseApplication(vaaclipseApplication);
 				if (result == null) result = caseApplication(vaaclipseApplication);
@@ -121,6 +124,23 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 				if (result == null) result = caseSnippetContainer(vaaclipseApplication);
 				if (result == null) result = caseUIElement(vaaclipseApplication);
 				if (result == null) result = caseApplicationElement(vaaclipseApplication);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case E4modelextensionPackage.DIALOG: {
+				Dialog dialog = (Dialog)theEObject;
+				T1 result = caseDialog(dialog);
+				if (result == null) result = caseDirtyable(dialog);
+				if (result == null) result = caseHandledItem(dialog);
+				if (result == null) result = casePartStack(dialog);
+				if (result == null) result = caseItem(dialog);
+				if (result == null) result = caseWindowElement(dialog);
+				if (result == null) result = caseGenericStack(dialog);
+				if (result == null) result = casePartSashContainerElement(dialog);
+				if (result == null) result = caseUILabel(dialog);
+				if (result == null) result = caseElementContainer(dialog);
+				if (result == null) result = caseUIElement(dialog);
+				if (result == null) result = caseApplicationElement(dialog);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -157,6 +177,21 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 */
 	public T1 caseVaaclipseApplication(VaaclipseApplication object)
 	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Dialog</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Dialog</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseDialog(Dialog object) {
 		return null;
 	}
 
@@ -397,6 +432,111 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 */
 	public T1 caseApplication(MApplication object)
 	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Dirtyable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Dirtyable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseDirtyable(MDirtyable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Item</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseItem(MItem object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Handled Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Handled Item</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseHandledItem(MHandledItem object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Window Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Window Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseWindowElement(MWindowElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Generic Stack</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Generic Stack</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public <T extends MUIElement> T1 caseGenericStack(MGenericStack<T> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Part Sash Container Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Part Sash Container Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 casePartSashContainerElement(MPartSashContainerElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Part Stack</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Part Stack</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 casePartStack(MPartStack object) {
 		return null;
 	}
 

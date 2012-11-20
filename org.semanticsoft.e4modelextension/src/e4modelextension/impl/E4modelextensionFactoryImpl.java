@@ -28,16 +28,13 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 */
 	public static E4modelextensionFactory init()
 	{
-		try
-		{
+		try {
 			E4modelextensionFactory theE4modelextensionFactory = (E4modelextensionFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.semanticsoft.org/ExtensionUI/e4modelextension"); 
-			if (theE4modelextensionFactory != null)
-			{
+			if (theE4modelextensionFactory != null) {
 				return theE4modelextensionFactory;
 			}
 		}
-		catch (Exception exception)
-		{
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new E4modelextensionFactoryImpl();
@@ -62,10 +59,10 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	@Override
 	public EObject create(EClass eClass)
 	{
-		switch (eClass.getClassifierID())
-		{
+		switch (eClass.getClassifierID()) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR: return createEditorPartDescriptor();
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION: return createVaaclipseApplication();
+			case E4modelextensionPackage.DIALOG: return createDialog();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -91,6 +88,16 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	{
 		VaaclipseApplicationImpl vaaclipseApplication = new VaaclipseApplicationImpl();
 		return vaaclipseApplication;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Dialog createDialog() {
+		DialogImpl dialog = new DialogImpl();
+		return dialog;
 	}
 
 	/**

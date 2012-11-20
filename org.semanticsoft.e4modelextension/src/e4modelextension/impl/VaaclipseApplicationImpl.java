@@ -73,8 +73,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 */
 	public EList<EditorPartDescriptor> getEditorDescriptors()
 	{
-		if (editorDescriptors == null)
-		{
+		if (editorDescriptors == null) {
 			editorDescriptors = new EObjectContainmentEList<EditorPartDescriptor>(EditorPartDescriptor.class, this, E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS);
 		}
 		return editorDescriptors;
@@ -88,8 +87,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return ((InternalEList<?>)getEditorDescriptors()).basicRemove(otherEnd, msgs);
 		}
@@ -104,8 +102,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return getEditorDescriptors();
 		}
@@ -121,8 +118,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				getEditorDescriptors().clear();
 				getEditorDescriptors().addAll((Collection<? extends EditorPartDescriptor>)newValue);
@@ -139,8 +135,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				getEditorDescriptors().clear();
 				return;
@@ -156,8 +151,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return editorDescriptors != null && !editorDescriptors.isEmpty();
 		}
