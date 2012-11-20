@@ -3,10 +3,6 @@
  */
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -30,11 +26,9 @@ import com.vaadin.event.dd.acceptcriteria.ClientSideCriterion;
 import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.ui.AbstractSelect.AbstractSelectTargetDetails;
 import com.vaadin.ui.AbstractSelect.AcceptItem;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.TableDragMode;
-import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 /**
