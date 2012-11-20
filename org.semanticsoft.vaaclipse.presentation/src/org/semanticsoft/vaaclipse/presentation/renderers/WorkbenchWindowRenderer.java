@@ -318,6 +318,9 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 		{
 			vWindow.setPerspectiveStackPanel(null);
 		}
+		else if (child instanceof Dialog){
+			vaadinapp.getMainWindow().removeWindow((Window) child.getWidget());
+		}
 		else
 		{
 			vWindow.getClientArea().removeComponent((com.vaadin.ui.Component) child.getWidget());

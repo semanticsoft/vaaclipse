@@ -69,10 +69,12 @@ public class DialogRenderer extends GenericRenderer {
 			clientArea = window.getClientArea();
 			dialog.getContext().set(HorizontalLayout.class, hl);
 			dialog.getContext().set(VerticalLayout.class,clientArea);
-			Object object = factory.create(dialog.getContributionURI(), dialog.getContext());
-			dialog.setObject(object);
+			dialog.getContext().set(Dialog.class,dialog);
+			String contributionURI = dialog.getContributionURI();
 			element.setWidget(window);
-			
+			if ((contributionURI==null)||(contributionURI.isEmpty())) return;//here we can provide a default footer
+			Object object = factory.create(contributionURI, dialog.getContext());
+			dialog.setObject(object);
 	}
 	
 	@Override
@@ -82,5 +84,9 @@ public class DialogRenderer extends GenericRenderer {
 			
 			clientArea.addComponent((com.vaadin.ui.Component)element.getSelectedElement().getWidget());
 		}
+	
+	
 	}
+
+	
 	
