@@ -8,6 +8,7 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
 
 /**
  * @author rushan
@@ -124,5 +125,6 @@ public class MediaLibrarySetupProcessor
 		library.addCategory(nature);
 		
 		context.set(MediaLibrary.class, library);
+		context.set(Playlist.class, new Playlist());
 	}
 }
