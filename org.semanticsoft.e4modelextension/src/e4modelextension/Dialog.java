@@ -24,5 +24,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Dialog extends EObject, MDirtyable, MHandledItem, MWindowElement, MPartStack, MContribution, MContext {
+public interface Dialog extends EObject, MDirtyable, MHandledItem, MPartStack, MContribution, MContext {
 } // Dialog

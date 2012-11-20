@@ -1868,11 +1868,6 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 				default: return -1;
 			}
 		}
-		if (baseClass == MWindowElement.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
 		if (baseClass == MElementContainer.class) {
 			switch (derivedFeatureID) {
 				case E4modelextensionPackage.DIALOG__CHILDREN: return UiPackageImpl.ELEMENT_CONTAINER__CHILDREN;
@@ -1886,6 +1881,11 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 			}
 		}
 		if (baseClass == MPartSashContainerElement.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == MWindowElement.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
 			}
@@ -1969,11 +1969,6 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 				default: return -1;
 			}
 		}
-		if (baseClass == MWindowElement.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
 		if (baseClass == MElementContainer.class) {
 			switch (baseFeatureID) {
 				case UiPackageImpl.ELEMENT_CONTAINER__CHILDREN: return E4modelextensionPackage.DIALOG__CHILDREN;
@@ -1987,6 +1982,11 @@ public class DialogImpl extends EObjectImpl implements Dialog {
 			}
 		}
 		if (baseClass == MPartSashContainerElement.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == MWindowElement.class) {
 			switch (baseFeatureID) {
 				default: return -1;
 			}

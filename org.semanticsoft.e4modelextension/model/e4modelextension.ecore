@@ -11,5 +11,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorDescriptors" upperBound="-1"
         eType="#//EditorPartDescriptor" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Dialog" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/Dirtyable platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/menu/HandledItem platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/basic/WindowElement platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/basic/PartStack platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/Context"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Dialog" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/Dirtyable platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/menu/HandledItem platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/basic/PartStack platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/Context"/>
 </ecore:EPackage>
