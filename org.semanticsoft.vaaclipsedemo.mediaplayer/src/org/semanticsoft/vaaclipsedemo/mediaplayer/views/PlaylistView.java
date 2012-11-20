@@ -33,31 +33,26 @@ import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan
- *
+ * 
  */
 public class PlaylistView
 {
 	private Panel panel;
-	
-	private MPart playerPart;
-	private MPart mediaInfoPart;
-	
+
 	@Inject
 	MediaLibrary mediaLibrary;
-	
+
 	@Inject
 	Playlist playlist;
-	
+
 	@Inject
 	EModelService modelService;
-	
+
 	@Inject
 	MApplication app;
 	private Table table;
 	private BeanItemContainer<Media> tableContainer;
-	
-	MPart mediaLibPart;
-	
+
 	@Inject
 	public void PlaylistView(VerticalLayout parent, IEclipseContext context)
 	{
@@ -65,36 +60,36 @@ public class PlaylistView
 		panel.setSizeFull();
 		parent.addComponent(panel);
 	}
-	
+
 	public void addMedia(Media media)
 	{
 		if (this.playlist.getMediaList().isEmpty())
-			tableContainer.removeAllItems(); //drop the dummy media with help text
-		
+			tableContainer.removeAllItems(); // drop the dummy media with help
+												// text
+
 		table.setCaption("");
 		tableContainer.addItem(media);
 	}
-	
+
 	public void addMediaAfter(Media prevMedia, Media media)
 	{
 		if (this.playlist.getMediaList().isEmpty())
-			tableContainer.removeAllItems(); //drop the dummy media with help text
-		
+			tableContainer.removeAllItems(); // drop the dummy media with help
+												// text
+
 		table.setCaption(null);
 		tableContainer.addItemAfter(prevMedia, media);
 	}
-	
+
 	@PostConstruct
 	public void postCostruct()
 	{
-		mediaLibPart = (MPart) modelService.find("org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib", app);
-		
 		initTable();
 		for (Media media : this.playlist.getMediaList())
 		{
 			addMedia(media);
 		}
-		
+
 		if (this.playlist.getMediaList().isEmpty())
 		{
 			Media dummyMedia = new Media();
@@ -102,68 +97,75 @@ public class PlaylistView
 			addMedia(dummyMedia);
 		}
 	}
-	
-	private void initTable() {
-		
-		 table = new Table();
-		 table.setSizeFull();
-		 
-		 this.panel.addComponent(table);
-		
-		MediaLibraryView mediaLibView =  (MediaLibraryView) mediaLibPart.getObject();
-		//TODO: mediaLibView can be null at initialization time... change this code...
-		final ClientSideCriterion acceptCriterion = new SourceIs(mediaLibView.getTree());
-		 
-        tableContainer = new BeanItemContainer<Media>(Media.class);
-        table.setContainerDataSource(tableContainer);
-        table.setVisibleColumns(new Object[] { "name" });
-        
-        // Handle drop in table: move hardware item or subtree to the table
-        table.setDragMode(TableDragMode.ROW);
-        table.setDropHandler(new DropHandler() {
-            public void drop(DragAndDropEvent dropEvent) {
-                
-            	if (!(dropEvent.getTransferable() instanceof DataBoundTransferable))
-            		return;
-            	
-                DataBoundTransferable t = (DataBoundTransferable) dropEvent.getTransferable();
-                if (!(t.getSourceContainer() instanceof Container.Hierarchical)) {
-                    return;
-                }
-                
-                AbstractSelectTargetDetails dropData = ((AbstractSelectTargetDetails) dropEvent.getTargetDetails());
-                
-                Object sourceItemId = t.getItemId();
-                
-                if (sourceItemId == null)
-                	return;
-                
-                Media media = MediaLibraryService.findMediaById(mediaLibrary, sourceItemId.toString(), "/");
-                
-                Media targetMedia = (Media) dropData.getItemIdOver();
-                Media prevMedia = targetMedia != null ? tableContainer.prevItemId(targetMedia) : null;
-                
-                if (targetMedia != null)
-                {
-                    switch (dropData.getDropLocation()) {
-                    case BOTTOM:
-                    	addMediaAfter(targetMedia, media);
-                        break;
-                    case MIDDLE:
-                    case TOP:
-                    	addMediaAfter(prevMedia, media);
-                        break;
-                    }	
-                }
-                else
-                {
-                	tableContainer.addItem(media);
-                }
-            }
 
-            public AcceptCriterion getAcceptCriterion() {
-                return new And(acceptCriterion, AcceptItem.ALL);
-            }
-        });
-    }
+	private void initTable()
+	{
+
+		table = new Table();
+		table.setSizeFull();
+
+		this.panel.addComponent(table);
+
+		MPart mediaLibPart = (MPart) modelService.find("org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib", app);
+		MediaLibraryView mediaLibView = (MediaLibraryView) mediaLibPart.getObject();
+		// TODO: mediaLibView can be null at initialization time... change this
+		// code...
+		final ClientSideCriterion acceptCriterion = new SourceIs(mediaLibView.getTree());
+
+		tableContainer = new BeanItemContainer<Media>(Media.class);
+		table.setContainerDataSource(tableContainer);
+		table.setVisibleColumns(new Object[] { "name" });
+
+		// Handle drop in table: move hardware item or subtree to the table
+		table.setDragMode(TableDragMode.ROW);
+		table.setDropHandler(new DropHandler() {
+			public void drop(DragAndDropEvent dropEvent)
+			{
+
+				if (!(dropEvent.getTransferable() instanceof DataBoundTransferable))
+					return;
+
+				DataBoundTransferable t = (DataBoundTransferable) dropEvent.getTransferable();
+				if (!(t.getSourceContainer() instanceof Container.Hierarchical))
+				{
+					return;
+				}
+
+				AbstractSelectTargetDetails dropData = ((AbstractSelectTargetDetails) dropEvent.getTargetDetails());
+
+				Object sourceItemId = t.getItemId();
+
+				if (sourceItemId == null)
+					return;
+
+				Media media = MediaLibraryService.findMediaById(mediaLibrary, sourceItemId.toString(), "/");
+
+				Media targetMedia = (Media) dropData.getItemIdOver();
+				Media prevMedia = targetMedia != null ? tableContainer.prevItemId(targetMedia) : null;
+
+				if (targetMedia != null)
+				{
+					switch (dropData.getDropLocation())
+					{
+					case BOTTOM:
+						addMediaAfter(targetMedia, media);
+						break;
+					case MIDDLE:
+					case TOP:
+						addMediaAfter(prevMedia, media);
+						break;
+					}
+				}
+				else
+				{
+					tableContainer.addItem(media);
+				}
+			}
+
+			public AcceptCriterion getAcceptCriterion()
+			{
+				return new And(acceptCriterion, AcceptItem.ALL);
+			}
+		});
+	}
 }
