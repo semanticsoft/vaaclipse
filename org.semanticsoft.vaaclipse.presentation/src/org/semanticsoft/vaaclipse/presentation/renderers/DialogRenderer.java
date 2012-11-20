@@ -55,7 +55,7 @@ public class DialogRenderer extends GenericRenderer {
 			window.setPositionY(200);
 			window.setWidth("500px");
 			window.setHeight("500px");
-			window.setVisible(true);
+			window.setModal(true);
 			element.setWidget(window);
 			Button close = new Button("Default close");
 			close.addListener(new Button.ClickListener() {
