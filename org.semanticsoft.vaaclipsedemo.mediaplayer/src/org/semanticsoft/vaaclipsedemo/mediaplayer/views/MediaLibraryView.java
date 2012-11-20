@@ -9,6 +9,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;

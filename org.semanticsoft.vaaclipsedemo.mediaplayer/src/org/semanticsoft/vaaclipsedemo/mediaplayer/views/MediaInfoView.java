@@ -8,7 +8,9 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 
 import com.vaadin.data.util.ObjectProperty;
@@ -16,7 +18,6 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import org.osgi.service.event;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 

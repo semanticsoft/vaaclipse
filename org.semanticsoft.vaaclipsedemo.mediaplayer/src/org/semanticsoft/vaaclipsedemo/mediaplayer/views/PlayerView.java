@@ -1,15 +1,17 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
-import java.beans.EventHandler;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.osgi.service.event.Event;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
+import org.osgi.service.event.EventHandler;
 
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Embedded;
