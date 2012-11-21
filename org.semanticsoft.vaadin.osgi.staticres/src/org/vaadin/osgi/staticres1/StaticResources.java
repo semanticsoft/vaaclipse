@@ -125,6 +125,8 @@ public class StaticResources implements HttpContext, BundleListener {
 
 	private void checkBundleForResources(Bundle bundle) {
 		if (null != bundle.getHeaders().get("Vaadin-Resources")) {
+			System.out.println("founded  "+bundle);
+			
 			resourceBundles.add(bundle);
 		} else {
 			resourceBundles.remove(bundle);
