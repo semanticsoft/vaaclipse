@@ -68,7 +68,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private String appCss = "platform:/plugin/org.semanticsoft.vaaclipse.app/css/default_user_css.css";
 	private boolean debugMode = false;
 	
-	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
+//	private static String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
+	private static String VAACLIPSE_USER_THEME = "them1";
 	
 	public static VaadinE4Application getInstance()
 	{
@@ -85,6 +86,11 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	public String getUserVaadinTheme()
 	{
 		return VAACLIPSE_USER_THEME;
+	}
+	
+	public void setUserVaadinTheme(String theme){
+		
+		VAACLIPSE_USER_THEME=theme;
 	}
 	
 	public Location getInstanceLocation()

@@ -13,3 +13,4 @@ Export-Package: VAADIN.themes.dragdrop,
  VAADIN.themes.vaaclipse_default_theme,
  VAADIN.themes.vaaclipse_default_theme.img,
  VAADIN.widgetsets
+Vaadin-Resources: 

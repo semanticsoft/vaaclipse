@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<component name='org.vaadin.osgi.staticres.StaticResources' xmlns='http://www.osgi.org/xmlns/scr/v1.1.0' activate='start' deactivate='stop'>
-  <implementation class='org.vaadin.osgi.staticres.StaticResources'/>
-  <property name='http.alias' value='/VAADIN'/>
-  <reference name='bind' interface='org.osgi.service.http.HttpService' bind='bind'/>
-  <reference bind="bindResourceInfoProvider" cardinality="1..1" interface="org.semanticsoft.vaaclipse.api.ResourceInfoProvider" name="ResourceInfoProvider" policy="static"/>
-</component>
+<scr:component xmlns:scr='http://www.osgi.org/xmlns/scr/v1.1.0' name='org.vaadin.osgi.staticres.StaticResources' immediate='true' activate='start'>
+  <implementation class='org.vaadin.osgi.staticres1.StaticResources'/>
+  <service>
+    <provide interface='org.osgi.service.http.HttpContext'/>
+    <provide interface='org.osgi.framework.BundleListener'/>
+  </service>
+  <property name='s' value='/VAADIN'/>
+  <reference name='httpService' interface='org.osgi.service.http.HttpService' cardinality='0..n' bind='setHttpService' unbind='unsetHttpService' policy='dynamic'/>
+</scr:component>

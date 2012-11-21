@@ -96,6 +96,7 @@ public class StaticResources extends HttpServlet {
 		
 		String path = req.getPathInfo();
 		
+		System.out.println("xxxxxxxxx "+path);
 		if (path.endsWith("css"))
 		{
 			resp.setContentType("text/css");
