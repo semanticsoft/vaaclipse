@@ -84,6 +84,9 @@ public class VaadinApplication extends Application
 		context = VaadinE4Application.getInstance().getAppContext();
 		
 		String themeName = VaadinE4Application.getInstance().getUserVaadinTheme();
+		
+		System.err.println("Name of the them i am setting "+themeName);
+		
 		setTheme(themeName);
 		
 		logger = VaadinE4Application.getInstance().getLogger();
@@ -108,8 +111,8 @@ public class VaadinApplication extends Application
 		e4Workbench = createE4Workbench(context);
 		e4Workbench.createAndRunUI(e4Workbench.getApplication());
 
-		//TODO: разобраться с этой хренью
-		//если это раскомментарить, то приложение будет имитировать жизнь в то время как workbench будет чуть менее чем мертв
+		//TODO: Ñ€Ð°Ð·Ð¾Ð±Ñ€Ð°Ñ‚ÑŒÑ�Ñ� Ñ� Ñ�Ñ‚Ð¾Ð¹ Ñ…Ñ€ÐµÐ½ÑŒÑŽ
+		//ÐµÑ�Ð»Ð¸ Ñ�Ñ‚Ð¾ Ñ€Ð°Ñ�ÐºÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ñ‚ÑŒ, Ñ‚Ð¾ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð±ÑƒÐ´ÐµÑ‚ Ð¸Ð¼Ð¸Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¶Ð¸Ð·Ð½ÑŒ Ð² Ñ‚Ð¾ Ð²Ñ€ÐµÐ¼Ñ� ÐºÐ°Ðº workbench Ð±ÑƒÐ´ÐµÑ‚ Ñ‡ÑƒÑ‚ÑŒ Ð¼ÐµÐ½ÐµÐµ Ñ‡ÐµÐ¼ Ð¼ÐµÑ€Ñ‚Ð²
 //		try {
 //			if (e4Workbench != null && e4Workbench.getContext() != null) {
 //				modelResourceHandler.save();
