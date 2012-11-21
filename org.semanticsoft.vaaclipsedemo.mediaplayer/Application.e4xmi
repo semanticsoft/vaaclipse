@@ -44,6 +44,7 @@
   <handlers xmi:id="_xC4bPTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.OpenHandler" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQDDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.SaveHandler" command="_xC4bPzDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQzDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.AboutHandler" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
+  <handlers xmi:id="_0lhcQDPLEeKYi97aFFsaYA" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.TestHandler" command="_3IEycDMkEeKo_v-NHjN1hw"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
     <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
