@@ -183,16 +183,16 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 				return createHandledItemAdapter();
 			}
 			@Override
-			public Adapter caseWindowElement(MWindowElement object) {
-				return createWindowElementAdapter();
-			}
-			@Override
 			public <T extends MUIElement> Adapter caseGenericStack(MGenericStack<T> object) {
 				return createGenericStackAdapter();
 			}
 			@Override
 			public Adapter casePartSashContainerElement(MPartSashContainerElement object) {
 				return createPartSashContainerElementAdapter();
+			}
+			@Override
+			public Adapter caseWindowElement(MWindowElement object) {
+				return createWindowElementAdapter();
 			}
 			@Override
 			public Adapter casePartStack(MPartStack object) {

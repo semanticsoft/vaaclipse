@@ -256,7 +256,6 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		vaaclipseApplicationEClass.getESuperTypes().add(theApplicationPackage.getApplication());
 		dialogEClass.getESuperTypes().add(theUiPackage.getDirtyable());
 		dialogEClass.getESuperTypes().add(theMenuPackage.getHandledItem());
-		dialogEClass.getESuperTypes().add(theBasicPackage_1.getWindowElement());
 		dialogEClass.getESuperTypes().add(theBasicPackage_1.getPartStack());
 		dialogEClass.getESuperTypes().add(theApplicationPackage.getContribution());
 		dialogEClass.getESuperTypes().add(theUiPackage.getContext());

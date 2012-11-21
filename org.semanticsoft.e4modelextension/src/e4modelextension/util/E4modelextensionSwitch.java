@@ -137,9 +137,9 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 				if (result == null) result = caseContribution(dialog);
 				if (result == null) result = caseContext(dialog);
 				if (result == null) result = caseItem(dialog);
-				if (result == null) result = caseWindowElement(dialog);
 				if (result == null) result = caseGenericStack(dialog);
 				if (result == null) result = casePartSashContainerElement(dialog);
+				if (result == null) result = caseWindowElement(dialog);
 				if (result == null) result = caseUILabel(dialog);
 				if (result == null) result = caseElementContainer(dialog);
 				if (result == null) result = caseUIElement(dialog);
