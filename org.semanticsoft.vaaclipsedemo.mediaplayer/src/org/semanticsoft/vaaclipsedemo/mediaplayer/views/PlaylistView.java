@@ -97,6 +97,7 @@ public class PlaylistView
 		
 		table = new Table();
 		table.setSizeFull();
+		table.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
 
 		this.panel.addComponent(table);
 
