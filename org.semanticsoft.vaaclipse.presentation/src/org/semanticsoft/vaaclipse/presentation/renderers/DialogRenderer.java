@@ -74,6 +74,7 @@ public class DialogRenderer extends GenericRenderer {
 			element.setWidget(window);
 			if ((contributionURI==null)||(contributionURI.isEmpty())) return;//here we can provide a default footer
 			Object object = factory.create(contributionURI, dialog.getContext());
+			dialog.setDirty(false);//dirty if any of the parts is dirty;
 			dialog.setObject(object);
 	}
 	
