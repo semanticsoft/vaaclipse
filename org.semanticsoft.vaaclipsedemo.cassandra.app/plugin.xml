@@ -35,6 +35,10 @@
                name="applicationCSS"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/css/default.css">
          </property>
+         <property
+               name="applicationWidgetset"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/widgetset/cassandra.widgetset.CassandraWidgetset">
+         </property>
       </product>
    </extension>
    

@@ -18,8 +18,6 @@ Export-Package: com.vaadin.incubator.dashlayout.client.ui,
  org.semanticsoft.vaaclipse.widgets.client.ui,
  org.semanticsoft.vaadinaddons.boundsinfo,
  org.semanticsoft.vaadinaddons.boundsinfo.client.ui,
- org.vaadin.overlay,
- org.vaadin.overlay.client.ui,
  org.vaadin.peter.contextmenu,
  org.vaadin.peter.contextmenu.client.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
