@@ -234,9 +234,6 @@ public class SingleElementFastViewManager
 		}
 	};
 
-	private List<StateListener> stateListeners;
-
-	
 	
 	/**
 	 * This is the old way to subscribe to UIEvents. You should consider using the new way as shown
