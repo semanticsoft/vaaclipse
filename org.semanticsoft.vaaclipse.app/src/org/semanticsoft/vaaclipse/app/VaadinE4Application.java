@@ -19,14 +19,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -42,11 +40,7 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.cm.Configuration;
-import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.http.HttpService;
-import org.osgi.service.http.NamespaceException;
-import org.osgi.util.tracker.ServiceTracker;
 import org.semanticsoft.vaaclipse.api.ResourceInfoProvider;
 
 @SuppressWarnings("restriction")
@@ -65,7 +59,9 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private String contextPath = "/";
 	private String port = "80";
 	private String productionMode;
-	private String appCss = "platform:/plugin/org.semanticsoft.vaaclipse.app/css/default_user_css.css";
+	private String appCss;
+	private String appWidgetset;
+	private String appWidgetsetName;
 	private boolean debugMode = false;
 	
 	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
@@ -79,6 +75,18 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	public String getApplicationCSS()
 	{
 		return appCss;
+	}
+	
+	@Override
+	public String getApplicationtWidgetset()
+	{
+		return appWidgetset;
+	}
+	
+	@Override
+	public String getApplicationtWidgetsetName()
+	{
+		return this.appWidgetsetName;
 	}
 	
 	@Override
@@ -150,7 +158,27 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		appCss = appContext.getBrandingProperty("applicationCSS");
 		
 		if (appCss == null)
-			appCss = 
+			appCss = "platform:/plugin/org.semanticsoft.vaaclipse.app/css/default_user_css.css";
+		
+		appWidgetset = appContext.getBrandingProperty("applicationWidgetset");
+		if (appWidgetset == null || appWidgetset.trim().isEmpty())
+			appWidgetset = "platform:/plugin/com.vaadin/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
+		else
+			appWidgetset = appWidgetset.trim();
+		
+		int index = appWidgetset.lastIndexOf("/");
+		if (index < 0)
+			throw new IllegalStateException("applicationWidgetset property has wrong value");
+		
+		if (index == appWidgetset.length() - 1)
+		{
+			appWidgetset = appWidgetset.substring(0, appWidgetset.length() - 1);
+			index = appWidgetset.lastIndexOf("/");
+			if (index < 0)
+				throw new IllegalStateException("applicationWidgetset property has wrong value");
+		}
+		
+		appWidgetsetName = appWidgetset.substring(index + 1);
 		
 		productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
 		
@@ -164,7 +192,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		
 		HttpService httpService = (HttpService) bundleContext.getService(httpServiceRef);
 		Dictionary<String, String> initParams = new Hashtable<String, String>();
-		initParams.put("widgetset", "vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset");
+		//initParams.put("widgetset", "vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset");
+		//initParams.put("widgetset", "mediaplayer.MediaplayerApplicationWidgetset");
+		initParams.put("widgetset", appWidgetsetName);
+		
 		if (productionMode != null)
 			initParams.put("productionMode", productionMode);
 		

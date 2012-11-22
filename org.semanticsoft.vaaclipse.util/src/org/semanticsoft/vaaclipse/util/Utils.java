@@ -66,7 +66,7 @@ public class Utils {
 		
 	}
 	
-	public static String restorePath(String url, String theme, String e4CssUri)
+	public static String restorePath(String url, String theme, String e4CssUri, String e4WidgetsetUri, String e4WidgetsetName)
 	{
 		//platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer.resources/VAADIN/themes/mediaplayer/img/mediainfo.png
 		StringBuffer urlString = new StringBuffer(url);
@@ -87,7 +87,16 @@ public class Utils {
 		if (segments[1].equals("widgetsets"))
 		{
 			//return "platform:/plugin/org.semanticsoft.vaaclipse.resources" + url;
-			return "platform:/plugin/com.vaadin" + url;
+			String widgetSetName = segments[2];
+			if (e4WidgetsetName.equals(widgetSetName))
+			{
+				String restPath = buildSegments(segments, 3);
+				return e4WidgetsetUri + "/" + restPath;
+			}
+			else
+			{
+				return "platform:/plugin/com.vaadin" + url;
+			}
 		}
 		else if (segments[1].equals("themes"))
 		{

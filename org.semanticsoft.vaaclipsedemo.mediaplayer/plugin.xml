@@ -19,6 +19,10 @@
                name="applicationCSS"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/css/default.css">
          </property>
+         <property
+               name="applicationWidgetset"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/widgetset/mediaplayer.MediaplayerApplicationWidgetset">
+         </property>
       </product>
    </extension>
    <extension id="processor"

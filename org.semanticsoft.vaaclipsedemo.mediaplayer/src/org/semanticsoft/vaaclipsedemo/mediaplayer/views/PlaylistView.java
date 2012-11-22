@@ -9,11 +9,13 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibraryService;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
+import org.vaadin.overlay.TextOverlay;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanItemContainer;
@@ -26,11 +28,13 @@ import com.vaadin.event.dd.acceptcriteria.ClientSideCriterion;
 import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.ui.AbstractSelect.AbstractSelectTargetDetails;
 import com.vaadin.ui.AbstractSelect.AcceptItem;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.TableDragMode;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  * @author rushan
@@ -53,6 +57,9 @@ public class PlaylistView
 	MApplication app;
 	private Table table;
 	private BeanItemContainer<Media> tableContainer;
+	
+	@Inject
+	MWindow window;
 
 	@Inject
 	public void PlaylistView(VerticalLayout parent, IEclipseContext context)
@@ -81,11 +88,17 @@ public class PlaylistView
 		{
 			addMedia(media);
 		}
+		
+//		TextOverlay notFoundOverlay = new TextOverlay(this.panel, "<i>[Drag here]</i>");
+//		notFoundOverlay.setContentMode(TextOverlay.CONTENT_RAW);
+//		notFoundOverlay.setComponentAnchor(Alignment.MIDDLE_CENTER);
+//		notFoundOverlay.setOverlayAnchor(Alignment.MIDDLE_CENTER);
+//		((Window)window.getWidget()).addComponent(notFoundOverlay);
 	}
 
 	private void initTable()
 	{
-
+		
 		table = new Table();
 		table.setSizeFull();
 
