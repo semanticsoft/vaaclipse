@@ -104,6 +104,7 @@
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.semanticsoft.commons"/>
+      <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
       <plugin id="org.semanticsoft.e4extension"/>
       <plugin id="org.semanticsoft.e4modelextension"/>
       <plugin id="org.semanticsoft.vaaclipse.api"/>

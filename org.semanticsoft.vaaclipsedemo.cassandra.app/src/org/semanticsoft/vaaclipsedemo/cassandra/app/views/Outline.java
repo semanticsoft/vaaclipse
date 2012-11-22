@@ -19,6 +19,7 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,7 +28,10 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
@@ -250,5 +254,17 @@ public class Outline
 			String mod = m.group(1);
 			System.out.println(String.format("%s", mod));
 		}
+	}
+	
+	@Inject
+	@Optional
+	public void et(@EventTopic("TEST") BigDecimal d){
+		System.err.println("PRINTING : "+ d);
+	}
+	
+	@Inject
+	@Optional
+	public void etUI(@UIEventTopic("UITEST") BigDecimal d){
+		System.err.println("PRINTING : "+ d);
 	}
 }
