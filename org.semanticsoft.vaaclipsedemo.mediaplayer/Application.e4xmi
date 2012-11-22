@@ -35,7 +35,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_Odwi0DDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.player" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlayerView" label="Player"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_N5-gUDDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaLibraryView" label="Media Library" tooltip="Media Library"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_k6R6sDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaInfoView" label="Media Information"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_9iMIIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.playlist" label="Playlist" tooltip="Playlist"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_9iMIIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.playlist" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlaylistView" label="Playlist" tooltip="Playlist"/>
     <trimBars xmi:id="_qsDW4DKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.trimbar.0">
       <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.PlayerToolControl"/>
     </trimBars>
@@ -44,7 +44,6 @@
   <handlers xmi:id="_xC4bPTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.OpenHandler" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQDDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.SaveHandler" command="_xC4bPzDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQzDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.AboutHandler" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
-  <handlers xmi:id="_0lhcQDPLEeKYi97aFFsaYA" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.TestHandler" command="_3IEycDMkEeKo_v-NHjN1hw"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
     <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
@@ -55,12 +54,10 @@
     <children xmi:id="_xC4bMDDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_xC4bMTDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_66zF4DMTEeKo_v-NHjN1hw" elementId="dialog.pd" label="Test part" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.SamplePart"/>
   <commands xmi:id="_xC4bODDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_xC4bPDDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.open" commandName="openCommand"/>
   <commands xmi:id="_xC4bPzDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
   <commands xmi:id="_xC4bQjDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
-  <commands xmi:id="_3IEycDMkEeKo_v-NHjN1hw" elementId="C1" commandName="Command"/>
   <addons xmi:id="_xC4bMjDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_xC4bMzDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_xC4bNDDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
