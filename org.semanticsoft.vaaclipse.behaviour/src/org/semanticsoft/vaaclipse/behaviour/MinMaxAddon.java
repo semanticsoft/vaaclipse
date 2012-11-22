@@ -588,7 +588,10 @@ public class MinMaxAddon {
 					partItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.FastViewHandler");
 
 					MUILabel labelElement = getLabelElement(stackElement);
-					partItem.setIconURI(labelElement.getIconURI());
+					String iconURI = labelElement.getIconURI();
+					if (iconURI == null || iconURI.trim().isEmpty())
+						iconURI = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_part_label.png";
+					partItem.setIconURI(iconURI);
 					toolBar.getChildren().add(partItem);
 					
 					
