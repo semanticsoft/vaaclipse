@@ -25,6 +25,7 @@ import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.core.services.translation.TranslationProviderFactory;
 import org.eclipse.e4.core.services.translation.TranslationService;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.internal.workbench.ActiveChildLookupFunction;
 import org.eclipse.e4.ui.internal.workbench.ActivePartLookupFunction;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -108,21 +109,6 @@ public class VaadinApplication extends Application
 		e4Workbench = createE4Workbench(context);
 		e4Workbench.createAndRunUI(e4Workbench.getApplication());
 
-		//TODO: разобраться с этой хренью
-		//если это раскомментарить, то приложение будет имитировать жизнь в то время как workbench будет чуть менее чем мертв
-//		try {
-//			if (e4Workbench != null && e4Workbench.getContext() != null) {
-//				modelResourceHandler.save();
-//				e4Workbench.close();
-//				logger.debug("workbench model saved");
-//			}
-//		} catch (IOException e) {
-//			System.out.println("Warning: cannot save workbench model.");
-//		} finally {
-//			if (instanceLocation != null) {
-//				instanceLocation.release();
-//			}
-//		}
 	}
 	
 	public E4Workbench createE4Workbench(IApplicationContext applicationContext) {
@@ -135,13 +121,22 @@ public class VaadinApplication extends Application
 		appContext.set("vaadinapp", this);
 		appContext.set(Application.class, this);
 		appContext.set(VaadinOSGiCommunicationManager.class, servlet.getCommunicationManager());
+		appContext.set(UISynchronize.class, new UISynchronize() {
 
+			public void syncExec(Runnable runnable) {
+				runnable.run();
+			}
+
+			public void asyncExec(Runnable runnable) {
+				runnable.run();
+			}
+		});
 		// Create the app model and its context
 		MApplication appModel = loadApplicationModel(applicationContext, appContext);
 		fixNullElementIds(appModel);
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
-
+		ContextInjectionFactory.setDefault(appContext);
 		// Create the addons
 		IContributionFactory factory = (IContributionFactory) appContext.get(IContributionFactory.class.getName());
 		for (MContribution addon : appModel.getAddons()) {
