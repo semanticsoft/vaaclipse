@@ -11,8 +11,6 @@
 
 package org.semanticsoft.vaaclipse.presentation.fastview;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -39,7 +37,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.Behaviour;
-import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
@@ -50,7 +47,6 @@ import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.ResizeEvent;
 /**
  * @author rushan
  *
@@ -408,6 +404,7 @@ public class SingleElementFastViewManager
 
 		// Create one
 		hostPane = new Window();
+		hostPane.setClosable(false);
 		hostPane.setDraggable(false);
 		if (trimBar.getSide() == SideValue.RIGHT)
 			hostPane.setResizable(false);
