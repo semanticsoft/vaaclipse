@@ -1,2 +1,6 @@
 /bin
+<<<<<<< smcela/dialog
 *.tmp
+*.class
+=======
+>>>>>>> 5b817b6 gitignore readded
