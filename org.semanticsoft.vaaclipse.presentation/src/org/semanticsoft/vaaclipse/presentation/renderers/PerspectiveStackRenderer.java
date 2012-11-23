@@ -225,7 +225,7 @@ public class PerspectiveStackRenderer extends GenericRenderer
 		{
 			//reset selected element (set selected element handler will work)
 			perspectiveStack.setSelectedElement(null);
-			perspectiveStack.setSelectedElement(selectedPerspective);
+			partService.switchPerspective(selectedPerspective);
 		}
 		
 		refreshPerspectiveStackVisibility(perspectiveStack);
