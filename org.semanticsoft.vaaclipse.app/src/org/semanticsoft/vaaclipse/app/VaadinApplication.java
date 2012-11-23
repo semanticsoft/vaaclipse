@@ -41,6 +41,10 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.IExceptionHandler;
 import org.eclipse.e4.ui.workbench.IModelResourceHandler;
+import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
+import org.eclipse.e4.ui.workbench.lifecycle.PreSave;
+import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
+import org.eclipse.e4.ui.workbench.lifecycle.ProcessRemovals;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -73,6 +77,8 @@ public class VaadinApplication extends Application
 	private VaadinOSGiServlet servlet;
 	
 	private Map<String, MUIElement> id2element = new HashMap<String, MUIElement>();
+
+	private Object lcManager;
 	
 	public VaadinApplication(VaadinOSGiServlet servlet)
 	{
@@ -108,6 +114,11 @@ public class VaadinApplication extends Application
 		//-------------------------------------
 		e4Workbench = createE4Workbench(context);
 		e4Workbench.createAndRunUI(e4Workbench.getApplication());
+		//TODO nothing happens when user quits wrt the model 
+//		if (lcManager != null) {
+//			ContextInjectionFactory.invoke(lcManager, PreSave.class,
+//					workbenchContext, null);
+//		}
 
 	}
 	
@@ -131,14 +142,36 @@ public class VaadinApplication extends Application
 				runnable.run();
 			}
 		});
+		
+		IContributionFactory factory = (IContributionFactory) appContext
+				.get(IContributionFactory.class.getName());
+		
+		// Install the life-cycle manager for this session if there's one
+				// defined
+		String lifeCycleURI = getArgValue(E4Workbench.LIFE_CYCLE_URI_ARG,
+			applicationContext, false);
+		if (lifeCycleURI != null) {
+			lcManager = factory.create(lifeCycleURI, appContext);
+			if (lcManager != null) {
+						// Let the manager manipulate the appContext if desired
+						ContextInjectionFactory.invoke(lcManager,
+								PostContextCreate.class, appContext, null);
+			}
+		}
+		
 		// Create the app model and its context
 		MApplication appModel = loadApplicationModel(applicationContext, appContext);
 		fixNullElementIds(appModel);
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
 		ContextInjectionFactory.setDefault(appContext);
+		if (lcManager != null) {
+			ContextInjectionFactory.invoke(lcManager, ProcessAdditions.class,
+					appContext, null);
+			ContextInjectionFactory.invoke(lcManager, ProcessRemovals.class,
+					appContext, null);
+		}
 		// Create the addons
-		IContributionFactory factory = (IContributionFactory) appContext.get(IContributionFactory.class.getName());
 		for (MContribution addon : appModel.getAddons()) {
 			Object obj = factory.create(addon.getContributionURI(), appContext);
 			addon.setObject(obj);

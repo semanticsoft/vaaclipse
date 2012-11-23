@@ -27,6 +27,10 @@
                name="appName"
                value="org.semanticsoft.vaaclipse.demo.contacts">
          </property>
+          <property
+           name="lifeCycleURI"
+           value="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.lifecycle.LifecycleHandler">
+         </property>
       </product>
    </extension>
 
