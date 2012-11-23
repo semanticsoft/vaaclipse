@@ -323,6 +323,7 @@ public class SingleElementFastViewManager
         public void layoutClick(LayoutClickEvent event) {
         	if (isShowing)
         		showStack(false);
+        		partService.requestActivation(); 
         }
     };
 
