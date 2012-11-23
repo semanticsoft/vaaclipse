@@ -16,4 +16,4 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons;bundle-version="1.0.0",
  org.eclipse.e4.ui.di;bundle-version="0.10.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: javax.annotation;version="1.1.0"
+Import-Package: javax.annotation;version="1.0.0"
