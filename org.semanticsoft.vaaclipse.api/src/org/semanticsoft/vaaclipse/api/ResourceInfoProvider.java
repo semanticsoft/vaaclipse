@@ -13,4 +13,5 @@ public interface ResourceInfoProvider
 	String getApplicationCSS();
 	String getApplicationtWidgetset();
 	String getApplicationtWidgetsetName();
+	String getApplicationHeaderIcon();
 }

@@ -103,7 +103,12 @@ public class StaticResources extends HttpServlet {
 		
 		String resourcePath = alias + path;
 		
-		String bundlePath = Utils.restorePath(resourcePath, resourceInfoProvider.getUserVaadinTheme(), resourceInfoProvider.getApplicationCSS(), resourceInfoProvider.getApplicationtWidgetset(), resourceInfoProvider.getApplicationtWidgetsetName());
+		String bundlePath = Utils.restorePath(resourcePath, 
+				resourceInfoProvider.getUserVaadinTheme(), 
+				resourceInfoProvider.getApplicationCSS(), 
+				resourceInfoProvider.getApplicationtWidgetset(), 
+				resourceInfoProvider.getApplicationtWidgetsetName(), 
+				resourceInfoProvider.getApplicationHeaderIcon());
 		
 		try {
 			URL u = new URL(bundlePath);

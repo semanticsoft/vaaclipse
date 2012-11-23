@@ -66,8 +66,13 @@ public class Utils {
 		
 	}
 	
-	public static String restorePath(String url, String theme, String e4CssUri, String e4WidgetsetUri, String e4WidgetsetName)
+	public static String restorePath(String url, String theme, String e4CssUri, String e4WidgetsetUri, String e4WidgetsetName, String headerIconUri)
 	{
+		if (url.endsWith("favicon.ico"))
+		{
+			return headerIconUri;
+		}
+		
 		//platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer.resources/VAADIN/themes/mediaplayer/img/mediainfo.png
 		StringBuffer urlString = new StringBuffer(url);
 		urlString.trimToSize();

@@ -23,6 +23,10 @@
                name="applicationWidgetset"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/widgetset/mediaplayer.MediaplayerApplicationWidgetset">
          </property>
+         <property
+               name="applicationHeaderIcon"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/favicon.ico">
+         </property>
       </product>
    </extension>
    <extension id="processor"
