@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
@@ -36,13 +37,13 @@ import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@SuppressWarnings("restriction")
 public class SashRenderer extends GenericRenderer {
 
 	@Inject
 	EventBroker eventBroker;
 	
-	private EventHandler sashOrientationHandler;
+	@Inject
+	Logger logger;
 	
 	private EventHandler sashWeightHandler = new EventHandler() {
 		public void handleEvent(Event event) {
@@ -54,7 +55,7 @@ public class SashRenderer extends GenericRenderer {
 				return;
 
 			MPartSashContainer sash = (MPartSashContainer)(MElementContainer<?>)element.getParent();
-			setWeights((MPartSashContainer) (MElementContainer<?>)element.getParent());
+			setWeights(sash);
 		}
 	};
 	
@@ -89,8 +90,6 @@ public class SashRenderer extends GenericRenderer {
 		if (!(element instanceof MPartSashContainer)) {
 			return;
 		}
-		final MPartSashContainer partSashContainer = (MPartSashContainer) element;
-		
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSizeFull();
 		
@@ -99,23 +98,6 @@ public class SashRenderer extends GenericRenderer {
 
 	@Override
 	public void processContents(final MElementContainer<MUIElement> element) {
-//		if (element.getChildren().size() == 2) {
-//			MUIElement child1 = element.getChildren().get(0);
-//			MUIElement child2 = element.getChildren().get(1);
-//			
-//			Component childWidget1 = (Component) child1.getWidget();
-//			Component childWidget2 = (Component) child2.getWidget();
-//			//TODO:temp, remove after testing that widget visibility sync work ok
-//			childWidget1.setVisible(child1.isVisible());
-//			childWidget2.setVisible(child2.isVisible());
-//			
-//			AbstractSplitPanel sash = (AbstractSplitPanel) element.getWidget();
-//			sash.setFirstComponent(childWidget1);
-//			sash.setSecondComponent(childWidget2);
-//		} else {
-//			System.err.println("A sash has to have 2 children");
-//		}
-		
 		refreshSashContainer((MPartSashContainer)(MElementContainer<?>)element);
 	}
 	
@@ -198,7 +180,8 @@ public class SashRenderer extends GenericRenderer {
 				}
 				catch (NumberFormatException e) {}
 			}
-			
+			if (weight==0) 
+				logger.warn("Please set container data on "+children.getElementId()+" else it may give unexpected behavior");
 			map.put((Component) children.getWidget(), children);
 			weights.put(children, weight);
 			total_weight += weight;
@@ -222,23 +205,6 @@ public class SashRenderer extends GenericRenderer {
 		}
 	}
 	
-	@Override
-	public void hookControllerLogic(MUIElement element) {
-		if (element instanceof MPartSashContainer) {
-			final MPartSashContainer partSashContainer = (MPartSashContainer) element;
-
-//			final AbstractSplitPanel splitPane = (AbstractSplitPanel) partSashContainer.getWidget();
-//			splitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener() {
-//				@Override
-//				public void propertyChange(PropertyChangeEvent event) {
-//					if (splitPane.getLeftComponent() != null && splitPane.getRightComponent() != null) {
-//						partSashContainer.setContainerData(((Integer) event.getNewValue()).toString());
-//					}
-//				}
-//			});
-		}
-	}
-	
 	public void refreshSashContainer(MPartSashContainer sash)
 	{
 		generateSplitPanelStructure(sash);
@@ -246,27 +212,6 @@ public class SashRenderer extends GenericRenderer {
 
 	@PostConstruct
 	void postConstruct() {
-//		sashOrientationHandler = new EventHandler() {
-//			@Override
-//			public void handleEvent(Event event) {
-//				// Ensure that this event is for a MPartSashContainer
-//				MUIElement element = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-//				if (element.getRenderer() != SashRenderer.this) {
-//					return;
-//				}
-//				Orientation orientation;
-//				if (((MPartSashContainer) element).isHorizontal()) {
-//					orientation = SashWidget1.Orientation.HORIZONTAL;
-//				} else {
-//					orientation = SashWidget1.Orientation.VERTICAL;
-//				}
-//				((SashWidget1) element.getWidget()).setOrientation(orientation);
-//			}
-//		};
-//
-//		eventBroker.subscribe(UIEvents.GenericTile.TOPIC_HORIZONTAL, sashOrientationHandler);
-//
-
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_CONTAINERDATA, sashWeightHandler);
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_VISIBLE, visibilityHandler);
 	}
