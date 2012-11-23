@@ -8,10 +8,8 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 
@@ -38,6 +36,17 @@ public class MediaInfoView
 	
 	private GridLayout grid;
 
+	private EventHandler meidaSelectedHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event) {
+			Object data = event.getProperty(EventUtils.DATA);
+			if (data instanceof Media){
+				setMedia((Media) data);
+			}
+			
+		}
+	};
 	
 	@Inject
 	public void PlayerView(VerticalLayout parent, IEclipseContext context)
@@ -47,13 +56,9 @@ public class MediaInfoView
 		description.setSizeFull();
 	}
 	
-	@Inject
-	@Optional
-	public void mediaSelected(@UIEventTopic(IMediaConstants.mediaSelected) Media media){
-		if (media!=null){
-			setMedia(media);
-		}
-			
+	@PostConstruct
+	public void pc(IEventBroker broker){
+		broker.subscribe(IMediaConstants.mediaSelected, meidaSelectedHandler);
 	}
 	
 	public Media getMedia()
@@ -91,4 +96,8 @@ public class MediaInfoView
 		description.setPropertyDataSource(new ObjectProperty<String>(media.getDescription(), String.class));
 	}
 	
+	@PreDestroy
+	public void pd(IEventBroker broker){
+		broker.unsubscribe(meidaSelectedHandler);
+	}
 }

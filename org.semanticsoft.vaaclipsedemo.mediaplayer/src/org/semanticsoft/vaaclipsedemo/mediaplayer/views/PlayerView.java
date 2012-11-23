@@ -5,15 +5,13 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
+import org.osgi.service.event.EventHandler;
 
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Embedded;
@@ -36,22 +34,29 @@ public class PlayerView
 //	private Label label = new Label("empty");
 	private Embedded e;
 	
-	
-	@Inject
-	@Optional
-	public void mediaSelected(@UIEventTopic(IMediaConstants.mediaSelected) Media media){
-		if (media!=null){
-			setMedia(media);
-			part.setLabel(media.getName());
-		}
+	private EventHandler mediaSelectedHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event) {
+			Object data = event.getProperty(EventUtils.DATA);
+			if (data instanceof Media){
+				setMedia((Media) data);
+				part.setLabel(((Media) data).getName());
+			}
 			
-	}
+		}
+	};
 
 	@Inject
 	public PlayerView(VerticalLayout parent, IEclipseContext context, IEventBroker broker)
 	{
 		layout.setSizeFull();
 		parent.addComponent(layout);
+	}
+	
+	@PostConstruct
+	public void pc(IEventBroker b){
+		b.subscribe(IMediaConstants.mediaSelected, mediaSelectedHandler);
 	}
 	
 	public Media getMedia()
@@ -75,4 +80,8 @@ public class PlayerView
 		e.setSource(new ExternalResource(media.getUri()));
 	}
 	
+	@PreDestroy
+	public void pd(IEventBroker broker){
+		broker.unsubscribe(mediaSelectedHandler);
+	}
 }
