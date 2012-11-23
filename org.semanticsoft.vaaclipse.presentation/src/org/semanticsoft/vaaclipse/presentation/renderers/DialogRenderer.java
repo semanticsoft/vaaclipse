@@ -84,6 +84,7 @@ public class DialogRenderer extends GenericRenderer {
 		super.processContents(element);
 			
 			clientArea.addComponent((com.vaadin.ui.Component)element.getSelectedElement().getWidget());
+			window.setCaption(((MPart)element.getSelectedElement()).getLabel());
 		}
 	
 	
