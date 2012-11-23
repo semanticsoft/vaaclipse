@@ -44,6 +44,7 @@
   <handlers xmi:id="_xC4bPTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.OpenHandler" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQDDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.SaveHandler" command="_xC4bPzDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQzDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.AboutHandler" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
+  <handlers xmi:id="_eleLsDVbEeK51v8L_5QH5A" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.TestHandler" command="_crFioDVbEeK51v8L_5QH5A"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
     <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
@@ -54,10 +55,12 @@
     <children xmi:id="_xC4bMDDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_xC4bMTDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
+  <descriptors xmi:id="_WwQi8DVbEeK51v8L_5QH5A" elementId="dialog.pd" label="Test dialog part" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.SamplePart"/>
   <commands xmi:id="_xC4bODDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_xC4bPDDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.open" commandName="openCommand"/>
   <commands xmi:id="_xC4bPzDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
   <commands xmi:id="_xC4bQjDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
+  <commands xmi:id="_crFioDVbEeK51v8L_5QH5A" elementId="C1" commandName="command"/>
   <addons xmi:id="_xC4bMjDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_xC4bMzDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_xC4bNDDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
