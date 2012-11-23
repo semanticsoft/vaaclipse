@@ -136,7 +136,7 @@ public class VaadinApplication extends Application
 		fixNullElementIds(appModel);
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
-		ContextInjectionFactory.setDefault(appContext);
+//		ContextInjectionFactory.setDefault(appContext);
 		// Create the addons
 		IContributionFactory factory = (IContributionFactory) appContext.get(IContributionFactory.class.getName());
 		for (MContribution addon : appModel.getAddons()) {
