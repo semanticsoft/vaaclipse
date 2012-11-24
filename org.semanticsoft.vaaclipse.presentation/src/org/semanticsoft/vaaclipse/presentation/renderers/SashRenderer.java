@@ -25,6 +25,7 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
@@ -34,6 +35,7 @@ import org.semanticsoft.vaaclipse.widgets.SashWidget;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
 import org.semanticsoft.vaaclipse.widgets.SplitPositionChangedListener;
+import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractSplitPanel;
@@ -321,6 +323,12 @@ public class SashRenderer extends GenericRenderer {
 							}
 							else
 								logger.error("Changing SashContainer child weights is failed. User changes is not processed correctly");
+							
+							//and last thing what we must do - tell the WorkbenchWindow to recalculate bounds of it content
+							//(because bounds of some content of workbench window changed after sash widget split position changed)
+							MWindow window = modelService.getTopLevelWindowFor(sash);
+							WorkbenchWindow wWindow = (WorkbenchWindow) window.getWidget();
+							wWindow.updateWindowContentBounds();
 						}
 					});
 				}

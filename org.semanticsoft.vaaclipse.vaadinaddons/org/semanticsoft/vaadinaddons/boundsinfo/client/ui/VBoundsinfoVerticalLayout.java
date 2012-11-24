@@ -44,7 +44,7 @@ public class VBoundsinfoVerticalLayout extends VVerticalLayout implements Painta
 	private BoundsUpdateManager updateManager;
 	
 	private Map<String, String> variables = new HashMap<String, String>();
-	private Boolean enableBoundsUpdate = true;
+	private Boolean enableBoundsUpdate = false;
 
 	/** Reference to the server connection object. */
 	// protected ApplicationConnection client;

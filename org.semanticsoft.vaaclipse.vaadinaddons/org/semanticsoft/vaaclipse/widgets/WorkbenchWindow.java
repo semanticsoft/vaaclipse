@@ -11,15 +11,24 @@
 
 package org.semanticsoft.vaaclipse.widgets;
 
-import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
+import java.util.Iterator;
 
+import org.semanticsoft.commons.geom.Bounds;
+import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
+import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout.BoundsUpdateListener;
+
+import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Window.ResizeEvent;
 
 /**
  * @author rushan
@@ -73,7 +82,14 @@ public class WorkbenchWindow extends Window
 		windowContent.setExpandRatio(windowBody, 100);
 		
 		windowCenterArea = new BoundsinfoVerticalLayout();
+		windowCenterArea.setEnableBoundsUpdate(true); //enable bounds update
 		windowCenterArea.setSizeFull();
+		windowCenterArea.addBoundsUpdateListener(new BoundsUpdateListener() {
+			
+			public void processEvent(BoundsinfoVerticalLayout layout) {
+				updateWindowContentBounds();
+			}
+		});
 
 		
 		helperLayout = new HorizontalLayout();
@@ -193,5 +209,97 @@ public class WorkbenchWindow extends Window
 	public TopbarComponent getTopbar() 
 	{
 		return topbar;
+	}
+	
+	//-----------------------------------
+	//-----------------------------------
+	public void updateWindowContentBounds()
+	{
+		//updateBounds(window, new Bounds(window.getPositionX(), window.getPositionY(), (int)window.getWidth(), (int)window.getHeight()));
+		updateBounds(getClientArea(), getClientArea().getBounds());
+		
+		System.out.println("window content bounds updated!");
+	}
+	
+	private void updateBounds(ComponentContainer container, Bounds currentBounds)
+	{
+		if (container instanceof BoundsinfoVerticalLayout)
+		{
+			BoundsinfoVerticalLayout bvl = (BoundsinfoVerticalLayout) container;
+			bvl.setBounds(currentBounds);
+		}
+		else if (container instanceof StackWidget)
+		{
+			StackWidget bvl = (StackWidget) container;
+			bvl.setBounds(currentBounds);
+		}
+		
+		if (container instanceof SashWidget)
+		{
+			AbstractSplitPanel splitPanel = (AbstractSplitPanel) container;
+			float splitPos = splitPanel.getSplitPosition() / 100;
+			if (splitPanel instanceof HorizontalSplitPanel)
+			{
+				int firstBoundsWidth = (int)(splitPos*currentBounds.w);
+				if (splitPanel.getFirstComponent() instanceof ComponentContainer)
+				{
+					Bounds leftBounds = new Bounds(
+							currentBounds.x, 
+							currentBounds.y, 
+							firstBoundsWidth, 
+							currentBounds.h
+						);
+					updateBounds((ComponentContainer) splitPanel.getFirstComponent(), leftBounds);	
+				}
+				
+				if (splitPanel.getSecondComponent() instanceof ComponentContainer)
+				{
+					Bounds rightBounds = new Bounds(
+							currentBounds.x + firstBoundsWidth, 
+							currentBounds.y, 
+							(int)(currentBounds.w - firstBoundsWidth), 
+							currentBounds.h
+						);
+					updateBounds((ComponentContainer) splitPanel.getSecondComponent(), rightBounds);
+				}
+			}
+			else if (splitPanel instanceof VerticalSplitPanel)
+			{
+				int firstBoundsHeight = (int)(splitPos*currentBounds.h);
+				if (splitPanel.getFirstComponent() instanceof ComponentContainer)
+				{
+					Bounds leftBounds = new Bounds(
+							currentBounds.x, 
+							currentBounds.y, 
+							currentBounds.w, 
+							firstBoundsHeight
+						);
+					updateBounds((ComponentContainer) splitPanel.getFirstComponent(), leftBounds);	
+				}
+				
+				if (splitPanel.getSecondComponent() instanceof ComponentContainer)
+				{
+					Bounds rightBounds = new Bounds(
+							currentBounds.x, 
+							currentBounds.y + firstBoundsHeight, 
+							(int)(currentBounds.w), 
+							currentBounds.h - firstBoundsHeight
+						);
+					updateBounds((ComponentContainer) splitPanel.getSecondComponent(), rightBounds);
+				}
+			}
+		}
+		else if (container instanceof ComponentContainer)
+		{
+			Iterator<Component> it = container.getComponentIterator();
+			while (it.hasNext())
+			{
+				Component c = it.next();
+				if (c instanceof ComponentContainer)
+				{
+					updateBounds((ComponentContainer) c, currentBounds);		
+				}
+			}
+		}
 	}
 }

@@ -689,31 +689,11 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
 		updateManager = new BoundsUpdateManager(this, paintableId, client);
 	}
 	
-	@Override
-	public RenderSpace getAllocatedSpace(Widget child)
-	{
-		if (updateManager != null && this.getState() != MINIMIZED && (this.getOffsetWidth() >0 || this.getOffsetHeight() > 0) )
-			updateManager.update();
-		return super.getAllocatedSpace(child);
-	}
-	
 //	@Override
-//	public boolean requestLayout(Set<Paintable> child)
+//	public RenderSpace getAllocatedSpace(Widget child)
 //	{
-//		//updateRemoteBounds();
-//		if (updateManager != null)
+//		if (updateManager != null && this.getState() != MINIMIZED && (this.getOffsetWidth() >0 || this.getOffsetHeight() > 0) )
 //			updateManager.update();
-//		return super.requestLayout(child);
-//	}
-
-//	void updateRemoteBounds()
-//	{
-//		if (client != null)
-//		{
-//			client.updateVariable(paintableId, "absolute_left", this.getAbsoluteLeft(), true);
-//			client.updateVariable(paintableId, "absolute_top", this.getAbsoluteTop(), true);
-//			client.updateVariable(paintableId, "offset_width", this.getOffsetWidth(), true);
-//			client.updateVariable(paintableId, "offset_height", this.getOffsetHeight(), true);
-//		}
+//		return super.getAllocatedSpace(child);
 //	}
 }

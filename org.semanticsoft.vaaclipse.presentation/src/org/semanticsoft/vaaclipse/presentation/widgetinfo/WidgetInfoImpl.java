@@ -15,7 +15,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.WidgetInfo;
-import org.semanticsoft.vaaclipse.presentation.renderers.StackRenderer;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 

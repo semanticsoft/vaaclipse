@@ -11,7 +11,9 @@
 
 package org.semanticsoft.vaadinaddons.boundsinfo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.semanticsoft.commons.geom.Bounds;
@@ -28,7 +30,10 @@ import com.vaadin.ui.VerticalLayout;
 @com.vaadin.ui.ClientWidget(org.semanticsoft.vaadinaddons.boundsinfo.client.ui.VBoundsinfoVerticalLayout.class)
 public class BoundsinfoVerticalLayout extends VerticalLayout
 {
-
+	public static interface BoundsUpdateListener {
+		void processEvent(BoundsinfoVerticalLayout layout);
+	}
+	
 	private String message = "Click here.";
 	private int clicks = 0;
 	
@@ -38,7 +43,14 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 	private Integer offsetHeight;
 	
 	private Map<String, String> variables = new HashMap<String, String>();
-	private boolean enableBoundsUpdate = true;
+	private boolean enableBoundsUpdate = false;
+	
+	private List<BoundsUpdateListener> boundsUpdateListeners = new ArrayList<BoundsinfoVerticalLayout.BoundsUpdateListener>();
+	
+	public void addBoundsUpdateListener(BoundsUpdateListener l)
+	{
+		this.boundsUpdateListeners.add(l);
+	}
 
 	@Override
 	public void paintContent(PaintTarget target) throws PaintException
@@ -74,6 +86,11 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 			absoluteTop = bounds[1];
 			offsetWidth = bounds[2];
 			offsetHeight = bounds[3];
+			
+			for (BoundsUpdateListener l : this.boundsUpdateListeners)
+			{
+				l.processEvent(this);
+			}
 		}
 		
 		if (variables.containsKey("absolute_top"))
@@ -129,6 +146,14 @@ public class BoundsinfoVerticalLayout extends VerticalLayout
 			return new Bounds(absoluteLeft, absoluteTop, offsetWidth, offsetHeight);
 		else
 			return null;
+	}
+	
+	public void setBounds(Bounds bounds)
+	{
+		this.absoluteLeft = bounds.x;
+		this.absoluteTop = bounds.y;
+		this.offsetWidth = bounds.w;
+		this.offsetHeight = bounds.h;
 	}
 	
 	public String getVariableValue(String varName)

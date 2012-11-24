@@ -66,7 +66,6 @@ public class StackWidget extends DDTabSheet
 		
 		if (variables.containsKey("bounds"))
 		{
-			System.out.println("update bounds of StackWidget");
 			String boundsStr = (String) variables.get("bounds");
 			if (boundsStr != null)
 			{
@@ -75,6 +74,7 @@ public class StackWidget extends DDTabSheet
 				absoluteTop = bounds[1];
 				offsetWidth = bounds[2];
 				offsetHeight = bounds[3];
+				System.out.println("update bounds of StackWidget: " + boundsStr);
 			}
 		}
 	}
@@ -191,5 +191,13 @@ public class StackWidget extends DDTabSheet
 			return new Bounds(absoluteLeft, absoluteTop, offsetWidth, offsetHeight);
 		else
 			return null;
+	}
+	
+	public void setBounds(Bounds bounds)
+	{
+		this.absoluteLeft = bounds.x;
+		this.absoluteTop = bounds.y;
+		this.offsetWidth = bounds.w;
+		this.offsetHeight = bounds.h;
 	}
 }
