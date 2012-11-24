@@ -64,6 +64,8 @@ public class StackRenderer extends GenericRenderer {
 	private EventBroker eventBroker;
 	@Inject
 	private EModelService modelService;
+	@Inject
+	private EPartService partService;
 	private Map<Component, MStackElement> vaatab2Element = new HashMap<Component, MStackElement>();
 	private boolean ignoreTabSelChanges = false;
 	
@@ -96,6 +98,8 @@ public class StackRenderer extends GenericRenderer {
 	};
 	
 	private EventHandler selectElementHandler = new EventHandler() {
+
+
 		public void handleEvent(Event event) {
 			Object element = event.getProperty(UIEvents.EventTags.ELEMENT);
 
