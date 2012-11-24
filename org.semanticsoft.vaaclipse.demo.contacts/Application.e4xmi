@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="ASCII"?>
-<e4modelextension:VaaclipseApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:e4modelextension="http://www.semanticsoft.org/ExtensionUI/e4modelextension" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xsi:schemaLocation="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced http://www.eclipse.org/ui/2010/UIModel/application#//ui/advanced http://www.eclipse.org/ui/2010/UIModel/application/ui/basic http://www.eclipse.org/ui/2010/UIModel/application#//ui/basic http://www.eclipse.org/ui/2010/UIModel/application/ui/menu http://www.eclipse.org/ui/2010/UIModel/application#//ui/menu" xmi:id="_GRxcMXk5Ed-55voCTyIpVQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_msQckC98EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.trimmedwindow.0" label="Rushan" x="20" y="20" width="700" height="600">
+<e4modelextension:VaaclipseApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:e4modelextension="http://www.semanticsoft.org/ExtensionUI/e4modelextension" xsi:schemaLocation="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced http://www.eclipse.org/ui/2010/UIModel/application#//ui/advanced http://www.eclipse.org/ui/2010/UIModel/application/ui/basic http://www.eclipse.org/ui/2010/UIModel/application#//ui/basic" xmi:id="_GRxcMXk5Ed-55voCTyIpVQ">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_qIm4ADZpEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.trimmedwindow.0" label="Contacts application" iconURI="platform:/plugin/org.semanticsoft.vaaclipse.demo.contacts/icons/sample.gif">
     <tags>mainWindow</tags>
-    <children xsi:type="advanced:PerspectiveStack" xmi:id="_5b1WkC97EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.perspectivestack.0" selectedElement="_5u6qoC97EeKhDqNXDNaPXw">
-      <children xsi:type="advanced:Perspective" xmi:id="_5u6qoC97EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.perspective.0">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_8juUkC97EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.partsashcontainer.1" containerData="">
-          <children xsi:type="basic:PartStack" xmi:id="_LH7oEC-AEeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.partstack.1" containerData="20">
-            <children xsi:type="basic:Part" xmi:id="_9vfkIC97EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.part.2" containerData="" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.ThirdPart" label="ThirdPart"/>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_xpw8UDZpEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.perspectivestack.0">
+      <children xsi:type="advanced:Perspective" xmi:id="_x5QJ0DZpEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.perspective.0">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_zXFZwDZpEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.partsashcontainer.0" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_24_aQDZpEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.partstack.1" containerData="20">
+            <children xsi:type="basic:Part" xmi:id="_AqdUUDZqEeK_OIQHdYxwDA" elementId="contacts.list.part" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.ContactsList" label="Contacts"/>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_UYqwwDVsEeK51v8L_5QH5A" elementId="org.semanticsoft.vaaclipse.demo.contacts.partstack.0" containerData="">
-            <children xsi:type="basic:Part" xmi:id="_U4L-UDVsEeK51v8L_5QH5A" elementId="org.semanticsoft.vaaclipse.demo.contacts.part.0" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.ContactsList" label="TestS"/>
-          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_2ZjFMDZpEeK_OIQHdYxwDA" elementId="contacts.stack" containerData="80"/>
         </children>
       </children>
     </children>
-    <mainMenu xmi:id="_4ygQQC98EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.menu.0">
-      <children xsi:type="menu:Menu" xmi:id="_QwnkUC9_EeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.menu.1" label="Hello"/>
-    </mainMenu>
-    <trimBars xmi:id="_g0Jc4C-AEeKhDqNXDNaPXw" elementId="org.semanticsoft.vaaclipse.demo.contacts.trimbar.0">
-      <children xsi:type="menu:ToolControl" xmi:id="_dhWckDGHEeKGWviXsLyLkQ" elementId="org.semanticsoft.vaaclipse.demo.contacts.toolcontrol.0" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.ToolControl"/>
-    </trimBars>
+    <mainMenu xmi:id="_wMYYUDZpEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.menu.0"/>
   </children>
+  <descriptors xmi:id="_7KaMIDZpEeK_OIQHdYxwDA" elementId="contact.part.descriptor" label="Contact part" allowMultiple="true" closeable="true" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.ContactPart"/>
   <addons xmi:id="_XGB3wPZlEd-XstlTZ6nTXg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_XGB3wPZlEd-XstlTZ6nTXh" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_LK0NgPZmEd-XstlTZ6nTXj" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
   <addons xmi:id="_LK0NgPZmEd-XstlTZ6nTXk" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_m3x8QDZwEeK_OIQHdYxwDA" elementId="org.semanticsoft.vaaclipse.demo.contacts.addon.0" contributionURI="bundleclass://org.semanticsoft.vaaclipse.demo.contacts/org.semanticsoft.vaaclipse.demo.lifecycle.ContactsAddon"/>
 </e4modelextension:VaaclipseApplication>
