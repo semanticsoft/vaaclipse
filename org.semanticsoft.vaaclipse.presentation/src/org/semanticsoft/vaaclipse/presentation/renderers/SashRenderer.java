@@ -12,6 +12,7 @@
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +30,18 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
+import org.semanticsoft.vaaclipse.widgets.SashWidget;
+import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
+import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
+import org.semanticsoft.vaaclipse.widgets.SplitPositionChangedListener;
 
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractSplitPanel;
+import com.vaadin.ui.AbstractSplitPanel.SplitterClickEvent;
+import com.vaadin.ui.AbstractSplitPanel.SplitterClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
-import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.VerticalSplitPanel;
 
 public class SashRenderer extends GenericRenderer {
 
@@ -45,15 +51,21 @@ public class SashRenderer extends GenericRenderer {
 	@Inject
 	Logger logger;
 	
+	private boolean ignoreSashWeights = false;
+	
 	private EventHandler sashWeightHandler = new EventHandler() {
 		public void handleEvent(Event event) {
+			
+			if (ignoreSashWeights)
+				return;
+			
 			// Ensure that this event is for a MPartSashContainer
 			MUIElement element = (MUIElement) event
 					.getProperty(UIEvents.EventTags.ELEMENT);
 			MElementContainer<MUIElement> parent = element.getParent();
 			if (parent.getRenderer() != SashRenderer.this)
 				return;
-
+			
 			MPartSashContainer sash = (MPartSashContainer)(MElementContainer<?>)element.getParent();
 			setWeights(sash);
 		}
@@ -123,8 +135,9 @@ public class SashRenderer extends GenericRenderer {
 		}
 		else
 		{
-			sashWidget = sash.isHorizontal() ? new HorizontalSplitPanel() : new VerticalSplitPanel();
+			sashWidget = sash.isHorizontal() ? new SashWidgetHorizontal() : new SashWidgetVertical();
 			AbstractSplitPanel currentSashWidget = (AbstractSplitPanel) sashWidget;
+			currentSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
 			for (int i = 0; i < renderableAndVisible.size(); i++)
 			{
 				MPartSashContainerElement child = renderableAndVisible.get(i);
@@ -141,7 +154,7 @@ public class SashRenderer extends GenericRenderer {
 					}
 					else
 					{
-						AbstractSplitPanel newSashWidget = sash.isHorizontal() ? new HorizontalSplitPanel() : new VerticalSplitPanel();
+						AbstractSplitPanel newSashWidget = sash.isHorizontal() ? new SashWidgetHorizontal() : new SashWidgetVertical();
 						newSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
 						newSashWidget.setFirstComponent((Component) child.getWidget());
 						currentSashWidget.setSecondComponent(newSashWidget);
@@ -149,7 +162,6 @@ public class SashRenderer extends GenericRenderer {
 					}
 				}
 			}
-			currentSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
 		}
 		
 		sashWidget.setSizeFull();
@@ -221,6 +233,101 @@ public class SashRenderer extends GenericRenderer {
 	{
 		eventBroker.unsubscribe(sashWeightHandler);
 		eventBroker.unsubscribe(visibilityHandler);
+	}
+	
+	@Override
+	public void hookControllerLogic(MUIElement element) 
+	{
+		final MPartSashContainer sash = (MPartSashContainer) element;
+		
+		List<MPartSashContainerElement> renderableAndVisible = (List<MPartSashContainerElement>) filterRenderableAndVisibleElements(sash);
+		
+		if (renderableAndVisible.size() > 1)
+		{
+			for (MPartSashContainerElement child : renderableAndVisible)
+			{
+				Component childComponent = (Component) child.getWidget();
+				if (childComponent.getParent() instanceof SashWidget)
+				{
+					SashWidget sashWidget = (SashWidget) childComponent.getParent();
+					sashWidget.addListener(new SplitPositionChangedListener() {
+						
+						@Override
+						public void processEvent(AbstractSplitPanel splitPanel, float newSplitPos) {
+							AbstractComponent firstWidget = (AbstractComponent) splitPanel.getFirstComponent();
+							
+							//filter renderable and visible again (list can be changed)
+							List<MPartSashContainerElement> renderableAndVisible = (List<MPartSashContainerElement>) filterRenderableAndVisibleElements(sash);
+							MPartSashContainerElement firstChild = null;
+							double rest_weight = 0;
+							List<MPartSashContainerElement> restChilds = new LinkedList<>();
+							for (int i = 0; i < renderableAndVisible.size(); i++)
+							{
+								MPartSashContainerElement child = renderableAndVisible.get(i);
+								if (firstWidget.equals(child.getWidget()))
+								{
+									firstChild = child;
+								}
+								
+								if (firstChild != null)
+								{
+									try {
+										double w = Double.parseDouble(child.getContainerData());
+										rest_weight += w;
+									}
+									catch (NumberFormatException e) {
+										logger.error("Changing weights of SashContainer's childs is failed. Can not parse children container data");
+										return;
+									}
+									
+									restChilds.add(child);
+								}
+							}
+							
+							if (restChilds.size() > 1)
+							{
+								//String debugstr = "weights: ";
+								ignoreSashWeights = true;
+								
+								double rest_weight_except_first = rest_weight - Double.parseDouble(firstChild.getContainerData());
+								
+								double newW1 = (newSplitPos / 100) * rest_weight;
+								double new_rest_weight_except_first = rest_weight - newW1;
+								long longVal1 = Math.round(newW1);
+								firstChild.setContainerData(Long.toString(longVal1));
+								//debugstr += longVal1;
+								for (int i = 1; i < restChilds.size(); i++)
+								{
+									MPartSashContainerElement child = restChilds.get(i);
+									double w = Double.parseDouble(child.getContainerData());
+									double newW = (w/rest_weight_except_first) * new_rest_weight_except_first;
+									long longVal = Math.round(newW);
+									
+									child.setContainerData(Long.toString(longVal));
+									//debugstr += ", " + longVal;
+								}
+								
+								ignoreSashWeights = false;
+								
+								//System.out.println(debugstr);
+								
+								//ATTENTION! Really line below is not required if code above works correctly.
+								//But if there are any wrong behaviour appear then we have wrong synchronized state
+								//that may caused side effects, so we do back syncronization (and bug if it occur become obvious).
+								//This is also zeroed weight mismatch occuring when double rounded (and possible when vaadin process changes),
+								//so we avoid mismatch accumulating. 
+								//Most likely in the future this will be deleted (when this code will be proved that all ok).
+								setWeights(sash);
+							}
+							else
+								logger.error("Changing SashContainer child weights is failed. User changes is not processed correctly");
+						}
+					});
+				}
+				else
+					logger.error("Error in  widget hierarchy detected - if sash container has more than one element its child widget must has SashWidget as a parent");
+			}	
+		}
 	}
 	
 	@Override
