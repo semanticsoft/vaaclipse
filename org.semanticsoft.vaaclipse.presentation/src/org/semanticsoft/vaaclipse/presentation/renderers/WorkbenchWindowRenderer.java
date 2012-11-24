@@ -39,6 +39,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Window.ResizeEvent;
 
 
 @SuppressWarnings("restriction")
@@ -135,10 +136,11 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 				eclipseContext.set(Window.class, window); // main window - temp
 															// hack
 			}
-			// case of modal windows
+			// case child windows
 			else {
 				MWindow mWindow = (MWindow) element;
 				WorkbenchWindow window = new WorkbenchWindow();
+				window.setImmediate(true);
 				window.setPositionX(mWindow.getX());
 				window.setPositionY(mWindow.getY());
 				window.setWidth(mWindow.getWidth());
@@ -154,36 +156,28 @@ public class WorkbenchWindowRenderer extends GenericRenderer {
 
 	@Override
 	public void hookControllerLogic(final MUIElement element) {
-//		if (element instanceof MWindow) {
-//			final MWindow mWindow = (MWindow) element;
-//			Window window = (Window) mWindow.getWidget();
-//			window.addWindowListener(new WindowAdapter() {
-//				@Override
-//				public void windowClosing(WindowEvent evt) {
-//					if ((MUIElement) element.getParent() instanceof MApplication) {
-//						MApplication application = (MApplication) (MUIElement) element.getParent();
-//						synchronized (application) {
-//							application.notifyAll();
-//						}
-//					}
-//				}
-//			});
-//
-//			window.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
-//
-//				@Override
-//				public void ancestorMoved(HierarchyEvent e) {
-//					mWindow.setX(e.getChanged().getX());
-//					mWindow.setY(e.getChanged().getY());
-//				}
-//
-//				@Override
-//				public void ancestorResized(HierarchyEvent e) {
-//					mWindow.setWidth(e.getChanged().getWidth());
-//					mWindow.setHeight(e.getChanged().getHeight());
-//				}
-//			});
-//		}
+		if (element instanceof MWindow) {
+			final MWindow mWindow = (MWindow) element;
+			
+			if (!element.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW))
+			{//only for child windows (main window not need that)
+				final Window window = (Window) mWindow.getWidget();
+				
+				window.addListener(new Window.ResizeListener() {
+					
+					@Override
+					public void windowResized(ResizeEvent e) {
+						mWindow.setWidth((int) window.getWidth());
+						mWindow.setHeight((int) window.getHeight());
+						
+//						System.out.println(String.format("%s, %s, %s, %s",  
+//								mWindow.getX(), mWindow.getY(), mWindow.getWidth(), mWindow.getHeight()));
+					}
+				});
+				
+				//TODO: there are no window move listener in vaadin, implement it later
+			}
+		}
 	}
 
 	@Override
