@@ -7,10 +7,10 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.demo.model.Contact;
-import org.semanticsoft.vaaclipse.demo.model.ContactsFactory;
 import org.semanticsoft.vaaclipse.demo.utils.IContactsEvents;
 
 import com.vaadin.data.util.BeanItem;
@@ -21,6 +21,11 @@ public class ContactPart {
 	
 	
 	private IEventBroker broker;
+	protected Contact formContact;
+	
+	@Inject
+	private MPart part;
+	
 	private EventHandler contactHandler = new EventHandler() {
 		
 		@Override
@@ -28,6 +33,8 @@ public class ContactPart {
 			Object contact = event.getProperty(EventUtils.DATA);
 			if (contact instanceof Contact){
 				form.setItemDataSource(new BeanItem<Contact>((Contact) contact));
+				formContact = (Contact) contact;
+				part.setLabel(formContact.getFirstName());
 			}
 			
 		}
@@ -57,8 +64,8 @@ public class ContactPart {
 	
 	@Focus
 	public void focus(){
-//		form.focus();
 		
+		form.getField("firstName").focus();
 	}
 
 }
