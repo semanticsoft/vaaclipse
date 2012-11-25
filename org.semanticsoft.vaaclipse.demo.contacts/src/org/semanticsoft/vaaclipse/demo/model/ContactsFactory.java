@@ -8,11 +8,25 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.eclipse.e4.core.di.annotations.Creatable;
+import org.eclipse.e4.core.di.extensions.EventUtils;
+import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.demo.utils.IContactsEvents;
 @Singleton
 @Creatable
 public class ContactsFactory {
 
 	private ArrayList<Contact> contacts;
+	private EventHandler eventHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event) {
+			Contact property = (Contact) event.getProperty(EventUtils.DATA);
+			contacts.add(property);
+		}
+	};
 
 	@Inject
 	public ContactsFactory() {
@@ -20,20 +34,27 @@ public class ContactsFactory {
 	}
 	
 	@PostConstruct
-	private void pc(){
+	private void pc(IEventBroker broker, MWindow win){
 		Contact contact = new Contact();
 		contact.setFirstName("Rushan");
 		contact.setLastName("Gilmulin");
 		contact.setAge(35);
 		contact.setCompany("Semanticsoft");
 		getContacts().add(contact);
-		getContacts().add(new Contact());
+		Contact sopot = new Contact();
+		sopot.setAge(24);
+		sopot.setFirstName("Sopot");
+		sopot.setLastName("Cela");
+		sopot.setCompany("Eclipse");
+		getContacts().add(sopot);
+		broker.subscribe(IContactsEvents.NEW_CONTACT, eventHandler );
 	}
 	
 	@PreDestroy
-	private void pd(){
+	private void pd(IEventBroker broker){
 		getContacts().clear();
 		setContacts(null);
+		broker.unsubscribe(eventHandler);
 	}
 
 	public ArrayList<Contact> getContacts() {

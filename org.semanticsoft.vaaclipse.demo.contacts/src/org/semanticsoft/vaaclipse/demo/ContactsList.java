@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.demo.model.Contact;
@@ -29,32 +30,29 @@ public class ContactsList {
 	@Inject
 	private MPart part;
 
-	private EventHandler contactHandler = new EventHandler() {
-
-		@Override
-		public void handleEvent(Event event) {
-			Object contact = event.getProperty(EventUtils.DATA);
-			if (contact instanceof Contact) {
-				tree.select(contact);
-			}
-
-		}
-	};
-	private Tree tree;
+	private Tree tree = new Tree();
 
 	@PostConstruct
-	public void pc(IEventBroker eventBroker, VerticalLayout ly) {
+	public void pc(IEventBroker eventBroker, VerticalLayout ly, final EPartService partService) {
 		this.layout = ly;
 		buildUI();
-		eventBroker.subscribe(IContactsEvents.CONTACT_SELECTED, contactHandler);
+		eventBroker.subscribe(IContactsEvents.UPDATE_NEEDED, new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				if (event.getProperty(EventUtils.DATA)!=null){
+					fillTree();
+					partService.hidePart(partService.findPart("new.contact.part"), true);
+				}
+				
+			}
+		});
 	}
 
 	private void buildUI() {
 		tree = new Tree(part.getLabel());
-		List<Contact> list = cf.getContacts();
-		for (Contact contact : list) {
-			tree.addItem(contact);
-		}
+		tree.setImmediate(true);
+		fillTree();
 		tree.setChildrenAllowed(null, false);
 		tree.addListener(new ItemClickListener() {
 			private static final long serialVersionUID = -8401944431859296346L;
@@ -68,4 +66,12 @@ public class ContactsList {
 
 		layout.addComponent(tree);
 	}
+
+	private void fillTree() {
+		List<Contact> list = cf.getContacts();
+		for (Contact contact : list) {
+			tree.addItem(contact);
+		}
+	}
+	
 }
