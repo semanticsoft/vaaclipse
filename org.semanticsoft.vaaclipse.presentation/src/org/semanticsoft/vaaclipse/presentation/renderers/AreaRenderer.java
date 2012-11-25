@@ -26,7 +26,7 @@ import com.vaadin.ui.HorizontalLayout;
  * @author rushan
  * 
  */
-public class AreaRenderer extends GenericVaadinRenderer
+public class AreaRenderer extends VaadinRenderer
 {
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)

@@ -32,7 +32,7 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * Create a contribute part.
  */
-public class ToolControlRenderer extends GenericVaadinRenderer {
+public class ToolControlRenderer extends VaadinRenderer {
 	
 	@Inject
 	EModelService modelService;

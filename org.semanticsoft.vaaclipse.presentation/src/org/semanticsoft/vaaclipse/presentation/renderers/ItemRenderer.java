@@ -35,7 +35,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 
 
 @SuppressWarnings("restriction")
-public abstract class ItemRenderer extends GenericVaadinRenderer {
+public abstract class ItemRenderer extends VaadinRenderer {
 	
 	protected String prepareText(MMenuItem model)
 	{

@@ -51,7 +51,7 @@ import com.vaadin.ui.VerticalLayout;
  * @author rushan
  * 
  */
-public class PerspectiveStackRenderer extends GenericVaadinRenderer
+public class PerspectiveStackRenderer extends VaadinRenderer
 {
 	private Map<MUIElement, HorizontalLayout> perspectivestack_perspectiveswitcher = new HashMap<>();
 	private Map<MUIElement, TwoStateToolbarButton> perspective_button = new HashMap<>();

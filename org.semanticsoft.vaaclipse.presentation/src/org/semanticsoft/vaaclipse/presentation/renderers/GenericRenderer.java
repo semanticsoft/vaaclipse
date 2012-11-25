@@ -8,8 +8,9 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 
 /**
- * @author rushan
- *
+ * The begginning point of this renderer is a Kai Toedter's generic renderer. I place it in vaaclipse packages temproraly -
+ * until the generic renderer will be the part of eclipse project.
+ * @author Kai Toedter
  */
 public interface GenericRenderer 
 {

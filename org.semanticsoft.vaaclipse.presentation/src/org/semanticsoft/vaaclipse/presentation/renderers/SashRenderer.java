@@ -45,7 +45,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.VerticalLayout;
 
-public class SashRenderer extends GenericVaadinRenderer {
+public class SashRenderer extends VaadinRenderer {
 
 	@Inject
 	EventBroker eventBroker;

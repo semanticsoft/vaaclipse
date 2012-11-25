@@ -43,7 +43,7 @@ import com.vaadin.ui.CssLayout;
 
 
 @SuppressWarnings("restriction")
-public class TrimBarRenderer extends GenericVaadinRenderer {
+public class TrimBarRenderer extends VaadinRenderer {
 
 	@Inject
 	MApplication app;

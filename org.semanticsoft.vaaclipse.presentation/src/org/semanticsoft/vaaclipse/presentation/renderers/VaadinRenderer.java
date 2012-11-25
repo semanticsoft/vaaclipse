@@ -29,13 +29,8 @@ import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 
-/**
- * This renderer was adopted from Kai Toedter's generic renderer project. I place it in vaaclipse packages temproraly -
- * until the generic renderer will be the part of eclipse project.
- * @author Kai Toedter
- */
 @SuppressWarnings("restriction")
-public class GenericVaadinRenderer implements GenericRenderer {
+public class VaadinRenderer implements GenericRenderer {
 
 	//public static final String OWNING_ME = "modelElement";
 	

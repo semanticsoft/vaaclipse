@@ -14,12 +14,12 @@ package org.semanticsoft.vaaclipse.presentation.engine;
 
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
-import org.semanticsoft.vaaclipse.presentation.renderers.GenericVaadinRenderer;
+import org.semanticsoft.vaaclipse.presentation.renderers.VaadinRenderer;
 
 @SuppressWarnings("restriction")
 public class GenericRendererFactory implements RendererFactory {
 	
-	GenericVaadinRenderer genericRenderer = new GenericVaadinRenderer();
+	VaadinRenderer genericRenderer = new VaadinRenderer();
 
 	@Override
 	public GenericRenderer getRenderer(MUIElement uiElement) {
