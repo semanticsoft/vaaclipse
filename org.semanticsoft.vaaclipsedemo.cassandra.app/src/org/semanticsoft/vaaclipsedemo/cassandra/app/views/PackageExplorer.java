@@ -155,6 +155,7 @@ public class PackageExplorer
 	@PreDestroy
 	void unregisterHandlers()
 	{
+		System.out.println("pckexplorer destroy");
 		eventBroker.unsubscribe(activatePartHandler);
 	}
 	

@@ -58,7 +58,7 @@ import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 
 
 @SuppressWarnings("restriction")
-public class StackRenderer extends GenericRenderer {
+public class StackRenderer extends GenericVaadinRenderer {
 	
 	@Inject
 	private EventBroker eventBroker;

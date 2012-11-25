@@ -21,7 +21,7 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 
 @SuppressWarnings("restriction")
-public class MenuBarRenderer extends GenericRenderer
+public class MenuBarRenderer extends GenericVaadinRenderer
 {
 
 	@Override

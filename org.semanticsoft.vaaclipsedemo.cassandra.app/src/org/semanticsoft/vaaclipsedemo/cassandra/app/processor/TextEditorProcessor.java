@@ -40,7 +40,6 @@ public class TextEditorProcessor
 
 		public void handleEvent(Event event)
 		{
-			System.out.println("afdasdfs");
 			MPart part = (MPart) event.getProperty(UIEvents.EventTags.ELEMENT);
 			if (part instanceof MInputPart)
 			{

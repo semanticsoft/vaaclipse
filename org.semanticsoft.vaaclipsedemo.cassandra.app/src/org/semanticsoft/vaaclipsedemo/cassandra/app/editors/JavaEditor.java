@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import javax.annotation.PreDestroy;
+
 import com.vaadin.ui.Panel;
 
 import com.vaadin.ui.VerticalLayout;
@@ -36,5 +38,11 @@ public class JavaEditor extends TextEditor
 		text = new CodeLabel(readContent());
 		e.addComponent(text);
 		container.addComponent(e);
+	}
+	
+	@PreDestroy
+	public void preDestory()
+	{
+		System.out.println("predestroy");
 	}
 }

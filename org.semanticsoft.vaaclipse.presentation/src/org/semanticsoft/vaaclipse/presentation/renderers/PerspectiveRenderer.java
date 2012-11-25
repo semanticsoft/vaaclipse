@@ -23,7 +23,7 @@ import com.vaadin.ui.VerticalLayout;
  * @author rushan
  *
  */
-public class PerspectiveRenderer extends GenericRenderer
+public class PerspectiveRenderer extends GenericVaadinRenderer
 {
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) 

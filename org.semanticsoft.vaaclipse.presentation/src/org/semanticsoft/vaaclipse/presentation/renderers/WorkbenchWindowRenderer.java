@@ -43,7 +43,7 @@ import com.vaadin.ui.Window.ResizeEvent;
 
 
 @SuppressWarnings("restriction")
-public class WorkbenchWindowRenderer extends GenericRenderer {
+public class WorkbenchWindowRenderer extends GenericVaadinRenderer {
 
 	@Inject
 	private IEclipseContext eclipseContext;

@@ -51,7 +51,7 @@ import com.vaadin.ui.VerticalLayout;
  * @author rushan
  * 
  */
-public class PerspectiveStackRenderer extends GenericRenderer
+public class PerspectiveStackRenderer extends GenericVaadinRenderer
 {
 	private Map<MUIElement, HorizontalLayout> perspectivestack_perspectiveswitcher = new HashMap<>();
 	private Map<MUIElement, TwoStateToolbarButton> perspective_button = new HashMap<>();
@@ -121,12 +121,15 @@ public class PerspectiveStackRenderer extends GenericRenderer
 			if (e instanceof MPlaceholder)
 			{
 				MPlaceholder ph = (MPlaceholder) e;
-				ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
-				Component refComponent = (Component) ph.getRef().getWidget();
-				phComponent.addComponent(refComponent);
+				if (ph.isToBeRendered())
+				{
+					ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
+					Component refComponent = (Component) ph.getRef().getWidget();
+					phComponent.addComponent(refComponent);
+				}
+				
 				ph.getRef().setCurSharedRef(ph);
 				
-				System.out.println("sfaf");
 				MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
 				if (topLeftStack != null)
 				{

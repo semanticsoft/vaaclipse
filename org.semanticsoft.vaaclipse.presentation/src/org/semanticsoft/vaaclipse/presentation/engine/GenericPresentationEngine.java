@@ -13,24 +13,33 @@
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.log.Logger;
+import org.eclipse.e4.ui.di.PersistState;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
+import org.eclipse.e4.ui.model.application.MContribution;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -41,7 +50,6 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
 
-import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 
@@ -94,12 +102,12 @@ public class GenericPresentationEngine implements PresentationEngine {
 					createGui(added);
 				if (added.getWidget() != null && changedElement.getWidget() != null && added.isToBeRendered())
 					parentRenderer.addChildGui(added, changedElement);
-			} 
+			}
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
 			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-				if (removed.getWidget() != null && changedElement.getWidget() != null && removed.isToBeRendered())
-					parentRenderer.removeChildGui(removed, changedElement);
+				if (removed.isToBeRendered() && removed.getWidget() != null)
+					removeGui(removed);
 			}
 		}
 	};
@@ -143,12 +151,12 @@ public class GenericPresentationEngine implements PresentationEngine {
 				// selected element
 				if (parent.getSelectedElement() == changedElement)
 					parent.setSelectedElement(null);
-
+				
 				// Un-maximize the element before tearing it down
 				if (changedElement.getTags().contains(MAXIMIZED))
 					changedElement.getTags().remove(MAXIMIZED);
-
-				parentRenderer.removeChildGui(changedElement, (MElementContainer<MUIElement>) parent);
+				
+				removeGui(changedElement);
 			}
 
 		}
@@ -273,10 +281,9 @@ public class GenericPresentationEngine implements PresentationEngine {
 			System.out.println("GenericPresentationEngine.createGui(): no parent: " + element + " parent: " + parent);
 		}
 		renderer.createWidget(element, parent);
-		if (element.getWidget() != null && element.getWidget() instanceof AbstractComponent)
+		if (element.getWidget() != null)
 		{
-			AbstractComponent component = (AbstractComponent) element.getWidget();
-			component.setData(element);
+			renderer.bindWidget(element);
 		}
 
 		// Does not work: why?
@@ -351,12 +358,159 @@ public class GenericPresentationEngine implements PresentationEngine {
 		}
 		return modelService.getContainingContext(parent);
 	}
-
+	
 	@Override
 	public void removeGui(MUIElement element) {
-		System.out.println("GenericPresentationEngine.removeGui(): " + element);
+		
+		//((GenericRenderer) element.getRenderer()).removeWidget(element, null);
+		
+		//((GenericRenderer) element.getRenderer()).disposeWidget(element);
+		
+		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		// We call 'hideChild' *before* checking if the actual element
+		// has been rendered in order to pick up cases of 'lazy loading'
+		MUIElement parent = element.getParent();
+		GenericRenderer parentRenderer = (GenericRenderer) (parent != null ? parent.getRenderer() : null);
+				
+		if (parentRenderer != null && parent.getWidget() != null) {
+			parentRenderer.removeChildGui(element, (MElementContainer<MUIElement>) parent);
+		}
+		
+		GenericRenderer renderer = (GenericRenderer) element.getRenderer();
 
-		((GenericRenderer) element.getRenderer()).removeWidget(element, null);
+		// If the element hasn't been rendered then this is a NO-OP
+		if (renderer != null) {
+
+			if (element instanceof MElementContainer<?>) {
+				MElementContainer<MUIElement> container = (MElementContainer<MUIElement>) element;
+				MUIElement selectedElement = container.getSelectedElement();
+				List<MUIElement> children = container.getChildren();
+				for (MUIElement child : children) {
+					// remove stuff in the "back" first
+					if (child != selectedElement) {
+						removeGui(child);
+					}
+				}
+
+				if (selectedElement != null
+						&& children.contains(selectedElement)) {
+					// now remove the selected element
+					removeGui(selectedElement);
+				}
+			}
+			else if (element instanceof MPlaceholder)
+			{
+				MPlaceholder ph = (MPlaceholder) element;
+				MUIElement refElement = ph.getRef();
+				
+				int pcount = 0;
+				MWindow window = modelService.getTopLevelWindowFor(element);
+				for (MPlaceholder p : modelService.findElements(window, null, MPlaceholder.class, null)) {
+					if (p.getRef() == refElement)
+						pcount++;
+				}
+				
+				assert pcount > 0;
+				
+				if (pcount == 1) {
+					removeGui(refElement);
+				}
+			}
+
+			if (element instanceof MPerspective) {
+				MPerspective perspective = (MPerspective) element;
+				for (MWindow subWindow : perspective.getWindows()) {
+					removeGui(subWindow);
+				}
+			} else if (element instanceof MWindow) {
+				MWindow window = (MWindow) element;
+				for (MWindow subWindow : window.getWindows()) {
+					removeGui(subWindow);
+				}
+
+				if (window instanceof MTrimmedWindow) {
+					MTrimmedWindow trimmedWindow = (MTrimmedWindow) window;
+					for (MUIElement trimBar : trimmedWindow.getTrimBars()) {
+						removeGui(trimBar);
+					}
+				}
+			}
+
+			if (element instanceof MContribution) {
+				MContribution contribution = (MContribution) element;
+				Object client = contribution.getObject();
+				IEclipseContext parentContext = renderer.getContext(element);
+				if (parentContext != null && client != null) {
+					try {
+						ContextInjectionFactory.invoke(client,
+								PersistState.class, parentContext, null);
+					} catch (Exception e) {
+						if (logger != null) {
+							logger.error(e);
+						}
+					}
+				}
+			}
+			
+			if (element instanceof MPart) {
+				MPart part = (MPart) element;
+				MToolBar toolBar = part.getToolbar();
+				if (toolBar != null) {
+					
+					if (toolBar.getWidget() != null) {
+						((GenericRenderer)(toolBar.getRenderer())).unbindWidget(toolBar);
+					}
+				}
+
+				for (MMenu menu : part.getMenus()) {
+					removeGui(menu);
+				}
+			}
+			
+			renderer.unbindWidget(element);
+			renderer.disposeWidget(element);
+			element.setRenderer(null);
+			element.setWidget(null);
+			
+			// unset the client object
+			if (element instanceof MContribution) {
+				MContribution contribution = (MContribution) element;
+				Object client = contribution.getObject();
+				IEclipseContext parentContext = renderer.getContext(element);
+				if (parentContext != null && client != null) {
+					try {
+						ContextInjectionFactory.uninject(client, parentContext);
+					} catch (Exception e) {
+						if (logger != null) {
+							logger.error(e);
+						}
+					}
+				}
+				contribution.setObject(null);
+			}
+
+			// dispose the context
+			if (element instanceof MContext) {
+				clearContext((MContext) element);
+			}
+		}
+	}
+	
+	private void clearContext(MContext contextME) {
+		MContext ctxt = (MContext) contextME;
+		IEclipseContext lclContext = ctxt.getContext();
+		if (lclContext != null) {
+			IEclipseContext parentContext = lclContext.getParent();
+			IEclipseContext child = parentContext.getActiveChild();
+			if (child == lclContext) {
+				child.deactivate();
+			}
+
+			ctxt.setContext(null);
+			lclContext.dispose();
+		}
 	}
 
 	@Override

@@ -43,7 +43,7 @@ import com.vaadin.ui.Component;
  * @author rushan
  *
  */
-public class PlaceholderRenderer extends GenericRenderer
+public class PlaceholderRenderer extends GenericVaadinRenderer
 {	
 	@Inject
 	IPresentationEngine renderingEngine;

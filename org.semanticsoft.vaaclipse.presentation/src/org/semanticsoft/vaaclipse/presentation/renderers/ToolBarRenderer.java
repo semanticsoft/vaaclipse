@@ -45,7 +45,7 @@ import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
-public class ToolBarRenderer extends GenericRenderer {
+public class ToolBarRenderer extends GenericVaadinRenderer {
 
 	private Map<MToolBar, AbstractLayout> modelToManager = new HashMap<MToolBar, AbstractLayout>();
 	private Map<AbstractLayout, MToolBar> managerToModel = new HashMap<AbstractLayout, MToolBar>();

@@ -30,7 +30,7 @@ import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
-public class PartRenderer extends GenericRenderer {
+public class PartRenderer extends GenericVaadinRenderer {
 	
 	@Inject
 	IPresentationEngine renderingEngine;
