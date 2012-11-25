@@ -14,7 +14,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.demo.utils.IContactsEvents;
-@Singleton
 @Creatable
 public class ContactsFactory {
 

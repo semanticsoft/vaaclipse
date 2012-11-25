@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -33,9 +34,10 @@ public class ContactsList {
 	private Tree tree = new Tree();
 
 	@PostConstruct
-	public void pc(IEventBroker eventBroker, VerticalLayout ly, final EPartService partService) {
+	public void pc(IEventBroker eventBroker, VerticalLayout ly, final EPartService partService,IEclipseContext context) {
 		this.layout = ly;
 		buildUI();
+		context.getParent().set(ContactsFactory.class,cf);
 		eventBroker.subscribe(IContactsEvents.UPDATE_NEEDED, new EventHandler() {
 			
 			@Override
