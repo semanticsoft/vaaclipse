@@ -18,7 +18,8 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  com.vaadin;bundle-version="6.8.1",
  org.semanticsoft.vaaclipse.app;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.semanticsoft.vaaclipse.behaviour
+Export-Package: org.semanticsoft.vaaclipse.behaviour,
+ org.semanticsoft.vaaclipse.behaviour.cleanup
 Bundle-Vendor: Rushan R. Gilmullin
 Service-Component: OSGI-INF/org.semanticsoft.vaaclipse.behaviour.xml
 Import-Package: javax.annotation;version="1.1.0"

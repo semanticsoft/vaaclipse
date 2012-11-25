@@ -65,7 +65,6 @@ public class ContactPart {
 	@Focus
 	public void focus(){
 		
-		form.getField("firstName").focus();
 	}
 
 }
