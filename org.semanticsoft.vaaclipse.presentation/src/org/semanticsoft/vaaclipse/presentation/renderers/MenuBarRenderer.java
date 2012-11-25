@@ -49,10 +49,4 @@ public class MenuBarRenderer extends GenericVaadinRenderer
 			element.setWidget(item);
 		}
 	}
-
-	@Override
-	public void processContents(MElementContainer<MUIElement> container)
-	{
-		//the child menu items already attached when created - vaadin API issue
-	}
 }

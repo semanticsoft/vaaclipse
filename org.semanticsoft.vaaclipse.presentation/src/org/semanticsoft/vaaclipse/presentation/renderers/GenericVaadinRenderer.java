@@ -64,7 +64,7 @@ public class GenericVaadinRenderer implements GenericRenderer {
 	}
 
 	public void processContents(MElementContainer<MUIElement> element) {
-		System.out.println("GenericRenderer.processContents(): " + element);
+		
 	}
 	
 	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)

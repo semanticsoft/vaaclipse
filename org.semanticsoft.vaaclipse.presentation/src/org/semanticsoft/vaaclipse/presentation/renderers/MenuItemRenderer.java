@@ -69,11 +69,6 @@ public class MenuItemRenderer extends ItemRenderer {
 	}
 
 	@Override
-	public void processContents(MElementContainer<MUIElement> container) {
-		//the child menu items already attached when created - vaadin API issue
-	}
-
-	@Override
 	public void hookControllerLogic(MUIElement me) {
 		//the listener already attached (when created - vaadin API issue)
 	}
