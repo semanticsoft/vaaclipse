@@ -63,6 +63,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private String appWidgetset;
 	private String appWidgetsetName;
 	private String appHeaderIcon;
+	private String appAuthProvider;
 	private boolean debugMode = false;
 	
 	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
@@ -94,6 +95,11 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	public String getApplicationHeaderIcon() 
 	{
 		return this.appHeaderIcon;
+	}
+	
+	public String getApplicationAuthenticationProvider()
+	{
+		return appAuthProvider;
 	}
 	
 	@Override
@@ -192,6 +198,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		if (appHeaderIcon == null || appHeaderIcon.trim().isEmpty())
 			appHeaderIcon = "platform:/plugin/com.vaadin/VAADIN/themes/reindeer/favicon.ico";
 		
+		appAuthProvider = appContext.getBrandingProperty("applicationAuthenticationProvider");
+				
 		productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
 		
 		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();

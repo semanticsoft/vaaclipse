@@ -35,6 +35,7 @@ import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
@@ -114,8 +115,10 @@ public class WorkbenchWindowRenderer extends VaadinRenderer {
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
 		if (element instanceof MWindow) {
+			Window oldMainWindow = vaadinapp.getMainWindow();
 			if (element.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW)) {
 				MWindow mWindow = (MWindow) element;
+				
 				WorkbenchWindow window = new WorkbenchWindow();
 				window.setPositionX(mWindow.getX());
 				window.setPositionY(mWindow.getY());
@@ -124,17 +127,18 @@ public class WorkbenchWindowRenderer extends VaadinRenderer {
 				window.setCaption(mWindow.getLocalizedLabel());
 				element.setWidget(window);
 				((MWindow) element).getContext().set(Window.class, window);
-//
-				// TODO:begin temp hack
 				window.setSizeFull();
+				
 				vaadinapp.setMainWindow(window);
+				if (oldMainWindow != null)
+				{
+					oldMainWindow.open( new ExternalResource (vaadinapp.getURL()));
+				}
 
 				app.setSelectedElement(mWindow);
 				mWindow.getContext().activate();
-				// end temp hack
-
-				eclipseContext.set(Window.class, window); // main window - temp
-															// hack
+				
+				eclipseContext.set(Window.class, window);
 			}
 			// case child windows
 			else {
@@ -149,7 +153,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer {
 				element.setWidget(window);
 				eclipseContext.set(Window.class, window);
 //not call for null elements				
-				vaadinapp.getMainWindow().addWindow(window);
+				oldMainWindow.addWindow(window);
 			}
 		}
 	}

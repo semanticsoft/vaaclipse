@@ -21,7 +21,9 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.core.services.translation.TranslationProviderFactory;
 import org.eclipse.e4.core.services.translation.TranslationService;
@@ -39,8 +41,10 @@ import org.eclipse.e4.ui.model.application.MContribution;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IExceptionHandler;
 import org.eclipse.e4.ui.workbench.IModelResourceHandler;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipse.e4.ui.workbench.lifecycle.PreSave;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
@@ -49,9 +53,16 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.eclipse.equinox.internal.app.MainApplicationLauncher;
 import org.eclipse.osgi.service.datalocation.Location;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
+import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 
 import com.vaadin.Application;
+import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 public class VaadinApplication extends Application
@@ -79,6 +90,12 @@ public class VaadinApplication extends Application
 	private Map<String, MUIElement> id2element = new HashMap<String, MUIElement>();
 
 	private Object lcManager;
+
+	private IEclipseContext appContext;
+
+	private IContributionFactory factory;
+	
+	private User user;
 	
 	public VaadinApplication(VaadinOSGiServlet servlet)
 	{
@@ -89,13 +106,11 @@ public class VaadinApplication extends Application
 	public void init()
 	{
 		context = VaadinE4Application.getInstance().getAppContext();
+		logger = VaadinE4Application.getInstance().getLogger();
 		
 		String themeName = VaadinE4Application.getInstance().getUserVaadinTheme();
 		setTheme(themeName);
 		
-		logger = VaadinE4Application.getInstance().getLogger();
-		Window mainWindow = new Window("Vaaclipse");
-		setMainWindow(mainWindow);
 		
 		//--user agent detection
 //		if (this.getContext() instanceof WebApplicationContext) {
@@ -112,22 +127,60 @@ public class VaadinApplication extends Application
 		//--
 		
 		//-------------------------------------
-		e4Workbench = createE4Workbench(context);
-		e4Workbench.createAndRunUI(e4Workbench.getApplication());
-		//TODO nothing happens when user quits wrt the model 
-//		if (lcManager != null) {
-//			ContextInjectionFactory.invoke(lcManager, PreSave.class,
-//					workbenchContext, null);
-//		}
+		prepareEnvironment(context);
+		
+		String authProvider = VaadinE4Application.getInstance().getApplicationAuthenticationProvider();
+		
+		if (authProvider == null || authProvider.trim().isEmpty())
+		{
+			//start workbench as usually
+			e4Workbench = createE4Workbench(context);
+			e4Workbench.createAndRunUI(e4Workbench.getApplication());
+		}
+		else
+		{
+			final Window window = new Window("Login");
+			window.setSizeFull();
+			setMainWindow(window);
+			
+			IEventBroker eventBroker = appContext.get(EventBroker.class);
+			eventBroker.subscribe(AuthenticationConstants.Events.Authentication, new EventHandler() {
 
+				@Override
+				public void handleEvent(Event event)
+				{
+					Object data = event.getProperty(EventUtils.DATA);
+					if (data instanceof User)
+					{
+						//login user:
+						user = (User)data;
+						
+						//TODO: Now we can load persistande model of this user (not implemented yet, just load initial model)
+						e4Workbench = createE4Workbench(context);
+						e4Workbench.createAndRunUI(e4Workbench.getApplication());	
+					}
+				}
+			});
+			
+			IContributionFactory contributionFactory = (IContributionFactory) appContext.get(IContributionFactory.class
+					.getName());
+			IEclipseContext authConext = appContext.createChild();
+			VerticalLayout windowContent = new VerticalLayout();
+			windowContent.setSizeFull();
+			window.setContent(windowContent);
+			authConext.set(ComponentContainer.class, windowContent);
+			authConext.set(VerticalLayout.class, windowContent);
+			Object authProviderObj = contributionFactory.create(authProvider, authConext);
+			System.out.println(authProvider);
+		}
 	}
 	
-	public E4Workbench createE4Workbench(IApplicationContext applicationContext) {
-		logger.debug("VaadinE4Application.createE4Workbench()");
-
+	
+	public void prepareEnvironment(IApplicationContext applicationContext) 
+	{
 		args = (String[]) applicationContext.getArguments().get(IApplicationContext.APPLICATION_ARGS);
 
-		IEclipseContext appContext = createDefaultContext(applicationContext);
+		appContext = createDefaultContext(applicationContext);
 		appContext.set("e4ApplicationInstanceId", UUID.randomUUID().toString());
 		appContext.set("vaadinapp", this);
 		appContext.set(Application.class, this);
@@ -143,7 +196,7 @@ public class VaadinApplication extends Application
 			}
 		});
 		
-		IContributionFactory factory = (IContributionFactory) appContext
+		factory = (IContributionFactory) appContext
 				.get(IContributionFactory.class.getName());
 		
 		// Install the life-cycle manager for this session if there's one
@@ -158,7 +211,9 @@ public class VaadinApplication extends Application
 								PostContextCreate.class, appContext, null);
 			}
 		}
-		
+	}
+	
+	public E4Workbench createE4Workbench(IApplicationContext applicationContext) {
 		// Create the app model and its context
 		MApplication appModel = loadApplicationModel(applicationContext, appContext);
 		fixNullElementIds(appModel);

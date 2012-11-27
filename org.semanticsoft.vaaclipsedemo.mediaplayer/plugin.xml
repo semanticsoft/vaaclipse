@@ -27,6 +27,10 @@
                name="applicationHeaderIcon"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/favicon.ico">
          </property>
+         <property
+               name="applicationAuthenticationProvider"
+               value="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.login.LoginProvider">
+         </property>
       </product>
    </extension>
    <extension id="processor"
