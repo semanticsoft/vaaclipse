@@ -14,20 +14,27 @@ package org.semanticsoft.vaaclipse.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vaadin.terminal.Resource;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 
 /**
  * @author rushan
  *
  */
-public class TwoStateToolbarButton extends ToolbarButton
+public class TwoStateToolbarButton extends Button
 {
+	private String primaryStyle;
+	private String selectedStyle;
+	
 	private boolean switchOn = false;
 	private boolean switchStateByUserClickEnabled = true;
 	private List<ClickListener> userListeners = new ArrayList<ClickListener>();
 	
 	public TwoStateToolbarButton() {
 		setState(false);
+		
+		setPrimaryStyle("vaaclipsebutton");
+		setSelectedStyle("pushed");
 		
 		super.addListener(new ClickListener() {
 					
@@ -41,7 +48,18 @@ public class TwoStateToolbarButton extends ToolbarButton
 						l.buttonClick(event);
 					}
 				}
-			}			
+				
+				//change focus
+				Component parent = event.getButton().getParent();
+                while (parent != null) {
+                        if(parent instanceof Component.Focusable) {
+                                ((Component.Focusable) parent).focus();
+                                break;
+                        } else {
+                                parent = parent.getParent();
+                        }
+                }
+			}
 		});
 	}
 	
@@ -53,13 +71,11 @@ public class TwoStateToolbarButton extends ToolbarButton
 	public void setState(boolean switchOn) {
 		if (switchOn)
 		{
-			removeStyleName("vaadock-toolbar-button");
-			addStyleName("vaadock-toolbar-button_selected");
+			addStyleName(selectedStyle);
 		}
 		else
 		{
-			removeStyleName("vaadock-toolbar-button_selected");
-			addStyleName("vaadock-toolbar-button");
+			removeStyleName(selectedStyle);
 		}
 		
 		this.switchOn = switchOn;
@@ -79,5 +95,37 @@ public class TwoStateToolbarButton extends ToolbarButton
 	public void setSwitchStateByUserClickEnabled(boolean switchStateByUserClickEnabled)
 	{
 		this.switchStateByUserClickEnabled = switchStateByUserClickEnabled;
+	}
+	
+	public String getPrimaryStyle()
+	{
+		return primaryStyle;
+	}
+	
+	public void setPrimaryStyle(String primaryStyle)
+	{
+		removePrimaryStyle();
+		this.primaryStyle = primaryStyle;
+		this.addStyleName(this.primaryStyle);
+	}
+	
+	public void removePrimaryStyle()
+	{
+		if (this.primaryStyle != null)
+			this.removeStyleName(this.primaryStyle);
+	}
+		
+	public String getSelectedStyle()
+	{
+		return selectedStyle;
+	}
+	
+	public void setSelectedStyle(String selectedStyle)
+	{
+		if (this.switchOn)
+			this.removeStyleName(this.selectedStyle);
+		this.selectedStyle = selectedStyle;
+		if (this.switchOn)
+			this.addStyleName(this.selectedStyle);
 	}
 }

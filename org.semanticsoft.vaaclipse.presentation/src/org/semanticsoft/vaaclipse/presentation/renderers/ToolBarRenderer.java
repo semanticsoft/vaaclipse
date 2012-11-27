@@ -107,12 +107,44 @@ public class ToolBarRenderer extends VaadinRenderer {
 			
 			if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
 			{
-				toolBarWidget = new HorizontalLayout();
+				toolBarWidget = new HorizontalLayout() {
+					@Override
+					public void addComponent(Component c)
+					{
+						c.addStyleName("horizontaltoolbarlement");
+						c.setSizeUndefined();
+						super.addComponent(c);
+					}
+					
+					@Override
+					public void addComponent(Component c, int index)
+					{
+						c.addStyleName("horizontaltoolbarlement");
+						c.setSizeUndefined();
+						super.addComponent(c, index);
+					}
+				};
 				toolBarWidget.addStyleName("horizontaltoolbar");
 			}
 			else
 			{
-				toolBarWidget = new VerticalLayout();
+				toolBarWidget = new VerticalLayout() {
+					@Override
+					public void addComponent(Component c)
+					{
+						c.addStyleName("verticaltoolbarlement");
+						c.setSizeUndefined();
+						super.addComponent(c);
+					}
+					
+					@Override
+					public void addComponent(Component c, int index)
+					{
+						c.addStyleName("verticaltoolbarlement");
+						c.setSizeUndefined();
+						super.addComponent(c, index);
+					}
+				};
 				toolBarWidget.addStyleName("verticaltoolbar");
 			}
 			

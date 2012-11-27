@@ -39,7 +39,7 @@ import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.NativeButton;
+import com.vaadin.ui.Component;
 
 @SuppressWarnings("restriction")
 public class ToolItemRenderer extends ItemRenderer
@@ -152,25 +152,48 @@ public class ToolItemRenderer extends ItemRenderer
 		{
 			MToolItem item = (MToolItem) element;
 			
-			NativeButton button;
+			Button button;
 			if (item.getType() == ItemType.CHECK)
 				button = new TwoStateToolbarButton();
 			else if (item.getType() == ItemType.PUSH)
 			{
-				button = new NativeButton();
-				button.addStyleName("vaadock-toolbar-button");
+				button = new Button();
+				button.addStyleName("vaaclipsebutton");
+				button.addListener(new ClickListener() {
+					
+					@Override
+					public void buttonClick(ClickEvent event)
+					{
+						Component parent = event.getButton().getParent();
+		                while (parent != null) {
+		                        if(parent instanceof Component.Focusable) {
+		                                ((Component.Focusable) parent).focus();
+		                                break;
+		                        } else {
+		                                parent = parent.getParent();
+		                        }
+		                }
+					}
+				});
 			}
 			else
 				throw new RuntimeException("this item type not implemented yet");
+			
+			button.setSizeUndefined();
 
 			if (item.getIconURI() != null)
 			{
 				Resource icon = new ThemeResource(Utils.convertPath(item.getIconURI()));
 				button.setIcon(icon);
-			}// server started
-			else {
-				button=new NativeButton(item.getLabel());
 			}
+			
+			if (item.getLabel() != null && !item.getLabel().trim().isEmpty())
+			{
+				button.setCaption(item.getLabel());
+			}
+			else
+				button.addStyleName("icononly");
+			
 			if (item.getTooltip() != null)
 			{
 				button.setDescription(item.getLocalizedTooltip());

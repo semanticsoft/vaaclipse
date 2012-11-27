@@ -180,7 +180,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			if (perspective.isToBeRendered() && perspective.isVisible())
 			{
 				final TwoStateToolbarButton perspectiveButton = new TwoStateToolbarButton();
-				
+				perspectiveButton.addStyleName("icononly");
 				String uri;
 				if (perspective.getIconURI() != null)
 					uri = perspective.getIconURI();

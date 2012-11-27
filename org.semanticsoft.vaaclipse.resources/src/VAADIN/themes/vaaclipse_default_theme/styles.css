@@ -22,6 +22,8 @@
  
  .toptrimbar_11 {
 	background-color: #d2d2d2;
+	padding-top:    1px;
+ 	padding-bottom: 1px;
 }
 
 .toptrimbar_00 {
@@ -74,9 +76,8 @@
 }
  
 /*
- *end border 
- */
-
+*	trimbar
+*/
 .horizontaltrimbar {
 	padding-left:   5px;
 	padding-top:    6px;
@@ -139,6 +140,105 @@
 .toolbar {
 	background-color: transparent;
 }
+
+.verticaltoolbarlement {
+	padding: 0px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.horizontaltoolbarlement {
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 1px;
+	margin-right: 1px;
+}
+
+/*
+*toolbar button
+*/
+div.v-button-vaaclipsebutton,
+div.v-disabled.v-button-vaaclipsebutton {
+	background: transparent;
+	border: solid 1px transparent;
+	padding: 0px;
+	border-radius:3px;
+	height: auto;
+	width: auto;
+	margin: 2px;
+}
+
+div.v-button-vaaclipsebutton .v-button-wrap,
+div.v-disabled.v-button-vaaclipsebutton .v-button-wrap {
+	background: transparent;
+	border: none;
+	padding: 0px;
+}
+	
+.v-button-vaaclipsebutton .v-icon {
+	margin-left: 0px;
+	margin-top: 0px;
+	padding: 3px;
+}
+
+.v-button-vaaclipsebutton:focus .v-icon {
+	margin-left: 1px;
+	margin-top: 1px;
+}
+
+.v-button-icononly .v-button-caption {
+	display: none;
+}
+
+.v-button-icononly .v-icon {
+	margin-right: -2px;
+}
+
+.v-button-vaaclipsebutton:hover {
+	background-image: url(img/toolbar_button_hover_gradient.png);
+	background-repeat: repeat-x;
+	background-color: #e4e7ef;
+	/*background-image: none;*/
+	border: solid 1px #000000;
+}
+
+.v-button-vaaclipsebutton:hover .v-button-wrap {
+	background: transparent;
+	background-image: none;
+	display: inline;
+	padding: 0px;
+	margin: 0px;
+}
+
+.v-button-vaaclipsebutton:active, .v-button-vaaclipsebutton:focus,
+.v-ie7 .v-pressed.v-button,
+.v-ie8 .v-pressed.v-button,
+div.v-button-pushed {
+	background-image: url(img/toolbar_button_pushed_gradient.png);
+	background-repeat: repeat-x;
+	background-color: #dfe3ec;
+	/*background-image: none;*/
+	border: solid 1px #000000;
+	height: auto;
+	width: auto;
+	}
+
+.v-button-vaaclipsebutton:active .v-button-wrap,
+.v-button-vaaclipsebutton:focus .v-button-wrap,
+.v-ie7 .v-pressed.v-button .v-button-wrap,
+.v-ie8 .v-pressed.v-button .v-button-wrap,
+.v-button-pushed .v-button-wrap {
+	/*background-image: url(../chameleon/img/grad-dark-top2.png);*/
+	background: transparent;
+	background-image: none;
+	display: inline;
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	}
 
 /*
 	vaadock-toolbar-button horizontal
