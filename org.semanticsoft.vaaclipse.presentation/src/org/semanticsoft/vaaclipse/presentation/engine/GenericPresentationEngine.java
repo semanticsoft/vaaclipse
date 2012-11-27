@@ -106,8 +106,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
 			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-				if (removed.isToBeRendered() && removed.getWidget() != null)
-					removeGui(removed);
+				if (removed.getWidget() != null && changedElement.getWidget() != null && removed.isToBeRendered())
+					parentRenderer.removeChildGui(removed, changedElement);
 			}
 		}
 	};
