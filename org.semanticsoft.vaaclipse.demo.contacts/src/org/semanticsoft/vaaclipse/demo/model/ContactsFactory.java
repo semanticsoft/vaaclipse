@@ -37,7 +37,7 @@ public class ContactsFactory {
 		Contact contact = new Contact();
 		contact.setFirstName("Rushan");
 		contact.setLastName("Gilmulin");
-		contact.setAge(35);
+		contact.setAge(30);
 		contact.setCompany("Semanticsoft");
 		getContacts().add(contact);
 		Contact sopot = new Contact();
