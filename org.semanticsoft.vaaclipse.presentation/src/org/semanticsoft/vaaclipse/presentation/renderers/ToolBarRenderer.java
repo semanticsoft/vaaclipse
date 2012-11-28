@@ -111,16 +111,16 @@ public class ToolBarRenderer extends VaadinRenderer {
 					@Override
 					public void addComponent(Component c)
 					{
-						c.addStyleName("horizontaltoolbarlement");
-						c.setSizeUndefined();
+						if (!c.getStyleName().contains("horizontalseparator"))
+							c.addStyleName("horizontaltoolbarlement");
 						super.addComponent(c);
 					}
 					
 					@Override
 					public void addComponent(Component c, int index)
 					{
-						c.addStyleName("horizontaltoolbarlement");
-						c.setSizeUndefined();
+						if (!c.getStyleName().contains("horizontalseparator"))
+							c.addStyleName("horizontaltoolbarlement");
 						super.addComponent(c, index);
 					}
 				};
@@ -132,16 +132,16 @@ public class ToolBarRenderer extends VaadinRenderer {
 					@Override
 					public void addComponent(Component c)
 					{
-						c.addStyleName("verticaltoolbarlement");
-						c.setSizeUndefined();
+						if (!c.getStyleName().contains("verticalseparator"))
+							c.addStyleName("verticaltoolbarlement");
 						super.addComponent(c);
 					}
 					
 					@Override
 					public void addComponent(Component c, int index)
 					{
-						c.addStyleName("verticaltoolbarlement");
-						c.setSizeUndefined();
+						if (!c.getStyleName().contains("verticalseparator"))
+							c.addStyleName("verticaltoolbarlement");
 						super.addComponent(c, index);
 					}
 				};
