@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<e4modelextension:VaaclipseApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:e4modelextension="http://www.semanticsoft.org/ExtensionUI/e4modelextension" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_KosWgDjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.ide.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_KosWlzjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.window.main" label="Mini" width="500" height="400">
+    <tags>mainWindow</tags>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_KosWnzjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.perspectivestack">
+      <children xsi:type="advanced:Perspective" xmi:id="_KosWoDjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.perspective.0">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_KosWoTjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.sashcontainer.0" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_KosWojjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.partstack.left" containerData="50">
+            <children xsi:type="basic:Part" xmi:id="_Ls9AEDmZEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.part.first" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mini/org.semanticsoft.vaaclipsedemo.mini.views.FirstView" label="First" tooltip="First"/>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_HRRcwDmKEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.partstack.right" containerData="50">
+            <children xsi:type="basic:Part" xmi:id="_3U12cDmjEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mini.part.second" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mini/org.semanticsoft.vaaclipsedemo.mini.views.SecondView" label="Second" tooltip="Second"/>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_KosWmDjEEeKcQPOnIbNSoQ" elementId="menu:org.eclipse.ui.main.menu">
+      <children xsi:type="menu:Menu" xmi:id="_KosWmTjEEeKcQPOnIbNSoQ" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_KosWnDjEEeKcQPOnIbNSoQ" label="Quit" command="_KosWijjEEeKcQPOnIbNSoQ"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_KosWnTjEEeKcQPOnIbNSoQ" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_KosWnjjEEeKcQPOnIbNSoQ" label="About" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_KosWozjEEeKcQPOnIbNSoQ">
+      <children xsi:type="menu:ToolBar" xmi:id="_KosWpDjEEeKcQPOnIbNSoQ" elementId="toolbar:org.eclipse.ui.main.toolbar">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_KosWpTjEEeKcQPOnIbNSoQ" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mini/icons/sample.gif" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
+      </children>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_KosWizjEEeKcQPOnIbNSoQ" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mini/org.semanticsoft.vaaclipsedemo.mini.handlers.QuitHandler" command="_KosWijjEEeKcQPOnIbNSoQ"/>
+  <handlers xmi:id="_KosWlTjEEeKcQPOnIbNSoQ" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mini/org.semanticsoft.vaaclipsedemo.mini.handlers.AboutHandler" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
+  <commands xmi:id="_KosWijjEEeKcQPOnIbNSoQ" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
+  <commands xmi:id="_KosWlDjEEeKcQPOnIbNSoQ" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
+  <addons xmi:id="_KosWhDjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_KosWhTjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_KosWhjjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_KosWhzjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_KosWiDjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_KosWiTjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+</e4modelextension:VaaclipseApplication>

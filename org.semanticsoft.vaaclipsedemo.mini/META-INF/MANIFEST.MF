@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mini
+Bundle-SymbolicName: org.semanticsoft.vaaclipsedemo.mini;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: javax.inject;bundle-version="1.0.0",
+ org.eclipse.e4.core.di;bundle-version="1.2.0",
+ org.eclipse.e4.core.contexts;bundle-version="1.2.0",
+ com.vaadin;bundle-version="6.8.1",
+ org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
+ org.eclipse.e4.ui.workbench;bundle-version="0.10.100",
+ org.semanticsoft.e4modelextension;bundle-version="1.0.0",
+ org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0",
+ org.eclipse.e4.core.services;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: javax.annotation;version="1.1.0"
