@@ -21,12 +21,6 @@ public interface GenericRenderer
 	void addChildGui(MUIElement child, MElementContainer<MUIElement> element);
 	void removeChildGui(MUIElement element, MElementContainer<MUIElement> parent);
 	
-	/**
-	 * This method will be removed as soon as possible
-	 * @param element
-	 */
-	@Deprecated
-	void refreshPlatformElement(MElementContainer<?> element);
 	void hookControllerLogic(MUIElement element);
 	IEclipseContext getContext(MUIElement part);
 	void setVisible(MUIElement changedElement, boolean visible);

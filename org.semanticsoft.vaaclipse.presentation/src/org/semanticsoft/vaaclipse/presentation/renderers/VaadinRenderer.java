@@ -105,17 +105,6 @@ public class VaadinRenderer implements GenericRenderer {
 		}
 		return -1;
 	}
-	
-	/**
-	 * This method will be removed as soon as possible
-	 * @param element
-	 */
-	@Deprecated
-	public void refreshPlatformElement(MElementContainer<?> element)
-	{
-		
-	}
-
 
 	public void hookControllerLogic(MUIElement element) {
 		// System.out.println("GenericRenderer.hookControllerLogic(): " +

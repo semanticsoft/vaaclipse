@@ -354,11 +354,9 @@ public class MinMaxAddon {
 				if (trimBar.getSide() == SideValue.LEFT || trimBar.getSide() == SideValue.RIGHT) {
 					trimBar.getChildren().clear();
 					trimBar.setVisible(false);
-					presentationEngine.refreshGui(trimBar);
 				}
 			}
 		}
-		presentationEngine.refreshGui(window);
 	}
 
 	protected void restore(MUIElement element) {
@@ -392,7 +390,6 @@ public class MinMaxAddon {
 			if (trimBar.getChildren().size() == 0) {
 				trimBar.setVisible(false);
 			}
-			presentationEngine.refreshGui(trimBar);
 		}
 		
 		Map<String, Object> parameters = new HashMap<>();
@@ -467,14 +464,6 @@ public class MinMaxAddon {
 				thePlaceholder.getTags().add(MINIMIZED);
 			}
 		}
-		
-
-		// now let the parent check if the children are visible
-		GenericRenderer parentRenderer = (GenericRenderer) element.getParent().getRenderer();
-		if (parentRenderer != null) {
-			parentRenderer.refreshPlatformElement(element.getParent());
-		}
-
 	}
 
 	private MWindow getWindowFor(MUIElement element) {
@@ -521,10 +510,7 @@ public class MinMaxAddon {
 			} else {
 				toolBar.setToBeRendered(true);
 				presentationEngine.createGui(toolBar);
-				presentationEngine.refreshGui(bar);
 			}
-
-			presentationEngine.refreshGui(window);
 		} else {
 			// get the parent trim bar, see bug 320756
 			MUIElement parent = toolBar.getParent();

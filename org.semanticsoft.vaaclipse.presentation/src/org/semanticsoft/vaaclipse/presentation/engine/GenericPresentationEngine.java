@@ -549,14 +549,4 @@ public class GenericPresentationEngine implements PresentationEngine {
 		eventBroker.unsubscribe(visibilityHandler);
 		eventBroker.unsubscribe(childrenHandler);
 	}
-
-	@Override
-	public void refreshGui(MElementContainer<?> element) {
-		GenericRenderer renderer = rendererFactory.getRenderer(element);
-		if (element instanceof MElementContainer<?>) {
-			MElementContainer<MUIElement> container = (MElementContainer<MUIElement>) element;
-			
-			renderer.refreshPlatformElement(container);
-		}
-	}
 }
