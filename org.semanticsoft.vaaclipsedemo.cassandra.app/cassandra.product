@@ -47,7 +47,6 @@
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.runtime"/>
-      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.core.variables"/>
       <plugin id="org.eclipse.e4.core.commands"/>
       <plugin id="org.eclipse.e4.core.contexts"/>
@@ -73,7 +72,6 @@
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.util"/>
-      <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.jetty.continuation"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>

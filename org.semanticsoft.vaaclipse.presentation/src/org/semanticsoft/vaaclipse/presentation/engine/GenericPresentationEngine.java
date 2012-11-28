@@ -13,10 +13,8 @@
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -61,6 +59,8 @@ import com.vaadin.ui.ComponentContainer;
 @SuppressWarnings("restriction")
 public class GenericPresentationEngine implements PresentationEngine {
 
+	protected MApplication theApp;
+	
 	@Inject
 	protected Logger logger;
 
@@ -517,7 +517,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 	public Object run(MApplicationElement uiRoot, IEclipseContext appContext) {
 		System.out.println("GenericPresentationEngine.run(): " + uiRoot + ":" + appContext);
 		if (uiRoot instanceof MApplication) {
-			MApplication theApp = (MApplication) uiRoot;
+			theApp = (MApplication) uiRoot;
 			for (MWindow window : theApp.getChildren()) {
 				createGui(window);
 			}
@@ -528,7 +528,13 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 	@Override
 	public void stop() {
-		System.out.println("GenericPresentationEngine.stop()");
+		if (theApp != null) {
+			for (MWindow window : theApp.getChildren()) {
+				if (window.getWidget() != null) {
+					removeGui(window);
+				}
+			}
+		}
 	}
 
 	@PostConstruct

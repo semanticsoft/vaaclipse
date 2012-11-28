@@ -115,7 +115,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer {
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
 		if (element instanceof MWindow) {
-			Window oldMainWindow = vaadinapp.getMainWindow();
+			Window currentMainWindow = vaadinapp.getMainWindow();
 			if (element.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW)) {
 				MWindow mWindow = (MWindow) element;
 				
@@ -130,9 +130,9 @@ public class WorkbenchWindowRenderer extends VaadinRenderer {
 				window.setSizeFull();
 				
 				vaadinapp.setMainWindow(window);
-				if (oldMainWindow != null)
+				if (currentMainWindow != null)
 				{
-					oldMainWindow.open( new ExternalResource (vaadinapp.getURL()));
+					currentMainWindow.open( new ExternalResource (vaadinapp.getURL()));
 				}
 
 				app.setSelectedElement(mWindow);
@@ -142,18 +142,24 @@ public class WorkbenchWindowRenderer extends VaadinRenderer {
 			}
 			// case child windows
 			else {
-				MWindow mWindow = (MWindow) element;
-				WorkbenchWindow window = new WorkbenchWindow();
-				window.setImmediate(true);
-				window.setPositionX(mWindow.getX());
-				window.setPositionY(mWindow.getY());
-				window.setWidth(mWindow.getWidth());
-				window.setHeight(mWindow.getHeight());
-				window.setCaption(mWindow.getLocalizedLabel());
-				element.setWidget(window);
-				eclipseContext.set(Window.class, window);
-//not call for null elements				
-				oldMainWindow.addWindow(window);
+				if (currentMainWindow != null)
+				{
+					MWindow mWindow = (MWindow) element;
+					WorkbenchWindow window = new WorkbenchWindow();
+					window.setImmediate(true);
+					window.setPositionX(mWindow.getX());
+					window.setPositionY(mWindow.getY());
+					window.setWidth(mWindow.getWidth());
+					window.setHeight(mWindow.getHeight());
+					window.setCaption(mWindow.getLocalizedLabel());
+					element.setWidget(window);
+					eclipseContext.set(Window.class, window);
+					currentMainWindow.addWindow(window);	
+				}
+				else
+				{
+					throw new IllegalStateException("Can not add child window because application has not main window");
+				}
 			}
 		}
 	}

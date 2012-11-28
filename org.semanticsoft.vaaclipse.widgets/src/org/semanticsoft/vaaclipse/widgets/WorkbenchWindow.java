@@ -141,8 +141,15 @@ public class WorkbenchWindow extends Window
 	
 	public void setPerspectiveStackPanel(HorizontalLayout perspectiveStackPanel)
 	{
-		perspectiveStackPanel.setSizeUndefined();
-		this.topContainerPanel.addComponent(perspectiveStackPanel, 1, 0);		
+		if (perspectiveStackPanel == null)
+		{
+			this.topContainerPanel.removeComponent(1, 0);
+		}
+		else
+		{
+			perspectiveStackPanel.setSizeUndefined();
+			this.topContainerPanel.addComponent(perspectiveStackPanel, 1, 0);	
+		}
 	}
 	
 	public void setLeftBar(Component bar)

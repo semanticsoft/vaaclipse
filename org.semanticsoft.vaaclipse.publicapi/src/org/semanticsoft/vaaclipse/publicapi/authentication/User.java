@@ -14,7 +14,7 @@ public class User
 	
 	public User()
 	{
-		
+		setName("guest");
 	}
 	
 	public User(String name)

@@ -25,7 +25,7 @@
          </property>
          <property
                name="applicationHeaderIcon"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/favicon.ico">
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/vaaclipse.png">
          </property>
          <property
                name="applicationAuthenticationProvider"

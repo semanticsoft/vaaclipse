@@ -12,19 +12,15 @@
 package org.semanticsoft.vaaclipse.presentation.engine;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
-import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
-import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
-import org.eclipse.equinox.app.IApplication;
-import org.semanticsoft.vaaclipse.api.Behaviour;
 import org.semanticsoft.vaaclipse.presentation.fastview.FastViewManager;
-import org.semanticsoft.vaaclipse.presentation.renderers.WorkbenchWindowRenderer;
+
+import com.vaadin.Application;
 
 
 @SuppressWarnings("restriction")
@@ -39,24 +35,8 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 		
 		ContextInjectionFactory.make(FastViewManager.class, appContext);
 		
-		if (uiRoot instanceof MApplication) {
-			MApplication theApp = (MApplication) uiRoot;
-			for (MWindow window : theApp.getChildren()) {
-				createGui(window);
-			}
-		}
+		super.run(uiRoot, appContext);
 
-//		synchronized (uiRoot) {
-//			try {
-//				uiRoot.wait();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		System.out.println("VaadinPresentationEngine.run(): Finished");
-//		return IApplication.EXIT_OK;
 		return "";
 	}
 
@@ -77,5 +57,13 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 		} catch (Exception e) {
 			logger.warn(e, "Could not create rendering factory");
 		}
+	}
+	
+	@Override
+	public void stop()
+	{
+		super.stop();
+		Application vaadinApp = theApp.getContext().get(Application.class);
+		vaadinApp.close();
 	}
 }
