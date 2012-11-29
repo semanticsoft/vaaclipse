@@ -16,44 +16,27 @@ import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsUpdateManager;
 import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.VBoundsinfoVerticalLayout;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.Widget;
-import com.vaadin.terminal.gwt.client.ApplicationConnection;
-import com.vaadin.terminal.gwt.client.MouseEventDetails;
-import com.vaadin.terminal.gwt.client.Paintable;
-import com.vaadin.terminal.gwt.client.RenderSpace;
-import com.vaadin.terminal.gwt.client.UIDL;
-import com.vaadin.terminal.gwt.client.ui.dd.HorizontalDropLocation;
-import com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler;
-import com.vaadin.terminal.gwt.client.ui.dd.VAcceptCallback;
-import com.vaadin.terminal.gwt.client.ui.dd.VDragEvent;
-import com.vaadin.terminal.gwt.client.ui.layout.ChildComponentContainer;
-
-import com.vaadin.terminal.gwt.client.ApplicationConnection;
-import com.vaadin.terminal.gwt.client.MouseEventDetails;
-import com.vaadin.terminal.gwt.client.Paintable;
-import com.vaadin.terminal.gwt.client.UIDL;
-import com.vaadin.terminal.gwt.client.Util;
-import com.vaadin.terminal.gwt.client.VCaption;
-import com.vaadin.terminal.gwt.client.VConsole;
-import com.vaadin.terminal.gwt.client.ui.VPanel;
-import com.vaadin.terminal.gwt.client.ui.VTabsheet;
-import com.vaadin.terminal.gwt.client.ui.VTabsheetPanel;
-import com.vaadin.terminal.gwt.client.ui.VVerticalLayout;
-import com.vaadin.terminal.gwt.client.ui.VWindow;
-import com.vaadin.terminal.gwt.client.ui.dd.HorizontalDropLocation;
-import com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler;
-import com.vaadin.terminal.gwt.client.ui.dd.VAcceptCallback;
-import com.vaadin.terminal.gwt.client.ui.dd.VDragAndDropManager;
-import com.vaadin.terminal.gwt.client.ui.dd.VDragEvent;
-import com.vaadin.terminal.gwt.client.ui.dd.VDropHandler;
-import com.vaadin.terminal.gwt.client.ui.dd.VHasDropHandler;
-
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.vaadin.terminal.gwt.client.ApplicationConnection;
+import com.vaadin.terminal.gwt.client.MouseEventDetails;
+import com.vaadin.terminal.gwt.client.Paintable;
+import com.vaadin.terminal.gwt.client.UIDL;
+import com.vaadin.terminal.gwt.client.Util;
+import com.vaadin.terminal.gwt.client.VConsole;
+import com.vaadin.terminal.gwt.client.ui.dd.HorizontalDropLocation;
+import com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler;
+import com.vaadin.terminal.gwt.client.ui.dd.VAcceptCallback;
+import com.vaadin.terminal.gwt.client.ui.dd.VDragAndDropManager;
+import com.vaadin.terminal.gwt.client.ui.dd.VDragAndDropManager.DragHandlerFinder;
+import com.vaadin.terminal.gwt.client.ui.dd.VDragEvent;
+import com.vaadin.terminal.gwt.client.ui.dd.VDropHandler;
+import com.vaadin.terminal.gwt.client.ui.dd.VHasDropHandler;
+import com.vaadin.terminal.gwt.client.ui.layout.ChildComponentContainer;
 
 import fi.jasoft.dragdroplayouts.client.ui.Constants;
 import fi.jasoft.dragdroplayouts.client.ui.VDDTabSheet;
@@ -63,7 +46,7 @@ import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
  * Client side widget which communicates with the server. Messages from the
  * server are shown as HTML and mouse clicks are sent to the server.
  */
-public class VStackWidget extends VDDTabSheet implements Paintable {
+public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerFinder {
 
 	/** Set the CSS class name to allow styling. */
 	public static final String CLASSNAME = "v-stackwidget";
@@ -140,7 +123,55 @@ public class VStackWidget extends VDDTabSheet implements Paintable {
         DOM.sinkEvents(minimizeButton, Event.ONCLICK);
         setStyleName(minimizeButton, "v-vaadock-tabsheet-minimize-button");
         DOM.appendChild(buttonPanel, minimizeButton);
+        
+        if (VDragAndDropManager.get().getDragHandlerFinder() == null)
+        {
+        	VDragAndDropManager.get().setDragHandlerFinder(this);
+        	VConsole.log("DragHandlerFinder is installed");
+        }
 	}
+	
+    public VDropHandler findDragTarget(com.google.gwt.dom.client.Element element) {
+		
+        try {
+        	Widget w = Util.findWidget(
+                    (com.google.gwt.user.client.Element) element, null);
+            if (w == null) {
+                return null;
+            }
+            
+        	VDragEvent event = VDragAndDropManager.get().getDragEvent();
+        	Widget sourceWidget = (Widget) event.getTransferable().getDragSource();
+    		if (sourceWidget != null && sourceWidget instanceof VDDTabSheet)
+    		{
+                while (!(w instanceof VDDTabSheet) ) {
+                    w = w.getParent();
+                    if (w == null) {
+                        break;
+                    }
+                }
+    		}
+    		else
+    		{
+                while (!(w instanceof VHasDropHandler) ) {
+                    w = w.getParent();
+                    if (w == null) {
+                        break;
+                    }
+                }
+    		}
+    		
+    		if (w == null) {
+                return null;
+            } else {
+                VDropHandler dh = ((VHasDropHandler) w).getDropHandler();
+                return dh;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 	
 	public int getState()
 	{
