@@ -11,6 +11,8 @@ public class Media extends MediaEntry
 	
 	public String getUri()
 	{
+		if (uri == null)
+			return "";
 		return uri;
 	}
 	
@@ -27,5 +29,24 @@ public class Media extends MediaEntry
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof Media)
+		{
+			Media media = (Media)obj;
+			
+			return media.getUri().equals(this.getUri());
+		}
+		else
+			return false;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return this.getUri().hashCode();
 	}
 }

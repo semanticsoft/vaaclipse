@@ -30,9 +30,21 @@ public class MediaCategory extends MediaEntry
 		this.childCategories.add(child);
 	}
 	
+	public void removeMedia(Media media)
+	{
+		this.mediaList.remove(media);
+		mediaRemoved(media);
+	}
+	
 	public void addMedia(Media media)
 	{
 		media.setParent(this);
 		this.mediaList.add(media);
+	}
+	
+	protected void mediaRemoved(Media media)
+	{
+		if (this.getParent() != null)
+			this.getParent().mediaRemoved(media);
 	}
 }

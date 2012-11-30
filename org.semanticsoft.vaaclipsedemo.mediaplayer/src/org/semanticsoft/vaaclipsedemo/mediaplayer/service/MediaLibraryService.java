@@ -1,11 +1,16 @@
 /**
  * 
  */
-package org.semanticsoft.vaaclipsedemo.mediaplayer.model;
+package org.semanticsoft.vaaclipsedemo.mediaplayer.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaEntry;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 
 /**
  * @author rushan
@@ -13,7 +18,16 @@ import java.util.List;
  */
 public class MediaLibraryService
 {
-	public static String getId(MediaEntry entry)
+//	@Inject
+//	IEventBroker eventBroker;
+//	
+//	@PostConstruct
+//	public void postConstruct()
+//	{
+//		
+//	}
+	
+	public String getId(MediaEntry entry)
 	{
 		if (entry instanceof MediaLibrary)
 			return "library";
@@ -33,7 +47,7 @@ public class MediaLibraryService
 		return id;
 	}
 
-	private static List<MediaCategory> getPathToParent(MediaEntry entry)
+	private List<MediaCategory> getPathToParent(MediaEntry entry)
 	{
 		List<MediaCategory> path = new ArrayList<>();
 		
@@ -48,7 +62,7 @@ public class MediaLibraryService
 		return path;
 	}
 
-	public static List<Media> getAllInnerMedia(MediaCategory mediaCat)
+	public List<Media> getAllInnerMedia(MediaCategory mediaCat)
 	{
 		List<Media> medialist = new ArrayList<>();
 		for (MediaCategory childCat : mediaCat.getCategories())
@@ -59,7 +73,7 @@ public class MediaLibraryService
 		return medialist;
 	}
 	
-	public static Media findMediaById(MediaCategory mediaCat, String id, String path)
+	public Media findMediaById(MediaCategory mediaCat, String id, String path)
 	{
 		for (Media m : mediaCat.getMediaList())
 		{

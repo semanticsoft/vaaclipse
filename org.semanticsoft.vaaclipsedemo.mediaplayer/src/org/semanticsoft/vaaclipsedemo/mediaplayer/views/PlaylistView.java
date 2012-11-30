@@ -7,17 +7,23 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibraryService;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaLibraryService;
 import org.vaadin.overlay.TextOverlay;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.DataBoundTransferable;
 import com.vaadin.event.dd.DragAndDropEvent;
@@ -55,11 +61,18 @@ public class PlaylistView
 
 	@Inject
 	MApplication app;
+	
+	@Inject
+	IEventBroker eventBroker;
+	
 	private Table table;
 	private BeanItemContainer<Media> tableContainer;
 	
 	@Inject
 	MWindow window;
+	
+	@Inject
+	MediaLibraryService mediaLibService;
 
 	@Inject
 	public void PlaylistView(VerticalLayout parent, IEclipseContext context)
@@ -73,12 +86,40 @@ public class PlaylistView
 	public void addMedia(Media media)
 	{
 		tableContainer.addItem(media);
+		this.playlist.addMedia(media);
 	}
 
 	public void addMediaAfter(Media prevMedia, Media media)
 	{
 		tableContainer.addItemAfter(prevMedia, media);
+		this.playlist.addMediaAfter(media);
 	}
+	
+	EventHandler mediaOrderHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event)
+		{
+			tableContainer.removeAllItems();
+			for (Media media : playlist.getMediaList())
+			{
+				tableContainer.addItem(media);
+			}
+		}
+	};
+	
+	EventHandler deleteMediaHandler = new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event)
+			{
+				Media deletedMedia = (Media) event.getProperty(IEventBroker.DATA);
+				if (deletedMedia != null)
+				{
+					tableContainer.removeItem(deletedMedia);
+				}
+			}
+		};
 
 	@PostConstruct
 	public void postCostruct()
@@ -86,7 +127,7 @@ public class PlaylistView
 		initTable();
 		for (Media media : this.playlist.getMediaList())
 		{
-			addMedia(media);
+			tableContainer.addItem(media);
 		}
 		
 //		TextOverlay notFoundOverlay = new TextOverlay(this.panel, "<i>[Drag here]</i>");
@@ -94,6 +135,9 @@ public class PlaylistView
 //		notFoundOverlay.setComponentAnchor(Alignment.MIDDLE_CENTER);
 //		notFoundOverlay.setOverlayAnchor(Alignment.MIDDLE_CENTER);
 //		((Window)window.getWidget()).addComponent(notFoundOverlay);
+		
+		eventBroker.subscribe(IMediaConstants.reversePlaylist, mediaOrderHandler);
+		eventBroker.subscribe(IMediaConstants.deleteMediaFromPlaylist, deleteMediaHandler);
 	}
 
 	private void initTable()
@@ -137,7 +181,7 @@ public class PlaylistView
 				if (sourceItemId == null)
 					return;
 
-				Media media = MediaLibraryService.findMediaById(mediaLibrary, sourceItemId.toString(), "/");
+				Media media = mediaLibService.findMediaById(mediaLibrary, sourceItemId.toString(), "/");
 
 				Media targetMedia = (Media) dropData.getItemIdOver();
 				Media prevMedia = targetMedia != null ? tableContainer.prevItemId(targetMedia) : null;
@@ -157,13 +201,28 @@ public class PlaylistView
 				}
 				else
 				{
-					tableContainer.addItem(media);
+					addMedia(media);
 				}
 			}
 
 			public AcceptCriterion getAcceptCriterion()
 			{
 				return new And(acceptCriterion, AcceptItem.ALL);
+			}
+		});
+		
+		this.table.setImmediate(true);
+		this.table.setSelectable(true);
+		this.table.setMultiSelect(false);
+		
+		this.table.addListener(new Table.ValueChangeListener() {
+			
+			@Override
+			public void valueChange(ValueChangeEvent event)
+			{
+				Media media = (Media) table.getValue();
+				playlist.setSelectedMedia(media);
+				System.out.println("media selected: " + media.getName());
 			}
 		});
 	}

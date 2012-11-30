@@ -40,7 +40,8 @@ public class PlayerView
 		public void handleEvent(Event event) {
 			Object data = event.getProperty(EventUtils.DATA);
 			if (data instanceof Media){
-				setMedia((Media) data);
+				Boolean autoplay = (Boolean) event.getProperty(IMediaConstants.autoPlay);
+				setMedia((Media) data, autoplay);
 				part.setLabel(((Media) data).getName());
 			}
 			
@@ -64,7 +65,7 @@ public class PlayerView
 		return media;
 	}
 	
-	public void setMedia(Media media)
+	public void setMedia(Media media, boolean autoplay)
 	{
 		this.media = media;
 		
@@ -77,7 +78,7 @@ public class PlayerView
 		}
 		
 		e.setSizeFull();
-		e.setSource(new ExternalResource(media.getUri()));
+		e.setSource(new ExternalResource(media.getUri() + (autoplay ? "&autoplay=1" : "") ));
 	}
 	
 	@PreDestroy

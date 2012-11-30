@@ -3,12 +3,14 @@
  */
 package org.semanticsoft.vaaclipsedemo.mediaplayer.processors;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaLibraryService;
 
 /**
  * @author rushan
@@ -60,14 +62,14 @@ public class MediaLibrarySetupProcessor
 		Media gagarin = new Media();
 		gagarin.setName("First journey into outer space");
 		gagarin.setUri("http://www.youtube.com/v/EjDvMWlsSJc");
-		gagarin.setDescription("Yuri Alekseyevich Gagarin (9 March 1934 – 27 March 1968) was a Soviet pilot and cosmonaut. " +
+		gagarin.setDescription("Yuri Alekseyevich Gagarin was a Soviet pilot, cosmonaut, communist. " +
 				"He was the first human to journey into outer space, when his Vostok spacecraft completed an orbit of the Earth on 12 April 1961." +
 				"Gagarin became an international celebrity, and was awarded many medals and titles, including Hero of the Soviet Union, " +
-				"the nation's highest honour.");
+				"the highest soviet honour.");
 		history.addMedia(gagarin);
 		
 		Media moon = new Media();
-		moon.setName("First journey into outer space");
+		moon.setName("Lunar ascent and return");
 		moon.setUri("http://www.youtube.com/v/RMINSD7MmT4");
 		moon.setDescription("Apollo 11 was the spaceflight that landed the first humans, Americans Neil Armstrong and Buzz Aldrin, " +
 				"on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later " +
@@ -81,8 +83,8 @@ public class MediaLibrarySetupProcessor
 		Media sport1 = new Media();
 		sport1.setName("Lionel Messi - Maradona's successor");
 		sport1.setUri("http://www.youtube.com/v/5vmm-xCq4To");
-		sport1.setDescription("On 18th April 2007, Barcelona’s Lionel Messi scored 2 goals during a Copa del Rey semifinal against Getafe CF. " +
-				"The first goal was very similar to Diego Maradona’s goal against England at the Quarterfinals of the 1986 World Cup, " +
+		sport1.setDescription("On 18th April 2007, Barcelonaï¿½s Lionel Messi scored 2 goals during a Copa del Rey semifinal against Getafe CF. " +
+				"The first goal was very similar to Diego Maradonaï¿½s goal against England at the Quarterfinals of the 1986 World Cup, " +
 				"also known as the Goal of the Century. Messi ran about the same distance (60 metres), beat the same number of players, " +
 				"scored from a very similar position, and ran towards the corner flag just as Maradona did in Mexico 21 years before.");
 		sport.addMedia(sport1);
@@ -126,5 +128,6 @@ public class MediaLibrarySetupProcessor
 		
 		context.set(MediaLibrary.class, library);
 		context.set(Playlist.class, new Playlist());
+		context.set(MediaLibraryService.class, ContextInjectionFactory.make(MediaLibraryService.class, context));
 	}
 }
