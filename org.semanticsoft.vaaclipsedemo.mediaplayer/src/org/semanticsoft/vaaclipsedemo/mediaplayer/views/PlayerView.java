@@ -41,6 +41,8 @@ public class PlayerView
 			Object data = event.getProperty(EventUtils.DATA);
 			if (data instanceof Media){
 				Boolean autoplay = (Boolean) event.getProperty(IMediaConstants.autoPlay);
+				if (autoplay == null)
+					autoplay = false;
 				setMedia((Media) data, autoplay);
 				part.setLabel(((Media) data).getName());
 			}

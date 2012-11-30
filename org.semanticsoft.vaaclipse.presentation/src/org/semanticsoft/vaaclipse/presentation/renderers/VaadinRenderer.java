@@ -111,11 +111,11 @@ public class VaadinRenderer implements GenericRenderer {
 		// element);
 	}
 
-	public IEclipseContext getContext(MUIElement part) {
-		if (part instanceof MContext) {
-			return ((MContext) part).getContext();
+	public IEclipseContext getContext(MUIElement element) {
+		if (element instanceof MContext) {
+			return ((MContext) element).getContext();
 		}
-		return getContextForParent(part);
+		return getContextForParent(element).createChild();
 	}
 
 	protected IEclipseContext getContextForParent(MUIElement element) {

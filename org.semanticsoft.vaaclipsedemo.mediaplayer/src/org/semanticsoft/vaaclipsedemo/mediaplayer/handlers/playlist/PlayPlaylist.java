@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
@@ -25,6 +26,12 @@ public class PlayPlaylist
 	
 	@Inject
 	Playlist playlist;
+	
+	@CanExecute
+	public boolean canExecute()
+	{
+		return playlist.getSelectedMedia() != null;
+	}
 	
 	@Execute
 	public void play()

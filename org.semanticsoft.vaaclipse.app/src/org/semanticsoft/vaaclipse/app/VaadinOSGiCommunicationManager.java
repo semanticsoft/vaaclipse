@@ -18,13 +18,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
+
 import com.vaadin.Application;
 import com.vaadin.terminal.VariableOwner;
 import com.vaadin.terminal.gwt.server.CommunicationManager;
 
-public class VaadinOSGiCommunicationManager extends CommunicationManager
+public class VaadinOSGiCommunicationManager extends CommunicationManager implements VaadinExecutorService
 {
 	Queue<Runnable> runnables = new LinkedList<>();
+	Queue<Runnable> runnables2 = new LinkedList<>();
 	
 	public VaadinOSGiCommunicationManager(Application application)
 	{
@@ -51,6 +54,18 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 				e.printStackTrace();
 			}
         }
+    	
+    	for (Runnable runnable2 : runnables2)
+    	{
+    		try
+			{
+        		runnable2.run();
+			}
+			catch (Throwable e)
+			{
+				e.printStackTrace();
+			}
+    	}
 	}
 
 	public synchronized void invokeLater(Runnable runnable)
@@ -58,5 +73,14 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 		this.runnables.add(runnable);
 	}
 	
+	public synchronized void invokeLaterAlways(Runnable runnable)
+	{
+		this.runnables2.add(runnable);
+	}
 	
+	@Override
+	public synchronized void removeAlwaysRunnable(Runnable runnable)
+	{
+		this.runnables2.remove(runnable);
+	}
 }

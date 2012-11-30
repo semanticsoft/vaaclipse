@@ -57,6 +57,7 @@ import org.eclipse.equinox.internal.app.MainApplicationLauncher;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
 import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 
@@ -184,7 +185,7 @@ public class VaadinApplication extends Application
 		appContext.set("e4ApplicationInstanceId", UUID.randomUUID().toString());
 		appContext.set("vaadinapp", this);
 		appContext.set(Application.class, this);
-		appContext.set(VaadinOSGiCommunicationManager.class, servlet.getCommunicationManager());
+		appContext.set(VaadinExecutorService.class, servlet.getCommunicationManager());
 		appContext.set(UISynchronize.class, new UISynchronize() {
 
 			public void syncExec(Runnable runnable) {

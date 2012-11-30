@@ -34,6 +34,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.app.VaadinOSGiCommunicationManager;
 
 import com.vaadin.Application;
@@ -52,7 +53,7 @@ public class CleanupAddon {
 	Application vaadinapp;
 	
 	@Inject
-	VaadinOSGiCommunicationManager communicationManager;
+	VaadinExecutorService communicationManager;
 
 	private EventHandler childrenHandler = new EventHandler() {
 		

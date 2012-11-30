@@ -11,15 +11,26 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.core.commands.ParameterizedCommand;
+import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
+import org.eclipse.e4.ui.internal.workbench.ContributionsAnalyzer;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.ItemType;
+import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
@@ -31,6 +42,7 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
@@ -49,6 +61,13 @@ public class ToolItemRenderer extends ItemRenderer
 	
 	@Inject
 	EventBroker eventBroker;
+	
+	@Inject
+	VaadinExecutorService executorService;
+	
+	Map<MItem, Runnable> enabledUpdaters = new HashMap<>();
+	
+	private static final String HCI_STATIC_CONTEXT = "HCI-staticContext";
 	
 	private EventHandler itemUpdater = new EventHandler() {
 		public void handleEvent(Event event) {
@@ -150,7 +169,7 @@ public class ToolItemRenderer extends ItemRenderer
 	{
 		if (element instanceof MHandledToolItem || element instanceof MDirectToolItem)
 		{
-			MToolItem item = (MToolItem) element;
+			final MToolItem item = (MToolItem) element;
 			
 			Button button;
 			if (item.getType() == ItemType.CHECK)
@@ -210,7 +229,65 @@ public class ToolItemRenderer extends ItemRenderer
 			}
 			
 			element.setWidget(button);
+			
+			if (!enabledUpdaters.containsKey(item))
+			{
+				Runnable runnable = new Runnable() {
+					
+					@Override
+					public void run()
+					{
+						updateItemEnablement(item);
+					}
+				};
+				this.enabledUpdaters.put(item, runnable);
+				executorService.invokeLaterAlways(runnable);
+			}
 		}
+	}
+	
+	@Override
+	public void disposeWidget(MUIElement element)
+	{
+		Runnable runnable = enabledUpdaters.remove(element);
+		if (runnable != null)
+		{
+			executorService.removeAlwaysRunnable(runnable);	
+		}
+	}
+	
+	protected void updateItemEnablement(MItem item) {
+		if (!(item.getWidget() instanceof Button))
+			return;
+
+		Button widget = (Button) item.getWidget();
+		if (widget == null)
+			return;
+		
+		if (item instanceof MHandledItem)
+			item.setEnabled(canExecuteItem((MHandledItem) item));
+	}
+	
+	private boolean canExecuteItem(MHandledItem item) {
+		final IEclipseContext eclipseContext = getContext(item);
+		EHandlerService service = (EHandlerService) eclipseContext.get(EHandlerService.class.getName());
+		ParameterizedCommand command = item.getWbCommand();
+		if (command == null) {
+			command = generateParameterizedCommand(item, eclipseContext);
+		}
+		if (command == null) {
+			return false;
+		}
+		eclipseContext.set(MItem.class, item);
+		setupContext(eclipseContext, item);
+		return service.canExecute(command, eclipseContext);
+	}
+	
+	private boolean canExecuteItem(MDirectToolItem item) {
+		final IEclipseContext eclipseContext = getContext(item);
+		eclipseContext.set(MItem.class, item);
+		setupContext(eclipseContext, item);
+		return (boolean) ContextInjectionFactory.invoke(item, CanExecute.class, eclipseContext, true);
 	}
 
 	@Override
