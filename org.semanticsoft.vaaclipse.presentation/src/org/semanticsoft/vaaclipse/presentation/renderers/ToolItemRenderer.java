@@ -181,23 +181,34 @@ public class ToolItemRenderer extends ItemRenderer
 			
 			button.setSizeUndefined();
 
-			if (item.getIconURI() != null)
+			String label = item.getLabel();
+			if (label != null)
+				label = label.trim();
+			if (item.getIconURI() == null && label == null)
 			{
-				Resource icon = new ThemeResource(Utils.convertPath(item.getIconURI()));
-				button.setIcon(icon);
-			}
-			
-			if (item.getLabel() != null && !item.getLabel().trim().isEmpty())
-			{
-				button.setCaption(item.getLabel());
+				button.setCaption("Blank");
 			}
 			else
-				button.addStyleName("icononly");
+			{
+				if (item.getIconURI() != null)
+				{
+					Resource icon = new ThemeResource(Utils.convertPath(item.getIconURI()));
+					button.setIcon(icon);
+				}
+				
+				if (label != null && !label.trim().isEmpty())
+				{
+					button.setCaption(label);
+				}
+				else
+					button.addStyleName("icononly");	
+			}
 			
 			if (item.getTooltip() != null)
 			{
 				button.setDescription(item.getLocalizedTooltip());
 			}
+			
 			element.setWidget(button);
 		}
 	}
