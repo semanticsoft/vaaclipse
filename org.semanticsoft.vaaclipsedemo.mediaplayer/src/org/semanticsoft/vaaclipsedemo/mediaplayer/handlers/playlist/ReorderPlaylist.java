@@ -17,20 +17,14 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
  */
 public class ReorderPlaylist
 {
-	@Inject
-	IEventBroker eventBroker;
-	
-	@Inject
-	Playlist playlist;
-	
 	@CanExecute
-	public boolean canExecute()
+	public boolean canExecute(Playlist playlist)
 	{
 		return !playlist.getMediaList().isEmpty();
 	}
 	
 	@Execute
-	public void reorder(Playlist playlist)
+	public void reorder(Playlist playlist, IEventBroker eventBroker)
 	{
 		playlist.reverseMediaList();
 		eventBroker.send(IMediaConstants.reversePlaylist, playlist);

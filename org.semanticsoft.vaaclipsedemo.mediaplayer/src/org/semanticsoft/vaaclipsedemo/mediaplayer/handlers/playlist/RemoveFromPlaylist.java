@@ -18,20 +18,14 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
  */
 public class RemoveFromPlaylist
 {
-	@Inject
-	IEventBroker eventBroker;
-	
-	@Inject
-	Playlist playlist;
-	
 	@CanExecute
-	public boolean canExecute()
+	public boolean canExecute(Playlist playlist)
 	{
 		return playlist.getSelectedMedia() != null;
 	}
 	
 	@Execute
-	public void remove(Playlist playlist)
+	public void remove(Playlist playlist, IEventBroker eventBroker)
 	{
 		Media selectedMedia = playlist.getSelectedMedia();
 		if (selectedMedia != null)

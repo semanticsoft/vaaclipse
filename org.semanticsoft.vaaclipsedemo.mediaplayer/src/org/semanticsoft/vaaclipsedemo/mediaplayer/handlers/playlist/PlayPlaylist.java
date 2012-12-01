@@ -20,21 +20,15 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
  *
  */
 public class PlayPlaylist
-{
-	@Inject
-	IEventBroker eventBroker;
-	
-	@Inject
-	Playlist playlist;
-	
+{	
 	@CanExecute
-	public boolean canExecute()
+	public boolean canExecute(Playlist playlist)
 	{
 		return playlist.getSelectedMedia() != null;
 	}
 	
 	@Execute
-	public void play()
+	public void play(Playlist playlist, IEventBroker eventBroker)
 	{
 		Media selectedInPlaylist = playlist.getSelectedMedia();
 		if (selectedInPlaylist != null)
