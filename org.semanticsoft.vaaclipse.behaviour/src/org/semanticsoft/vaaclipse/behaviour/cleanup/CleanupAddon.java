@@ -162,7 +162,7 @@ public class CleanupAddon {
 
 			// These elements should neither be shown nor hidden based on their containment state
 			if (isLastEditorStack(containerElement) || containerElement instanceof MPerspective
-					|| containerElement instanceof MPerspectiveStack)
+					|| containerElement instanceof MPerspectiveStack || containerElement instanceof MTrimBar)
 				return;
 
 			Boolean toBeRendered = (Boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
