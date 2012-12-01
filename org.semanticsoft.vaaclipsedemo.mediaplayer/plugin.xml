@@ -42,5 +42,18 @@
       	</processor>
          
    </extension>
+   
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when">
+         <with
+               variable="activePerspective">
+            <equals
+                  value="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.complex">
+            </equals>
+         </with>
+      </definition>
+   </extension>
 
 </plugin>
