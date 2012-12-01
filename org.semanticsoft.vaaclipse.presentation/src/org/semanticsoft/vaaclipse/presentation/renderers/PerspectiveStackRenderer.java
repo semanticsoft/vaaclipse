@@ -38,10 +38,9 @@ import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
 import com.vaadin.terminal.Resource;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.AbstractLayout;
-import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HorizontalLayout;
@@ -205,7 +204,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					{
 						MPerspectiveStack perspectiveStack = (MPerspectiveStack)(MElementContainer<?>)perspective.getParent();
 						//perspectiveStack.setSelectedElement(perspective);
-						partService.switchPerspective(perspective);
+						switchPerspective(perspective);
 					}
 				});
 				
@@ -222,16 +221,26 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		{
 			selectedPerspective = perspectiveStack.getChildren().get(0);
 			//perspectiveStack.setSelectedElement(selectedPerspective);
-			partService.switchPerspective(selectedPerspective);
+			switchPerspective(selectedPerspective);
 		}
 		else
 		{
 			//reset selected element (set selected element handler will work)
 			perspectiveStack.setSelectedElement(null);
-			partService.switchPerspective(selectedPerspective);
+			switchPerspective(selectedPerspective);
 		}
 		
 		refreshPerspectiveStackVisibility(perspectiveStack);
+	}
+	
+	private void switchPerspective(MPerspective perspective)
+	{
+		partService.switchPerspective(perspective);
+		if (perspective.getElementId() != null)
+		{
+			String perspectiveId = perspective.getElementId().trim();
+			eclipseContext.set("activePerspective", perspectiveId);	
+		}
 	}
 	
 	private void refreshPerspectiveStackVisibility(MPerspectiveStack stack) {
