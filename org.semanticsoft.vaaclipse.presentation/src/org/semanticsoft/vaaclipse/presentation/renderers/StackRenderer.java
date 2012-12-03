@@ -241,6 +241,7 @@ public class StackRenderer extends VaadinRenderer {
 		eventBroker.subscribe(UIEvents.ApplicationElement.TOPIC_TAGS, tagListener);
 		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);	
 		eventBroker.subscribe(UIEvents.UILabel.TOPIC_ALL, itemUpdater);
+		eventBroker.subscribe(UIEvents.Dirtyable.TOPIC_DIRTY, itemUpdater);
 	}
 	
 	@PreDestroy
