@@ -9,7 +9,7 @@ import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.osgi.service.event.Event;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.osgi.service.event.EventHandler;
 
@@ -40,7 +40,7 @@ public class PlayerView
 		public void handleEvent(Event event) {
 			Object data = event.getProperty(EventUtils.DATA);
 			if (data instanceof Media){
-				Boolean autoplay = (Boolean) event.getProperty(IMediaConstants.autoPlay);
+				Boolean autoplay = (Boolean) event.getProperty(MediaConstants.autoPlay);
 				if (autoplay == null)
 					autoplay = false;
 				setMedia((Media) data, autoplay);
@@ -59,7 +59,7 @@ public class PlayerView
 	
 	@PostConstruct
 	public void pc(IEventBroker b){
-		b.subscribe(IMediaConstants.mediaSelected, mediaSelectedHandler);
+		b.subscribe(MediaConstants.mediaSelected, mediaSelectedHandler);
 	}
 	
 	public Media getMedia()

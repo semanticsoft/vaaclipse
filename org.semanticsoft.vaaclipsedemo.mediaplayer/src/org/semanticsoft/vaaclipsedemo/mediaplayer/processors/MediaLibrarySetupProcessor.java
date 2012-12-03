@@ -10,7 +10,7 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaLibraryService;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 
 /**
  * @author rushan
@@ -128,6 +128,6 @@ public class MediaLibrarySetupProcessor
 		
 		context.set(MediaLibrary.class, library);
 		context.set(Playlist.class, new Playlist());
-		context.set(MediaLibraryService.class, ContextInjectionFactory.make(MediaLibraryService.class, context));
+		context.set(MediaService.class, ContextInjectionFactory.make(MediaService.class, context));
 	}
 }

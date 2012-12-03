@@ -44,7 +44,7 @@ public class PlayerToolControl
 					media.setName("Tool control media");
 					media.setUri(string);
 					media.setDescription("Tool control media description");
-					broker.send(org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants.mediaSelected,
+					broker.send(org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants.mediaSelected,
 							media);
 
 				}

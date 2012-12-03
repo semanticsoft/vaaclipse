@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
 
@@ -35,8 +35,8 @@ public class PlayPlaylist
 		{
 			Map<String, Object> params = new HashMap<>();
 			params.put(IEventBroker.DATA, selectedInPlaylist);
-			params.put(IMediaConstants.autoPlay, true);
-			eventBroker.send(IMediaConstants.mediaSelected, params);	
+			params.put(MediaConstants.autoPlay, true);
+			eventBroker.send(MediaConstants.mediaSelected, params);	
 		}
 	}
 }

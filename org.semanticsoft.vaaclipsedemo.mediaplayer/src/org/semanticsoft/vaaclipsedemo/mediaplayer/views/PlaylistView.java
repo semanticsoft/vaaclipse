@@ -14,11 +14,11 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaLibraryService;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 import org.vaadin.overlay.TextOverlay;
 
 import com.vaadin.data.Container;
@@ -72,7 +72,7 @@ public class PlaylistView
 	MWindow window;
 	
 	@Inject
-	MediaLibraryService mediaLibService;
+	MediaService mediaLibService;
 
 	@Inject
 	public void PlaylistView(VerticalLayout parent, IEclipseContext context)
@@ -136,8 +136,8 @@ public class PlaylistView
 //		notFoundOverlay.setOverlayAnchor(Alignment.MIDDLE_CENTER);
 //		((Window)window.getWidget()).addComponent(notFoundOverlay);
 		
-		eventBroker.subscribe(IMediaConstants.reversePlaylist, mediaOrderHandler);
-		eventBroker.subscribe(IMediaConstants.deleteMediaFromPlaylist, deleteMediaHandler);
+		eventBroker.subscribe(MediaConstants.reversePlaylist, mediaOrderHandler);
+		eventBroker.subscribe(MediaConstants.deleteMediaFromPlaylist, deleteMediaHandler);
 	}
 
 	private void initTable()

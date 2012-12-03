@@ -3,13 +3,14 @@
  */
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
@@ -50,8 +51,8 @@ public class MediaLibraryView {
 	@Inject
 	IEventBroker broker;
 	
-	@Inject
-	public void MedialibraryView(VerticalLayout parent, IEclipseContext context)
+	@PostConstruct
+	public void postConstruct(VerticalLayout parent, IEclipseContext context)
 	{
 		panel = new Panel();
 		panel.setSizeFull();
@@ -84,8 +85,9 @@ public class MediaLibraryView {
 					if (object != null && object instanceof Media)
 					{
 						Media media = (Media)object;
-						broker.send(IMediaConstants.mediaSelected, media);
 						
+						mediaLibrary.setSelectedMedia(media);
+						broker.send(MediaConstants.mediaSelected, media);
 					}
 				}
 			}

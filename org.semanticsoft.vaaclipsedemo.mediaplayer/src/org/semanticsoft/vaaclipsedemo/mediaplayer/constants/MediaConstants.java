@@ -1,6 +1,8 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.constants;
 
-public class IMediaConstants {
+public class MediaConstants {
+	
+	public static final String mediaChanged = "MediaChanged";
 	
 	public static final String mediaSelected = "MediaSelectedEvent";
 	public static final String reversePlaylist = "ReversePlaylist";

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaEntry;
@@ -16,7 +18,7 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
  * @author rushan
  *
  */
-public class MediaLibraryService
+public class MediaService
 {
 //	@Inject
 //	IEventBroker eventBroker;
@@ -26,6 +28,19 @@ public class MediaLibraryService
 //	{
 //		
 //	}
+	
+	@Inject
+	MediaLibrary mediaLib;
+	
+	public Media findMedia(String uri)
+	{
+		for (Media m : getAllInnerMedia(mediaLib))
+		{
+			if (uri.equals(m.getUri()))
+				return m;
+		}
+		return null;
+	}
 	
 	public String getId(MediaEntry entry)
 	{

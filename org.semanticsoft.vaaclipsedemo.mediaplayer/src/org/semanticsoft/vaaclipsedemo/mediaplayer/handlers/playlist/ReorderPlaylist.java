@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.IMediaConstants;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
 
 /**
@@ -27,6 +27,6 @@ public class ReorderPlaylist
 	public void reorder(Playlist playlist, IEventBroker eventBroker)
 	{
 		playlist.reverseMediaList();
-		eventBroker.send(IMediaConstants.reversePlaylist, playlist);
+		eventBroker.send(MediaConstants.reversePlaylist, playlist);
 	}
 }
