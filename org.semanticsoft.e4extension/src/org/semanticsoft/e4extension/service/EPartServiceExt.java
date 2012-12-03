@@ -43,5 +43,18 @@ public interface EPartServiceExt
 	
 	EditorPartDescriptor findEditorPartDescriptor(String inputUri);
 	
+	/**
+	 * Open the give uri in area with id = org.eclipse.ui.editorss (eclipse conditions)
+	 * @param inputUri given uri
+	 * @return part that was opened or finded with this uri
+	 */
+	MInputPart openUri(String inputUri);
+	
+	/**
+	 * Open given uri in given are
+	 * @param area
+	 * @param inputUri
+	 * @return
+	 */
 	MInputPart openUri(MElementContainer<?> area, String inputUri);
 }

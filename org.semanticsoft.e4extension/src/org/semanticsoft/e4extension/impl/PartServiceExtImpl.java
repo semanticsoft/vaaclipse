@@ -142,6 +142,12 @@ public class PartServiceExtImpl implements EPartServiceExt
 		return part;
 	}
 	
+	@Override
+	public MInputPart openUri(String inputUri)
+	{
+		return this.openUri(null, inputUri);
+	}
+	
 	private MInputPart ensurePartAdded(MWindow window, MElementContainer<?> area, EditorPartDescriptor editorPartDescriptor, String inputUri)
 	{
 		MPerspectiveStack stack = null;
