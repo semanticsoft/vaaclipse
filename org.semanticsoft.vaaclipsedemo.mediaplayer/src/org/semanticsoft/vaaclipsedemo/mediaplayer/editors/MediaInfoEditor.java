@@ -42,8 +42,8 @@ public class MediaInfoEditor extends MediaInfoBase
 			setMedia(media);
 		}
 		
-		promptProvider.setCaption("Save it!");
-		promptProvider.setMessage(String.format("Media %s has been changed. Save it?", media.getName()));
+		promptProvider.setCaption("Save media");
+		promptProvider.setMessage(String.format("Media %s has been modified. Save changes?", media.getName()));
 		
 		this.name.setImmediate(true);
 		this.description.setImmediate(true);
