@@ -94,4 +94,10 @@ public class PartRenderer extends VaadinRenderer {
 
 		element.setWidget(pane);
 	}
+	
+	@Override
+	public void disposeWidget(MUIElement element)
+	{
+		this.savePrompts.remove(element);
+	}
 }
