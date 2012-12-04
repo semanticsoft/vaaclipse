@@ -4,9 +4,11 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -19,10 +21,8 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Playlist;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
-import org.vaadin.overlay.TextOverlay;
 
 import com.vaadin.data.Container;
-import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.DataBoundTransferable;
@@ -34,13 +34,10 @@ import com.vaadin.event.dd.acceptcriteria.ClientSideCriterion;
 import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.ui.AbstractSelect.AbstractSelectTargetDetails;
 import com.vaadin.ui.AbstractSelect.AcceptItem;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.TableDragMode;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 /**
  * @author rushan
@@ -66,13 +63,27 @@ public class PlaylistView
 	IEventBroker eventBroker;
 	
 	private Table table;
-	private BeanItemContainer<Media> tableContainer;
+	private CustomBeanItemContainer<Media> tableContainer;
 	
 	@Inject
 	MWindow window;
 	
 	@Inject
 	MediaService mediaLibService;
+	
+	private static class CustomBeanItemContainer<T> extends BeanItemContainer<T>
+	{
+		public CustomBeanItemContainer(Class<? super T> type) throws IllegalArgumentException
+		{
+			super(type);
+			// TODO Auto-generated constructor stub
+		}
+		
+		public void update()
+		{
+			fireItemSetChange();
+		}
+	}
 
 	@Inject
 	public void PlaylistView(VerticalLayout parent, IEclipseContext context)
@@ -120,6 +131,17 @@ public class PlaylistView
 				}
 			}
 		};
+		
+	private EventHandler mediaChangedHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event) {
+			Object data = event.getProperty(EventUtils.DATA);
+			if (data instanceof Media){
+				tableContainer.update();
+			}
+		}
+	};
 
 	@PostConstruct
 	public void postCostruct()
@@ -138,6 +160,15 @@ public class PlaylistView
 		
 		eventBroker.subscribe(MediaConstants.reversePlaylist, mediaOrderHandler);
 		eventBroker.subscribe(MediaConstants.deleteMediaFromPlaylist, deleteMediaHandler);
+		eventBroker.subscribe(MediaConstants.mediaChanged, mediaChangedHandler);
+	}
+	
+	@PreDestroy
+	public void preDestroy()
+	{
+		eventBroker.unsubscribe(mediaOrderHandler);
+		eventBroker.unsubscribe(deleteMediaHandler);
+		eventBroker.unsubscribe(mediaChangedHandler);
 	}
 
 	private void initTable()
@@ -155,7 +186,7 @@ public class PlaylistView
 		// code...
 		final ClientSideCriterion acceptCriterion = new SourceIs(mediaLibView.getTree());
 
-		tableContainer = new BeanItemContainer<Media>(Media.class);
+		tableContainer = new CustomBeanItemContainer<Media>(Media.class);
 		table.setContainerDataSource(tableContainer);
 		table.setVisibleColumns(new Object[] { "name" });
 

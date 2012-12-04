@@ -4,16 +4,21 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.views;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.Hierarchical;
@@ -51,6 +56,25 @@ public class MediaLibraryView {
 	@Inject
 	IEventBroker broker;
 	
+	@Inject
+	MediaService mediaService;
+	
+	private Hierarchical container;
+	
+	private EventHandler mediaChangedHandler = new EventHandler() {
+		
+		@Override
+		public void handleEvent(Event event) {
+			Object data = event.getProperty(EventUtils.DATA);
+			if (data instanceof Media){
+				Media media = (Media) data;
+				String id = mediaService.getId(media);
+				Item item = container.getItem(id);
+				item.getItemProperty(NAME_PROP).setValue(media.getName());
+			}
+		}
+	};
+	
 	@PostConstruct
 	public void postConstruct(VerticalLayout parent, IEclipseContext context)
 	{
@@ -59,6 +83,14 @@ public class MediaLibraryView {
 		parent.addComponent(panel);
 		
 		createMediaLibraryTree();
+		
+		broker.subscribe(MediaConstants.mediaChanged, mediaChangedHandler);
+	}
+	
+	@PreDestroy
+	public void preDestory()
+	{
+		broker.unsubscribe(mediaChangedHandler);
 	}
 	
 	private void createMediaLibraryTree()
@@ -69,7 +101,7 @@ public class MediaLibraryView {
 		tree.setImmediate(true);
 		panel.addComponent(tree);
 
-		Hierarchical container = createMediaLibraryDataSource();
+		container = createMediaLibraryDataSource();
 		tree.setContainerDataSource(container);
 
 		tree.addListener(new ItemClickEvent.ItemClickListener() {

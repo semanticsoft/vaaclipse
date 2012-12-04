@@ -45,6 +45,11 @@ public class Playlist
 		Collections.reverse(this.mediaList);
 	}
 	
+	public int getMediaIndex(Media media)
+	{
+		return this.mediaList.indexOf(media);
+	}
+	
 	public Media getSelectedMedia()
 	{
 		return selectedMedia;
