@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.semanticsoft.vaaclipse.publicapi
 Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.semanticsoft.vaaclipse.publicapi.authentication
+Export-Package: org.semanticsoft.vaaclipse.publicapi.authentication,
+ org.semanticsoft.vaaclipse.publicapi.editor
