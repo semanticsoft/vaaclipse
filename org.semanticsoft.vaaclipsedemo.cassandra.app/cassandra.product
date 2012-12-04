@@ -95,6 +95,7 @@
       <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.app"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons"/>
+      <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
    </plugins>
 
