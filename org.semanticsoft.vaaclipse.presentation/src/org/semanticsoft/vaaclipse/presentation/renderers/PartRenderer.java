@@ -11,6 +11,9 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -21,6 +24,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
+import org.semanticsoft.vaaclipse.publicapi.editor.SavePromptSetup;
 
 import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.Component;
@@ -31,9 +35,16 @@ import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("restriction")
 public class PartRenderer extends VaadinRenderer {
+
+	private Map<MPart, SavePromptSetup> savePrompts = new HashMap<MPart, SavePromptSetup>();
 	
 	@Inject
 	IPresentationEngine renderingEngine;
+	
+	public SavePromptSetup getSavePromptSetup(MPart part)
+	{
+		return savePrompts.get(part);
+	}
 	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
@@ -67,6 +78,9 @@ public class PartRenderer extends VaadinRenderer {
 		localContext.set(ComponentContainer.class, contributionArea);
 		localContext.set(VerticalLayout.class, contributionArea);
 		localContext.set(MPart.class, part);
+		SavePromptSetup savePromptProvider = new SavePromptSetup();
+		savePrompts.put(part, savePromptProvider);
+		localContext.set(SavePromptSetup.class, savePromptProvider);
 		if (part instanceof MInputPart)
 			localContext.set(MInputPart.class, (MInputPart)part);
 

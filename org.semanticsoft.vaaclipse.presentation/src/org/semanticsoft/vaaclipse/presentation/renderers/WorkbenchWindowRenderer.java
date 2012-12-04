@@ -12,8 +12,6 @@
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -41,20 +39,15 @@ import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.general.Condition;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
+import org.semanticsoft.vaaclipse.publicapi.editor.SavePromptSetup;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
 import com.vaadin.Application;
-import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.terminal.ExternalResource;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.ResizeEvent;
 
@@ -205,10 +198,15 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 					if (saveCandidate == null)
 					{
 						saveCandidate = dirtyPart;
-
-						OptionDialog.show((Window) mWindow.getWidget(), "Save",
-								String.format("%s has been modified. Save changes?", saveCandidate instanceof MInputPart ? ((MInputPart)saveCandidate).getInputURI() : "Data"), 
-								
+						
+						PartRenderer partRenderer = (PartRenderer) saveCandidate.getRenderer();
+						SavePromptSetup setup = partRenderer.getSavePromptSetup(saveCandidate);
+						String caption = setup.getCaption() != null ? setup.getCaption() : "Save";
+						String msg = setup.getMessage() != null ? setup.getMessage() :
+							String.format("%s has been modified. Save changes?", saveCandidate instanceof MInputPart ? ((MInputPart)saveCandidate).getInputURI() : "Data");
+						
+						OptionDialog.show((Window) mWindow.getWidget(), caption,
+								msg, 
 								new String[] {"Yes", "No", "Cancel"},
 								new OptionDialog.OptionListener() {
 

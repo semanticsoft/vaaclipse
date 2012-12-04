@@ -111,6 +111,7 @@
       <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons"/>
+      <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>

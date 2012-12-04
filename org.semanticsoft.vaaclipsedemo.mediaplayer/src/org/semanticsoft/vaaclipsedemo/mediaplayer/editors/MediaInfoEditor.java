@@ -10,6 +10,7 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
+import org.semanticsoft.vaaclipse.publicapi.editor.SavePromptSetup;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
@@ -32,7 +33,7 @@ public class MediaInfoEditor extends MediaInfoBase
 	IEventBroker eventBroker;
 	
 	@Inject
-	public MediaInfoEditor(VerticalLayout parent, IEclipseContext context, MediaService service, MInputPart inputPart)
+	public MediaInfoEditor(VerticalLayout parent, IEclipseContext context, MediaService service, MInputPart inputPart, SavePromptSetup promptProvider)
 	{
 		super(parent, context);
 		Media media = service.findMedia(inputPart.getInputURI());
@@ -40,6 +41,9 @@ public class MediaInfoEditor extends MediaInfoBase
 		{
 			setMedia(media);
 		}
+		
+		promptProvider.setCaption("Save it!");
+		promptProvider.setMessage(String.format("Media %s has been changed. Save it?", media.getName()));
 		
 		this.name.setImmediate(true);
 		this.description.setImmediate(true);
