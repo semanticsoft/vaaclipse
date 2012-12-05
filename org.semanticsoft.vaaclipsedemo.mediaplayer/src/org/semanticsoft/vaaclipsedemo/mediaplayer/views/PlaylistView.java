@@ -160,7 +160,7 @@ public class PlaylistView
 		
 		eventBroker.subscribe(MediaConstants.reversePlaylist, mediaOrderHandler);
 		eventBroker.subscribe(MediaConstants.deleteMediaFromPlaylist, deleteMediaHandler);
-		eventBroker.subscribe(MediaConstants.mediaChanged, mediaChangedHandler);
+		eventBroker.subscribe(MediaConstants.mediaEntryChanged, mediaChangedHandler);
 	}
 	
 	@PreDestroy

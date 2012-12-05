@@ -17,6 +17,7 @@ import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaEntry;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 
@@ -61,19 +62,49 @@ public class MediaLibraryView {
 	
 	private Hierarchical container;
 	
-	private EventHandler mediaChangedHandler = new EventHandler() {
+	private EventHandler mediaEntryChangedHandler = new EventHandler() {
 		
 		@Override
 		public void handleEvent(Event event) {
 			Object data = event.getProperty(EventUtils.DATA);
-			if (data instanceof Media){
-				Media media = (Media) data;
+			if (data instanceof MediaEntry){
+				MediaEntry media = (MediaEntry) data;
 				String id = mediaService.getId(media);
 				Item item = container.getItem(id);
 				item.getItemProperty(NAME_PROP).setValue(media.getName());
 			}
 		}
 	};
+	
+	private EventHandler mediaEntryAdded = new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				Object data = event.getProperty(EventUtils.DATA);
+				if (data instanceof MediaEntry){
+					MediaEntry mediaEntry = (MediaEntry) data;
+					MediaCategory parent = mediaEntry.getParent();
+					String id = mediaService.getId(mediaEntry);
+					String parentid = mediaService.getId(parent);
+					Item item = container.addItem(id);
+					container.setParent(id, parentid);
+					setupMediaEntry(mediaEntry, item);
+				}
+			}
+		};
+		
+	private EventHandler mediaEntryRemoved = new EventHandler() {
+				
+				@Override
+				public void handleEvent(Event event) {
+					Object data = event.getProperty(EventUtils.DATA);
+					if (data instanceof MediaEntry){
+						MediaEntry mediaEntry = (MediaEntry) data;
+						String id = mediaService.getId(mediaEntry);
+						container.removeItem(id);
+					}
+				}
+			};
 	
 	@PostConstruct
 	public void postConstruct(VerticalLayout parent, IEclipseContext context)
@@ -84,13 +115,17 @@ public class MediaLibraryView {
 		
 		createMediaLibraryTree();
 		
-		broker.subscribe(MediaConstants.mediaChanged, mediaChangedHandler);
+		broker.subscribe(MediaConstants.mediaEntryChanged, mediaEntryChangedHandler);
+		broker.subscribe(MediaConstants.mediaEntryAdded, mediaEntryAdded);
+		broker.subscribe(MediaConstants.mediaEntryRemoved, mediaEntryRemoved);
 	}
 	
 	@PreDestroy
 	public void preDestory()
 	{
-		broker.unsubscribe(mediaChangedHandler);
+		broker.unsubscribe(mediaEntryChangedHandler);
+		broker.unsubscribe(mediaEntryAdded);
+		broker.unsubscribe(mediaEntryRemoved);
 	}
 	
 	private void createMediaLibraryTree()
@@ -114,11 +149,11 @@ public class MediaLibraryView {
 				{
 					Item item = event.getItem();
 					Object object = item.getItemProperty(OBJECT_PROP).getValue();
-					if (object != null && object instanceof Media)
+					if (object != null && object instanceof MediaEntry)
 					{
-						Media media = (Media)object;
+						MediaEntry media = (MediaEntry)object;
 						
-						mediaLibrary.setSelectedMedia(media);
+						mediaLibrary.setSelectedMediaEntry(media);
 						broker.send(MediaConstants.mediaSelected, media);
 					}
 				}
@@ -154,9 +189,7 @@ public class MediaLibraryView {
 			Item childCategoryItem = container.addItem(childCategoryPath);
 			if (!(category instanceof MediaLibrary))
 				container.setParent(childCategoryPath, categoryPath);
-			childCategoryItem.getItemProperty(NAME_PROP).setValue(childCategory.getName());
-			childCategoryItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediacategory.png"));
-			childCategoryItem.getItemProperty(OBJECT_PROP).setValue(childCategory);
+			setupCategory(childCategory, childCategoryItem);
 			fillContainer(childCategory, childCategoryItem, childCategoryPath, container);
 		}
 		
@@ -167,10 +200,34 @@ public class MediaLibraryView {
 			if (!(category instanceof MediaLibrary))
 				container.setParent(mediaPath, categoryPath);
 			container.setChildrenAllowed(mediaPath, false);
-			mediaItem.getItemProperty(NAME_PROP).setValue(media.getName());
-			mediaItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/media.png"));
-			mediaItem.getItemProperty(OBJECT_PROP).setValue(media);
+			setupItem(media, mediaItem);
 		}
+	}
+	
+	private void setupMediaEntry(MediaEntry mediaEntry, Item item)
+	{
+		if (mediaEntry instanceof MediaCategory)
+		{
+			setupCategory((MediaCategory) mediaEntry, item);
+		}
+		else if (mediaEntry instanceof Media)
+		{
+			setupItem((Media) mediaEntry, item);
+		}
+	}
+
+	private void setupCategory(MediaCategory childCategory, Item childCategoryItem)
+	{
+		childCategoryItem.getItemProperty(NAME_PROP).setValue(childCategory.getName());
+		childCategoryItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediacategory.png"));
+		childCategoryItem.getItemProperty(OBJECT_PROP).setValue(childCategory);
+	}
+
+	private void setupItem(Media media, Item mediaItem)
+	{
+		mediaItem.getItemProperty(NAME_PROP).setValue(media.getName());
+		mediaItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/media.png"));
+		mediaItem.getItemProperty(OBJECT_PROP).setValue(media);
 	}
 	
 	public Tree getTree()

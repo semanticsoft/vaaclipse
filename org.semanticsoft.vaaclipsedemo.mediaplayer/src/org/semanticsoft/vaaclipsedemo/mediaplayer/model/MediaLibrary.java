@@ -9,14 +9,14 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.model;
  */
 public class MediaLibrary extends MediaCategory 
 {
-	private Media selectedMedia;
+	private MediaEntry selectedMedia;
 	
-	public Media getSelectedMedia()
+	public MediaEntry getSelectedMediaEntry()
 	{
 		return selectedMedia;
 	}
 	
-	public void setSelectedMedia(Media selectedMedia)
+	public void setSelectedMediaEntry(MediaEntry selectedMedia)
 	{
 		this.selectedMedia = selectedMedia;
 	}

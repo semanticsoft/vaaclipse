@@ -105,6 +105,6 @@ public class MediaInfoEditor extends MediaInfoBase
 		
 		dirtable.setDirty(false);
 		
-		eventBroker.send(MediaConstants.mediaChanged, this.media);
+		eventBroker.send(MediaConstants.mediaEntryChanged, this.media);
 	}
 }

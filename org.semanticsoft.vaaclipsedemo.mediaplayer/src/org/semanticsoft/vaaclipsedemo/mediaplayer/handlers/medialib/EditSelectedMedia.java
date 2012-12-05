@@ -19,18 +19,18 @@ public class EditSelectedMedia
 	@CanExecute
 	public boolean canExecute(MediaLibrary medialib)
 	{
-		//return medialib.getSelectedMedia() != null;
-		return true;
+		return medialib.getSelectedMediaEntry() instanceof Media;
 	}
 	
 	@Execute
 	public void play(MediaLibrary medialib, EPartServiceExt partServiceExt)
 	{
-		Media selectedInPlaylist = medialib.getSelectedMedia();
-		if (selectedInPlaylist != null)
+		if (medialib.getSelectedMediaEntry() instanceof Media)
 		{
+			Media selectedInPlaylist = (Media) medialib.getSelectedMediaEntry();
 			MInputPart part = partServiceExt.openUri(selectedInPlaylist.getUri());
 			part.setLabel(selectedInPlaylist.getName());
 		}
+		
 	}
 }
