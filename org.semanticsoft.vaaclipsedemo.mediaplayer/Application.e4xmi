@@ -65,6 +65,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_N5-gUDDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaLibraryView" label="Media Library" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/medialib.png" tooltip="Media Library">
       <toolbar xmi:id="_ODAXID0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_QcunkD0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" command="_Y3-gID0sEeKod85Q1rNT2g"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_W0Z1YD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/delete.png" tooltip="Remove selected" command="_Xq7NsD8aEeKod85Q1rNT2g"/>
       </toolbar>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_k6R6sDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaInfoView" label="Media Information" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediainfo.png"/>
@@ -103,6 +104,7 @@
   <handlers xmi:id="_RvM8ED0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.editSelectedMedia" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.EditSelectedMedia" command="_Y3-gID0sEeKod85Q1rNT2g"/>
   <handlers xmi:id="_yK_XsD2IEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.saveHandler" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.mediaeditor.SaveHandler" command="_cl1-wD2JEeKod85Q1rNT2g"/>
   <handlers xmi:id="_wYAhsD2JEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.saveAllHandler" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.mediaeditor.SaveAllHandler" command="_4u6iQD2JEeKod85Q1rNT2g"/>
+  <handlers xmi:id="_elDHMD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.RemoveSelectedEntryFromLibrary" command="_Xq7NsD8aEeKod85Q1rNT2g"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
     <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
@@ -122,6 +124,7 @@
   <commands xmi:id="_Y3-gID0sEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.editSelectedMedia" commandName="editSelectedMedia"/>
   <commands xmi:id="_cl1-wD2JEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.saveHandler" commandName="saveHandler"/>
   <commands xmi:id="_4u6iQD2JEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.saveAllHandler" commandName="saveAllHandler"/>
+  <commands xmi:id="_Xq7NsD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.removeFromLibrary" commandName="removeFromLibrary"/>
   <addons xmi:id="_xC4bMjDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_xC4bMzDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_xC4bNDDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

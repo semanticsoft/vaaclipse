@@ -30,10 +30,10 @@ public class MediaCategory extends MediaEntry
 		this.childCategories.add(child);
 	}
 	
-	public void removeMedia(Media media)
+	public void removeMediaEntry(MediaEntry media)
 	{
 		this.mediaList.remove(media);
-		mediaRemoved(media);
+		mediaEntryRemoved(media);
 	}
 	
 	public void addMedia(Media media)
@@ -42,9 +42,9 @@ public class MediaCategory extends MediaEntry
 		this.mediaList.add(media);
 	}
 	
-	protected void mediaRemoved(Media media)
+	protected void mediaEntryRemoved(MediaEntry mediaEntry)
 	{
 		if (this.getParent() != null)
-			this.getParent().mediaRemoved(media);
+			this.getParent().mediaEntryRemoved(mediaEntry);
 	}
 }

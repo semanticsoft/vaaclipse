@@ -22,9 +22,9 @@ public class MediaLibrary extends MediaCategory
 	}
 	
 	@Override
-	protected void mediaRemoved(Media media)
+	protected void mediaEntryRemoved(MediaEntry mediaEntry)
 	{
-		if (this.selectedMedia == media)
+		if (this.selectedMedia == mediaEntry)
 			this.selectedMedia = null;
 	}
 }
