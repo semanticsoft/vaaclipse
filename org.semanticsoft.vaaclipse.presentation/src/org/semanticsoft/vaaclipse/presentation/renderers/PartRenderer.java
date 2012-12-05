@@ -60,7 +60,7 @@ public class PartRenderer extends VaadinRenderer {
 		
 		//create toolbar
 		MToolBar toolbar = part.getToolbar();
-		if (toolbar != null && toolbar.isVisible())
+		if (toolbar != null && toolbar.isToBeRendered())
 		{
 			Component toolbarWidget = (Component) renderingEngine.createGui(toolbar);
 			((AbstractLayout)toolbarWidget).setSizeUndefined();
