@@ -11,7 +11,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.TextField;
 
-public class PlayerToolControl
+public class AddToLibraryToolControl
 {
 	private Button button;
 	private TextField textField;

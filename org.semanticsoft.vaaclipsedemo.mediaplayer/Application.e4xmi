@@ -88,7 +88,7 @@
         <tags>exititemlayout</tags>
         <children xsi:type="menu:HandledToolItem" xmi:id="_Ds9gsD7pEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" label="Quite" tooltip="Quite" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
-      <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.add_to_lib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrols.PlayerToolControl">
+      <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.add_to_lib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrols.AddToLibraryToolControl">
         <tags>add-to-lib-item-layout</tags>
         <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_FSLDFJLSJDFLSJFAA" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
       </children>
