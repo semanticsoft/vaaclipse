@@ -202,25 +202,41 @@ public class ToolItemRenderer extends ItemRenderer
 
 			String label = item.getLabel();
 			if (label != null)
+			{
 				label = label.trim();
-			if (item.getIconURI() == null && label == null)
+				if (label.isEmpty())
+					label = null;
+			}
+			
+			String iconURI = item.getIconURI();
+			if (iconURI != null)
+			{
+				iconURI = iconURI.trim();
+				if (iconURI.isEmpty())
+					iconURI = null;
+			}
+			
+			if (iconURI == null && label == null)
 			{
 				button.setCaption("Blank");
+				button.addStyleName("textonly");
 			}
 			else
 			{
-				if (item.getIconURI() != null)
+				if (iconURI != null)
 				{
-					Resource icon = new ThemeResource(Utils.convertPath(item.getIconURI()));
+					Resource icon = new ThemeResource(Utils.convertPath(iconURI));
 					button.setIcon(icon);
 				}
+				else
+					button.addStyleName("textonly");
 				
-				if (label != null && !label.trim().isEmpty())
+				if (label != null)
 				{
 					button.setCaption(label);
 				}
 				else
-					button.addStyleName("icononly");	
+					button.addStyleName("icononly");
 			}
 			
 			if (item.getTooltip() != null)
@@ -271,6 +287,8 @@ public class ToolItemRenderer extends ItemRenderer
 	private boolean canExecuteItem(MHandledItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
 		EHandlerService service = (EHandlerService) eclipseContext.get(EHandlerService.class.getName());
+		if (service == null)
+			return false;
 		ParameterizedCommand command = item.getWbCommand();
 		if (command == null) {
 			command = generateParameterizedCommand(item, eclipseContext);

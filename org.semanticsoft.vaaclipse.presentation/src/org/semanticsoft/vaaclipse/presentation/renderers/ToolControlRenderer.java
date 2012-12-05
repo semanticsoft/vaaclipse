@@ -72,6 +72,12 @@ public class ToolControlRenderer extends VaadinRenderer {
 		
 		Object tcImpl = contributionFactory.create(toolControl.getContributionURI(), parentContext, localContext);
 		toolControl.setObject(tcImpl);
+		
+		for (String css : toolControl.getTags())
+		{
+			toolControlContainer.addStyleName(css);
+		}
+		
 		toolControl.setWidget(toolControlContainer);
 	}
 

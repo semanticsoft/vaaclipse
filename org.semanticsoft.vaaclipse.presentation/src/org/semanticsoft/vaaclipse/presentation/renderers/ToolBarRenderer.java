@@ -158,6 +158,12 @@ public class ToolBarRenderer extends VaadinRenderer {
 		
 		toolBarWidget.setSizeUndefined();
 		toolBarWidget.addStyleName("toolbar");
+		
+		for (String css : toolbarModel.getTags())
+		{
+			toolBarWidget.addStyleName(css);
+		}
+		
 		element.setWidget(toolBarWidget);
 	}
 	
