@@ -78,7 +78,16 @@
     <sharedElements xsi:type="advanced:Area" xmi:id="_QWERMOsAEeGrI5NvCZeHUA" elementId="org.eclipse.ui.editorss">
       <children xsi:type="basic:PartStack" xmi:id="_LDFJAMKLAJLAJZKZJZKAWJ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.areadefaultstack"/>
     </sharedElements>
-    <trimBars xmi:id="_qsDW4DKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.trimbar.top"/>
+    <trimBars xmi:id="_qsDW4DKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.trimbar.top">
+      <children xsi:type="menu:ToolBar" xmi:id="_FLSJFLSAAKALLLAAAA" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.commontoolbar">
+        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_FSLDFJLSJDFLSJFAA" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_xd0vsD2IEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" command="_cl1-wD2JEeKod85Q1rNT2g"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_-stWYD2JEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save_all.png" command="_4u6iQD2JEeKod85Q1rNT2g"/>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.add_to_lib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.PlayerToolControl">
+      	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="_FSLDFJLSJDFLSJFAA" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+      </children>
+    </trimBars>
   </children>
   <handlers xmi:id="_xC4bOTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.QuitHandler" command="_xC4bODDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bPTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.OpenHandler" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
@@ -99,14 +108,6 @@
     <children xmi:id="_xC4bMDDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_xC4bMTDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <trimContributions xmi:id="_a1KvQDuwEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.trimcontribution.add_to_lib" parentId="org.semanticsoft.vaaclipsedemo.mediaplayer.trimbar.top" positionInParent="0">
-    <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_LDFJLSJFLSKJFLSKJF" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
-    <children xsi:type="menu:ToolBar" xmi:id="_FLSJFLSAAKALLLAAAA" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.commontoolbar">
-      <children xsi:type="menu:HandledToolItem" xmi:id="_xd0vsD2IEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" command="_cl1-wD2JEeKod85Q1rNT2g"/>
-      <children xsi:type="menu:HandledToolItem" xmi:id="_-stWYD2JEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save_all.png" command="_4u6iQD2JEeKod85Q1rNT2g"/>
-    </children>
-    <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.add_to_lib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.PlayerToolControl"/>
-  </trimContributions>
   <commands xmi:id="_xC4bODDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_xC4bPDDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.open" commandName="openCommand"/>
   <commands xmi:id="_xC4bQjDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
