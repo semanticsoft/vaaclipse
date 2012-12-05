@@ -1,4 +1,4 @@
-package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers;
+package org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrols;
 
 import javax.annotation.PostConstruct;
 
