@@ -244,6 +244,8 @@ public class ToolItemRenderer extends ItemRenderer
 				button.setDescription(item.getLocalizedTooltip());
 			}
 			
+			button.setEnabled(item.isEnabled());
+			
 			element.setWidget(button);
 			
 			if (!enabledUpdaters.containsKey(item))
