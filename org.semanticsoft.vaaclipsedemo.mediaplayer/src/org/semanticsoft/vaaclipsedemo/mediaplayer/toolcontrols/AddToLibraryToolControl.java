@@ -12,6 +12,7 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -40,6 +41,8 @@ public class AddToLibraryToolControl
 	public void postConstruct(ComponentContainer cc)
 	{
 		playMediaButton = new Button("Play media: ");
+		playMediaButton.setIcon(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/watch.png"));
+		playMediaButton.setDescription("Play media");
 		textField = new TextField();
 		textField.setWidth("20em");
 		textField.setValue("http://www.youtube.com/v/0417pQz7iIk");
@@ -61,6 +64,7 @@ public class AddToLibraryToolControl
 		});
 		
 		Button addToLibraryButton = new Button("Add...");
+		addToLibraryButton.setIcon(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png"));
 		addToLibraryButton.setDescription("Add media to library");
 		addToLibraryButton.addListener(new ClickListener() {
 			

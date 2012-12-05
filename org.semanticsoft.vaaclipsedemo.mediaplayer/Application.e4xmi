@@ -64,7 +64,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_Odwi0DDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.player" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlayerView" label="Player" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/player.png"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_N5-gUDDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaLibraryView" label="Media Library" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/medialib.png" tooltip="Media Library">
       <toolbar xmi:id="_ODAXID0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.0">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_QcunkD0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" command="_Y3-gID0sEeKod85Q1rNT2g"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_QcunkD0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/edit.gif" tooltip="Edit selected" command="_Y3-gID0sEeKod85Q1rNT2g"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_W0Z1YD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/delete.png" tooltip="Remove selected" command="_Xq7NsD8aEeKod85Q1rNT2g"/>
       </toolbar>
     </sharedElements>
@@ -87,7 +87,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_CYzxMD7pEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.0">
         <tags>exititemlayout</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_Ds9gsD7pEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" label="Quite" tooltip="Quite" command="_xC4bODDGEeKcFLjGBzrJfw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Ds9gsD7pEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" label="Quite" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/quit.png" tooltip="Quite" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
       <children xsi:type="menu:ToolControl" xmi:id="_s7JrsDKFEeK7dfqCskjo4Q" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrol.add_to_lib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.toolcontrols.AddToLibraryToolControl">
         <tags>add-to-lib-item-layout</tags>
