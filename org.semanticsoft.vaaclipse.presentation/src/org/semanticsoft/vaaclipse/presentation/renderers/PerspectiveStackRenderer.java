@@ -32,12 +32,14 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
 import com.vaadin.terminal.Resource;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -178,27 +180,44 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		{
 			if (perspective.isToBeRendered() && perspective.isVisible())
 			{
-				final TwoStateToolbarButton perspectiveButton = new TwoStateToolbarButton();
-				perspectiveButton.addStyleName("icononly");
-				String uri;
-				if (perspective.getIconURI() != null)
-					uri = perspective.getIconURI();
+				String label = Commons.trim(perspective.getLabel());
+				String iconURI = Commons.trim(perspective.getIconURI());
+				
+				final TwoStateToolbarButton button = new TwoStateToolbarButton();
+				
+				//----
+				if (iconURI == null && label == null)
+				{
+					iconURI = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png";
+					Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(iconURI));
+					button.setIcon(icon);
+					button.addStyleName("icononly");
+				}
 				else
-					uri = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png";
-				
-				Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(uri));
-				perspectiveButton.setIcon(icon);
-				
-				//TODO: uncoment
-//				if (perspective.getLabel() != null)
-//					perspectiveButton.setCaption(perspective.getLabel());
+				{
+					if (iconURI != null)
+					{
+						Resource icon = new ThemeResource(Utils.convertPath(iconURI));
+						button.setIcon(icon);
+					}
+					else
+						button.addStyleName("textonly");
+					
+					if (label != null)
+					{
+						button.setCaption(label);
+					}
+					else
+						button.addStyleName("icononly");
+				}
+				//----
 				
 				if (perspective.getTooltip() != null)
 				{
-					perspectiveButton.setDescription(perspective.getLocalizedTooltip());
+					button.setDescription(perspective.getLocalizedTooltip());
 				}
 				
-				perspectiveButton.addListener(new ClickListener() {
+				button.addListener(new ClickListener() {
 
 					public void buttonClick(ClickEvent event)
 					{
@@ -209,9 +228,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				});
 				
 				HorizontalLayout perspectiveStackPanel = perspectivestack_perspectiveswitcher.get(perspectiveStack);
-				perspectiveStackPanel.addComponent(perspectiveButton);
+				perspectiveStackPanel.addComponent(button);
 				
-				perspective_button.put(perspective, perspectiveButton);	
+				perspective_button.put(perspective, button);	
 			}
 		}
 		

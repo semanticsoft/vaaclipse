@@ -43,6 +43,7 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
+import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
@@ -200,21 +201,8 @@ public class ToolItemRenderer extends ItemRenderer
 			
 			button.setSizeUndefined();
 
-			String label = item.getLabel();
-			if (label != null)
-			{
-				label = label.trim();
-				if (label.isEmpty())
-					label = null;
-			}
-			
-			String iconURI = item.getIconURI();
-			if (iconURI != null)
-			{
-				iconURI = iconURI.trim();
-				if (iconURI.isEmpty())
-					iconURI = null;
-			}
+			String label = Commons.trim(item.getLabel());
+			String iconURI = Commons.trim(item.getIconURI());
 			
 			if (iconURI == null && label == null)
 			{
