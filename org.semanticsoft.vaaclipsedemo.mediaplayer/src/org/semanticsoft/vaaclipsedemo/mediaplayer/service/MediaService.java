@@ -42,6 +42,16 @@ public class MediaService
 		return null;
 	}
 	
+	public MediaCategory findChildCategory(MediaCategory parentCategory, String categoryName)
+	{
+		for (MediaCategory child : parentCategory.getCategories())
+		{
+			if (categoryName.equals(child.getName()))
+				return child;
+		}
+		return null;
+	}
+	
 	public String getId(MediaEntry entry)
 	{
 		if (entry instanceof MediaLibrary)
@@ -85,6 +95,17 @@ public class MediaService
 			medialist.addAll(getAllInnerMedia(childCat));
 		}
 		medialist.addAll(mediaCat.getMediaList());
+		return medialist;
+	}
+	
+	public List<MediaCategory> getAllInnerCategories(MediaCategory mediaCat)
+	{
+		List<MediaCategory> medialist = new ArrayList<>();
+		for (MediaCategory childCat : mediaCat.getCategories())
+		{
+			medialist.addAll(getAllInnerCategories(childCat));
+		}
+		medialist.addAll(mediaCat.getCategories());
 		return medialist;
 	}
 	
