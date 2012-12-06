@@ -22,6 +22,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.semanticsoft.commons.general.Condition;
 
@@ -141,5 +142,22 @@ public class VaadinRenderer implements GenericRenderer {
 			AbstractComponent component = (AbstractComponent) element.getWidget();
 			component.setData(element);
 		}
+	}
+	
+	/**
+	 * Return the MWindow containing this element (if any). This may either be a 'top level' window
+	 * -or- a detached window.
+	 * @param element
+	 *            The element to check
+	 * @return the window containing the element.
+	 */
+	protected MWindow getWindowFor(MUIElement element) {
+		MUIElement parent = element.getParent();
+		
+		while (parent != null && !(parent instanceof MWindow))
+			parent = parent.getParent();
+		
+		// A detached window will end up with getParent() == null
+		return (MWindow) parent;
 	}
 }

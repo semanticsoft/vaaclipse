@@ -24,6 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.commands.MParameter;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
@@ -133,5 +134,9 @@ public abstract class ItemRenderer extends VaadinRenderer {
 		eclipseContext.remove(MItem.class);
 	}
 	
-	protected abstract void setupContext(IEclipseContext context, MItem item);
+	protected void setupContext(IEclipseContext context, MItem item)
+	{
+		MWindow window = getWindowFor(item);
+		context.set(MWindow.class, window);
+	}
 }

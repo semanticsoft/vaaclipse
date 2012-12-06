@@ -284,6 +284,8 @@ public class ToolItemRenderer extends ItemRenderer
 		
 		if (item instanceof MHandledItem)
 			item.setEnabled(canExecuteItem((MHandledItem) item));
+		else if (item instanceof MHandledItem)
+			item.setEnabled(canExecuteItem((MDirectToolItem) item));
 	}
 	
 	private boolean canExecuteItem(MHandledItem item) {
@@ -357,6 +359,7 @@ public class ToolItemRenderer extends ItemRenderer
 	@Override
 	protected void setupContext(IEclipseContext context, MItem item)
 	{
+		super.setupContext(context, item);
 		context.set(MToolItem.class, (MToolItem)item);
 		if (item instanceof MDirectToolItem)
 			context.set(MDirectToolItem.class, (MDirectToolItem)item);
