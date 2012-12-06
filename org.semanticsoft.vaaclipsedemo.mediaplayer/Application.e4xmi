@@ -3,7 +3,7 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_xC5CQDDGEeKcFLjGBzrJfw" label="org.semanticsoft.vaaclipsedemo.mediaplayer" width="500" height="400">
     <tags>mainWindow</tags>
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_xC5CSDDGEeKcFLjGBzrJfw">
-      <children xsi:type="advanced:Perspective" xmi:id="_xC5CSTDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.complex">
+      <children xsi:type="advanced:Perspective" xmi:id="_xC5CSTDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.complex" label="Complex" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/total.png" tooltip="Complex">
         <children xsi:type="basic:PartSashContainer" xmi:id="_xC5CSjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartSashContainer" xmi:id="_eXWZMDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.1" containerData="25">
             <children xsi:type="basic:PartStack" xmi:id="_xC5CSzDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.0" containerData="60">
@@ -24,7 +24,7 @@
           </children>
         </children>
       </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_dTBxkDe6EeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.player">
+      <children xsi:type="advanced:Perspective" xmi:id="_dTBxkDe6EeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.player" label="Player" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/player.png" tooltip="Player">
         <children xsi:type="basic:PartSashContainer" xmi:id="_Dx8w0DvoEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.2" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_O0rIUDvxEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.4" containerData="30">
             <children xsi:type="advanced:Placeholder" xmi:id="_R4cbUDvxEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.ppersp.playlist" ref="_9iMIIDIREeKcFLjGBzrJfw"/>
@@ -34,7 +34,7 @@
           </children>
         </children>
       </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_I3AWYDv5EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.medialib">
+      <children xsi:type="advanced:Perspective" xmi:id="_I3AWYDv5EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.medialib" label="Library" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/medialib.png" tooltip="Media Library">
         <children xsi:type="basic:PartSashContainer" xmi:id="_JdnDYDv5EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartSashContainer" xmi:id="_KxFdcDv5EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" containerData="25">
             <children xsi:type="basic:PartStack" xmi:id="_LbH48Dv5EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.0" containerData="60">
