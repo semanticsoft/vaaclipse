@@ -143,21 +143,4 @@ public class VaadinRenderer implements GenericRenderer {
 			component.setData(element);
 		}
 	}
-	
-	/**
-	 * Return the MWindow containing this element (if any). This may either be a 'top level' window
-	 * -or- a detached window.
-	 * @param element
-	 *            The element to check
-	 * @return the window containing the element.
-	 */
-	protected MWindow getWindowFor(MUIElement element) {
-		MUIElement parent = element.getParent();
-		
-		while (parent != null && !(parent instanceof MWindow))
-			parent = parent.getParent();
-		
-		// A detached window will end up with getParent() == null
-		return (MWindow) parent;
-	}
 }

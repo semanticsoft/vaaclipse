@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.e4.core.commands.ECommandService;
@@ -30,6 +32,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -37,6 +40,9 @@ import com.vaadin.ui.MenuBar.MenuItem;
 
 @SuppressWarnings("restriction")
 public abstract class ItemRenderer extends VaadinRenderer {
+	
+	@Inject
+	EModelService modelService;
 	
 	protected String prepareText(MMenuItem model)
 	{
@@ -136,7 +142,7 @@ public abstract class ItemRenderer extends VaadinRenderer {
 	
 	protected void setupContext(IEclipseContext context, MItem item)
 	{
-		MWindow window = getWindowFor(item);
+		MWindow window = modelService.getTopLevelWindowFor(item);
 		context.set(MWindow.class, window);
 	}
 }
