@@ -7,6 +7,7 @@ import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -18,12 +19,34 @@ public class OptionDialog extends Window
 	{
 		void optionSelected(int optionId);
 	}
+	
+	public static interface ComponentProvider
+	{
+		Component getComponent();
+		void setMessage(String message);
+	}
 
 	private OptionListener optionListener;
 	private String msg;
 	private boolean modal = true;
-
-	private Label msgLabel = new Label();
+	
+	private ComponentProvider componentProvider = new ComponentProvider() {
+		
+		Label label = new Label();
+		@Override
+		public void setMessage(String message)
+		{
+			label.setPropertyDataSource(new ObjectProperty<String>(message, String.class));
+		}
+		
+		@Override
+		public Component getComponent()
+		{
+			return label;
+		}
+	};
+	
+	private VerticalLayout content;
 	private HorizontalLayout buttons = new HorizontalLayout();
 	private Map<Button, Integer> button2option = new HashMap<Button, Integer>();
 
@@ -31,12 +54,12 @@ public class OptionDialog extends Window
 	{
 		// msgLabel.setWidth("100%");
 		// buttons.setWidth("100%");
-		VerticalLayout content = new VerticalLayout();
+		content = new VerticalLayout();
 		content.setSizeFull();
 		this.setContent(content);
-		content.addComponent(msgLabel);
+		content.addComponent(componentProvider.getComponent());
 		content.addComponent(buttons);
-		content.setComponentAlignment(msgLabel, Alignment.TOP_CENTER);
+		content.setComponentAlignment(componentProvider.getComponent(), Alignment.TOP_CENTER);
 		content.setComponentAlignment(buttons, Alignment.BOTTOM_CENTER);
 
 		this.center();
@@ -52,7 +75,30 @@ public class OptionDialog extends Window
 	public void setMessage(String msg)
 	{
 		this.msg = msg;
-		this.msgLabel.setPropertyDataSource(new ObjectProperty<String>(this.msg, String.class));
+		componentProvider.setMessage(this.msg);
+	}
+	
+	public ComponentProvider getComponentProvider()
+	{
+		return componentProvider;
+	}
+	
+	public Component getComponent()
+	{
+		return this.componentProvider.getComponent();
+	}
+	
+	public void setComponentProvider(ComponentProvider componentProvider)
+	{
+		if (componentProvider == null)
+			return;
+		Component newComponent = componentProvider.getComponent();
+		if (newComponent != null)
+		{
+			Component oldComponent = this.componentProvider.getComponent();
+			this.content.removeComponent(oldComponent);
+			this.content.addComponent(newComponent, 0);
+		}
 	}
 
 	public boolean isModal()
