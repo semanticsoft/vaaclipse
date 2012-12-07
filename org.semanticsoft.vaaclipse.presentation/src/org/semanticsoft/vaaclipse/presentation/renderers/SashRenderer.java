@@ -31,6 +31,7 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
+import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.widgets.SashWidget;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
@@ -139,7 +140,7 @@ public class SashRenderer extends VaadinRenderer {
 		{
 			sashWidget = sash.isHorizontal() ? new SashWidgetHorizontal() : new SashWidgetVertical();
 			AbstractSplitPanel currentSashWidget = (AbstractSplitPanel) sashWidget;
-			currentSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
+			currentSashWidget.setLocked(sash.getTags().contains(Tags.NO_RESIZE));
 			for (int i = 0; i < renderableAndVisible.size(); i++)
 			{
 				MPartSashContainerElement child = renderableAndVisible.get(i);
@@ -157,7 +158,7 @@ public class SashRenderer extends VaadinRenderer {
 					else
 					{
 						AbstractSplitPanel newSashWidget = sash.isHorizontal() ? new SashWidgetHorizontal() : new SashWidgetVertical();
-						newSashWidget.setLocked(sash.getTags().contains(VaadinPresentationEngine.NO_RESIZE));
+						newSashWidget.setLocked(sash.getTags().contains(Tags.NO_RESIZE));
 						newSashWidget.setFirstComponent((Component) child.getWidget());
 						currentSashWidget.setSecondComponent(newSashWidget);
 						currentSashWidget = newSashWidget;	

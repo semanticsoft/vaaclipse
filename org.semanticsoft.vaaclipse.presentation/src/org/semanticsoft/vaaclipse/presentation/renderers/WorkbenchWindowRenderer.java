@@ -40,6 +40,7 @@ import org.semanticsoft.commons.general.Condition;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
 import org.semanticsoft.vaaclipse.publicapi.editor.SavePromptSetup;
+import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
@@ -138,7 +139,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 		{
 			final MWindow mWindow = (MWindow) element;
 			Window currentMainWindow = vaadinapp.getMainWindow();
-			if (element.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW))
+			if (element.getTags().contains(Tags.MAIN_WINDOW))
 			{
 
 				WorkbenchWindow window = new WorkbenchWindow();
@@ -275,7 +276,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 		{
 			final MWindow mWindow = (MWindow) element;
 
-			if (!element.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW))
+			if (!element.getTags().contains(Tags.MAIN_WINDOW))
 			{// only for child windows (main window not need that)
 				final Window window = (Window) mWindow.getWidget();
 
@@ -314,9 +315,12 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 				{
 					if (e instanceof MPerspectiveStack)
 					{
-						final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer) e.getRenderer())
-								.getPerspectivestack2PerspectiveswitcherMapping().get(e);
-						vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
+						PerspectiveStackRenderer perspectiveStackRenderer = (PerspectiveStackRenderer) e.getRenderer();
+						if (perspectiveStackRenderer.getPerspectiveStackForSwitcher() == e)
+						{
+							final HorizontalLayout perspectiveStackPanel = perspectiveStackRenderer.getPerspectiveSwitcher();
+							vWindow.setPerspectiveStackPanel(perspectiveStackPanel);	
+						}
 					}
 
 					vWindow.getClientArea().addComponent((com.vaadin.ui.Component) e.getWidget());
@@ -406,9 +410,12 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 
 		if (child instanceof MPerspectiveStack)
 		{
-			final HorizontalLayout perspectiveStackPanel = ((PerspectiveStackRenderer) child.getRenderer())
-					.getPerspectivestack2PerspectiveswitcherMapping().get(child);
-			vWindow.setPerspectiveStackPanel(perspectiveStackPanel);
+			PerspectiveStackRenderer perspectiveStackRenderer = (PerspectiveStackRenderer) child.getRenderer();
+			if (perspectiveStackRenderer.getPerspectiveStackForSwitcher() == child)
+			{
+				final HorizontalLayout perspectiveStackPanel = perspectiveStackRenderer.getPerspectiveSwitcher();
+				vWindow.setPerspectiveStackPanel(perspectiveStackPanel);	
+			}
 		}
 		else
 		{
@@ -447,7 +454,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 	public void setVisible(MUIElement changedElement, boolean visible)
 	{
 		if (changedElement instanceof MWindow
-				&& !(changedElement.getTags().contains(VaadinPresentationEngine.MAIN_WINDOW)))
+				&& !(changedElement.getTags().contains(Tags.MAIN_WINDOW)))
 		{
 			super.setVisible(changedElement, visible);
 		}
