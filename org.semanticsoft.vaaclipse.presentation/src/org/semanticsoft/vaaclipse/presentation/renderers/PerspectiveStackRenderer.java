@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +64,7 @@ import com.vaadin.ui.VerticalLayout;
 public class PerspectiveStackRenderer extends VaadinRenderer
 {
 	private MPerspectiveStack perspectiveStackForSwitcher;
-	private HorizontalLayout perspectiveSwitcher;
+	private HorizontalLayout perspectiveSwitcherPanel;
 	private ContextMenu menu;
 	private ContextMenuItem showTextItem;
 	private Map<MPerspective, TwoStateToolbarButton> perspective_button = new HashMap<>();
@@ -74,7 +73,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	public HorizontalLayout getPerspectiveSwitcher()
 	{
-		return perspectiveSwitcher;
+		return perspectiveSwitcherPanel;
 	}
 
 	public MPerspectiveStack getPerspectiveStackForSwitcher()
@@ -245,52 +244,109 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)
 	{
-		if (perspectiveSwitcher == null)
-		{
-			perspectiveStackForSwitcher = (MPerspectiveStack) element;
-			perspectiveSwitcher = new HorizontalLayout();
-			perspectiveSwitcher.setStyleName("perspectivepanel");
-			perspectiveSwitcher.setSizeUndefined();
-
-			// Context menu
-			menu = new ContextMenu();
-			perspectiveSwitcher.addComponent(menu);
-			
-			final ContextMenuItem closeItem = menu.addItem("Close");
-			closeItem.setSeparatorVisible(true);
-			if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
-				showTextItem = menu.addItem("Show Text");
-			else
-				showTextItem = menu.addItem("Hide Text");
-			
-			 menu.addListener(new ContextMenu.ClickListener() {
-
-				@Override
-				public void contextItemClick(org.vaadin.peter.contextmenu.ContextMenu.ClickEvent event)
-				{
-					ContextMenuItem clickedItem = event.getClickedItem();
-					if (clickedItem == closeItem)
-					{
-						//vaadinApp.getMainWindow().showNotification("Close request for: " + lastClickedPerspective.getLabel());
-						
-						
-					}
-					
-					if (clickedItem == showTextItem)
-					{
-						//vaadinApp.getMainWindow().showNotification("Show text request for: " + lastClickedPerspective.getLabel());
-						if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
-							perspectiveStackForSwitcher.getTags().remove(Tags.ICONS_ONLY);
-						else
-							perspectiveStackForSwitcher.getTags().add(Tags.ICONS_ONLY);
-					}
-				}
-			 });
-		}
+		if (perspectiveSwitcherPanel == null)
+			initializedPerspectiveSwticherPanel((MPerspectiveStack)element);
 
 		VerticalLayout perspectiveStackContent = new VerticalLayout();
 		perspectiveStackContent.setSizeFull();
 		element.setWidget(perspectiveStackContent);
+	}
+
+	private void initializedPerspectiveSwticherPanel(MPerspectiveStack perspectiveStack)
+	{
+		if (perspectiveSwitcherPanel != null)
+			return;
+		//initialize perspective switcher panel
+		perspectiveStackForSwitcher = perspectiveStack;
+		boolean iconsOnly = perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY);
+		
+		perspectiveSwitcherPanel = new HorizontalLayout();
+		perspectiveSwitcherPanel.setStyleName("perspectivepanel");
+		perspectiveSwitcherPanel.setSizeUndefined();
+
+		// Context menu
+		menu = new ContextMenu();
+		perspectiveSwitcherPanel.addComponent(menu);
+		
+		final ContextMenuItem closeItem = menu.addItem("Close");
+		closeItem.setSeparatorVisible(true);
+		if (iconsOnly)
+			showTextItem = menu.addItem("Show Text");
+		else
+			showTextItem = menu.addItem("Hide Text");
+		
+		 menu.addListener(new ContextMenu.ClickListener() {
+
+			@Override
+			public void contextItemClick(org.vaadin.peter.contextmenu.ContextMenu.ClickEvent event)
+			{
+				ContextMenuItem clickedItem = event.getClickedItem();
+				if (clickedItem == closeItem)
+				{
+					//vaadinApp.getMainWindow().showNotification("Close request for: " + lastClickedPerspective.getLabel());
+					
+					
+				}
+				
+				if (clickedItem == showTextItem)
+				{
+					//vaadinApp.getMainWindow().showNotification("Show text request for: " + lastClickedPerspective.getLabel());
+					if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
+						perspectiveStackForSwitcher.getTags().remove(Tags.ICONS_ONLY);
+					else
+						perspectiveStackForSwitcher.getTags().add(Tags.ICONS_ONLY);
+				}
+			}
+		 });
+		 
+		 //add buttons to perspective switch panel	
+		 for (final MPerspective perspective : perspectiveStackForSwitcher.getChildren())
+		 {
+			 if (perspective.isVisible())
+			 {
+				 String label = iconsOnly ? null : Commons.trim(perspective.getLabel());
+				 String iconURI = Commons.trim(perspective.getIconURI());
+				 
+				 final TwoStateToolbarButton button = new TwoStateToolbarButton();
+		
+				 setupStyleTextIcon(label, iconURI, button);
+		
+				 if (perspective.getTooltip() != null)
+				 {
+					 button.setDescription(perspective.getLocalizedTooltip());
+				 }
+		
+				 button.addListener(new ClickListener() {
+		
+					 public void buttonClick(ClickEvent event)
+					 {
+						 MPerspectiveStack perspectiveStack = (MPerspectiveStack) (MElementContainer<?>) perspective.getParent();
+						 switchPerspective(perspective);
+					 }
+				 });
+		
+				 //TODO: replace VerticalLayout on more thin layout (for example SimpleLayout addon which consist of just one div)
+				 VerticalLayout wrapperLayout = new VerticalLayout();
+				 wrapperLayout.setSizeUndefined();
+				 wrapperLayout.addComponent(button);
+				 wrapperLayout.addListener(new LayoutEvents.LayoutClickListener() {
+		
+					 @Override
+					 public void layoutClick(LayoutClickEvent event)
+					 {
+						 if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
+						 {
+							 lastClickedPerspective = perspective;
+							 menu.show(event.getClientX(), event.getClientY());
+						 }
+					 }
+				 });
+				
+				 perspectiveSwitcherPanel.addComponent(wrapperLayout);
+		
+				 perspective_button.put(perspective, button);
+			 }
+		 }
 	}
 
 	@Override
@@ -300,64 +356,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			return;
 
 		MPerspectiveStack perspectiveStack = (MPerspectiveStack) (MElementContainer<?>) element;
-		
-		if (perspectiveStack == perspectiveStackForSwitcher) //add buttons only for perspective stack with switcher
-		{
-			boolean iconsOnly = perspectiveStack.getTags().contains(Tags.ICONS_ONLY);
-			
-			for (final MPerspective perspective : perspectiveStack.getChildren())
-			{
-				if (perspective.isVisible())
-				{
-					String label = iconsOnly ? null : Commons.trim(perspective.getLabel());
-					String iconURI = Commons.trim(perspective.getIconURI());
-
-					final TwoStateToolbarButton button = new TwoStateToolbarButton();
-
-					// ----
-					setupStyleTextIcon(label, iconURI, button);
-					// ----
-
-					if (perspective.getTooltip() != null)
-					{
-						button.setDescription(perspective.getLocalizedTooltip());
-					}
-
-					button.addListener(new ClickListener() {
-
-						public void buttonClick(ClickEvent event)
-						{
-							MPerspectiveStack perspectiveStack = (MPerspectiveStack) (MElementContainer<?>) perspective
-									.getParent();
-							// perspectiveStack.setSelectedElement(perspective);
-							switchPerspective(perspective);
-						}
-					});
-
-					//TODO: replace VerticalLayout on more thin layout (for example SimpleLayout addon which consist of just one div)
-					VerticalLayout wrapperLayout = new VerticalLayout();
-					wrapperLayout.setSizeUndefined();
-					wrapperLayout.addComponent(button);
-					wrapperLayout.addListener(new LayoutEvents.LayoutClickListener() {
-
-						@Override
-						public void layoutClick(LayoutClickEvent event)
-						{
-							if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
-							{
-								lastClickedPerspective = perspective;
-								menu.show(event.getClientX(), event.getClientY());
-							}
-						}
-					});
-					
-					perspectiveSwitcher.addComponent(wrapperLayout);
-
-					perspective_button.put(perspective, button);
-				}
-			}	
-		}
-		
 		MPerspective selectedPerspective = perspectiveStack.getSelectedElement();
 
 		if (selectedPerspective == null)
@@ -418,7 +416,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	private void refreshPerspectiveStackVisibility(MPerspectiveStack stack)
 	{
-		perspectiveSwitcher.setVisible(perspectiveSwitcher.getComponentCount() > 1);
+		perspectiveSwitcherPanel.setVisible(perspectiveSwitcherPanel.getComponentCount() > 1);
 	}
 
 	@Override
