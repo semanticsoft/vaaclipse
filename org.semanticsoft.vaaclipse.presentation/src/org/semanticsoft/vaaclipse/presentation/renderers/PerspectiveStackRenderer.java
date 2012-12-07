@@ -35,6 +35,7 @@ import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.engine.GenericPresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
@@ -92,6 +93,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	
 	@Inject
 	Application vaadinApp;
+	
+	@Inject
+	GenericPresentationEngine engine;
 	
 	private final EventHandler tagListener = new EventHandler() {
 		@Override
@@ -230,6 +234,12 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	{
 		eventBroker.unsubscribe(selectPerspectiveHandler);
 		eventBroker.unsubscribe(tagListener);
+	}
+	
+	@Override
+	public boolean isLazy()
+	{
+		return true;
 	}
 
 	@Override
@@ -396,6 +406,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	private void switchPerspective(MPerspective perspective)
 	{
+		if (perspective.getWidget() == null)
+			engine.createGui(perspective);
 		partService.switchPerspective(perspective);
 		if (perspective.getElementId() != null)
 		{

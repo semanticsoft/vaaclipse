@@ -37,6 +37,12 @@ public class VaadinRenderer implements GenericRenderer {
 	
 	protected IEclipseContext context;
 	protected EModelService modelService;
+	
+	@Override
+	public boolean isLazy()
+	{
+		return false;
+	}
 
 	@PostConstruct
 	public void postConstruct(IEclipseContext context) {

@@ -12,13 +12,14 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
  * until the generic renderer will be the part of eclipse project.
  * @author Kai Toedter
  */
-public interface GenericRenderer 
+public interface GenericRenderer
 {
 	void createWidget(MUIElement element, MElementContainer<MUIElement> parent);
 	void disposeWidget(MUIElement element);
 	void processContents(MElementContainer<MUIElement> element);
 	void addChildGui(MUIElement child, MElementContainer<MUIElement> element);
 	void removeChildGui(MUIElement element, MElementContainer<MUIElement> parent);
+	boolean isLazy();
 	
 	void hookControllerLogic(MUIElement element);
 	IEclipseContext getContext(MUIElement part);

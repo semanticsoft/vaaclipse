@@ -97,8 +97,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 			String eventType = (String) event.getProperty(UIEvents.EventTags.TYPE);
 			if (UIEvents.EventTypes.ADD.equals(eventType)) {
 				MUIElement added = (MUIElement) event.getProperty(UIEvents.EventTags.NEW_VALUE);
-				
-				if (added.getWidget() == null)
+				GenericRenderer renderer = rendererFactory.getRenderer(added);
+				if (added.getWidget() == null && !renderer.isLazy())
 					createGui(added);
 				if (added.getWidget() != null && changedElement.getWidget() != null && added.isToBeRendered())
 					parentRenderer.addChildGui(added, changedElement);
@@ -142,9 +142,11 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 			if (changedElement.isToBeRendered()) 
 			{
-				if (changedElement.getWidget() == null)
+				GenericRenderer renderer = rendererFactory.getRenderer(changedElement);
+				if (changedElement.getWidget() == null && !renderer.isLazy())
 					createGui(changedElement);
-				parentRenderer.addChildGui(changedElement, (MElementContainer<MUIElement>) parent);				
+				if (changedElement.getWidget() != null)
+					parentRenderer.addChildGui(changedElement, (MElementContainer<MUIElement>) parent);				
 			} 
 			else {
 				// Ensure that the element about to be removed is not the
@@ -300,7 +302,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 			@SuppressWarnings("unchecked")
 			MElementContainer<MUIElement> container = (MElementContainer<MUIElement>) element;
 			for (MUIElement child : container.getChildren()) {
-				createGui(child);
+				if (!renderer.isLazy())
+					createGui(child);
 			}
 
 			// then let the renderer process them
@@ -516,6 +519,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 	@Override
 	public Object run(MApplicationElement uiRoot, IEclipseContext appContext) {
 		System.out.println("GenericPresentationEngine.run(): " + uiRoot + ":" + appContext);
+		appContext.set(GenericPresentationEngine.class, this);
 		if (uiRoot instanceof MApplication) {
 			theApp = (MApplication) uiRoot;
 			for (MWindow window : theApp.getChildren()) {
