@@ -14,7 +14,6 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
  */
 public interface GenericRenderer 
 {
-	Object getParentWidget(MUIElement element);
 	void createWidget(MUIElement element, MElementContainer<MUIElement> parent);
 	void disposeWidget(MUIElement element);
 	void processContents(MElementContainer<MUIElement> element);

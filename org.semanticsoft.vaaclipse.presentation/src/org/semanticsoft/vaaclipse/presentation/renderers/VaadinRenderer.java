@@ -44,13 +44,6 @@ public class VaadinRenderer implements GenericRenderer {
 		this.modelService = (EModelService) context.get(EModelService.class.getName());
 	}
 
-	public Object getParentWidget(MUIElement element) {
-		if (element.getParent() != null) {
-			return element.getParent().getWidget();
-		}
-		return null;
-	}
-
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
 		
 	}
