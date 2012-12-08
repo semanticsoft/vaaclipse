@@ -28,6 +28,7 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
@@ -41,10 +42,13 @@ import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
+import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.vaadin.peter.contextmenu.ContextMenu;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 
 import com.vaadin.Application;
+import com.vaadin.data.Item;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.event.LayoutEvents;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.terminal.Resource;
@@ -55,7 +59,11 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author rushan
@@ -70,6 +78,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	private Map<MPerspective, TwoStateToolbarButton> perspective_button = new HashMap<>();
 	
 	private MPerspective lastClickedPerspective;
+	private MPerspective activePerspective;
 
 	public HorizontalLayout getPerspectiveSwitcher()
 	{
@@ -95,6 +104,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	
 	@Inject
 	GenericPresentationEngine engine;
+	
+	static final String PERSPECTIVE_LABEL = "PerspectiveLabel";
+	static final String PERSPECTIVE_ICON = "PerspectiveIcon";
 	
 	private final EventHandler tagListener = new EventHandler() {
 		@Override
@@ -175,18 +187,38 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				perspective_button.get(oldSel).setState(false);
 				perspective_button.get(oldSel).setSwitchStateByUserClickEnabled(true);
 			}
+			
+			((VerticalLayout) stack.getWidget()).removeAllComponents();
 
 			if (stack.getSelectedElement() != null)
 			{
 				// psr.showTab(stack.getSelectedElement());
-				((VerticalLayout) stack.getWidget()).removeAllComponents();
 				connectReferencedElementsToPerspectiveWidgets(stack.getSelectedElement());
 				((VerticalLayout) stack.getWidget()).addComponent((Component) stack.getSelectedElement().getWidget());
 				perspective_button.get(stack.getSelectedElement()).setState(true);
 				perspective_button.get(stack.getSelectedElement()).setSwitchStateByUserClickEnabled(false);
 			}
+			else if (oldSel instanceof MElementContainer<?>)
+				disconnectReferencedElementsFromPerspectiveWidgets((MElementContainer<? extends MUIElement>) oldSel);
 		}
 	};
+	
+	private void disconnectReferencedElementsFromPerspectiveWidgets(MElementContainer<? extends MUIElement> container)
+	{
+		for (MUIElement e : container.getChildren())
+		{
+			if (e instanceof MPlaceholder)
+			{
+				MPlaceholder ph = (MPlaceholder) e;
+				if (ph.isToBeRendered())
+				{
+					ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
+					Component refComponent = (Component) ph.getRef().getWidget();
+					phComponent.removeComponent(refComponent);
+				}
+			}
+		}
+	}
 
 	private void connectReferencedElementsToPerspectiveWidgets(MElementContainer<? extends MUIElement> container)
 	{
@@ -284,11 +316,29 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				if (clickedItem == closeItem)
 				{
 					//vaadinApp.getMainWindow().showNotification("Close request for: " + lastClickedPerspective.getLabel());
+					if (lastClickedPerspective == activePerspective)
+					{
+						MPerspective nextRenderableAndVisiblePerspective = null;
+						boolean startSearch = false;
+						for (MPerspective p : perspectiveStackForSwitcher.getChildren())
+						{
+							if (startSearch && p.isToBeRendered() && p.isVisible())
+							{
+								nextRenderableAndVisiblePerspective = p;
+								break;
+							}
+							
+							if (p == lastClickedPerspective)
+								startSearch = true;
+						}
+						
+						if (nextRenderableAndVisiblePerspective != null)
+							switchPerspective(nextRenderableAndVisiblePerspective);	
+					}
 					
-					
+					lastClickedPerspective.setToBeRendered(false);
 				}
-				
-				if (clickedItem == showTextItem)
+				else if (clickedItem == showTextItem)
 				{
 					//vaadinApp.getMainWindow().showNotification("Show text request for: " + lastClickedPerspective.getLabel());
 					if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
@@ -299,54 +349,86 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			}
 		 });
 		 
+		 Button openPerspectiveButton = new Button("Open");
+			openPerspectiveButton.addStyleName("vaaclipsebutton");
+			openPerspectiveButton.addStyleName("icononly");
+			openPerspectiveButton.setIcon(new ThemeResource("../vaaclipse_default_theme/img/open_perspective.png"));
+			perspectiveSwitcherPanel.addComponent(openPerspectiveButton);
+			
+			openPerspectiveButton.addListener(new Button.ClickListener() {
+				
+				@Override
+				public void buttonClick(ClickEvent event)
+				{
+					openOpenPerspectiveWindow();
+					
+					//change focus
+					Component parent = event.getButton().getParent();
+	                while (parent != null) {
+	                        if(parent instanceof Component.Focusable) {
+	                                ((Component.Focusable) parent).focus();
+	                                break;
+	                        } else {
+	                                parent = parent.getParent();
+	                        }
+	                }
+				}
+			});
+			
 		 //add buttons to perspective switch panel	
 		 for (final MPerspective perspective : perspectiveStackForSwitcher.getChildren())
 		 {
-			 if (perspective.isVisible())
-			 {
-				 String label = iconsOnly ? null : Commons.trim(perspective.getLabel());
-				 String iconURI = Commons.trim(perspective.getIconURI());
-				 
-				 final TwoStateToolbarButton button = new TwoStateToolbarButton();
-		
-				 setupStyleTextIcon(label, iconURI, button);
-		
-				 if (perspective.getTooltip() != null)
-				 {
-					 button.setDescription(perspective.getLocalizedTooltip());
-				 }
-		
-				 button.addListener(new ClickListener() {
-		
-					 public void buttonClick(ClickEvent event)
-					 {
-						 MPerspectiveStack perspectiveStack = (MPerspectiveStack) (MElementContainer<?>) perspective.getParent();
-						 switchPerspective(perspective);
-					 }
-				 });
-		
-				 //TODO: replace VerticalLayout on more thin layout (for example SimpleLayout addon which consist of just one div)
-				 VerticalLayout wrapperLayout = new VerticalLayout();
-				 wrapperLayout.setSizeUndefined();
-				 wrapperLayout.addComponent(button);
-				 wrapperLayout.addListener(new LayoutEvents.LayoutClickListener() {
-		
-					 @Override
-					 public void layoutClick(LayoutClickEvent event)
-					 {
-						 if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
-						 {
-							 lastClickedPerspective = perspective;
-							 menu.show(event.getClientX(), event.getClientY());
-						 }
-					 }
-				 });
-				
-				 perspectiveSwitcherPanel.addComponent(wrapperLayout);
-		
-				 perspective_button.put(perspective, button);
-			 }
+			 Component button = createPerspectiveButton(perspective);
+			 if (button != null)
+				 perspectiveSwitcherPanel.addComponent(button);
 		 }
+	}
+
+	private Component createPerspectiveButton(final MPerspective perspective)
+	{
+		if (!perspective.isVisible())
+			return null;
+		boolean iconsOnly = perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY);
+		String label = iconsOnly ? null : Commons.trim(perspective.getLabel());
+		 String iconURI = Commons.trim(perspective.getIconURI());
+		 
+		 final TwoStateToolbarButton button = new TwoStateToolbarButton();
+
+		 setupStyleTextIcon(label, iconURI, button);
+
+		 if (perspective.getTooltip() != null)
+		 {
+			 button.setDescription(perspective.getLocalizedTooltip());
+		 }
+
+		 button.addListener(new ClickListener() {
+
+			 public void buttonClick(ClickEvent event)
+			 {
+				 MPerspectiveStack perspectiveStack = (MPerspectiveStack) (MElementContainer<?>) perspective.getParent();
+				 switchPerspective(perspective);
+			 }
+		 });
+		 
+		 //TODO: replace VerticalLayout on more thin layout (for example SimpleLayout addon which consist of just one div)
+		 VerticalLayout wrapperLayout = new VerticalLayout();
+		 wrapperLayout.setSizeUndefined();
+		 wrapperLayout.addComponent(button);
+		 wrapperLayout.addListener(new LayoutEvents.LayoutClickListener() {
+
+			 @Override
+			 public void layoutClick(LayoutClickEvent event)
+			 {
+				 if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
+				 {
+					 lastClickedPerspective = perspective;
+					 menu.show(event.getClientX(), event.getClientY());
+				 }
+			 }
+		 });
+		
+		 perspective_button.put(perspective, button);
+		 return wrapperLayout;
 	}
 
 	@Override
@@ -360,9 +442,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 		if (selectedPerspective == null)
 		{
-			selectedPerspective = perspectiveStack.getChildren().get(0);
-			// perspectiveStack.setSelectedElement(selectedPerspective);
-			switchPerspective(selectedPerspective);
+			selectedPerspective = (MPerspective) findFirstRenderableAndVisibleElement(perspectiveStack);
+			if (selectedPerspective != null)
+				switchPerspective(selectedPerspective);
 		}
 		else
 		{
@@ -404,9 +486,10 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	private void switchPerspective(MPerspective perspective)
 	{
-		if (perspective.getWidget() == null)
+		if (perspective.isToBeRendered() && perspective.getWidget() == null)
 			engine.createGui(perspective);
 		partService.switchPerspective(perspective);
+		this.activePerspective = perspective;
 		if (perspective.getElementId() != null)
 		{
 			String perspectiveId = perspective.getElementId().trim();
@@ -416,13 +499,107 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	private void refreshPerspectiveStackVisibility(MPerspectiveStack stack)
 	{
-		perspectiveSwitcherPanel.setVisible(perspectiveSwitcherPanel.getComponentCount() > 1);
+		perspectiveSwitcherPanel.setVisible(filterRenderableAndVisibleElements(stack).size() > 0);
 	}
 
 	@Override
 	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
 	{
 		MPerspectiveStack stack = (MPerspectiveStack) (MElementContainer<?>) element;
+		MPerspective p = (MPerspective) child;
+		
+		Component button = createPerspectiveButton(p);
+		//shift on 2 - the first child is context menu, the second child - open perspective button
+		int index = indexOf(child, element) + 2;
+		perspectiveSwitcherPanel.addComponent(button, index);
+		
 		refreshPerspectiveStackVisibility(stack);
+	}
+	
+	@Override
+	public void removeChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		MPerspectiveStack stack = (MPerspectiveStack) (MElementContainer<?>) element;
+		MPerspective p = (MPerspective) child;
+		
+		Button button = perspective_button.get(p);
+		Component wrapperLayout = button.getParent();
+		perspectiveSwitcherPanel.removeComponent(wrapperLayout);
+		
+		refreshPerspectiveStackVisibility(stack);
+	}
+	
+	private void openOpenPerspectiveWindow()
+	{
+		OptionDialog dlg = new OptionDialog();
+		dlg.setModal(true);
+		dlg.setWidth("300");
+		dlg.setHeight("600");
+		dlg.addOption(0, "OK");
+		dlg.addOption(1, "CANCEL");
+		
+		MWindow mWindow = modelService.getTopLevelWindowFor(perspectiveStackForSwitcher);
+		Window parentWindow = (Window) mWindow.getWidget();
+		parentWindow.addWindow(dlg);
+		
+		dlg.setComponentProvider(new OptionDialog.ComponentProvider() {
+			
+			Panel panel;
+			Table list;
+			IndexedContainer container = new IndexedContainer();			
+			
+			@Override
+			public Component getComponent()
+			{
+				if (panel == null)
+				{
+					container.addContainerProperty(PERSPECTIVE_ICON, Resource.class, null);
+					container.addContainerProperty(PERSPECTIVE_LABEL, String.class, null);
+					
+					for (MPerspective p : perspectiveStackForSwitcher.getChildren())
+					{
+						Item item = container.addItem(p.getElementId());
+						item.getItemProperty(PERSPECTIVE_ICON).setValue(new ThemeResource(Utils.convertPath(p.getIconURI())));
+						item.getItemProperty(PERSPECTIVE_LABEL).setValue(p.getLabel());
+					}
+					
+					panel = new Panel();
+					panel.getContent().setSizeFull();
+					list = new Table();
+					list.setSizeFull();
+					list.setSelectable(true);
+					list.setMultiSelect(false);
+					list.setContainerDataSource(container);
+					list.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
+					list.setVisibleColumns(new Object[] { PERSPECTIVE_LABEL });
+					list.setRowHeaderMode(Table.ROW_HEADER_MODE_ICON_ONLY);
+					list.setItemIconPropertyId(PERSPECTIVE_ICON);
+					list.setColumnExpandRatio(PERSPECTIVE_LABEL, 1);
+					panel.addComponent(list);
+				}
+				return panel;
+			}
+			
+			@Override
+			public void optionSelected(OptionDialog dlg, int optionId)
+			{
+				if (optionId == 0)
+				{
+					//selected perspective's elementId
+					String perspectiveId = (String) list.getValue();
+					if (perspectiveId != null)
+					{
+						MPerspective perspective = (MPerspective) modelService.find(perspectiveId, perspectiveStackForSwitcher);
+						if (!perspective.isToBeRendered())
+							perspective.setToBeRendered(true);
+						switchPerspective(perspective);
+					}
+				}
+				dlg.close();
+			}
+			
+			@Override
+			public void setMessage(String message) {}
+		});
 	}
 }

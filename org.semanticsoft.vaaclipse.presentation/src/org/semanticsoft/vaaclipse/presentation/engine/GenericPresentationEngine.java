@@ -100,7 +100,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 				GenericRenderer renderer = rendererFactory.getRenderer(added);
 				if (added.getWidget() == null && !renderer.isLazy())
 					createGui(added);
-				if (added.getWidget() != null && changedElement.getWidget() != null && added.isToBeRendered())
+				if (changedElement.getWidget() != null && added.isToBeRendered())
 					parentRenderer.addChildGui(added, changedElement);
 			}
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
@@ -145,8 +145,8 @@ public class GenericPresentationEngine implements PresentationEngine {
 				GenericRenderer renderer = rendererFactory.getRenderer(changedElement);
 				if (changedElement.getWidget() == null && !renderer.isLazy())
 					createGui(changedElement);
-				if (changedElement.getWidget() != null)
-					parentRenderer.addChildGui(changedElement, (MElementContainer<MUIElement>) parent);				
+				
+				parentRenderer.addChildGui(changedElement, (MElementContainer<MUIElement>) parent);				
 			} 
 			else {
 				// Ensure that the element about to be removed is not the

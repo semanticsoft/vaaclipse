@@ -85,6 +85,18 @@ public class VaadinRenderer implements GenericRenderer {
 		return renderableAndVisible;
 	}
 	
+	protected MUIElement findFirstRenderableAndVisibleElement(MElementContainer<?> container)
+	{
+		for (MUIElement p : container.getChildren())
+		{
+			if (p.isToBeRendered() && p.isVisible())
+			{
+				return p;
+			}
+		}
+		return null;
+	}
+	
 	protected int indexOf(MUIElement element, MElementContainer<MUIElement> parent)
 	{
 		return indexOf(element, parent, null);

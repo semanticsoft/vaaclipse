@@ -212,7 +212,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 								new OptionDialog.OptionListener() {
 
 									@Override
-									public void optionSelected(int optionId)
+									public void optionSelected(OptionDialog dlg, int optionId)
 									{
 										switch (optionId)
 										{
@@ -235,6 +235,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 											partService.hidePart(saveCandidate);
 										}
 										saveCandidate = null;
+										dlg.close();
 									}
 								}, 400, 80, Component.UNITS_PIXELS);
 
