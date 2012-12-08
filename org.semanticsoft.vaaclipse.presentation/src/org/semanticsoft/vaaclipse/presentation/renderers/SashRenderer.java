@@ -329,7 +329,7 @@ public class SashRenderer extends VaadinRenderer {
 							//(because bounds of some content of workbench window changed after sash widget split position changed)
 							MWindow window = modelService.getTopLevelWindowFor(sash);
 							WorkbenchWindow wWindow = (WorkbenchWindow) window.getWidget();
-							wWindow.updateWindowContentBounds();
+							wWindow.invalidateBounds();
 						}
 					});
 				}

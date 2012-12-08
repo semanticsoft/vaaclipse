@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipse.api;
 
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.semanticsoft.commons.geom.Bounds;
 
 /**
@@ -19,6 +21,8 @@ import org.semanticsoft.commons.geom.Bounds;
  */
 public interface WidgetInfo
 {
-	Bounds getBounds(Object widget);
+	Bounds getBounds(MWindow window);
+	Bounds getBounds(MWindow window, MUIElement element);
+	void invalidateBounds(MWindow window);
 	Object getParent(Object widget);
 }

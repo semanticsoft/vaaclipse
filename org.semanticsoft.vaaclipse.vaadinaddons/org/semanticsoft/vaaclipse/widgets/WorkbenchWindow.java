@@ -49,6 +49,8 @@ public class WorkbenchWindow extends Window
 	
 	private TopbarComponent topbar = new TopbarComponent();
 	
+	private boolean boundsValide = false;
+	
 	public WorkbenchWindow()
 	{
 //		leftBarContainer.setVisible(false);
@@ -87,7 +89,7 @@ public class WorkbenchWindow extends Window
 		windowCenterArea.addBoundsUpdateListener(new BoundsUpdateListener() {
 			
 			public void processEvent(BoundsinfoVerticalLayout layout) {
-				updateWindowContentBounds();
+				invalidateBounds();
 			}
 		});
 
@@ -220,6 +222,16 @@ public class WorkbenchWindow extends Window
 	
 	//-----------------------------------
 	//-----------------------------------
+	public boolean isBoundsValid()
+	{
+		return this.boundsValide;
+	}
+	
+	public void invalidateBounds()
+	{
+		this.boundsValide = false;
+	}
+	
 	public void updateWindowContentBounds()
 	{
 		//updateBounds(window, new Bounds(window.getPositionX(), window.getPositionY(), (int)window.getWidth(), (int)window.getHeight()));

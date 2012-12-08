@@ -613,9 +613,10 @@ public class MinMaxAddon {
 		SideValue side = SideValue.LEFT;
 //		SideValue side = getCachedBar(element);
 //		if (side == null) {
-			Bounds winBounds = widgetInfo.getBounds(window.getWidget());
+			Bounds winBounds = widgetInfo.getBounds(window);
 			int winCenterX = winBounds.w / 2;
-			Bounds stackBounds = widgetInfo.getBounds(element.getWidget());
+			widgetInfo.invalidateBounds(window);
+			Bounds stackBounds = widgetInfo.getBounds(window, element);
 			int stackCenterX = stackBounds.x + (stackBounds.w / 2);
 			side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;
 //		}
