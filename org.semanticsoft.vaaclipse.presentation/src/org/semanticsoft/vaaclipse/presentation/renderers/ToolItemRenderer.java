@@ -63,11 +63,6 @@ public class ToolItemRenderer extends ItemRenderer
 	@Inject
 	EventBroker eventBroker;
 	
-	@Inject
-	VaadinExecutorService executorService;
-	
-	Map<MItem, Runnable> enabledUpdaters = new HashMap<>();
-	
 	private static final String HCI_STATIC_CONTEXT = "HCI-staticContext";
 	
 	private EventHandler itemUpdater = new EventHandler() {
@@ -236,29 +231,7 @@ public class ToolItemRenderer extends ItemRenderer
 			
 			element.setWidget(button);
 			
-			if (!enabledUpdaters.containsKey(item))
-			{
-				Runnable runnable = new Runnable() {
-					
-					@Override
-					public void run()
-					{
-						updateItemEnablement(item);
-					}
-				};
-				this.enabledUpdaters.put(item, runnable);
-				executorService.invokeLaterAlways(runnable);
-			}
-		}
-	}
-	
-	@Override
-	public void disposeWidget(MUIElement element)
-	{
-		Runnable runnable = enabledUpdaters.remove(element);
-		if (runnable != null)
-		{
-			executorService.removeAlwaysRunnable(runnable);	
+			registerEnablementUpdaters(item);
 		}
 	}
 	
@@ -272,25 +245,8 @@ public class ToolItemRenderer extends ItemRenderer
 		
 		if (item instanceof MHandledItem)
 			item.setEnabled(canExecuteItem((MHandledItem) item));
-		else if (item instanceof MHandledItem)
+		else if (item instanceof MDirectToolItem)
 			item.setEnabled(canExecuteItem((MDirectToolItem) item));
-	}
-	
-	private boolean canExecuteItem(MHandledItem item) {
-		final IEclipseContext eclipseContext = getContext(item);
-		EHandlerService service = (EHandlerService) eclipseContext.get(EHandlerService.class.getName());
-		if (service == null)
-			return false;
-		ParameterizedCommand command = item.getWbCommand();
-		if (command == null) {
-			command = generateParameterizedCommand(item, eclipseContext);
-		}
-		if (command == null) {
-			return false;
-		}
-		eclipseContext.set(MItem.class, item);
-		setupContext(eclipseContext, item);
-		return service.canExecute(command, eclipseContext);
 	}
 	
 	private boolean canExecuteItem(MDirectToolItem item) {

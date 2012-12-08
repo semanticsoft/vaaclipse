@@ -49,4 +49,21 @@ public class MenuBarRenderer extends VaadinRenderer
 			element.setWidget(item);
 		}
 	}
+	
+	@Override
+	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)
+	{
+		//Do nothing - child will be attaced in createGui
+	}
+	
+	@Override
+	public void removeChildGui(MUIElement element, MElementContainer<MUIElement> parent)
+	{
+		if (parent.getWidget() instanceof MenuBar && element.getWidget() instanceof MenuItem)
+		{
+			MenuBar bar = (MenuBar) parent.getWidget();
+			MenuItem childItem = (MenuItem) element.getWidget();
+			bar.removeItem(childItem);
+		}
+	}
 }

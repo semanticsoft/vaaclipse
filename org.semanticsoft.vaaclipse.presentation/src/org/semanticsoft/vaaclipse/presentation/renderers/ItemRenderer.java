@@ -26,6 +26,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.commands.MParameter;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
@@ -33,6 +34,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -43,6 +45,57 @@ public abstract class ItemRenderer extends VaadinRenderer {
 	
 	@Inject
 	EModelService modelService;
+	
+	@Inject
+	protected VaadinExecutorService executorService;
+	
+	protected Map<MItem, Runnable> enabledUpdaters = new HashMap<>();
+	
+	protected void registerEnablementUpdaters(final MItem item)
+	{
+		if (!enabledUpdaters.containsKey(item))
+		{
+			Runnable runnable = new Runnable() {
+				
+				@Override
+				public void run()
+				{
+					updateItemEnablement(item);
+				}
+			};
+			this.enabledUpdaters.put(item, runnable);
+			executorService.invokeLaterAlways(runnable);
+		}
+	}
+	
+	protected abstract void updateItemEnablement(MItem item);
+	
+	protected boolean canExecuteItem(MHandledItem item) {
+		final IEclipseContext eclipseContext = getContext(item);
+		EHandlerService service = (EHandlerService) eclipseContext.get(EHandlerService.class.getName());
+		if (service == null)
+			return false;
+		ParameterizedCommand command = item.getWbCommand();
+		if (command == null) {
+			command = generateParameterizedCommand(item, eclipseContext);
+		}
+		if (command == null) {
+			return false;
+		}
+		eclipseContext.set(MItem.class, item);
+		setupContext(eclipseContext, item);
+		return service.canExecute(command, eclipseContext);
+	}
+	
+	@Override
+	public void disposeWidget(MUIElement element)
+	{
+		Runnable runnable = enabledUpdaters.remove(element);
+		if (runnable != null)
+		{
+			executorService.removeAlwaysRunnable(runnable);	
+		}
+	}
 	
 	protected String prepareText(MMenuItem model)
 	{

@@ -11,17 +11,26 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueMenuItem;
+import org.eclipse.e4.ui.workbench.UIEvents;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.util.Utils;
 
 import com.vaadin.terminal.Resource;
@@ -34,6 +43,66 @@ public class MenuItemRenderer extends ItemRenderer {
 
 	@Inject
 	IContributionFactory contributionFactory;
+	
+	@Inject
+	IEventBroker eventBroker;
+	
+	private EventHandler itemUpdater = new EventHandler() {
+		public void handleEvent(Event event) {
+			// Ensure that this event is for a MMenuItem
+			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MMenuItem))
+				return;
+
+			MMenuItem itemModel = (MMenuItem) event
+					.getProperty(UIEvents.EventTags.ELEMENT);
+
+			MenuItem ici = (MenuItem) itemModel.getWidget();
+			if (ici == null) {
+				return;
+			}
+
+			String attName = (String) event.getProperty(UIEvents.EventTags.ATTNAME);
+			String newValue = (String) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+			if (UIEvents.UILabel.LABEL.equals(attName)) {
+				ici.setText(newValue);
+			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
+				Resource icon = new ThemeResource(Utils.convertPath(newValue));
+				ici.setIcon(icon);
+			} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
+				ici.setDescription(newValue);
+			}
+		}
+	};
+	
+	private EventHandler enabledUpdater = new EventHandler() {
+		public void handleEvent(Event event) {
+			// Ensure that this event is for a MMenuItem
+			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MMenuItem))
+				return;
+
+			MMenuItem itemModel = (MMenuItem) event
+					.getProperty(UIEvents.EventTags.ELEMENT);
+			MenuItem ici = (MenuItem) itemModel.getWidget();
+			if (ici != null) {
+				Boolean newValue = (Boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+				ici.setEnabled(newValue);
+			}
+		}
+	};
+	
+	@PostConstruct
+	public void postConstruct()
+	{
+		eventBroker.subscribe(UIEvents.UILabel.TOPIC_ALL, itemUpdater);
+		eventBroker.subscribe(UIEvents.Item.TOPIC_ENABLED, enabledUpdater);
+	}
+	
+	@PreDestroy
+	public void preDestroy()
+	{
+		eventBroker.unsubscribe(itemUpdater);
+		eventBroker.unsubscribe(enabledUpdater);
+	}
 
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
@@ -65,7 +134,30 @@ public class MenuItemRenderer extends ItemRenderer {
 			//-----------------
 
 			element.setWidget(item);
+			
+			registerEnablementUpdaters(model);
 		}
+	}
+	
+	protected void updateItemEnablement(MItem item) {
+		if (!(item.getWidget() instanceof MenuItem))
+			return;
+
+		MenuItem widget = (MenuItem) item.getWidget();
+		if (widget == null)
+			return;
+		
+		if (item instanceof MHandledItem)
+			item.setEnabled(canExecuteItem((MHandledItem) item));
+		else if (item instanceof MDirectMenuItem)
+			item.setEnabled(canExecuteItem((MDirectMenuItem) item));
+	}
+	
+	private boolean canExecuteItem(MDirectMenuItem item) {
+		final IEclipseContext eclipseContext = getContext(item);
+		eclipseContext.set(MItem.class, item);
+		setupContext(eclipseContext, item);
+		return (boolean) ContextInjectionFactory.invoke(item, CanExecute.class, eclipseContext, true);
 	}
 
 	@Override
