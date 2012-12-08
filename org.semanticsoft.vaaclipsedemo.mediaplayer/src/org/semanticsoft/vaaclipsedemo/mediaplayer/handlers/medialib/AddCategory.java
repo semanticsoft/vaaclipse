@@ -15,6 +15,7 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
+import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
@@ -48,13 +49,14 @@ public class AddCategory extends AddMediaEntryBasic
 	}
 	
 	@Override
-	public void optionSelected(int optionId)
+	public void optionSelected(OptionDialog dlg, int optionId)
 	{
 		if (optionId == 0)
 		{
 			String newCategoryName = componentProvider.getTextField().getValue().toString();
 			addMediaCategoryToLibrary(window, parentCategory, newCategoryName);
 		}
+		dlg.close();
 	}
 	
 	private void addMediaCategoryToLibrary(MWindow window, MediaCategory category, String newCategoryName)

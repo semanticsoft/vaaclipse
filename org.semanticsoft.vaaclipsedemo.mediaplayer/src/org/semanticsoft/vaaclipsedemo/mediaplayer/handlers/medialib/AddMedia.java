@@ -65,13 +65,14 @@ public class AddMedia extends AddMediaEntryBasic
 	}
 	
 	@Override
-	public void optionSelected(int optionId)
+	public void optionSelected(OptionDialog dlg, int optionId)
 	{
 		if (optionId == 0)
 		{
 			String uri = componentProvider.getTextField().getValue().toString();
 			addMediaToLibrary(window, parentCategory, uri);
 		}
+		dlg.close();
 	}
 	
 	private void addMediaToLibrary(MWindow window, MediaCategory category, String uri)

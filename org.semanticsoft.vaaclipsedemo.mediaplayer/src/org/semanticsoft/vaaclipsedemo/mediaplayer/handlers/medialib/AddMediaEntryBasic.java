@@ -64,6 +64,12 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 			}
 			return this.layout;
 		}
+
+		@Override
+		public void optionSelected(OptionDialog dlg, int optionId)
+		{
+			
+		}
 	}
 	
 	protected void init(MediaLibrary mediaLibrary, final MWindow window)
