@@ -24,10 +24,12 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.SideValue;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -59,6 +61,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -375,6 +378,13 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				}
 			});
 			
+			//add separator between openPerspectiveButton and perspective's buttons
+			Label separator = new Label();
+			separator.setSizeUndefined();
+			separator.addStyleName("horizontalseparator");
+			separator.setHeight("100%");
+			perspectiveSwitcherPanel.addComponent(separator);
+			
 		 //add buttons to perspective switch panel	
 		 for (final MPerspective perspective : perspectiveStackForSwitcher.getChildren())
 		 {
@@ -509,8 +519,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		MPerspective p = (MPerspective) child;
 		
 		Component button = createPerspectiveButton(p);
-		//shift on 2 - the first child is context menu, the second child - open perspective button
-		int index = indexOf(child, element) + 2;
+		//shift on 3 - the first child is context menu, the second child - open perspective button, the third child - is separator
+		int index = indexOf(child, element) + 3;
 		perspectiveSwitcherPanel.addComponent(button, index);
 		
 		refreshPerspectiveStackVisibility(stack);
