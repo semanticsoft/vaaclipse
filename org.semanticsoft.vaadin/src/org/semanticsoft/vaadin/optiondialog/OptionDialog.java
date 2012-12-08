@@ -17,10 +17,10 @@ public class OptionDialog extends Window
 {
 	public static interface OptionListener
 	{
-		void optionSelected(int optionId);
+		void optionSelected(OptionDialog optionDialog, int optionId);
 	}
 	
-	public static interface ComponentProvider
+	public static interface ComponentProvider extends OptionListener
 	{
 		Component getComponent();
 		void setMessage(String message);
@@ -44,6 +44,12 @@ public class OptionDialog extends Window
 		{
 			return label;
 		}
+
+		@Override
+		public void optionSelected(OptionDialog optionDialog, int optionId)
+		{
+			
+		}
 	};
 	
 	private VerticalLayout content;
@@ -57,10 +63,12 @@ public class OptionDialog extends Window
 		content = new VerticalLayout();
 		content.setSizeFull();
 		this.setContent(content);
-		content.addComponent(componentProvider.getComponent());
+		Component component = componentProvider.getComponent();
+		content.addComponent(component);
 		content.addComponent(buttons);
-		content.setComponentAlignment(componentProvider.getComponent(), Alignment.TOP_CENTER);
+		content.setComponentAlignment(component, Alignment.TOP_CENTER);
 		content.setComponentAlignment(buttons, Alignment.BOTTOM_CENTER);
+		content.setExpandRatio(component, 1);
 
 		this.center();
 		this.setWidth("500px");
@@ -97,8 +105,23 @@ public class OptionDialog extends Window
 		{
 			Component oldComponent = this.componentProvider.getComponent();
 			this.content.removeComponent(oldComponent);
+			newComponent.setSizeFull();
 			this.content.addComponent(newComponent, 0);
+			this.content.setExpandRatio(newComponent, 1);
+			this.content.setComponentAlignment(newComponent, Alignment.TOP_CENTER);
+			this.componentProvider = componentProvider;
 		}
+	}
+	
+	public void open(Window parentWindow)
+	{
+		parentWindow.addWindow(parentWindow);
+	}
+	
+	public void close()
+	{
+		if (getParent() != null)
+			getParent().removeWindow(OptionDialog.this);
 	}
 
 	public boolean isModal()
@@ -132,13 +155,12 @@ public class OptionDialog extends Window
 			@Override
 			public void buttonClick(ClickEvent event)
 			{
+				Integer optionId = button2option.get(event.getButton());
+				
 				if (optionListener != null)
-				{
-					Integer optionId = button2option.get(event.getButton());
-					if (getParent() != null)
-						getParent().removeWindow(OptionDialog.this);
-					optionListener.optionSelected(optionId);
-				}
+					optionListener.optionSelected(OptionDialog.this, optionId);
+				
+				getComponentProvider().optionSelected(OptionDialog.this, optionId);
 			}
 		});
 	}
