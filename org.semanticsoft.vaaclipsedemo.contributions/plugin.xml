@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="org.semanticsoft.vaaclipsedemo.contributions"
+            application="org.semanticsoft.vaaclipse.app.application">
+         <property
+               name="appName"
+               value="org.semanticsoft.vaaclipsedemo.contributions">
+         </property>
+         <property
+               name="applicationXMI"
+               value="org.semanticsoft.vaaclipsedemo.contributions/Application.e4xmi">
+         </property>
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/css/default.css">
+         </property>
+         <property
+               name="applicationHeaderIcon"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/icons/vaaclipse.png">
+         </property>
+         <property
+               name="applicationAuthenticationProvider"
+               value="bundleclass://org.semanticsoft.vaaclipsedemo.contributions/org.semanticsoft.vaaclipsedemo.contributions.login.LoginProvider">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
