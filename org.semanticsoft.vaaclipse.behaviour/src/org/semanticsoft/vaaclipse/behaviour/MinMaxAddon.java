@@ -386,6 +386,7 @@ public class MinMaxAddon {
 			
 			barPerspectiveInfo.remove(toolBar);
 			
+			toolBar.setToBeRendered(false);
 			trimBar.getChildren().remove(toolBar);
 			if (trimBar.getChildren().size() == 0) {
 				trimBar.setVisible(false);
