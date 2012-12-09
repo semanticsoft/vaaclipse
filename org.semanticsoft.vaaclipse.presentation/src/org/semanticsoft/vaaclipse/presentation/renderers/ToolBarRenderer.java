@@ -45,15 +45,7 @@ import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
-public class ToolBarRenderer extends VaadinRenderer {
-
-	private Map<MToolBar, AbstractLayout> modelToManager = new HashMap<MToolBar, AbstractLayout>();
-	private Map<AbstractLayout, MToolBar> managerToModel = new HashMap<AbstractLayout, MToolBar>();
-	private Map<MToolBarElement, Component> modelToContribution = new HashMap<MToolBarElement, Component>();
-	private Map<Component, MToolBarElement> contributionToModel = new HashMap<Component, MToolBarElement>();
-	private Map<MToolBarElement, ToolBarContributionRecord> modelContributionToRecord = new HashMap<MToolBarElement, ToolBarContributionRecord>();
-	private Map<MToolBarElement, ArrayList<ToolBarContributionRecord>> sharedElementToRecord = new HashMap<MToolBarElement, ArrayList<ToolBarContributionRecord>>();
-	
+public class ToolBarRenderer extends VaadinRenderer {	
 	@Inject
 	private MApplication application;
 	@Inject
@@ -61,32 +53,14 @@ public class ToolBarRenderer extends VaadinRenderer {
 	@Inject
 	IEventBroker eventBroker;
 
-//	private EventHandler childAdditionUpdater = new EventHandler() {
-//		public void handleEvent(Event event) {
-//			// Ensure that this event is for a MMenuItem
-//			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MToolBar))
-//				return;
-//			MToolBar toolbarModel = (MToolBar) event
-//					.getProperty(UIEvents.EventTags.ELEMENT);
-//			String eventType = (String) event
-//					.getProperty(UIEvents.EventTags.TYPE);
-//			if (UIEvents.EventTypes.ADD.equals(eventType)) {
-//				Object obj = toolbarModel;
-//				processContents((MElementContainer<MUIElement>) obj);
-//			}
-//		}
-//	};
-
 	@PostConstruct
 	public void init() {
-		//eventBroker.subscribe(ElementContainer.TOPIC_CHILDREN, childAdditionUpdater);
-		
 		context.set(ToolBarRenderer.class, this);
 	}
 
 	@PreDestroy
 	public void contextDisposed() {
-		//eventBroker.unsubscribe(childAdditionUpdater);
+		
 	}
 	
 	@Override
@@ -185,7 +159,7 @@ public class ToolBarRenderer extends VaadinRenderer {
 	private void generateContributions(MToolBar toolbarModel,
 			ArrayList<MToolBarContribution> toContribute) {
 
-		AbstractLayout manager = getManager(toolbarModel);
+		AbstractLayout manager = (AbstractLayout) toolbarModel.getWidget();
 		boolean done = toContribute.size() == 0;
 		while (!done) {
 			ArrayList<MToolBarContribution> curList = new ArrayList<MToolBarContribution>(
@@ -225,8 +199,7 @@ public class ToolBarRenderer extends VaadinRenderer {
 			parentContext.runAndTrack(new RunAndTrack() {
 				@Override
 				public boolean changed(IEclipseContext context) {
-					if (getManager(toolbarModel) == null) {
-						// tool bar no longer being managed, ignore it
+					if (toolbarModel.getWidget() == null) {
 						return false;
 					}
 
@@ -238,64 +211,6 @@ public class ToolBarRenderer extends VaadinRenderer {
 		}
 
 		return true;
-	}
-	
-	public AbstractLayout getManager(MToolBar model) {
-		return modelToManager.get(model);
-	}
-
-	public MToolBar getToolBarModel(AbstractLayout manager) {
-		return managerToModel.get(manager);
-	}
-
-	public void linkModelToManager(MToolBar model, AbstractLayout manager) {
-		modelToManager.put(model, manager);
-		managerToModel.put(manager, model);
-	}
-
-	public void clearModelToManager(MToolBar model, AbstractLayout manager) {
-		modelToManager.remove(model);
-		managerToModel.remove(manager);
-	}
-
-	public Component getContribution(MToolBarElement element) {
-		return modelToContribution.get(element);
-	}
-
-	public MToolBarElement getToolElement(Component item) {
-		return contributionToModel.get(item);
-	}
-
-	public void linkModelToWidget(MToolBarElement model,
-			Component item) {
-		modelToContribution.put(model, item);
-		contributionToModel.put(item, model);
-	}
-
-	public void clearModelToWidget(MToolBarElement model,
-			Component item) {
-		modelToContribution.remove(model);
-		contributionToModel.remove(item);
-	}
-
-	public ArrayList<ToolBarContributionRecord> getList(MToolBarElement item) {
-		ArrayList<ToolBarContributionRecord> tmp = sharedElementToRecord
-				.get(item);
-		if (tmp == null) {
-			tmp = new ArrayList<ToolBarContributionRecord>();
-			sharedElementToRecord.put(item, tmp);
-		}
-		return tmp;
-	}
-
-	public void linkElementToContributionRecord(MToolBarElement element,
-			ToolBarContributionRecord record) {
-		modelContributionToRecord.put(element, record);
-	}
-
-	public ToolBarContributionRecord getContributionRecord(
-			MToolBarElement element) {
-		return modelContributionToRecord.get(element);
 	}
 
 	@Override

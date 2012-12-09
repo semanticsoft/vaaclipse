@@ -15,7 +15,6 @@ package org.semanticsoft.vaaclipse.presentation.renderers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
@@ -32,8 +31,6 @@ import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import com.vaadin.ui.Component;
-
 public class ToolBarContributionRecord {
 	public static final String FACTORY = "ToolBarContributionFactory"; //$NON-NLS-1$
 	static final String STATIC_CONTEXT = "ToolBarContributionFactoryContext"; //$NON-NLS-1$
@@ -41,21 +38,15 @@ public class ToolBarContributionRecord {
 	MToolBar toolbarModel;
 	MToolBarContribution toolbarContribution;
 	ArrayList<MToolBarElement> generatedElements = new ArrayList<MToolBarElement>();
-	HashSet<MToolBarElement> sharedElements = new HashSet<MToolBarElement>();
 	ToolBarRenderer renderer;
 	boolean isVisible = true;
 	private IEclipseContext infoContext;
-	private Runnable factoryDispose;
 
 	public ToolBarContributionRecord(MToolBar model,
 			MToolBarContribution contribution, ToolBarRenderer renderer) {
 		this.toolbarModel = model;
 		this.toolbarContribution = contribution;
 		this.renderer = renderer;
-	}
-
-	public Component getManagerForModel() {
-		return renderer.getManager(toolbarModel);
 	}
 
 	/**
@@ -73,13 +64,6 @@ public class ToolBarContributionRecord {
 				item.setVisible(currentVisibility);
 			}
 		}
-		for (MToolBarElement item : sharedElements) {
-			boolean currentVisibility = computeVisibility(recentlyUpdated,
-					item, exprContext);
-			if (item.isVisible() != currentVisibility) {
-				item.setVisible(currentVisibility);
-			}
-		}
 	}
 
 	public void updateIsVisible(ExpressionContext exprContext) {
@@ -91,20 +75,7 @@ public class ToolBarContributionRecord {
 			HashSet<ToolBarContributionRecord> recentlyUpdated,
 			MToolBarElement item, ExpressionContext exprContext) {
 		boolean currentVisibility = isVisible;
-		if (item instanceof MToolBarSeparator) {
-			ArrayList<ToolBarContributionRecord> list = renderer.getList(item);
-			if (list != null) {
-				Iterator<ToolBarContributionRecord> cr = list.iterator();
-				while (!currentVisibility && cr.hasNext()) {
-					ToolBarContributionRecord rec = cr.next();
-					if (!recentlyUpdated.contains(rec)) {
-						rec.updateIsVisible(exprContext);
-						recentlyUpdated.add(rec);
-					}
-					currentVisibility |= rec.isVisible;
-				}
-			}
-		}
+		
 		if (currentVisibility
 				&& item.getVisibleWhen() instanceof MCoreExpression) {
 			boolean val = ContributionsAnalyzer.isVisible(
@@ -133,59 +104,21 @@ public class ToolBarContributionRecord {
 			return false;
 		}
 
-		final List<MToolBarElement> copyElements;
-		if (toolbarContribution.getTransientData().get(FACTORY) != null) {
-			copyElements = mergeFactoryIntoModel();
-		} else {
-			copyElements = new ArrayList<MToolBarElement>();
-			for (MToolBarElement item : toolbarContribution.getChildren()) {
-				MToolBarElement copy = (MToolBarElement) EcoreUtil
-						.copy((EObject) item);
-				copyElements.add(copy);
-			}
+		final List<MToolBarElement> copyElements = new ArrayList<MToolBarElement>();
+		for (MToolBarElement item : toolbarContribution.getChildren()) {
+			MToolBarElement copy = (MToolBarElement) EcoreUtil
+					.copy((EObject) item);
+			copyElements.add(copy);
 		}
+		
 		for (MToolBarElement copy : copyElements) {
 			// if a visibleWhen clause is defined, the item should not be
 			// visible until the clause has been evaluated and returned 'true'
 			copy.setVisible(!anyVisibleWhen());
-			if (copy instanceof MToolBarSeparator) {
-				MToolBarSeparator shared = findExistingSeparator(copy
-						.getElementId());
-				if (shared == null) {
-					shared = (MToolBarSeparator) copy;
-					renderer.linkElementToContributionRecord(copy, this);
-					toolbarModel.getChildren().add(idx++, copy);
-				} else {
-					copy = shared;
-				}
-				sharedElements.add(shared);
-			} else {
-				generatedElements.add(copy);
-				renderer.linkElementToContributionRecord(copy, this);
-				toolbarModel.getChildren().add(idx++, copy);
-			}
-			if (copy instanceof MToolBarSeparator) {
-				ArrayList<ToolBarContributionRecord> array = renderer
-						.getList(copy);
-				array.add(this);
-			}
+			generatedElements.add(copy);
+			toolbarModel.getChildren().add(idx++, copy);
 		}
 		return true;
-	}
-
-	/**
-	 * @return
-	 */
-	private List<MToolBarElement> mergeFactoryIntoModel() {
-		Object obj = toolbarContribution.getTransientData().get(FACTORY);
-		if (!(obj instanceof IContextFunction)) {
-			return Collections.EMPTY_LIST;
-		}
-		IEclipseContext staticContext = getStaticContext();
-		staticContext.remove(List.class);
-		factoryDispose = (Runnable) ((IContextFunction) obj)
-				.compute(staticContext);
-		return staticContext.get(List.class);
 	}
 
 	private IEclipseContext getStaticContext() {
@@ -203,37 +136,6 @@ public class ToolBarContributionRecord {
 		return infoContext;
 	}
 
-	MToolBarSeparator findExistingSeparator(String id) {
-		if (id == null) {
-			return null;
-		}
-		for (MToolBarElement item : toolbarModel.getChildren()) {
-			if (item instanceof MToolBarSeparator
-					&& id.equals(item.getElementId())) {
-				return (MToolBarSeparator) item;
-			}
-		}
-		return null;
-	}
-
-	public void dispose() {
-		for (MToolBarElement copy : generatedElements) {
-			toolbarModel.getChildren().remove(copy);
-		}
-		for (MToolBarElement shared : sharedElements) {
-			ArrayList<ToolBarContributionRecord> array = renderer
-					.getList(shared);
-			array.remove(this);
-			if (array.isEmpty()) {
-				toolbarModel.getChildren().remove(shared);
-			}
-		}
-		if (factoryDispose != null) {
-			factoryDispose.run();
-			factoryDispose = null;
-		}
-	}
-
 	private static int getIndex(MElementContainer<?> model,
 			String positionInParent) {
 		String id = null;
@@ -246,7 +148,7 @@ public class ToolBarContributionRecord {
 		if (id == null) {
 			return model.getChildren().size();
 		}
-
+		
 		int idx = 0;
 		int size = model.getChildren().size();
 		while (idx < size) {
