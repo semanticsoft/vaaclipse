@@ -251,6 +251,8 @@ public class ToolItemRenderer extends ItemRenderer
 	
 	private boolean canExecuteItem(MDirectToolItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
+		if (eclipseContext == null) //item is not in hierarchy
+			return false;
 		eclipseContext.set(MItem.class, item);
 		setupContext(eclipseContext, item);
 		return (boolean) ContextInjectionFactory.invoke(item, CanExecute.class, eclipseContext, true);

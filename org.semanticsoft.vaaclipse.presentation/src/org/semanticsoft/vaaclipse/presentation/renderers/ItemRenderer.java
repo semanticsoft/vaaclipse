@@ -72,6 +72,8 @@ public abstract class ItemRenderer extends VaadinRenderer {
 	
 	protected boolean canExecuteItem(MHandledItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
+		if (eclipseContext == null) //item is not in hierarchy
+			return false;
 		EHandlerService service = (EHandlerService) eclipseContext.get(EHandlerService.class.getName());
 		if (service == null)
 			return false;
