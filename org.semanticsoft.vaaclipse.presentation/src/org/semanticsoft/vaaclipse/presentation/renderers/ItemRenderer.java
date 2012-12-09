@@ -92,6 +92,11 @@ public abstract class ItemRenderer extends VaadinRenderer {
 	@Override
 	public void disposeWidget(MUIElement element)
 	{
+		unregisterEnabledUpdater(element);
+	}
+
+	private void unregisterEnabledUpdater(MUIElement element)
+	{
 		Runnable runnable = enabledUpdaters.remove(element);
 		if (runnable != null)
 		{
