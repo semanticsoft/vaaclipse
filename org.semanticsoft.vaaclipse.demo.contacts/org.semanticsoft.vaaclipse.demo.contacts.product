@@ -113,6 +113,7 @@
       <plugin id="org.semanticsoft.vaaclipse.api"/>
       <plugin id="org.semanticsoft.vaaclipse.app"/>
       <plugin id="org.semanticsoft.vaaclipse.behaviour"/>
+      <plugin id="org.semanticsoft.vaaclipse.contributions"/>
       <plugin id="org.semanticsoft.vaaclipse.demo.contacts"/>
       <plugin id="org.semanticsoft.vaaclipse.presentation"/>
       <plugin id="org.semanticsoft.vaaclipse.publicapi"/>
