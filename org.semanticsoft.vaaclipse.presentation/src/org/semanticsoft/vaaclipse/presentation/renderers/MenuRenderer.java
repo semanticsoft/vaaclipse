@@ -11,11 +11,14 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import javax.inject.Inject;
+
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.semanticsoft.vaaclipse.api.MenuContributionService;
 
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -23,7 +26,9 @@ import com.vaadin.ui.MenuBar.MenuItem;
 @SuppressWarnings("restriction")
 public class MenuRenderer extends VaadinRenderer
 {
-
+	@Inject
+	MenuContributionService contributionService;
+	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)
 	{
@@ -48,6 +53,18 @@ public class MenuRenderer extends VaadinRenderer
 			
 			element.setWidget(item);
 		}
+	}
+	
+	@Override
+	public void processContents(MElementContainer<MUIElement> element)
+	{
+		contributionService.addContributions((MMenu)(MElementContainer<?>)element);
+	}
+	
+	@Override
+	public void disposeWidget(MUIElement element)
+	{
+		contributionService.removeContributions((MMenu)(MElementContainer<?>)element);
 	}
 	
 	@Override
