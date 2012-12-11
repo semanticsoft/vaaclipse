@@ -48,9 +48,6 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.renderers.GenericRenderer;
 
-import com.vaadin.ui.Component;
-import com.vaadin.ui.ComponentContainer;
-
 /**
  * This engine was adopted from Kai Toedter's generic renderer project. I place it in vaaclipse packages temproraly -
  * until the generic renderer will be the part of eclipse project.
@@ -188,21 +185,20 @@ public class GenericPresentationEngine implements PresentationEngine {
 	@Override
 	public Object createGui(MUIElement element, MElementContainer<MUIElement> parent, IEclipseContext parentContext) {
 		if (!element.isToBeRendered()) return null;
+		
+		GenericRenderer renderer = rendererFactory.getRenderer(element);
+		
 		Object currentWidget = element.getWidget();
 		if (currentWidget != null) {
 
-			Component control = (Component) currentWidget;
-			// make sure the control is visible
-			if (!(element instanceof MPlaceholder))
-				control.setVisible(true);
-			
-			Component parentWidget = (Component) parent.getWidget();
-			if (parentWidget instanceof ComponentContainer) {
-				ComponentContainer currentParent = (ComponentContainer) control.getParent();
-				if (currentParent != null && currentParent != parentWidget) {
-					currentParent.removeComponent(control);
-				}
-			}
+//			Object control = currentWidget;		
+//			Object parentWidget = parent.getWidget();
+//			if (parentWidget instanceof ComponentContainer) {
+//				ComponentContainer currentParent = (ComponentContainer) control.getParent();
+//				if (currentParent != null && currentParent != parentWidget) {
+//					currentParent.removeComponent(control);
+//				}
+//			}
 			
 			// Reparent the context (or the kid's context)
 			if (element instanceof MContext) {
@@ -274,8 +270,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 				//eclipseContext.activate();
 			}
 		}
-
-		GenericRenderer renderer = rendererFactory.getRenderer(element);
+		
 		element.setRenderer(renderer);
 
 		// TODO check if parents are needed
