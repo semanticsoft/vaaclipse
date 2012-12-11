@@ -106,6 +106,10 @@ public class MenuItemRenderer extends ItemRenderer {
 
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
+		
+		if (!element.isToBeRendered())
+			return;
+		
 		if (parent != null && element instanceof MMenuItem) {
 			MMenuItem model = (MMenuItem) element;
 			
@@ -129,8 +133,23 @@ public class MenuItemRenderer extends ItemRenderer {
 				command = createParametrizedCommandEventHandler(item);
 			}
 			
+			MUIElement nextRenderableAndVisible = null;
+			for (int i = parent.getChildren().indexOf(element) + 1; i < parent.getChildren().size(); i++)
+			{
+				MUIElement child = parent.getChildren().get(i);
+				if (child.isToBeRendered() && child.isVisible() && child.getWidget() != null)
+				{
+					nextRenderableAndVisible = child;
+					break;
+				}
+			}
 			
-			MenuItem item = ((MenuItem)parent.getWidget()).addItem(text, icon, command);
+			MenuItem item = null;
+			if (nextRenderableAndVisible == null)
+				item = ((MenuItem)parent.getWidget()).addItem(text, icon, command);
+			else
+				item = ((MenuItem)parent.getWidget()).addItemBefore(text, icon, command, (MenuItem)nextRenderableAndVisible.getWidget());
+					
 			//-----------------
 
 			element.setWidget(item);
