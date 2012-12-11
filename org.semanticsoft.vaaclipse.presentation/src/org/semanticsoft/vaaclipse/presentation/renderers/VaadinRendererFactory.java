@@ -44,7 +44,7 @@ public class VaadinRendererFactory extends GenericRendererFactory
 	private PartRenderer partRenderer;
 	private ToolBarRenderer toolBarRenderer;
 	private ToolItemRenderer toolItemRenderer;
-	private MenuBarRenderer menuBarRenderer;
+	private MenuRenderer menuBarRenderer;
 	private MenuItemRenderer menuItemRenderer;
 	private PerspectiveStackRenderer perspectiveStackRenderer;
 	private PerspectiveRenderer perspectiveRenderer;
@@ -122,7 +122,7 @@ public class VaadinRendererFactory extends GenericRendererFactory
 		{
 			if (menuBarRenderer == null)
 			{
-				menuBarRenderer = ContextInjectionFactory.make(MenuBarRenderer.class, context);
+				menuBarRenderer = ContextInjectionFactory.make(MenuRenderer.class, context);
 			}
 			return menuBarRenderer;
 		}
