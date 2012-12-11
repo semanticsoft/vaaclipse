@@ -15,8 +15,9 @@
       </children>
     </children>
     <mainMenu xmi:id="_KosWmDjEEeKcQPOnIbNSoQ" elementId="menu:org.eclipse.ui.main.menu">
-      <children xsi:type="menu:Menu" xmi:id="_KosWmTjEEeKcQPOnIbNSoQ" label="File">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_KosWnDjEEeKcQPOnIbNSoQ" label="Quit" command="_KosWijjEEeKcQPOnIbNSoQ"/>
+      <children xsi:type="menu:Menu" xmi:id="_KosWmTjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.contributions.menu.file" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_CL4PoEOjEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.new" label="New" tooltip="New"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_KosWnDjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.quite" label="Quit" command="_KosWijjEEeKcQPOnIbNSoQ"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_KosWnTjEEeKcQPOnIbNSoQ" label="Help">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_KosWnjjEEeKcQPOnIbNSoQ" label="About" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
@@ -24,12 +25,28 @@
     </mainMenu>
     <trimBars xmi:id="_KosWozjEEeKcQPOnIbNSoQ">
       <children xsi:type="menu:ToolBar" xmi:id="_KosWpDjEEeKcQPOnIbNSoQ" elementId="toolbar:org.eclipse.ui.main.toolbar">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_KosWpTjEEeKcQPOnIbNSoQ" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/icons/sample.gif" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_KosWpTjEEeKcQPOnIbNSoQ" elementId="org.semanticsoft.vaaclipsedemo.contributions.handledtoolitem.about" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/icons/sample.gif" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
       </children>
     </trimBars>
   </children>
   <handlers xmi:id="_KosWizjEEeKcQPOnIbNSoQ" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.contributions/org.semanticsoft.vaaclipsedemo.contributions.handlers.QuitHandler" command="_KosWijjEEeKcQPOnIbNSoQ"/>
   <handlers xmi:id="_KosWlTjEEeKcQPOnIbNSoQ" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.contributions/org.semanticsoft.vaaclipsedemo.contributions.handlers.AboutHandler" command="_KosWlDjEEeKcQPOnIbNSoQ"/>
+  <menuContributions xmi:id="_vQVLoEOiEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.menucontribution.1" positionInParent="after=org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.new" parentId="org.semanticsoft.vaaclipsedemo.contributions.menu.file">
+    <children xsi:type="menu:HandledMenuItem" xmi:id="FALFJLAJKFKEEKEE" elementId="org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.contrib1" label="Contrib1 - 1"/>
+    <children xsi:type="menu:HandledMenuItem" xmi:id="_nuCyMEPfEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.contrib1" label="Contrib1 - 2"/>
+  </menuContributions>
+  <menuContributions xmi:id="_sRlO0EPfEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.menucontribution.0" positionInParent="endof=org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.new" parentId="org.semanticsoft.vaaclipsedemo.contributions.menu.file">
+    <children xsi:type="menu:HandledMenuItem" xmi:id="_xdLJ8EPfEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.handledmenuitem.contrib1" label="Contrib2 - 1"/>
+  </menuContributions>
+  <toolBarContributions xmi:id="_tO7YEEJDEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.toolbarcontribution.0" parentId="toolbar:org.eclipse.ui.main.toolbar" positionInParent="after=org.semanticsoft.vaaclipsedemo.contributions.handledtoolitem.about">
+    <children xsi:type="menu:DirectToolItem" xmi:id="_FLDSJFLKJLJFLDKSJ" elementId="org.semanticsoft.vaaclipsedemo.contributions.directtoolitem.contrib1" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/icons/sample.gif" tooltip="Contrib1"/>
+  </toolBarContributions>
+  <toolBarContributions xmi:id="_03adUEJMEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.toolbarcontribution.1" parentId="toolbar:org.eclipse.ui.main.toolbar" positionInParent="endof=org.semanticsoft.vaaclipsedemo.contributions.handledtoolitem.about">
+    <children xsi:type="menu:DirectToolItem" xmi:id="_7-WOUEJNEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.directtoolitem.contrib2" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/icons/sample.gif" tooltip="Contrib2"/>
+  </toolBarContributions>
+  <toolBarContributions xmi:id="_X7dHgEJQEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.toolbarcontribution.2" parentId="toolbar:org.eclipse.ui.main.toolbar" positionInParent="after=additions">
+    <children xsi:type="menu:DirectToolItem" xmi:id="_Y2Zs0EJQEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.contributions.directtoolitem.contrib3" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.contributions/icons/sample.gif" tooltip="Contrib3"/>
+  </toolBarContributions>
   <commands xmi:id="_KosWijjEEeKcQPOnIbNSoQ" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_KosWlDjEEeKcQPOnIbNSoQ" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
   <addons xmi:id="_KosWhDjEEeKcQPOnIbNSoQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
