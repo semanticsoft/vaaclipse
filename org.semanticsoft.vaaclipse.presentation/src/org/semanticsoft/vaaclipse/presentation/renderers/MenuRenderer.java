@@ -13,12 +13,20 @@ package org.semanticsoft.vaaclipse.presentation.renderers;
 
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.contexts.RunAndTrack;
+import org.eclipse.e4.ui.internal.workbench.ContributionsAnalyzer;
+import org.eclipse.e4.ui.model.application.ui.MCoreExpression;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
+import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 import org.semanticsoft.vaaclipse.api.MenuContributionService;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -28,6 +36,9 @@ public class MenuRenderer extends VaadinRenderer
 {
 	@Inject
 	MenuContributionService contributionService;
+	
+	@Inject
+	VaadinExecutorService execService;
 	
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)
@@ -58,6 +69,42 @@ public class MenuRenderer extends VaadinRenderer
 	@Override
 	public void processContents(MElementContainer<MUIElement> element)
 	{
+		final MMenu menu = (MMenu)(MElementContainer<?>)element;
+		
+		final IEclipseContext ctx = getContext(menu);
+		final ExpressionContext eContext = new ExpressionContext(ctx);
+		
+		//Before contribution added:
+		//visible when support for original trimbar elements (without contributed)
+		for (final MMenuElement child : menu.getChildren())
+		{
+			if (child.getVisibleWhen() != null) {
+				ctx.runAndTrack(new RunAndTrack() {
+					@Override
+					public boolean changed(IEclipseContext context) {
+						
+						if (!menu.isToBeRendered()
+								|| !menu.isVisible()
+								|| menu.getWidget() == null) {
+							return false;
+						}
+						
+						final boolean rc = ContributionsAnalyzer.isVisible((MCoreExpression)child.getVisibleWhen(), eContext);
+						execService.invokeLater(new Runnable() {
+							
+							@Override
+							public void run()
+							{
+								child.setToBeRendered(rc);
+							}
+						});
+						
+						return true;
+					}
+				});
+			}
+		}
+		//Then add contributions using contribution service:
 		contributionService.addContributions((MMenu)(MElementContainer<?>)element);
 	}
 	
@@ -76,11 +123,17 @@ public class MenuRenderer extends VaadinRenderer
 	@Override
 	public void removeChildGui(MUIElement element, MElementContainer<MUIElement> parent)
 	{
-		if (parent.getWidget() instanceof MenuBar && element.getWidget() instanceof MenuItem)
+		MenuItem childItem = (MenuItem) element.getWidget();
+		
+		if (parent.getWidget() instanceof MenuBar)
 		{
 			MenuBar bar = (MenuBar) parent.getWidget();
-			MenuItem childItem = (MenuItem) element.getWidget();
 			bar.removeItem(childItem);
+		}
+		else if (parent.getWidget() instanceof MenuItem)
+		{
+			MenuItem parentItem = (MenuItem) parent.getWidget();
+			parentItem.removeChild(childItem);
 		}
 	}
 }
