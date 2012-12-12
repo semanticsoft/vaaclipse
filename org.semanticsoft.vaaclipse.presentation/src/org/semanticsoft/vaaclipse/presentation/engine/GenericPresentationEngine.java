@@ -130,11 +130,9 @@ public class GenericPresentationEngine implements PresentationEngine {
 						.eContainer();
 			}
 
-			boolean menuChild = parent instanceof MMenu;
-
 			// If the parent isn't displayed who cares?
 			if (!(parent instanceof MApplication)
-					&& (parent == null || parent.getWidget() == null || menuChild))
+					&& (parent == null || parent.getWidget() == null))
 				return;
 
 			if (changedElement.isToBeRendered()) 
