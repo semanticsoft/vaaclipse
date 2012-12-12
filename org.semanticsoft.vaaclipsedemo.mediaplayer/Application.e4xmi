@@ -54,7 +54,9 @@
     <mainMenu xmi:id="_xC5CQTDGEeKcFLjGBzrJfw" elementId="menu:org.eclipse.ui.main.menu">
       <children xsi:type="menu:Menu" xmi:id="_xC5CQjDGEeKcFLjGBzrJfw" label="File">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CQzDGEeKcFLjGBzrJfw" label="Open" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/sample.gif" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRDDGEeKcFLjGBzrJfw" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" command="_cl1-wD2JEeKod85Q1rNT2g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRDDGEDDDDDDDDDDDDD" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" command="_cl1-wD2JEeKod85Q1rNT2g">
+        	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="_QLSJLAJDQLHFLASFLAJ" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+        </children>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRTDGEeKcFLjGBzrJfw" label="Quit" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_xC5CRjDGEeKcFLjGBzrJfw" label="Help">
