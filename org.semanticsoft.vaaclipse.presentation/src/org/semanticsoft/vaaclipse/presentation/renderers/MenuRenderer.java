@@ -58,12 +58,23 @@ public class MenuRenderer extends BasicMenuToolbarTrimbarRenderer
 			else
 				text = "NoName";
 			text = text.replaceAll("&", "");
-
+			
+			MUIElement nextRenderableAndVisible = findNextRendarableAndVisible(element, parent);
 			MenuItem item = null;
 			if (parent.getWidget() instanceof MenuBar)
-				item = ((MenuBar)parent.getWidget()).addItem(text, null, null);
+			{
+				if (nextRenderableAndVisible == null)
+					item = ((MenuBar)parent.getWidget()).addItem(text, null, null);
+				else
+					item = ((MenuBar)parent.getWidget()).addItemBefore(text, null, null, (MenuItem) nextRenderableAndVisible.getWidget());
+			}
 			else if (parent.getWidget() instanceof MenuItem)
-				item = ((MenuItem)parent.getWidget()).addItem(text, null, null);
+			{
+				if (nextRenderableAndVisible == null)
+					item = ((MenuItem)parent.getWidget()).addItem(text, null, null);
+				else
+					item = ((MenuItem)parent.getWidget()).addItemBefore(text, null, null, (MenuItem) nextRenderableAndVisible.getWidget());
+			}
 			
 			element.setWidget(item);
 		}
@@ -145,9 +156,9 @@ public class MenuRenderer extends BasicMenuToolbarTrimbarRenderer
 	@Override
 	public void setVisible(MUIElement changedElement, boolean visible)
 	{
-		if (changedElement instanceof MenuBar)
+		if (changedElement.getWidget() instanceof MenuBar)
 			((MenuBar)changedElement.getWidget()).setVisible(visible);
-		else if (changedElement instanceof MenuItem)
+		else if (changedElement.getWidget() instanceof MenuItem)
 			((MenuItem)changedElement.getWidget()).setVisible(visible);
 	}
 }
