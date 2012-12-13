@@ -53,10 +53,20 @@
     </children>
     <mainMenu xmi:id="_xC5CQTDGEeKcFLjGBzrJfw" elementId="menu:org.eclipse.ui.main.menu">
       <children xsi:type="menu:Menu" xmi:id="_xC5CQjDGEeKcFLjGBzrJfw" label="File">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CQzDGEeKcFLjGBzrJfw" label="Open" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/sample.gif" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRDDGEDDDDDDDDDDDDD" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" command="_cl1-wD2JEeKod85Q1rNT2g">
-        	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="_QLSJLAJDQLHFLASFLAJ" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_jBj3oEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Add Category" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add_category.png" tooltip="Add media category" command="_Cp6JAD99EeKod85Q1rNT2g">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_6aJHoEUhEeK-2PTuyvOz4w" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
         </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CQzDGEeKcFLjGBzrJfw" label="Add Media" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png" tooltip="Add media to library" command="_E3YGID99EeKod85Q1rNT2g">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_42rJwEUhEeK-2PTuyvOz4w" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="__xtpQEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.0"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRDDGEDDDDDDDDDDDDD" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" tooltip="Save active editor" command="_cl1-wD2JEeKod85Q1rNT2g">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_QLSJLAJDQLHFLASFLAJ" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_WR51gEUeEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Save All" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save_all.png" tooltip="Save all editors">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_hiBe4EUeEeK-2PTuyvOz4w" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+        </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_BrLFQEUiEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.0"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRTDGEeKcFLjGBzrJfw" label="Quit" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_xC5CRjDGEeKcFLjGBzrJfw" label="Help">
@@ -100,7 +110,6 @@
     </trimBars>
   </children>
   <handlers xmi:id="_xC4bOTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.quit.QuitHandler" command="_xC4bODDGEeKcFLjGBzrJfw"/>
-  <handlers xmi:id="_xC4bPTDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.OpenHandler" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_xC4bQzDGEeKcFLjGBzrJfw" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.AboutHandler" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
   <handlers xmi:id="_NUw6EDpXEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.removeFromPlaylist" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.playlist.RemoveFromPlaylist" command="_7CbyMDpWEeKod85Q1rNT2g"/>
   <handlers xmi:id="_iPfAgDpXEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.reorderPlaylist" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.playlist.ReorderPlaylist" command="_E3o8wDpXEeKod85Q1rNT2g"/>
@@ -113,7 +122,7 @@
   <handlers xmi:id="_LNLxoD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.addMedia" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.AddMedia" command="_E3YGID99EeKod85Q1rNT2g"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
-    <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O" command="_xC4bPDDGEeKcFLjGBzrJfw"/>
+    <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O"/>
     <bindings xmi:id="_xC4bQTDGEeKcFLjGBzrJfw" keySequence="M1+S"/>
     <bindings xmi:id="_xC4bRDDGEeKcFLjGBzrJfw" keySequence="M1+A" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
   </bindingTables>
@@ -122,7 +131,6 @@
     <children xmi:id="_xC4bMTDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
   <commands xmi:id="_xC4bODDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
-  <commands xmi:id="_xC4bPDDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.open" commandName="openCommand"/>
   <commands xmi:id="_xC4bQjDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
   <commands xmi:id="_7CbyMDpWEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.removeFromPlaylist" commandName="removeFromPlaylist" description="Remove from playlist"/>
   <commands xmi:id="_E3o8wDpXEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.reorderPlaylist" commandName="reorderPlaylist"/>
