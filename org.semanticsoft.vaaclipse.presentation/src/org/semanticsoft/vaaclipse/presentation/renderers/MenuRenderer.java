@@ -53,6 +53,10 @@ public class MenuRenderer extends BasicMenuToolbarTrimbarRenderer
 		else 
 		{
 			String text = ((MUILabel) element).getLocalizedLabel();
+			if (text != null)
+				text = text.trim();
+			else
+				text = "NoName";
 			text = text.replaceAll("&", "");
 
 			MenuItem item = null;
