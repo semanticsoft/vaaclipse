@@ -6,10 +6,3 @@ Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rushan R. Gilmullin
 Fragment-Host: com.vaadin;bundle-version="6.8.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: VAADIN.themes.dragdrop,
- VAADIN.themes.dragdrop.vaadock.img,
- VAADIN.themes.vaadock,
- VAADIN.themes.vaadock.img,
- VAADIN.themes.vaaclipse_default_theme,
- VAADIN.themes.vaaclipse_default_theme.img,
- VAADIN.widgetsets
