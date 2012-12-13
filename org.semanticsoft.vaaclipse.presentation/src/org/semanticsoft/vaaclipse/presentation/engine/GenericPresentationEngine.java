@@ -163,8 +163,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 		@Override
 		public void handleEvent(Event event) {
 			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-			System.out.println("visibilityHandler: " + changedElement);
-
+			
 			GenericRenderer renderer = (GenericRenderer) changedElement.getRenderer();
 			if (renderer == null) {
 				return;
