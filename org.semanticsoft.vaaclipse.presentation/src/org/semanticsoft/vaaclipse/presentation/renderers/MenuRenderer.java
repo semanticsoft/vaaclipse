@@ -20,7 +20,6 @@ import org.eclipse.e4.ui.model.application.ui.MCoreExpression;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
-import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
@@ -32,7 +31,7 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 
 @SuppressWarnings("restriction")
-public class MenuRenderer extends VaadinRenderer
+public class MenuRenderer extends BasicMenuToolbarTrimbarRenderer
 {
 	@Inject
 	MenuContributionService contributionService;
@@ -86,18 +85,20 @@ public class MenuRenderer extends VaadinRenderer
 						if (!menu.isToBeRendered()
 								|| !menu.isVisible()
 								|| menu.getWidget() == null) {
+							System.err.println("remove context tracker");
 							return false;
 						}
 						
 						final boolean rc = ContributionsAnalyzer.isVisible((MCoreExpression)child.getVisibleWhen(), eContext);
-						execService.invokeLater(new Runnable() {
+						Runnable runnable = new Runnable() {
 							
 							@Override
 							public void run()
 							{
 								child.setToBeRendered(rc);
 							}
-						});
+						};
+						execService.invokeLater(runnable);
 						
 						return true;
 					}

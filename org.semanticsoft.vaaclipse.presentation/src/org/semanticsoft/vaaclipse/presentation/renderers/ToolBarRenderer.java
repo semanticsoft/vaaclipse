@@ -45,7 +45,7 @@ import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
-public class ToolBarRenderer extends VaadinRenderer {	
+public class ToolBarRenderer extends BasicMenuToolbarTrimbarRenderer {	
 	@Inject
 	private MApplication application;
 	@Inject
