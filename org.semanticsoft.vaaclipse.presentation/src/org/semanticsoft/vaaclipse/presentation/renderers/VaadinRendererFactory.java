@@ -27,6 +27,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuSeparator;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolControl;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
@@ -46,6 +47,7 @@ public class VaadinRendererFactory extends GenericRendererFactory
 	private ToolItemRenderer toolItemRenderer;
 	private MenuRenderer menuBarRenderer;
 	private MenuItemRenderer menuItemRenderer;
+	private MenuSeparatorRenderer menuSeparatorRenderer;
 	private PerspectiveStackRenderer perspectiveStackRenderer;
 	private PerspectiveRenderer perspectiveRenderer;
 	private PlaceholderRenderer placeholderRenderer;
@@ -133,6 +135,14 @@ public class VaadinRendererFactory extends GenericRendererFactory
 				menuItemRenderer = ContextInjectionFactory.make(MenuItemRenderer.class, context);
 			}
 			return menuItemRenderer;
+		}
+		else if (uiElement instanceof MMenuSeparator)
+		{
+			if (menuSeparatorRenderer == null)
+			{
+				menuSeparatorRenderer = ContextInjectionFactory.make(MenuSeparatorRenderer.class, context);
+			}
+			return menuSeparatorRenderer;
 		}
 		else if (uiElement instanceof MPerspectiveStack)
 		{

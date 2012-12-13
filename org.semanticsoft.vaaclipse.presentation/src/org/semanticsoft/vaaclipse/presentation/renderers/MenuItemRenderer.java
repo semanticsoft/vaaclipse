@@ -35,6 +35,7 @@ import org.semanticsoft.vaaclipse.util.Utils;
 
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
@@ -110,7 +111,7 @@ public class MenuItemRenderer extends ItemRenderer {
 		if (!element.isToBeRendered())
 			return;
 		
-		if (parent != null && element instanceof MMenuItem) {
+		if (element instanceof MMenuItem) {
 			MMenuItem model = (MMenuItem) element;
 			
 			//--------------------
@@ -133,17 +134,7 @@ public class MenuItemRenderer extends ItemRenderer {
 				command = createParametrizedCommandEventHandler(item);
 			}
 			
-			MUIElement nextRenderableAndVisible = null;
-			for (int i = parent.getChildren().indexOf(element) + 1; i < parent.getChildren().size(); i++)
-			{
-				MUIElement child = parent.getChildren().get(i);
-				if (child.isToBeRendered() && child.isVisible() && child.getWidget() != null)
-				{
-					nextRenderableAndVisible = child;
-					break;
-				}
-			}
-			
+			MUIElement nextRenderableAndVisible = findNextRendarableAndVisible(element, parent);
 			MenuItem item = null;
 			if (nextRenderableAndVisible == null)
 				item = ((MenuItem)parent.getWidget()).addItem(text, icon, command);
@@ -204,5 +195,11 @@ public class MenuItemRenderer extends ItemRenderer {
 			context.set(MHandledMenuItem.class, (MHandledMenuItem)item);
 		else if (item instanceof MOpaqueMenuItem)
 			context.set(MOpaqueMenuItem.class, (MOpaqueMenuItem)item);
+	}
+	
+	@Override
+	public void setVisible(MUIElement changedElement, boolean visible)
+	{
+		((MenuItem)changedElement.getWidget()).setVisible(visible);
 	}
 }

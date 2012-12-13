@@ -137,4 +137,13 @@ public class MenuRenderer extends BasicMenuToolbarTrimbarRenderer
 			parentItem.removeChild(childItem);
 		}
 	}
+	
+	@Override
+	public void setVisible(MUIElement changedElement, boolean visible)
+	{
+		if (changedElement instanceof MenuBar)
+			((MenuBar)changedElement.getWidget()).setVisible(visible);
+		else if (changedElement instanceof MenuItem)
+			((MenuItem)changedElement.getWidget()).setVisible(visible);
+	}
 }
