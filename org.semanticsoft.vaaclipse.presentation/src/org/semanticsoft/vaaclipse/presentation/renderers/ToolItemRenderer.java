@@ -227,10 +227,10 @@ public class ToolItemRenderer extends ItemRenderer
 				button.setDescription(item.getLocalizedTooltip());
 			}
 			
-			button.setEnabled(item.isEnabled());
-			
 			element.setWidget(button);
 			
+			updateItemEnablement(item);
+			button.setEnabled(item.isEnabled());
 			registerEnablementUpdaters(item);
 		}
 	}
@@ -243,12 +243,19 @@ public class ToolItemRenderer extends ItemRenderer
 		if (widget == null)
 			return;
 		
-		if (item instanceof MHandledItem)
-			item.setEnabled(canExecuteItem((MHandledItem) item));
-		else if (item instanceof MDirectToolItem)
-			item.setEnabled(canExecuteItem((MDirectToolItem) item));
+		item.setEnabled(canExecute(item));
 	}
 	
+	private boolean canExecute(MItem item)
+	{
+		if (item instanceof MHandledItem)
+			return canExecuteItem((MHandledItem) item);
+		else if (item instanceof MDirectToolItem)
+			return canExecuteItem((MDirectToolItem) item);
+		else
+			return false;
+	}
+
 	private boolean canExecuteItem(MDirectToolItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
 		if (eclipseContext == null) //item is not in hierarchy

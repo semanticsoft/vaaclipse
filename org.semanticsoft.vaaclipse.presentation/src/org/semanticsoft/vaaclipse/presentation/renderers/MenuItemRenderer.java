@@ -149,10 +149,12 @@ public class MenuItemRenderer extends ItemRenderer {
 				item = ((MenuItem)parent.getWidget()).addItem(text, icon, command);
 			else
 				item = ((MenuItem)parent.getWidget()).addItemBefore(text, icon, command, (MenuItem)nextRenderableAndVisible.getWidget());
-					
 			//-----------------
 
 			element.setWidget(item);
+			
+			updateItemEnablement(model);
+			item.setEnabled(model.isEnabled());
 			
 			registerEnablementUpdaters(model);
 		}
@@ -166,10 +168,17 @@ public class MenuItemRenderer extends ItemRenderer {
 		if (widget == null)
 			return;
 		
+		item.setEnabled(canExecute(item));
+	}
+
+	private boolean canExecute(MItem item)
+	{
 		if (item instanceof MHandledItem)
-			item.setEnabled(canExecuteItem((MHandledItem) item));
+			return canExecuteItem((MHandledItem) item);
 		else if (item instanceof MDirectMenuItem)
-			item.setEnabled(canExecuteItem((MDirectMenuItem) item));
+			return canExecuteItem((MDirectMenuItem) item);
+		else
+			return false;
 	}
 	
 	private boolean canExecuteItem(MDirectMenuItem item) {
