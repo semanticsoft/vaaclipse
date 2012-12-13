@@ -20,16 +20,14 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
-import org.eclipse.e4.ui.model.application.ui.SideValue;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
-import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -66,7 +64,6 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author rushan
@@ -97,8 +94,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	IEventBroker eventBroker;
 
 	@Inject
-	IEclipseContext eclipseContext;
-
+	MApplication application;
+	
 	@Inject
 	EPartService partService;
 	
@@ -503,7 +500,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		if (perspective.getElementId() != null)
 		{
 			String perspectiveId = perspective.getElementId().trim();
-			eclipseContext.set("activePerspective", perspectiveId);
+			application.getContext().set("activePerspective", perspectiveId);
 		}
 	}
 
