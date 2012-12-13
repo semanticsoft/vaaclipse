@@ -52,22 +52,8 @@
       </children>
     </children>
     <mainMenu xmi:id="_xC5CQTDGEeKcFLjGBzrJfw" elementId="menu:org.eclipse.ui.main.menu">
-      <children xsi:type="menu:Menu" xmi:id="_xC5CQjDGEeKcFLjGBzrJfw" label="File">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_jBj3oEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Add Category" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add_category.png" tooltip="Add media category" command="_Cp6JAD99EeKod85Q1rNT2g">
-          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_6aJHoEUhEeK-2PTuyvOz4w" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
-        </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CQzDGEeKcFLjGBzrJfw" label="Add Media" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png" tooltip="Add media to library" command="_E3YGID99EeKod85Q1rNT2g">
-          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_42rJwEUhEeK-2PTuyvOz4w" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
-        </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="__xtpQEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.0"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRDDGEDDDDDDDDDDDDD" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" tooltip="Save active editor" command="_cl1-wD2JEeKod85Q1rNT2g">
-          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_QLSJLAJDQLHFLASFLAJ" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
-        </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_WR51gEUeEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Save All" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save_all.png" tooltip="Save all editors">
-          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_hiBe4EUeEeK-2PTuyvOz4w" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
-        </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_BrLFQEUiEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.0"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRTDGEeKcFLjGBzrJfw" label="Quit" command="_xC4bODDGEeKcFLjGBzrJfw"/>
+      <children xsi:type="menu:Menu" xmi:id="_xC5CQjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.file" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRTDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.quit" label="Quit" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_xC5CRjDGEeKcFLjGBzrJfw" label="Help">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRzDGEeKcFLjGBzrJfw" label="About" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
@@ -130,6 +116,15 @@
     <children xmi:id="_xC4bMDDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_xC4bMTDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
+  <menuContributions xmi:id="_5mdHQEUpEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menucontribution.0" positionInParent="before=org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.quit" parentId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.file">
+  	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="_DFLSJFLSJFEIJLJAFL" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+    <children xsi:type="menu:HandledMenuItem" xmi:id="_jBj3oEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Add Category" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add_category.png" tooltip="Add media category" command="_Cp6JAD99EeKod85Q1rNT2g"/>
+    <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CQzDGEeKcFLjGBzrJfw" label="Add Media" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png" tooltip="Add media to library" command="_E3YGID99EeKod85Q1rNT2g"/>
+    <children xsi:type="menu:MenuSeparator" xmi:id="__xtpQEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.1" accessibilityPhrase=""/>
+    <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRDDGEDDDDDDDDDDDDD" label="Save" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save.png" tooltip="Save active editor" command="_cl1-wD2JEeKod85Q1rNT2g"/>
+    <children xsi:type="menu:HandledMenuItem" xmi:id="_WR51gEUeEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Save All" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/save_all.png" tooltip="Save all editors" command="_4u6iQD2JEeKod85Q1rNT2g"/>
+    <children xsi:type="menu:MenuSeparator" xmi:id="_BrLFQEUiEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.2" accessibilityPhrase=""/>
+  </menuContributions>
   <commands xmi:id="_xC4bODDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_xC4bQjDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
   <commands xmi:id="_7CbyMDpWEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.removeFromPlaylist" commandName="removeFromPlaylist" description="Remove from playlist"/>
