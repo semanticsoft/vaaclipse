@@ -249,6 +249,10 @@ div.v-button-pushed {
 	margin-right: -2px;
 }
 
+.v-button-vaaclipsebutton .v-button-wrap .v-button-caption {
+	padding-right: 4px;
+}
+
 .v-button-textonly .v-button-wrap .v-button-caption {
 	padding-left: 3px;
 	padding-right: 3px;
