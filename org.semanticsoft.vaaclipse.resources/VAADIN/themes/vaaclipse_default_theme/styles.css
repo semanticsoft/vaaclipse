@@ -1,4 +1,12 @@
 
+.folder_vaa_component .v-tabsheet-tabitem {
+	min-height: 28px;
+}
+
+.folder_vaa_component .v-tabsheet-spacertd {
+	min-height: 28px;
+}
+
 /*
  * Perspective panel
  */
