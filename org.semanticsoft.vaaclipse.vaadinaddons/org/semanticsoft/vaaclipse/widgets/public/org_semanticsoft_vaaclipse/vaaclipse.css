@@ -1,15 +1,20 @@
-.v-etot-sukin-syn{
-	position: absolute; top: 10px; left: 3px; width: 240px; height: 150px; background-color: pink;
+.stackwidget .v-tabsheet-tabitem {
+	min-height: 28px;
+}
+
+.stackwidget .v-tabsheet-spacertd {
+	min-height: 28px;
+}
+
+.stackwidget .v-tabsheet-tabcontainer {
+	min-height: 28px;
 }
 
 .vaadock-tabsheet-button-panel {
 	background-color: transparent;
     float: right;
-    height: 31px;
-    margin-top: -31px;
-    padding: 0 3px 0 4px;
     position: relative;
-    border-left: 1px solid #CFCFCF;
+    padding: 0 0 0 4px;
     width: 44px;
 }
 

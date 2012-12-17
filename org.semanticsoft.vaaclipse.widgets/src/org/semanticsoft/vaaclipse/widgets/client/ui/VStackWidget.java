@@ -116,13 +116,13 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
         
         scroller = DOM.getChild(tabs, 1);
         
-        //scroller.setAttribute("style", "margin-right:35px;");
-        scroller.setAttribute("style", "width:90px;");
+        DOM.setStyleAttribute(scroller, "marginRight", "45px");
+        //scroller.setAttribute("style", "width:90px;");
         
         for (int i = 0; i < DOM.getChildCount(scroller); i++)
         {
         	Element child = DOM.getChild(scroller, i);
-        	child.setAttribute("style", "float: left;");
+        	DOM.setStyleAttribute(child, "float", "left");
         }
         
         buttonPanel = DOM.createDiv();
@@ -747,6 +747,7 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
 	{
 		super.iLayout();
 		
+		updateLocationOfButtonPanel();
 		updateLocationOfPartToolbar();
 		
 //		if (t == null)
@@ -762,6 +763,14 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
 //		}
 	}
 	
+	private void updateLocationOfButtonPanel()
+	{
+		int buttonPanelHeight = tabs.getOffsetHeight();
+        int buttonPanelMarginTop = -buttonPanelHeight;
+        DOM.setStyleAttribute(buttonPanel, "height", buttonPanelHeight + "px");
+        DOM.setStyleAttribute(buttonPanel, "marginTop", buttonPanelMarginTop + "px");
+	}
+
 //	@Override
 //	public void tabSizeMightHaveChanged(Tab tab)
 //	{

@@ -11,15 +11,20 @@
 
 package org.semanticsoft.vaaclipse.widgets.client.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.semanticsoft.vaaclipse.widgets.client.ui.GeomUtils.Side;
 import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsUpdateManager;
 import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.VBoundsinfoVerticalLayout;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
@@ -36,7 +41,6 @@ import com.vaadin.terminal.gwt.client.ui.dd.VDragAndDropManager.DragHandlerFinde
 import com.vaadin.terminal.gwt.client.ui.dd.VDragEvent;
 import com.vaadin.terminal.gwt.client.ui.dd.VDropHandler;
 import com.vaadin.terminal.gwt.client.ui.dd.VHasDropHandler;
-import com.vaadin.terminal.gwt.client.ui.layout.ChildComponentContainer;
 
 import fi.jasoft.dragdroplayouts.client.ui.Constants;
 import fi.jasoft.dragdroplayouts.client.ui.VDDTabSheet;
@@ -61,7 +65,12 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
 	
 	private BoundsUpdateManager updateManager;
 	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//Minmax button support
+	private Element tabs;
+	private Element scroller;
+	private Element buttonPanel;
+	
+	//Docking support
 	private String id;
     
     private Element dockZone1;
@@ -86,7 +95,13 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
 	private boolean minimizeEnabled = true;
 	
 	private String baseURL;
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	//Relocate of part toolbar support
+	private boolean toolbarRelocated = false;
+	private Element toolbarElement;
+	private Integer toolbarElementHeight;
+	private Map<Element, String> overflowRewritedElements;
+	private Integer oldTabbarOffsetHeight;
 
 	/**
 	 * The constructor should first call super() to initialize the component and
@@ -97,9 +112,9 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
 		
 		this.baseURL = GWT.getHostPageBaseURL();
 		
-		Element tabs = (Element) getElement().getChild(0);
+		tabs = (Element) getElement().getChild(0);
         
-        Element scroller = DOM.getChild(tabs, 1);
+        scroller = DOM.getChild(tabs, 1);
         
         //scroller.setAttribute("style", "margin-right:35px;");
         scroller.setAttribute("style", "width:90px;");
@@ -110,7 +125,7 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
         	child.setAttribute("style", "float: left;");
         }
         
-        Element buttonPanel = DOM.createDiv();
+        buttonPanel = DOM.createDiv();
         setStyleName(buttonPanel, "vaadock-tabsheet-button-panel");
         DOM.appendChild(tabs, buttonPanel);
         
@@ -404,30 +419,30 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
         }
 	}
 
-	private boolean containsChild(ComplexPanel container, Widget c)
-	{
-		for (int i = 0; i < container.getWidgetCount(); i++)
-		{
-			Widget child = container.getWidget(i);
-			if (child == c)
-				return true;
-			else if (child instanceof ComplexPanel)
-			{
-				if (containsChild((ComplexPanel) child, c))
-					return true;
-			}
-			else if (child instanceof ChildComponentContainer)
-			{
-				Widget trueChild = ((ChildComponentContainer)child).getWidget();
-				if (trueChild instanceof ComplexPanel)
-				{
-					if (containsChild((ComplexPanel) trueChild, c))
-						return true;
-				}
-			}
-		}
-		return false;
-	}
+//	private boolean containsChild(ComplexPanel container, Widget c)
+//	{
+//		for (int i = 0; i < container.getWidgetCount(); i++)
+//		{
+//			Widget child = container.getWidget(i);
+//			if (child == c)
+//				return true;
+//			else if (child instanceof ComplexPanel)
+//			{
+//				if (containsChild((ComplexPanel) child, c))
+//					return true;
+//			}
+//			else if (child instanceof ChildComponentContainer)
+//			{
+//				Widget trueChild = ((ChildComponentContainer)child).getWidget();
+//				if (trueChild instanceof ComplexPanel)
+//				{
+//					if (containsChild((ComplexPanel) trueChild, c))
+//						return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 	
 	/**
      * Updates the drop details while dragging. This is needed to ensure client
@@ -718,13 +733,260 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
 		paintableId = uidl.getId();
 		
 		updateManager = new BoundsUpdateManager(this, paintableId, client);
+		
+		//updateLocationOfPartToolbar();
 	}
 	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//Part toolbar relocate support
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//	Timer t = null;
+	
+	@Override
+	public void iLayout()
+	{
+		super.iLayout();
+		
+		updateLocationOfButtonPanel();
+		updateLocationOfPartToolbar();
+		
+//		if (t == null)
+//		{
+//			Timer t = new Timer() {
+//			      public void run() {
+//			    	  updateLocationOfPartToolbar();
+//			      }
+//			    };
+//			    
+//			t.schedule(4000);
+//			t = null;
+//		}
+	}
+	
+	private void updateLocationOfButtonPanel()
+	{
+		int buttonPanelHeight = tabs.getOffsetHeight();
+        int buttonPanelMarginTop = tabs.getAbsoluteTop() - buttonPanel.getAbsoluteTop();
+        DOM.setStyleAttribute(buttonPanel, "height", buttonPanelHeight + "px");
+        DOM.setStyleAttribute(buttonPanel, "marginTop", buttonPanelMarginTop + "px");
+	}
+
 //	@Override
-//	public RenderSpace getAllocatedSpace(Widget child)
+//	public void tabSizeMightHaveChanged(Tab tab)
 //	{
-//		if (updateManager != null && this.getState() != MINIMIZED && (this.getOffsetWidth() >0 || this.getOffsetHeight() > 0) )
-//			updateManager.update();
-//		return super.getAllocatedSpace(child);
+//		super.tabSizeMightHaveChanged(tab);
+//		
+//		updateLocationOfPartToolbar();
+//	}
+	
+	private void updateLocationOfPartToolbar()
+	{
+		if (toolbarRelocated)
+		{
+			if (!hasSpace(toolbarElement))
+			{
+				restoreLocationOfPartToolbar();
+			}
+		}
+		else
+		{
+			Paintable selectedTab = getTab(activeTabIndex);
+			if (selectedTab == null || !(selectedTab instanceof Widget))
+				return;
+			
+			Widget selectedWidget = (Widget) selectedTab;
+			
+			Element _toolbarElement = findToolbarElement(selectedWidget.getElement());
+			if (_toolbarElement == null)
+				return;
+			
+			if (hasSpace(_toolbarElement))
+			{
+				changeLocationOfPartToolbar(selectedWidget, _toolbarElement);	
+			}
+		}
+	}
+	
+	private boolean hasSpace(Element toolbarElement)
+	{
+		Element tb = (Element) tabs.getChild(0);
+		Element spacertd = (Element) tb.getChild(0).getChild(0).getLastChild();
+		
+		return tb.getOffsetWidth() - DOM.getElementPropertyInt((Element) spacertd.cast(), "offsetWidth") < getOffsetWidth()
+                - buttonPanel.getOffsetWidth() - toolbarElement.getOffsetWidth() - 10;
+	}
+	
+	private void changeLocationOfPartToolbar(Widget selectedWidget, Element _toolbarElement)
+	{
+		if (toolbarRelocated || activeTabIndex < 0 || this.getParent() == null)
+			return;
+		
+		toolbarElement = _toolbarElement;
+		overflowRewritedElements = new HashMap<Element, String>();
+		
+		List<Node> pathToParent = findPathToParent(toolbarElement, selectedWidget.getParent().getElement());
+		
+		for (Node node: pathToParent)
+		{
+			if (node instanceof Element)
+			{
+				Element element = (Element) node;
+				String overflow = DOM.getElementProperty((Element) element, "overflow");
+				if (!"".equals(overflow) && !"visible".equals(overflow) && !"".equals("inherit"))
+				{
+					DOM.setStyleAttribute(element, "overflow", "visible");
+					overflowRewritedElements.put(element, overflow);
+				}
+			}
+		}
+		
+		toolbarRelocated = true;
+		
+//		if (tabs.getOffsetHeight() < toolbarElement.getOffsetHeight() + 2)
+//		{
+//			oldTabbarOffsetHeight = tabs.getOffsetHeight();
+//			DOM.setStyleAttribute(tabs, "offsetHeight", toolbarElement.getOffsetHeight() + 2 + "px");	
+//		}
+		
+		updateGeometry();
+	}
+
+	private void updateGeometry()
+	{
+//		if (toolbarElementHeight == null || toolbarElement.getOffsetHeight() > toolbarElementHeight)
+//		{
+//			toolbarElementHeight = toolbarElement.getOffsetHeight();
+//			
+//			Element tr = (Element) tabs.getChild(0).getChild(0).getChild(0);
+//			int offset = toolbarElement.getAbsoluteTop() - tabs.getAbsoluteBottom();
+//			for (int i = 0; i < tr.getChildCount(); i++)
+//			{
+//				Element td = (Element) tr.getChild(i);
+//				if (i < tr.getChildCount() -1)
+//				{
+//					Element captionDiv = (Element) td.getChild(0);
+//					DOM.setStyleAttribute(captionDiv, "height", toolbarElementHeight + "px");	
+//				}
+//				else
+//				{//spacertd
+//					DOM.setStyleAttribute(td, "height", toolbarElementHeight + "px");
+//				}
+//			}
+//			
+//			int marginRight = buttonPanel.getOffsetWidth() + 5;
+//			int marginTop = -(toolbarElementHeight + offset + 2);
+//			
+//			DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");
+//			DOM.setStyleAttribute(toolbarElement, "marginTop", marginTop + "px");
+//		}
+		
+		int marginRight = buttonPanel.getOffsetWidth() + 5;
+		int marginTop = tabs.getAbsoluteTop() - toolbarElement.getAbsoluteTop();
+		
+		DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");
+		DOM.setStyleAttribute(toolbarElement, "marginTop", marginTop + "px");
+	}
+	
+	private void restoreLocationOfPartToolbar()
+	{
+		if (!toolbarRelocated)
+			return;
+		
+		DOM.setStyleAttribute(toolbarElement, "marginRight", "");
+		DOM.setStyleAttribute(toolbarElement, "marginTop", "");
+		
+//		for (Entry<Element, String> entry : overflowRewritedElements.entrySet())
+//		{
+//			Element element = entry.getKey();
+//			String oldValue = entry.getValue();
+//			DOM.setStyleAttribute(element, "overflow", oldValue);
+//		}
+		
+//		if (oldTabbarOffsetHeight != null)
+//		{
+//			DOM.setStyleAttribute(tabs, "offsetHeight", oldTabbarOffsetHeight + "px");
+//		}
+		
+		toolbarElement = null;
+		overflowRewritedElements = null;
+		oldTabbarOffsetHeight = null;
+		toolbarElementHeight = null;
+		toolbarRelocated = false;
+	}
+	
+	private Element findToolbarElement(Element parent)
+	{
+		for (int i = 0; i < parent.getChildCount(); i++)
+		{
+			Node node = parent.getChild(i);
+			if (node instanceof Element)
+			{
+				Element childElement = (Element) node;
+				String className = childElement.getClassName();
+				if (className != null && !className.contains("mparttoolbararea") && className.contains("mparttoolbar"))
+				{
+					return childElement;
+				}
+				else
+				{
+					Element toolbarElement = findToolbarElement(childElement);
+					if (toolbarElement != null)
+						return toolbarElement;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private List<Node> findPathToParent(Element element, Element parentElement)
+	{
+		List<Node> pathToParent = new ArrayList<Node>();
+		Node parent = element.getParentElement();
+		while (parent != null && parent != parentElement)
+		{
+			pathToParent.add(parent);
+			parent = parent.getParentElement();
+		}
+		if (parent != null)
+			pathToParent.add(parent);
+		else
+			pathToParent.clear();
+		return pathToParent;
+	}
+	
+//	private void refreshChildSizeables(Widget container)
+//	{
+//		Set<Paintable> childs = new java.util.HashSet<Paintable>();
+//		if (container instanceof ChildComponentContainer)
+//		{
+//			Widget innerComponent = ((ChildComponentContainer)container).getWidget();
+//			refreshChildSizeables(innerComponent);
+//			
+//			if (innerComponent instanceof Paintable)
+//				childs.add((Paintable) innerComponent);
+//		}
+//		else if (container instanceof SimplePanel)
+//		{
+//			SimplePanel spanel = (SimplePanel) container;
+//			refreshChildSizeables(spanel.getWidget());
+//			if (spanel.getWidget() instanceof Paintable)
+//				childs.add((Paintable) spanel.getWidget());
+//		}
+//		else if (container instanceof ComplexPanel)
+//		{
+//			ComplexPanel cpanel = (ComplexPanel) container;
+//			for (int i = 0; i < cpanel.getWidgetCount(); i++)
+//			{
+//				Widget child = cpanel.getWidget(i);
+//				refreshChildSizeables(child);
+//				if (child instanceof Paintable)
+//					childs.add((Paintable) child);
+//			}
+//		}
+//		
+//		if (container instanceof Container)
+//		{
+//			((Container)container).requestLayout(childs);
+//		}
 //	}
 }

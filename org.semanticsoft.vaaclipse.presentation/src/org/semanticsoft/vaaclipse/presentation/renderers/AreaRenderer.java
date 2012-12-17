@@ -45,7 +45,7 @@ public class AreaRenderer extends VaadinRenderer
 			bi.setVariableValue("e4ElementType", "area");
 			areaComp = bi;
 		}
-		areaComp.addStyleName("area_background");
+		areaComp.addStyleName("area");
 		areaComp.setSizeFull();
 		element.setWidget(areaComp);
 	}

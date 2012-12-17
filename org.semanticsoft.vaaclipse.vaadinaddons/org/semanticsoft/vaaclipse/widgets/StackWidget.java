@@ -48,7 +48,7 @@ public class StackWidget extends DDTabSheet
 	
 	public StackWidget()
 	{
-		this.addStyleName("folder_vaa_component");
+		this.addStyleName("stackwidget");
 		this.setDragMode(LayoutDragMode.CLONE);
 //		this.setDropHandler(new VaadinDropHandler(workbench, this));
 	}

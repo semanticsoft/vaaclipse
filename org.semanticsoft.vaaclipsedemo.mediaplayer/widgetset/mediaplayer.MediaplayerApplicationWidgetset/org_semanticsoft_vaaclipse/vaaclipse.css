@@ -1,15 +1,63 @@
-.v-etot-sukin-syn{
-	position: absolute; top: 10px; left: 3px; width: 240px; height: 150px; background-color: pink;
+.stackwidget .v-tabsheet-tabitemcell,
+.stackwidget .v-tabsheet-spacertd {
+	height: 32px;
 }
 
+.stackwidget .v-tabsheet-tabitemcell {
+	padding-left: 0px;
+}
+
+.stackwidget .v-tabsheet-tabitemcell-first {
+	padding-left: 0px;
+}
+
+.stackwidget .v-tabsheet-tabitem,
+.stackwidget .v-tabsheet-spacertd div {
+	height: 32px;
+	padding: 0;
+}
+
+.stackwidget .v-tabsheet-tabitem .v-caption {
+	height: 23px;
+	padding: 9px 8px 0 6px;
+}
+
+.stackwidget .v-tabsheet-tabitem .v-caption-closable {
+	padding-right: 0;
+	padding-left: 17px;
+}
+.stackwidget .v-tabsheet-tabitem .v-captiontext {
+	height: 16px;
+}
+
+.stackwidget .v-tabsheet-caption-close {
+	float: right;
+	width: 19px;
+	height: 18px;
+	margin: -1px -1px 0;
+	padding-left: 2px;
+}
+
+.v-ff .stackwidget .v-tabsheet-caption-close,
+.v-ie7 .stackwidget .v-tabsheet-caption-close {
+	margin-top: -17px;
+}
+
+.v-ie6 .stackwidget .v-tabsheet-caption-close {
+	float: none;
+}
+
+.stackwidget .v-tabsheet-spacertd div {
+	margin-right: 0px;
+}
+
+/*
+*/
 .vaadock-tabsheet-button-panel {
 	background-color: transparent;
     float: right;
-    height: 31px;
-    margin-top: -31px;
-    padding: 0 3px 0 4px;
     position: relative;
-    border-left: 1px solid #CFCFCF;
+    padding: 0 0 0 4px;
     width: 44px;
 }
 
