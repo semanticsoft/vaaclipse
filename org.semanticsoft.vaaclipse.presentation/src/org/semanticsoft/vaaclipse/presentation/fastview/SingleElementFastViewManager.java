@@ -409,7 +409,7 @@ public class SingleElementFastViewManager
 		hostPane.setDraggable(false);
 		if (trimBar.getSide() == SideValue.RIGHT)
 			hostPane.setResizable(false);
-		hostPane.setResizeLazy(true);
+		//hostPane.setResizeLazy(true);
 		hostPane.setStyleName("loading-window");
 		((AbstractLayout)hostPane.getContent()).setMargin(false);
 		hostPane.getContent().setSizeFull();
