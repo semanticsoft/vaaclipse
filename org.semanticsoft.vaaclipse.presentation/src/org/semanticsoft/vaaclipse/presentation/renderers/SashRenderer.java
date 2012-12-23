@@ -192,8 +192,7 @@ public class SashRenderer extends VaadinRenderer {
 				}
 				catch (NumberFormatException e) {}
 			}
-			if (weight==0) 
-				logger.warn("Please set container data on "+children.getElementId()+" else it may give unexpected behavior");
+			
 			map.put((Component) children.getWidget(), children);
 			weights.put(children, weight);
 			total_weight += weight;
