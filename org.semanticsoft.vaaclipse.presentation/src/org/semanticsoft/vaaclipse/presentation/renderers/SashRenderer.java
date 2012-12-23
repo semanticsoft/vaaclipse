@@ -30,7 +30,6 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.widgets.SashWidget;
 import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
@@ -40,8 +39,6 @@ import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractSplitPanel;
-import com.vaadin.ui.AbstractSplitPanel.SplitterClickEvent;
-import com.vaadin.ui.AbstractSplitPanel.SplitterClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.VerticalLayout;
@@ -223,6 +220,7 @@ public class SashRenderer extends VaadinRenderer {
 	public void refreshSashContainer(MPartSashContainer sash)
 	{
 		generateSplitPanelStructure(sash);
+		addSplitPaneListener(sash);
 	}
 
 	@PostConstruct
@@ -239,7 +237,13 @@ public class SashRenderer extends VaadinRenderer {
 	}
 	
 	@Override
-	public void hookControllerLogic(MUIElement element) 
+	public void hookControllerLogic(MUIElement element)
+	{
+		//Controller logic is added in refreshSashContainer method. The widget hierarchy regenerated on each add and remove gui,
+		//so listeners must added each time when sash widget created
+	}
+	
+	public void addSplitPaneListener(MUIElement element) 
 	{
 		final MPartSashContainer sash = (MPartSashContainer) element;
 		
