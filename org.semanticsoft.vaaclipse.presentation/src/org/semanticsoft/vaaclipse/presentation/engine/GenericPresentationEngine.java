@@ -269,11 +269,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 		}
 		
 		element.setRenderer(renderer);
-
-		// TODO check if parents are needed
-		if (parent == null) {
-			System.out.println("GenericPresentationEngine.createGui(): no parent: " + element + " parent: " + parent);
-		}
+		
 		renderer.createWidget(element, parent);
 		if (element.getWidget() != null)
 		{
