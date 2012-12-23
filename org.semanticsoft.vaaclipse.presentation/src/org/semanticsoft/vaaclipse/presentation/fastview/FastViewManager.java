@@ -30,6 +30,8 @@ import org.semanticsoft.vaaclipse.api.Events;
 import org.semanticsoft.vaaclipse.presentation.renderers.StackRenderer;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
+import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
+
 
 /**
  * @author rushan
@@ -41,6 +43,7 @@ public class FastViewManager
 	private IEclipseContext context;
 	
 	private Map<MUIElement, SingleElementFastViewManager> element2man = new HashMap<MUIElement, SingleElementFastViewManager>();
+	private Map<StackWidget, LayoutDragMode> layoutDragMode = new HashMap<>();
 	
 	private EventHandler minimizeHandler = new EventHandler() {
 		
@@ -54,6 +57,21 @@ public class FastViewManager
 			
 			System.out.println("minimized");
 			
+			//Disable drag mode
+			if (minimizedElement.getWidget() != null)
+			{
+				if (minimizedElement.getWidget() instanceof StackWidget)
+				{
+					StackWidget sw = (StackWidget) minimizedElement.getWidget();
+					if (sw.getDragMode() != null && !sw.getDragMode().equals(LayoutDragMode.NONE))
+					{
+						layoutDragMode.put(sw, sw.getDragMode());
+						sw.setDragMode(LayoutDragMode.NONE);
+					}
+				}
+			}
+			
+			//start single element fast view manager for minimizedElement
 			MTrimBar trimBar = (MTrimBar) event.getProperty(Events.MinMaxEvents.PARAMETER_TRIMBAR);
 			MToolBar toolBar = (MToolBar) event.getProperty(Events.MinMaxEvents.PARAMETER_TOOLBAR);
 			
@@ -80,6 +98,20 @@ public class FastViewManager
 				System.out.println("restore");
 				
 				element2man.remove(minimizedElement).dispose();
+				
+				//restore drag mode
+				if (minimizedElement.getWidget() != null)
+				{
+					if (minimizedElement.getWidget() instanceof StackWidget)
+					{
+						StackWidget sw = (StackWidget) minimizedElement.getWidget();
+						LayoutDragMode ldm = layoutDragMode.remove(sw);
+						if (ldm != null)
+						{
+							sw.setDragMode(ldm);
+						}
+					}
+				}
 			}
 		};
 	
