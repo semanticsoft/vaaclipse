@@ -11,55 +11,36 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import org.eclipse.e4.ui.model.application.ui.MElementContainer;
-
-import org.eclipse.e4.ui.workbench.modeling.EPartService;
-
-import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
-
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-
-import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
-
-import java.util.concurrent.Executors;
-
-import java.util.concurrent.ExecutorService;
-
-import java.util.concurrent.Executor;
-
-import org.eclipse.e4.ui.model.application.MContribution;
-
-import org.eclipse.e4.ui.model.application.ui.MUIElement;
-
-import javax.annotation.PreDestroy;
-
-import javax.annotation.PostConstruct;
-
-import org.eclipse.e4.core.services.events.IEventBroker;
-
 import com.vaadin.Application;
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.service.FileTypeResolver;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import java.io.File;
 import java.lang.reflect.Field;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.MContribution;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.e4extension.service.EPartServiceExt;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.BundleActivatorImpl;
 
 /**
@@ -179,14 +160,14 @@ public class PackageExplorer
 		
 		FilesystemContainer fsc = new FilesystemContainer(demoRoot, true);
 		FileTypeResolver.addExtension("java", "java");
-		FileTypeResolver.addIcon("java", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/java.png"));
+		FileTypeResolver.addIcon("java", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/java.png"));
 		FileTypeResolver.addExtension("xml", "xml");
-		FileTypeResolver.addIcon("xml", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/xml.png"));
+		FileTypeResolver.addIcon("xml", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/xml.png"));
 		FileTypeResolver.addExtension("css", "css");
-		FileTypeResolver.addIcon("css", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/css.png"));
-		FileTypeResolver.addIcon("image/png", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/img.png"));
+		FileTypeResolver.addIcon("css", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/css.png"));
+		FileTypeResolver.addIcon("image/png", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/img.png"));
 		
-		FileTypeResolver.addIcon("inode/directory", new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/folder.png"));
+		FileTypeResolver.addIcon("inode/directory", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/folder.png"));
 
 		tree.setContainerDataSource(fsc);
 

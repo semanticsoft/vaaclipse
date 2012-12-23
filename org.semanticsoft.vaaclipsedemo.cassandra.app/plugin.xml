@@ -32,8 +32,8 @@
                value="5,275,445,15">
          </property>
          <property
-               name="applicationCSS"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/css/default.css">
+               name="cssTheme"
+               value="reindeer">
          </property>
          <property
                name="applicationWidgetset"
@@ -67,5 +67,30 @@
             beforefragment="true"
             class="org.semanticsoft.vaaclipsedemo.cassandra.app.processor.TextEditorProcessor">
       </processor>
+   </extension>
+   <extension
+         point="org.semanticsoft.vaaclipse.theme">
+         <themecontribution
+            cssuri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
+            id="org.semanticsoft.vaaclipse.resources"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
+      <themecontribution
+            cssuri="css/default.css"
+            id="org.semanticsoft.vaaclipsedemo.cassandra.app.maincontrib"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="img/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
    </extension>
 </plugin>

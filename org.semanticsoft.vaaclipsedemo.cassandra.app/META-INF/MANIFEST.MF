@@ -24,7 +24,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.osgi.services;bundle-version="3.3.100",
  org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons;bundle-version="1.0.0",
  org.semanticsoft.e4modelextension;bundle-version="1.0.0",
- org.eclipse.e4.ui.di;bundle-version="0.10.1"
+ org.eclipse.e4.ui.di;bundle-version="0.10.1",
+ org.semanticsoft.vaaclipse.theme;bundle-version="1.0.0",
+ org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0"
 Import-Package: javax.annotation;version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Rushan R. Gilmullin

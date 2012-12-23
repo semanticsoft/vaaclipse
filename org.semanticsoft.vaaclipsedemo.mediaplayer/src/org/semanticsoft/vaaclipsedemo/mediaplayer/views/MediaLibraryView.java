@@ -14,6 +14,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
@@ -219,14 +220,14 @@ public class MediaLibraryView {
 	private void setupCategory(MediaCategory childCategory, Item childCategoryItem)
 	{
 		childCategoryItem.getItemProperty(NAME_PROP).setValue(childCategory.getName());
-		childCategoryItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediacategory.png"));
+		childCategoryItem.getItemProperty(ICON_PROP).setValue(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediacategory.png"));
 		childCategoryItem.getItemProperty(OBJECT_PROP).setValue(childCategory);
 	}
 
 	private void setupItem(Media media, Item mediaItem)
 	{
 		mediaItem.getItemProperty(NAME_PROP).setValue(media.getName());
-		mediaItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/media.png"));
+		mediaItem.getItemProperty(ICON_PROP).setValue(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/media.png"));
 		mediaItem.getItemProperty(OBJECT_PROP).setValue(media);
 	}
 	

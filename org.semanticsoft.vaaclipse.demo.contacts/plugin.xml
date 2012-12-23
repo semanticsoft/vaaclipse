@@ -20,8 +20,8 @@
                value="plugin_customization.ini">
          </property>
          <property
-               name="applicationCSS"
-               value="platform:/plugin/org.semanticsoft.vaaclipse.demo.contacts/css/default.css">
+               name="cssTheme"
+               value="reindeer">
          </property>
          <property
                name="appName"
@@ -39,6 +39,20 @@
       <fragment
             uri="fragment.e4xmi">
       </fragment>
+   </extension>
+   <extension
+         point="org.semanticsoft.vaaclipse.theme">
+      <themecontribution
+            cssuri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
+            id="org.semanticsoft.vaaclipse.resources"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
    </extension>
 
 </plugin>

@@ -15,5 +15,6 @@ Import-Package: javax.annotation;version="1.1.0",
  org.osgi.service.http;version="1.2"
 Bundle-SymbolicName: org.semanticsoft.vaadin.osgi.staticres
 Require-Bundle: org.semanticsoft.vaaclipse.util;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.api;bundle-version="1.0.0"
+ org.semanticsoft.vaaclipse.api;bundle-version="1.0.0",
+ org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0"
 

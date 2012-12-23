@@ -44,22 +44,22 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.IExceptionHandler;
 import org.eclipse.e4.ui.workbench.IModelResourceHandler;
-import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
-import org.eclipse.e4.ui.workbench.lifecycle.PreSave;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessRemovals;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.equinox.internal.app.MainApplicationLauncher;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
 import org.semanticsoft.vaaclipse.publicapi.authentication.User;
+import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
+import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
+import org.semanticsoft.vaaclipse.publicapi.theme.ThemeManager;
 
 import com.vaadin.Application;
 import com.vaadin.ui.ComponentContainer;
@@ -104,14 +104,23 @@ public class VaadinApplication extends Application
 	}
 	
 	@Override
+	public void setTheme(String theme)
+	{
+		throw new RuntimeException("You can not use com.vaadin.Application.setTheme method. " +
+				"Use cssTheme property for setting current theme in plugin.xml or " +
+				"use org.semanticsoft.vaaclipse.publicapi.ThemeManager.setTheme method for setting theme in runtime.");
+	}
+	
+	private void setThemeInternal(String themeId)
+	{
+		super.setTheme(themeId);
+	}
+	
+	@Override
 	public void init()
 	{
 		context = VaadinE4Application.getInstance().getAppContext();
 		logger = VaadinE4Application.getInstance().getLogger();
-		
-		String themeName = VaadinE4Application.getInstance().getUserVaadinTheme();
-		setTheme(themeName);
-		
 		
 		//--user agent detection
 //		if (this.getContext() instanceof WebApplicationContext) {
@@ -130,6 +139,26 @@ public class VaadinApplication extends Application
 		//-------------------------------------
 		prepareEnvironment(context);
 		
+		IEventBroker eventBroker = appContext.get(EventBroker.class);
+		
+		eventBroker.subscribe(ThemeConstants.Events.setThemeEvent, new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event)
+			{
+				Theme theme = (Theme) event.getProperty(IEventBroker.DATA);
+				if (theme != null)
+				{
+					VaadinE4Application.getInstance().setCssTheme(theme.getId());
+					setThemeInternal(theme.getWebId());
+				}
+			}
+		});
+		
+		String themeId = VaadinE4Application.getInstance().getCssTheme();
+		ThemeManager themeManager = appContext.get(ThemeManager.class);
+		themeManager.setTheme(themeId);
+		
 		String authProvider = VaadinE4Application.getInstance().getApplicationAuthenticationProvider();
 		
 		if (authProvider == null || authProvider.trim().isEmpty())
@@ -144,7 +173,6 @@ public class VaadinApplication extends Application
 			window.setSizeFull();
 			setMainWindow(window);
 			
-			IEventBroker eventBroker = appContext.get(EventBroker.class);
 			eventBroker.subscribe(AuthenticationConstants.Events.Authentication, new EventHandler() {
 
 				@Override

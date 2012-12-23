@@ -13,7 +13,6 @@ package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
 import com.vaadin.data.Item;
 import com.vaadin.terminal.Resource;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -40,6 +39,7 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.FileUtils;
 
 public class Outline
@@ -135,14 +135,14 @@ public class Outline
 		
 		packageItem = tree.addItem("package");
 		tree.setChildrenAllowed("package", false);
-		packageItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_declaration.png"));
+		packageItem.getItemProperty(ICON_PROP).setValue(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_declaration.png"));
 		packageItem.getItemProperty(CAPTION_PROP).setValue(pkg);
 		
 		importsItem = tree.addItem("import_declarations");
 		importsItem.getItemProperty(CAPTION_PROP).setValue("import declarations");
 		
 		classItem = tree.addItem("class");
-		classItem.getItemProperty(ICON_PROP).setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/class_declaration.png"));
+		classItem.getItemProperty(ICON_PROP).setValue(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/class_declaration.png"));
 		classItem.getItemProperty(CAPTION_PROP).setValue(className);
 		
 		for (String imp : imports)
@@ -150,7 +150,7 @@ public class Outline
 			Item item = tree.addItem(imp);
 			tree.setChildrenAllowed(imp, false);
 			item.getItemProperty("caption").setValue(imp);
-			item.getItemProperty("icon").setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_declaration.png"));
+			item.getItemProperty("icon").setValue(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_declaration.png"));
 			tree.setParent(imp, "import_declarations");
 		}
 		
@@ -169,7 +169,7 @@ public class Outline
 			Item item = tree.addItem(m.name);
 			tree.setChildrenAllowed(m.name, false);
 			item.getItemProperty("caption").setValue(m.name);
-			item.getItemProperty("icon").setValue(new ThemeResource("org.semanticsoft.vaaclipsedemo.cassandra.app/img/" + type));
+			item.getItemProperty("icon").setValue(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/" + type));
 			tree.setParent(m.name, "class");
 		}
 		

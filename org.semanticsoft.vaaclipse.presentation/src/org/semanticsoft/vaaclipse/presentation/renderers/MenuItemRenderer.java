@@ -31,11 +31,9 @@ import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueMenuItem;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipse.util.Utils;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 
 import com.vaadin.terminal.Resource;
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
@@ -67,7 +65,7 @@ public class MenuItemRenderer extends ItemRenderer {
 			if (UIEvents.UILabel.LABEL.equals(attName)) {
 				ici.setText(newValue);
 			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
-				Resource icon = new ThemeResource(Utils.convertPath(newValue));
+				Resource icon = BundleResource.valueOf(newValue);
 				ici.setIcon(icon);
 			} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
 				ici.setDescription(newValue);
@@ -120,7 +118,7 @@ public class MenuItemRenderer extends ItemRenderer {
 			text = text.replaceAll("&", "");
 			
 			//Prepare the icon
-			Resource icon = model.getIconURI() != null ? new ThemeResource(Utils.convertPath(model.getIconURI())) : null;
+			Resource icon = model.getIconURI() != null ? BundleResource.valueOf(model.getIconURI()) : null;
 			
 			//Prepare the command
 			Command command = null;

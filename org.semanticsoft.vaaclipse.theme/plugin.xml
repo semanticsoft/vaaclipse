@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.semanticsoft.vaaclipse.theme" name="Vaaclipse Theme" schema="schema/org.semanticsoft.vaaclipse.theme.exsd"/>
+   <extension
+         point="org.semanticsoft.vaaclipse.theme">
+      <theme
+            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/styles.css"
+            description="Vaadin Reindeer theme"
+            id="reindeer"
+            label="Reindeer">
+         <resourceuri
+               uri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/">
+         </resourceuri>
+      </theme>
+      <theme
+            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/styles.css"
+            description="Vaadin Chameleon theme"
+            id="chameleon"
+            label="Chameleon">
+         <resourceuri
+               uri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/">
+         </resourceuri>
+      </theme>
+      <theme
+            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/runo/styles.css"
+            description="Vaadin Runo theme"
+            id="runo"
+            label="Runo">
+         <resourceuri
+               uri="platform:/plugin/com.vaadin/VAADIN/themes/runo/">
+         </resourceuri>
+      </theme>
+      <theme
+            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/styles.css"
+            description="Vaadin Liferay theme"
+            id="liferay"
+            label="Liferay">
+         <resourceuri
+               uri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/">
+         </resourceuri>
+      </theme>
+      <theme
+            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/base/styles.css"
+            description="Vaadin Base theme"
+            id="base"
+            label="Base">
+         <resourceuri
+               uri="platform:/plugin/com.vaadin/VAADIN/themes/base/">
+         </resourceuri>
+      </theme>
+   </extension>
+
+</plugin>

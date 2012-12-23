@@ -9,8 +9,7 @@ package org.semanticsoft.vaaclipse.api;
  */
 public interface ResourceInfoProvider
 {
-	String getUserVaadinTheme();
-	String getApplicationCSS();
+	String getCssTheme();
 	String getApplicationtWidgetset();
 	String getApplicationtWidgetsetName();
 	String getApplicationHeaderIcon();

@@ -59,7 +59,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private String contextPath = "/";
 	private String port = "80";
 	private String productionMode;
-	private String appCss;
+	private String cssTheme;
 	private String appWidgetset;
 	private String appWidgetsetName;
 	private String appHeaderIcon;
@@ -74,9 +74,14 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	}
 	
 	@Override
-	public String getApplicationCSS()
+	public String getCssTheme()
 	{
-		return appCss;
+		return cssTheme;
+	}
+	
+	public void setCssTheme(String cssTheme)
+	{
+		this.cssTheme = cssTheme;
 	}
 	
 	@Override
@@ -100,12 +105,6 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	public String getApplicationAuthenticationProvider()
 	{
 		return appAuthProvider;
-	}
-	
-	@Override
-	public String getUserVaadinTheme()
-	{
-		return VAACLIPSE_USER_THEME;
 	}
 	
 	public Location getInstanceLocation()
@@ -168,10 +167,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		if (contextPath == null)
 			contextPath = "/";
 		
-		appCss = appContext.getBrandingProperty("applicationCSS");
+		cssTheme = appContext.getBrandingProperty("cssTheme");
 		
-		if (appCss == null)
-			appCss = "platform:/plugin/org.semanticsoft.vaaclipse.app/css/default_user_css.css";
+		if (cssTheme == null)
+			cssTheme = "reindeer";
 		
 		appWidgetset = appContext.getBrandingProperty("applicationWidgetset");
 		if (appWidgetset == null || appWidgetset.trim().isEmpty())

@@ -11,26 +11,17 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
-import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
-import org.eclipse.e4.ui.internal.workbench.ContributionsAnalyzer;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.ItemType;
-import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
@@ -42,13 +33,11 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
-import org.semanticsoft.vaaclipse.util.Utils;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
 import com.vaadin.terminal.Resource;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -84,7 +73,7 @@ public class ToolItemRenderer extends ItemRenderer
 			if (UIEvents.UILabel.LABEL.equals(attName)) {
 				ici.setCaption(newValue);
 			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
-				Resource icon = new ThemeResource(Utils.convertPath(newValue));
+				Resource icon = BundleResource.valueOf(newValue);
 				ici.setIcon(icon);
 			} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
 				ici.setDescription(newValue);
@@ -208,7 +197,7 @@ public class ToolItemRenderer extends ItemRenderer
 			{
 				if (iconURI != null)
 				{
-					Resource icon = new ThemeResource(Utils.convertPath(iconURI));
+					Resource icon = BundleResource.valueOf(iconURI);
 					button.setIcon(icon);
 				}
 				else

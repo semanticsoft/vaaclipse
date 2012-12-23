@@ -16,8 +16,8 @@
                value="org.semanticsoft.vaaclipsedemo.mediaplayer/Application.e4xmi">
          </property>
          <property
-               name="applicationCSS"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/css/default.css">
+               name="cssTheme"
+               value="chameleon">
          </property>
          <property
                name="applicationWidgetset"
@@ -27,10 +27,10 @@
                name="applicationHeaderIcon"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/vaaclipse.png">
          </property>
-         <!--property
+         <property
                name="applicationAuthenticationProvider"
                value="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.login.LoginProvider">
-         </property-->
+         </property>
       </product>
    </extension>
    <extension id="processor"
@@ -63,6 +63,66 @@
 		         </with>
          	</or>
       </definition>
+   </extension>
+   <extension
+         point="org.semanticsoft.vaaclipse.theme">
+      <themecontribution
+            cssuri="css/chameleoncolor.css"
+            id="org.semanticsoft.vaaclipsedemo.mediaplayer.chameleoncolor"
+            insertPosition="after=MAIN_CSS">
+         <themeid
+               refid="chameleon">
+         </themeid>
+      </themecontribution>
+      <themecontribution
+            cssuri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
+            id="org.semanticsoft.vaaclipse.resources"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
+         </resourceuri>
+         <themeid
+               refid="chameleon">
+         </themeid>
+         <themeid
+               refid="reindeer">
+         </themeid>
+         <themeid
+               refid="runo">
+         </themeid>
+         <themeid
+               refid="liferay">
+         </themeid>
+         <themeid
+               refid="base">
+         </themeid>
+      </themecontribution>
+      <themecontribution
+            cssuri="css/mediaplayer.css"
+            id="org.semanticsoft.vaaclipsedemo.mediaplayer.maincontrib"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons">
+         </resourceuri>
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/chameleon">
+         </resourceuri>
+         <themeid
+               refid="chameleon">
+         </themeid>
+         <themeid
+               refid="reindeer">
+         </themeid>
+         <themeid
+               refid="runo">
+         </themeid>
+         <themeid
+               refid="liferay">
+         </themeid>
+         <themeid
+               refid="base">
+         </themeid>
+      </themecontribution>
    </extension>
 
 </plugin>

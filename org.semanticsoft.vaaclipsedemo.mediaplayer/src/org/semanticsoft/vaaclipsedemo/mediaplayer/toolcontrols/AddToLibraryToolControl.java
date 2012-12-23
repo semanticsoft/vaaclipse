@@ -11,13 +11,13 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.semanticsoft.e4extension.service.EPartServiceExt;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.constants.MediaConstants;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.AddMedia;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.Media;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 
 import com.vaadin.Application;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -56,7 +56,7 @@ public class AddToLibraryToolControl
 	public void postConstruct(ComponentContainer cc)
 	{
 		playMediaButton = new Button("Play media: ");
-		playMediaButton.setIcon(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/watch.png"));
+		playMediaButton.setIcon(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/watch.png"));
 		playMediaButton.setDescription("Play media");
 		textField = new TextField();
 		textField.setWidth("20em");
@@ -79,7 +79,7 @@ public class AddToLibraryToolControl
 		});
 		
 		Button addToLibraryButton = new Button("Add...");
-		addToLibraryButton.setIcon(new ThemeResource("org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png"));
+		addToLibraryButton.setIcon(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png"));
 		addToLibraryButton.setDescription("Add media to library");
 		addToLibraryButton.addListener(new ClickListener() {
 			

@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.semanticsoft.vaaclipse.theme" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.semanticsoft.vaaclipse.theme" id="org.semanticsoft.vaaclipse.theme" name="Vaaclipse Theme"/>
+      </appinfo>
+      <documentation>
+         This extension point provides the possibility to define themes and theme contributions
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+      	<sequence>
+            <element ref="themecontribution" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="theme" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+   
+   <element name="themecontribution">
+      <annotation>
+         <documentation>
+            Theme contribution - contribute stylesheets and resources to theme
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="themeid" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="resourceuri" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Id of the contribution
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="cssuri" type="string" use="required">
+            <annotation>
+               <documentation>
+                  uri to the stylesheet
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="resource"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="insertPosition" type="string" default="after=MAIN_CSS">
+            <annotation>
+               <documentation>
+                  Position where contributed css inserted in main theme's css: after=POSITION or before=POSITION,
+                  where POSITION can be another contribution id or one of MAIN_CSS, USER_IMPORTS, INHERITED_IMPORTS.
+                  Default value: after=MAIN_CSS
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="theme">
+      <complexType>
+      	<sequence>
+      		<element ref="inheritedTheme" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="resourceuri" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Id for the theme
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="label" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the label used when displayed to the user
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  the description
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="cssuri" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the css uri starting with platform:/plugin
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="resource"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="themeid">
+      <complexType>
+         <attribute name="refid" type="string">
+            <annotation>
+               <documentation>
+                  reference to theme for applying contribution
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="org.semanticsoft.vaaclipse.theme/theme/@id"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+   
+   <element name="inheritedTheme">
+      <complexType>
+         <attribute name="refid" type="string">
+            <annotation>
+               <documentation>
+                  reference to inherited (parent) theme
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="org.semanticsoft.vaaclipse.theme/theme/@id"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="resourceuri">
+      <complexType>
+         <attribute name="uri" type="string" use="required">
+            <annotation>
+               <documentation>
+                  an url starting with platform:/plugin
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+   
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

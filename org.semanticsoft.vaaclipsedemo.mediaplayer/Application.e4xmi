@@ -55,6 +55,23 @@
       <children xsi:type="menu:Menu" xmi:id="_xC5CQjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.file" label="File">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRTDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.quit" label="Quit" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
+      <children xsi:type="menu:Menu" xmi:id="_NSm9UEvDEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.0" label="View">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_mdqloEvFEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Reindeer" command="_hiBt0EyQEeKbU9kDDO2U-g">
+          <parameters xmi:id="_DmIyYExPEeKbU9kDDO2U-g" elementId="" name="theme" value="reindeer"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_JzklAExPEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Chameleon" command="_hiBt0EyQEeKbU9kDDO2U-g">
+          <parameters xmi:id="_KuYAYExPEeKbU9kDDO2U-g" elementId="" name="theme" value="chameleon"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_TF5E8ExPEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Runo" command="_hiBt0EyQEeKbU9kDDO2U-g">
+          <parameters xmi:id="_TkklAExPEeKbU9kDDO2U-g" elementId="" name="theme" value="runo"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_lDLw8ExPEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Liferay" command="_hiBt0EyQEeKbU9kDDO2U-g">
+          <parameters xmi:id="_l6lTAExPEeKbU9kDDO2U-g" elementId="" name="theme" value="liferay"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_pmBC8ExPEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Base" command="_hiBt0EyQEeKbU9kDDO2U-g">
+          <parameters xmi:id="_qaAEoExPEeKbU9kDDO2U-g" elementId="" name="theme" value="base"/>
+        </children>
+      </children>
       <children xsi:type="menu:Menu" xmi:id="_xC5CRjDGEeKcFLjGBzrJfw" label="Help">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRzDGEeKcFLjGBzrJfw" label="About" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
       </children>
@@ -106,6 +123,7 @@
   <handlers xmi:id="_elDHMD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.RemoveSelectedEntryFromLibrary" command="_Xq7NsD8aEeKod85Q1rNT2g"/>
   <handlers xmi:id="_JCy9sD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.AddCategory" command="_Cp6JAD99EeKod85Q1rNT2g"/>
   <handlers xmi:id="_LNLxoD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.addMedia" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.AddMedia" command="_E3YGID99EeKod85Q1rNT2g"/>
+  <handlers xmi:id="_JSj5IEyQEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.theme.ChangeThemeHandler" command="_hiBt0EyQEeKbU9kDDO2U-g"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
     <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O"/>
@@ -117,7 +135,7 @@
     <children xmi:id="_xC4bMTDGEeKcFLjGBzrJfw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
   <menuContributions xmi:id="_5mdHQEUpEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menucontribution.0" positionInParent="before=org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.quit" parentId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.file">
-  	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="_SFSDLFJLSMALJWLJD" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+    <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_SFSDLFJLSMALJWLJD" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
     <children xsi:type="menu:HandledMenuItem" xmi:id="_jBj3oEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Add Category" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add_category.png" tooltip="Add media category" command="_Cp6JAD99EeKod85Q1rNT2g"/>
     <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CQzDGEeKcFLjGBzrJfw" label="Add Media" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png" tooltip="Add media to library" command="_E3YGID99EeKod85Q1rNT2g"/>
     <children xsi:type="menu:MenuSeparator" xmi:id="__xtpQEUhEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.1" accessibilityPhrase=""/>
@@ -126,7 +144,7 @@
     <children xsi:type="menu:MenuSeparator" xmi:id="_BrLFQEUiEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menuseparator.2" accessibilityPhrase=""/>
   </menuContributions>
   <menuContributions xmi:id="_YqT1UEU0EeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menucontribution.0" positionInParent="after=org.semanticsoft.vaaclipsedemo.mediaplayer.menu.file" parentId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.bar">
-  	<visibleWhen xsi:type="ui:CoreExpression" xmi:id="FFSLKJHGKJHKHANXHHXH" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
+    <visibleWhen xsi:type="ui:CoreExpression" xmi:id="FFSLKJHGKJHKHANXHHXH" coreExpressionId="org.semanticsoft.vaaclipsedemo.mediaplayer.expression.add_to_library_visible_when"/>
     <children xsi:type="menu:Menu" xmi:id="_1uqx0EUzEeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.edit" label="Edit">
       <children xsi:type="menu:HandledMenuItem" xmi:id="_RsN6cEU3EeK-2PTuyvOz4w" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Edit Media" tooltip="Edit selected media" command="_Y3-gID0sEeKod85Q1rNT2g"/>
     </children>
@@ -142,6 +160,9 @@
   <commands xmi:id="_Xq7NsD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.removeFromLibrary" commandName="removeFromLibrary"/>
   <commands xmi:id="_Cp6JAD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.addCategory" commandName="addCategory"/>
   <commands xmi:id="_E3YGID99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.addMedia" commandName="addMedia"/>
+  <commands xmi:id="_hiBt0EyQEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.changeTheme" commandName="changeTheme">
+    <parameters xmi:id="_Eho14EySEeKbU9kDDO2U-g" elementId="theme" name="theme"/>
+  </commands>
   <addons xmi:id="_xC4bMjDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_xC4bMzDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_xC4bNDDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

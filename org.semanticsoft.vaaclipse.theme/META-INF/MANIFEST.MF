@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Theme
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.theme;singleton:=true
+Bundle-Version: 1.0.0.M1
+Bundle-Vendor: Rushan R. Gilmullin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0",
+ org.eclipse.equinox.common;bundle-version="3.6.100",
+ org.eclipse.equinox.registry;bundle-version="3.5.300",
+ com.vaadin;bundle-version="6.8.1",
+ javax.inject;bundle-version="1.0.0",
+ org.eclipse.e4.core.services;bundle-version="1.0.0",
+ org.eclipse.e4.core.contexts;bundle-version="1.2.0",
+ org.eclipse.e4.core.di;bundle-version="1.2.0"
+Import-Package: javax.annotation;version="1.1.0"
+Service-Component: OSGI-INF/themeManager.xml,
+ OSGI-INF/themeEngine.xml

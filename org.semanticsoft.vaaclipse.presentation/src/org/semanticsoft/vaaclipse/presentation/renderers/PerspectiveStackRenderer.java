@@ -39,6 +39,7 @@ import org.semanticsoft.vaaclipse.presentation.engine.GenericPresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
@@ -468,7 +469,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		if (iconURI == null && label == null)
 		{
 			iconURI = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png";
-			Resource icon = new com.vaadin.terminal.ThemeResource(Utils.convertPath(iconURI));
+			Resource icon = BundleResource.valueOf(iconURI);
 			button.setIcon(icon);
 			button.addStyleName("icononly");
 		}
@@ -476,7 +477,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		{
 			if (iconURI != null)
 			{
-				Resource icon = new ThemeResource(Utils.convertPath(iconURI));
+				Resource icon = BundleResource.valueOf(iconURI);
 				button.setIcon(icon);
 			}
 			else
@@ -566,7 +567,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					for (MPerspective p : perspectiveStackForSwitcher.getChildren())
 					{
 						Item item = container.addItem(p.getElementId());
-						item.getItemProperty(PERSPECTIVE_ICON).setValue(new ThemeResource(Utils.convertPath(p.getIconURI())));
+						item.getItemProperty(PERSPECTIVE_ICON).setValue(BundleResource.valueOf(p.getIconURI()));
 						item.getItemProperty(PERSPECTIVE_LABEL).setValue(p.getLabel());
 					}
 					

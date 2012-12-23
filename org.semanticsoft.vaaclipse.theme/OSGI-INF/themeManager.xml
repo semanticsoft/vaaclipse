@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="false" name="org.semanticsoft.vaaclipse.theme.themeManager">
+   <implementation class="org.semanticsoft.vaaclipse.theme.ThemeManagerContextFunction"/>
+   <service>
+      <provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
+   </service>
+   <property name="service.context.key" type="String" value="org.semanticsoft.vaaclipse.publicapi.theme.ThemeManager"/>
+   <reference bind="bindThemeEngine" cardinality="1..1" interface="org.semanticsoft.vaaclipse.publicapi.theme.ThemeEngine" name="ThemeEngine" policy="static"/>
+</scr:component>

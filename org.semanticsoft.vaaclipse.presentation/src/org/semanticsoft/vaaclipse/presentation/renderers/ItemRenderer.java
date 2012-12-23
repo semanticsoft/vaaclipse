@@ -119,6 +119,8 @@ public abstract class ItemRenderer extends VaadinRenderer {
 				}
 			}
 		}
+		if (text == null)
+			text = "Blank";
 		return text;
 	}
 	
