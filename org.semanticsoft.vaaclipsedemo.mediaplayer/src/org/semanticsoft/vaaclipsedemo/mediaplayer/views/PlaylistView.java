@@ -11,7 +11,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
@@ -29,9 +28,6 @@ import com.vaadin.event.DataBoundTransferable;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
-import com.vaadin.event.dd.acceptcriteria.And;
-import com.vaadin.event.dd.acceptcriteria.ClientSideCriterion;
-import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.ui.AbstractSelect.AbstractSelectTargetDetails;
 import com.vaadin.ui.AbstractSelect.AcceptItem;
 import com.vaadin.ui.Panel;
@@ -179,13 +175,7 @@ public class PlaylistView
 		table.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
 
 		this.panel.addComponent(table);
-
-		MPart mediaLibPart = (MPart) modelService.find("org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib", app);
-		MediaLibraryView mediaLibView = (MediaLibraryView) mediaLibPart.getObject();
-		// TODO: mediaLibView can be null at initialization time... change this
-		// code...
-		final ClientSideCriterion acceptCriterion = new SourceIs(mediaLibView.getTree());
-
+		
 		tableContainer = new CustomBeanItemContainer<Media>(Media.class);
 		table.setContainerDataSource(tableContainer);
 		table.setVisibleColumns(new Object[] { "name" });
@@ -238,7 +228,7 @@ public class PlaylistView
 
 			public AcceptCriterion getAcceptCriterion()
 			{
-				return new And(acceptCriterion, AcceptItem.ALL);
+				return AcceptItem.ALL;
 			}
 		});
 		
