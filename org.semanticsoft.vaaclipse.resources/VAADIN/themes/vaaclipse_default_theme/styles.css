@@ -210,6 +210,7 @@ div.v-disabled.v-button-vaaclipsebutton .v-button-wrap {
 	display: inline;
 	padding: 0px;
 	margin: 0px;
+	color: #000000;
 }
 
 .v-button-vaaclipsebutton:active, .v-button-vaaclipsebutton:focus,
@@ -237,7 +238,8 @@ div.v-button-pushed {
 	padding: 0px;
 	margin: 0px;
 	border: none;
-	}
+	color: #000000;
+}
 
 
 .v-button-icononly .v-button-caption {
