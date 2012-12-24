@@ -16,8 +16,8 @@
                value="org.semanticsoft.vaaclipsedemo.mini/Application.e4xmi">
          </property>
          <property
-               name="applicationCSS"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mini/css/default.css">
+               name="cssTheme"
+               value="reindeer">
          </property>
          <property
                name="applicationHeaderIcon"
@@ -28,6 +28,31 @@
                value="bundleclass://org.semanticsoft.vaaclipsedemo.mini/org.semanticsoft.vaaclipsedemo.mini.login.LoginProvider">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.semanticsoft.vaaclipse.theme">
+         <themecontribution
+            cssuri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
+            id="org.semanticsoft.vaaclipse.resources"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
+      <themecontribution
+            cssuri="css/default.css"
+            id="org.semanticsoft.vaaclipsedemo.mini.maincontrib"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="icons/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
    </extension>
 
 </plugin>
