@@ -368,6 +368,15 @@ width: 0px;
 .mparttoolbar {
 	float: right;
 }
+
+/*
+bugfixing style for context menu addon
+*/
+.v-ie9 .close-perspective-item .ctxmenu-name {
+	margin-left: 25px;
+	margin-top: -25px;
+}
+
 /************* jhighlight styles**************************/
 .xml_plain {
 color: rgb(0,0,0);

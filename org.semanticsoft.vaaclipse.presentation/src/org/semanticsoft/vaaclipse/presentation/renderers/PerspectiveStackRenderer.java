@@ -139,6 +139,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				}
 				menu.removeItem(showTextItem);
 				showTextItem = menu.addItem("Show Text");
+				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 			} 
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType) && Tags.ICONS_ONLY.equals(oldVal)) {
 				for (Map.Entry<MPerspective, TwoStateToolbarButton> entry : perspective_button.entrySet())
@@ -150,6 +151,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				}
 				menu.removeItem(showTextItem);
 				showTextItem = menu.addItem("Hide Text");
+				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 			}
 		}
 	};
@@ -307,6 +309,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			showTextItem = menu.addItem("Show Text");
 		else
 			showTextItem = menu.addItem("Hide Text");
+		
+		showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 		
 		 menu.addListener(new ContextMenu.ClickListener() {
 
