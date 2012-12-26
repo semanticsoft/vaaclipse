@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="@@projectName@@.product"
+            application="org.semanticsoft.vaaclipse.app.application">
+         <property
+               name="appName"
+               value="@@projectName@@">
+         </property>
+         <property
+               name="applicationXMI"
+               value="@@projectName@@/Application.e4xmi">
+         </property>
+         <property
+               name="cssTheme"
+               value="reindeer">
+         </property>
+         <property
+               name="applicationHeaderIcon"
+               value="platform:/plugin/@@projectName@@/icons/vaaclipse.png">
+         </property>
+         <property
+               name="applicationAuthenticationProvider"
+               value="bundleclass://@@projectName@@/@@projectName@@.login.LoginProvider">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.semanticsoft.vaaclipse.theme">
+         <themecontribution
+            cssuri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
+            id="org.semanticsoft.vaaclipse.resources"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
+      <themecontribution
+            cssuri="css/main.css"
+            id="@@projectName@@.maincontrib"
+            insertPosition="after=MAIN_CSS">
+         <resourceuri
+               uri="icons/">
+         </resourceuri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
+   </extension>
+
+</plugin>
