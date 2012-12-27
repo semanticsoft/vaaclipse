@@ -4,23 +4,23 @@
     <tags>mainWindow</tags>
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_xC5CSDDGEeKcFLjGBzrJfw">
       <children xsi:type="advanced:Perspective" xmi:id="_xC5CSTDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.perspective.complex" label="Complex" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/total.png" tooltip="Complex">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_xC5CSjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" horizontal="true">
-          <children xsi:type="basic:PartSashContainer" xmi:id="_eXWZMDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.1" containerData="25">
-            <children xsi:type="basic:PartStack" xmi:id="_xC5CSzDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.0" containerData="60">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_xC5CSjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.root" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_eXWZMDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" containerData="25">
+            <children xsi:type="basic:PartStack" xmi:id="_xC5CSzDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.medialib" containerData="60">
               <children xsi:type="advanced:Placeholder" xmi:id="_YR2eIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.medialib" ref="_N5-gUDDdEeKcFLjGBzrJfw"/>
             </children>
-            <children xsi:type="basic:PartStack" xmi:id="_fmBLwDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.1" containerData="40">
+            <children xsi:type="basic:PartStack" xmi:id="_fmBLwDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.mediainfo" containerData="40">
               <children xsi:type="advanced:Placeholder" xmi:id="_amQJsDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.mediainfo" ref="_k6R6sDHDEeKcFLjGBzrJfw"/>
             </children>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_pI7vgD0TEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.0" containerData="70">
-            <children xsi:type="basic:PartStack" xmi:id="_yBdhUDDcEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.2" containerData="70">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_pI7vgD0TEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partsashcontainer.1" containerData="60">
+            <children xsi:type="basic:PartStack" xmi:id="_yBdhUDDcEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.player" containerData="70">
               <children xsi:type="advanced:Placeholder" xmi:id="_RYLQkDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.player" ref="_Odwi0DDdEeKcFLjGBzrJfw"/>
             </children>
             <children xsi:type="advanced:Placeholder" xmi:id="_q6GyMD0TEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.0" containerData="30" ref="_QWERMOsAEeGrI5NvCZeHUA"/>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_32QgEDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.3" containerData="15">
-            <children xsi:type="advanced:Placeholder" xmi:id="_8plFIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.0" ref="_9iMIIDIREeKcFLjGBzrJfw"/>
+          <children xsi:type="basic:PartStack" xmi:id="_32QgEDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.partstack.playlist" containerData="15">
+            <children xsi:type="advanced:Placeholder" xmi:id="_8plFIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.placeholder.playlist" ref="_9iMIIDIREeKcFLjGBzrJfw"/>
           </children>
         </children>
       </children>
@@ -76,7 +76,7 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRzDGEeKcFLjGBzrJfw" label="About" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
       </children>
     </mainMenu>
-    <sharedElements xsi:type="basic:Part" xmi:id="_Odwi0DDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.player" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlayerView" label="Player" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/player.png"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_Odwi0DDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.player" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlayerView" label="Player" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/player.png" tooltip="Player"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_N5-gUDDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.medialib" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaLibraryView" label="Media Library" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/medialib.png" tooltip="Media Library">
       <toolbar xmi:id="_ODAXID0rEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_1gy9sD98EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.addCategory" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add_category.png" tooltip="Add category" command="_Cp6JAD99EeKod85Q1rNT2g"/>
@@ -85,7 +85,7 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_W0Z1YD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/delete.png" tooltip="Remove selected" command="_Xq7NsD8aEeKod85Q1rNT2g"/>
       </toolbar>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_k6R6sDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaInfoView" label="Media Information" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediainfo.png"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_k6R6sDHDEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.mediainfo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.MediaInfoView" label="Media Information" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/mediainfo.png" tooltip="Media Information"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_9iMIIDIREeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.playlist" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlaylistView" label="Playlist" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/playlist.png" tooltip="Playlist">
       <toolbar xmi:id="_N5VRoDpVEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_PYuAwDpVEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledtoolitem.0" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/play.png" tooltip="Play" command="_Ja00EDpXEeKod85Q1rNT2g"/>
