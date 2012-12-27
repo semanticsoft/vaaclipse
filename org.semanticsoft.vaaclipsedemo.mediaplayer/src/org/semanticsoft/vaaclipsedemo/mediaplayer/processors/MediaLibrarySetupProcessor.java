@@ -50,7 +50,7 @@ public class MediaLibrarySetupProcessor
 		history.setName("History");
 		
 		Media sputnik = new Media();
-		sputnik.setName("The Soviet Sputnik");
+		sputnik.setName("The first Sputnik");
 		sputnik.setUri("http://www.youtube.com/v/TbAXkWPasYw");
 		sputnik.setDescription("History changed on October 4, 1957, when the Soviet Union successfully launched Sputnik I. " +
 				"The world's first artificial satellite was about the size of a beach ball (58 cm.or 22.8 inches in diameter), " +
