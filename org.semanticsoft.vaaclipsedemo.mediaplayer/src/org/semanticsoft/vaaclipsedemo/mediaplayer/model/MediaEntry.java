@@ -7,7 +7,7 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.model;
  * @author rushan
  *
  */
-public class MediaEntry
+public abstract class MediaEntry
 {
 	protected String name = "NoName";
 	protected MediaCategory parent;
