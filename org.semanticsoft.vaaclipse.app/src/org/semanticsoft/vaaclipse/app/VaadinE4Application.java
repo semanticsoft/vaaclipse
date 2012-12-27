@@ -64,7 +64,6 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private String appWidgetsetName;
 	private String appHeaderIcon;
 	private String appAuthProvider;
-	private boolean debugMode = false;
 	
 	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
 	
@@ -135,8 +134,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		queue = new ArrayBlockingQueue<>(10);
 		
 		startHttpService();
-		if (debugMode)
-		showFrame();//it was getting really annoying :)
+		
+		showFrame();
 		
 		String msg;
 		while (!(msg = queue.take()).equals(EXIT)) 
