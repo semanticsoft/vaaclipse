@@ -61,7 +61,7 @@ public class MediaLibraryView {
 	@Inject
 	MediaService mediaService;
 	
-	private Hierarchical container;
+	private HierarchicalContainer container;
 	
 	private EventHandler mediaEntryChangedHandler = new EventHandler() {
 		
@@ -102,7 +102,7 @@ public class MediaLibraryView {
 					if (data instanceof MediaEntry){
 						MediaEntry mediaEntry = (MediaEntry) data;
 						String id = mediaService.getId(mediaEntry);
-						container.removeItem(id);
+						container.removeItemRecursively(id);
 					}
 				}
 			};
@@ -172,7 +172,7 @@ public class MediaLibraryView {
 		}
 	}
 		
-	private Container.Hierarchical createMediaLibraryDataSource()
+	private HierarchicalContainer createMediaLibraryDataSource()
 	{
 		HierarchicalContainer container = new HierarchicalContainer();
 		container.addContainerProperty(NAME_PROP, String.class, "No Name");
