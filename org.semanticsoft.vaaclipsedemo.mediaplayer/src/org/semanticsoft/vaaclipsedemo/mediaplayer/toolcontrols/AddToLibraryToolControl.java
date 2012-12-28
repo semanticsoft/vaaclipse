@@ -119,7 +119,7 @@ public class AddToLibraryToolControl
 		media.setName("No name");
 		media.setUri(uri);
 		media.setDescription("");
-		broker.send(MediaConstants.mediaSelected, media);
+		broker.send(MediaConstants.mediaEntrySelected, media);
 		return media;
 	}
 }

@@ -51,7 +51,7 @@ public class PlayerView
 	};
 
 	@Inject
-	public PlayerView(VerticalLayout parent, IEclipseContext context, IEventBroker broker)
+	public PlayerView(VerticalLayout parent)
 	{
 		layout.setSizeFull();
 		parent.addComponent(layout);
@@ -59,7 +59,7 @@ public class PlayerView
 	
 	@PostConstruct
 	public void pc(IEventBroker b){
-		b.subscribe(MediaConstants.mediaSelected, mediaSelectedHandler);
+		b.subscribe(MediaConstants.mediaEntrySelected, mediaSelectedHandler);
 	}
 	
 	public Media getMedia()

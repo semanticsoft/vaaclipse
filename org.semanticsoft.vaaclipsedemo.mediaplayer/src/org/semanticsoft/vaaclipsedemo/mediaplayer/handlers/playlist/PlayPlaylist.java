@@ -36,7 +36,7 @@ public class PlayPlaylist
 			Map<String, Object> params = new HashMap<>();
 			params.put(IEventBroker.DATA, selectedInPlaylist);
 			params.put(MediaConstants.autoPlay, true);
-			eventBroker.send(MediaConstants.mediaSelected, params);	
+			eventBroker.send(MediaConstants.mediaEntrySelected, params);	
 		}
 	}
 }

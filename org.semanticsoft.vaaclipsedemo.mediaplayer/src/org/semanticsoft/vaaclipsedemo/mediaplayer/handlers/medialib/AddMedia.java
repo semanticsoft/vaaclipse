@@ -90,7 +90,7 @@ public class AddMedia extends AddMediaEntryBasic
 			media.setUri(uri);
 			media.setDescription("");
 			category.addMedia(media);
-			eventBroker.send(MediaConstants.mediaSelected, media);
+			eventBroker.send(MediaConstants.mediaEntrySelected, media);
 			
 			eventBroker.send(MediaConstants.mediaEntryAdded, media);
 			MInputPart part = partServiceExt.openUri(media.getUri());

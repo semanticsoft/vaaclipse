@@ -6,7 +6,7 @@ public class MediaConstants {
 	public static final String mediaEntryAdded = "MediaEntryAdded";
 	public static final String mediaEntryRemoved = "MediaEntryRemoved";
 	
-	public static final String mediaSelected = "MediaSelectedEvent";
+	public static final String mediaEntrySelected = "MediaEntrySelectedEvent";
 	public static final String reversePlaylist = "ReversePlaylist";
 	public static final String deleteMediaFromPlaylist = "DeleteMediaFromPlaylistEvent";
 	

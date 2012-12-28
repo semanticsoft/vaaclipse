@@ -62,7 +62,7 @@ public class MediaInfoView extends MediaInfoBase
 	
 	@PostConstruct
 	public void pc(IEventBroker broker){
-		broker.subscribe(MediaConstants.mediaSelected, meidaSelectedHandler);
+		broker.subscribe(MediaConstants.mediaEntrySelected, meidaSelectedHandler);
 		broker.subscribe(MediaConstants.mediaEntryChanged, mediaChangedHandler);
 	}
 	

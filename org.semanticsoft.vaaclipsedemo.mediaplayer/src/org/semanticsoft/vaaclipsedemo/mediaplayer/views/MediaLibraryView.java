@@ -155,7 +155,7 @@ public class MediaLibraryView {
 						MediaEntry media = (MediaEntry)object;
 						
 						mediaLibrary.setSelectedMediaEntry(media);
-						broker.send(MediaConstants.mediaSelected, media);
+						broker.send(MediaConstants.mediaEntrySelected, media);
 					}
 				}
 			}
