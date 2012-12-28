@@ -475,9 +475,11 @@ public class E4NewProjectWizard extends NewPluginProjectWizard {
 			 "org.semanticsoft.e4modelextension",
 			 "org.semanticsoft.vaaclipse.publicapi",
 			 "org.eclipse.e4.core.services",
-			 "org.semanticsoft.vaaclipse.theme"
+			 "org.semanticsoft.vaaclipse.theme",
+			 "org.eclipse.osgi.services",
+			 "org.eclipse.e4.core.di.extensions"
 		 };
-
+		
 		public void init(IFieldData data) {
 		}
 
