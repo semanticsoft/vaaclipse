@@ -66,7 +66,7 @@ public class EditorPartDescriptorEditor extends AbstractComponentEditor{
 
 	@Override
 	public String getDescription(Object element) {
-		return "Editor Descriptor Bla Bla Bla Bla Bla";
+		return "Editor Descriptor is a template for editor parts";
 	}
 
 	@Override
