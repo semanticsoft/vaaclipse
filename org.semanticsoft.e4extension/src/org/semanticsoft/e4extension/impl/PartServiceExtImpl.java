@@ -83,7 +83,8 @@ public class PartServiceExtImpl implements EPartServiceExt
 			part.setToolbar((MToolBar) EcoreUtil.copy((EObject) descriptor.getToolbar()));
 		}
 		part.setContributorURI(descriptor.getContributorURI());
-		part.setCloseable(descriptor.isCloseable());
+		//part.setCloseable(descriptor.isCloseable());
+		part.setCloseable(true); //closable
 		part.setContributionURI(descriptor.getContributionURI());
 		part.setLabel(descriptor.getLabel());
 		part.setIconURI(descriptor.getIconURI());

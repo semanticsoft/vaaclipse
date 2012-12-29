@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Extension
 Bundle-SymbolicName: org.semanticsoft.e4tools.extension;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.e4.core.services;bundle-version="1.0.0",

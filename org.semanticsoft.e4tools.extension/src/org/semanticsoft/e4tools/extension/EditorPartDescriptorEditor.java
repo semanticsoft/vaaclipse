@@ -138,11 +138,23 @@ public class EditorPartDescriptorEditor extends AbstractComponentEditor{
 		// ------------------------------------------------------------
 		{
 			Label l = new Label(parent, SWT.NONE);
+			l.setText("Content Filter");
+
+			Text t = new Text(parent, SWT.BORDER);
+			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+			gd.horizontalSpan=2;
+			t.setLayoutData(gd);
+			context.bindValue(textProp.observeDelayed(200,t), EMFEditProperties.value(getEditingDomain(), E4modelextensionPackage.Literals.EDITOR_PART_DESCRIPTOR__URI_FILTER).observeDetail(master));			
+		}
+		
+		// ------------------------------------------------------------
+		{
+			Label l = new Label(parent, SWT.NONE);
 			l.setText("Class URI");
 
 			Text t = new Text(parent, SWT.BORDER);
 			t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			context.bindValue(textProp.observeDelayed(200,t), EMFEditProperties.value(getEditingDomain(), E4modelextensionPackage.Literals.EDITOR_PART_DESCRIPTOR__PART_ADDING_LOGIC_URI).observeDetail(master));
+			context.bindValue(textProp.observeDelayed(200,t), EMFEditProperties.value(getEditingDomain(), BasicPackageImpl.Literals.PART_DESCRIPTOR__CONTRIBUTION_URI).observeDetail(master));
 
 			final Button b = new Button(parent, SWT.PUSH|SWT.FLAT);
 			b.setImage(createImage(ResourceProvider.IMG_Obj16_zoom));
@@ -159,7 +171,23 @@ public class EditorPartDescriptorEditor extends AbstractComponentEditor{
 
 		// ------------------------------------------------------------
 		{
-			ControlFactory.createStringListWidget(parent, Messages, this, "File extensions", E4modelextensionPackage.Literals.EDITOR_PART_DESCRIPTOR__URI_FILTER, 10);
+			Label l = new Label(parent, SWT.NONE);
+			l.setText("Part Adding Logic");
+
+			Text t = new Text(parent, SWT.BORDER);
+			t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			context.bindValue(textProp.observeDelayed(200,t), EMFEditProperties.value(getEditingDomain(), E4modelextensionPackage.Literals.EDITOR_PART_DESCRIPTOR__PART_ADDING_LOGIC_URI).observeDetail(master));
+
+			final Button b = new Button(parent, SWT.PUSH|SWT.FLAT);
+			b.setImage(createImage(ResourceProvider.IMG_Obj16_zoom));
+			b.setText("Find");
+			b.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					ContributionClassDialog dialog = new ContributionClassDialog(b.getShell(), project,getEditingDomain(),(MPartDescriptor) getMaster().getValue(), E4modelextensionPackage.Literals.EDITOR_PART_DESCRIPTOR__PART_ADDING_LOGIC_URI, Messages);
+					dialog.open();
+				}
+			});
 		}
 		
 		return parent;
