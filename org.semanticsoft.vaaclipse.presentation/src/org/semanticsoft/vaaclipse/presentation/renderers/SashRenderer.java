@@ -198,6 +198,9 @@ public class SashRenderer extends VaadinRenderer {
 			total_weight += weight;
 		}
 		
+		if (total_weight == 0.0) //all child elements has zero weight
+			total_weight = 1.0;
+		
 		AbstractSplitPanel topSashWidget = (AbstractSplitPanel) ((VerticalLayout)sash.getWidget()).getComponent(0);
 		AbstractSplitPanel currentSashWidget = topSashWidget;
 		while (true)
