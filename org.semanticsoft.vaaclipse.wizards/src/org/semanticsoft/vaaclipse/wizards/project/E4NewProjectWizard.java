@@ -473,6 +473,7 @@ public class E4NewProjectWizard extends NewPluginProjectWizard {
 			 "org.eclipse.e4.ui.model.workbench",
 			 "org.eclipse.e4.ui.workbench",
 			 "org.semanticsoft.e4modelextension",
+			 "org.semanticsoft.e4extension",
 			 "org.semanticsoft.vaaclipse.publicapi",
 			 "org.eclipse.e4.core.services",
 			 "org.semanticsoft.vaaclipse.theme",
