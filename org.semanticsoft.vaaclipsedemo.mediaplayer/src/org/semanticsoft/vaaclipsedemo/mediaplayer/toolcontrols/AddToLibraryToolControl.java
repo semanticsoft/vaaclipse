@@ -74,7 +74,7 @@ public class AddToLibraryToolControl
 				if ((uri.isEmpty()))
 					return;
 
-				setMedia(uri);
+				createAndSelectMedia(uri);
 			}
 		});
 		
@@ -113,7 +113,7 @@ public class AddToLibraryToolControl
 		cc.addComponent(addToLibraryButton);
 	}
 	
-	private Media setMedia(String uri)
+	private Media createAndSelectMedia(String uri)
 	{
 		Media media = new Media();
 		media.setName("No name");
