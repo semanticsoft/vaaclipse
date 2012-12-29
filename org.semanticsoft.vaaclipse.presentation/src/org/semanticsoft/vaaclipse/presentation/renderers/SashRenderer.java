@@ -183,15 +183,7 @@ public class SashRenderer extends VaadinRenderer {
 		for (MPartSashContainerElement children : renderableAndVisible)
 		{
 			String data = children.getContainerData();
-			double weight = 0;
-			if (data != null)
-			{
-				try
-				{
-					weight = Double.parseDouble(data);
-				}
-				catch (NumberFormatException e) {}
-			}
+			double weight = parseContainerData(data);
 			
 			map.put((Component) children.getWidget(), children);
 			weights.put(children, weight);
@@ -281,7 +273,7 @@ public class SashRenderer extends VaadinRenderer {
 								if (firstChild != null)
 								{
 									try {
-										double w = Double.parseDouble(child.getContainerData());
+										double w = parseContainerData(child.getContainerData());
 										rest_weight += w;
 									}
 									catch (NumberFormatException e) {
@@ -298,22 +290,31 @@ public class SashRenderer extends VaadinRenderer {
 								//String debugstr = "weights: ";
 								ignoreSashWeights = true;
 								
-								double rest_weight_except_first = rest_weight - Double.parseDouble(firstChild.getContainerData());
-								
+								double rest_weight_except_first = rest_weight - parseContainerData(firstChild.getContainerData());
 								double newW1 = (newSplitPos / 100) * rest_weight;
 								double new_rest_weight_except_first = rest_weight - newW1;
 								long longVal1 = Math.round(newW1);
 								firstChild.setContainerData(Long.toString(longVal1));
 								//debugstr += longVal1;
-								for (int i = 1; i < restChilds.size(); i++)
+								
+								//if the weight of remainder (except first) is not zero, then we distribute the new space appropriate weights
+								if (rest_weight_except_first > 0.0)
 								{
-									MPartSashContainerElement child = restChilds.get(i);
-									double w = Double.parseDouble(child.getContainerData());
-									double newW = (w/rest_weight_except_first) * new_rest_weight_except_first;
-									long longVal = Math.round(newW);
-									
-									child.setContainerData(Long.toString(longVal));
-									//debugstr += ", " + longVal;
+									for (int i = 1; i < restChilds.size(); i++)
+									{
+										MPartSashContainerElement child = restChilds.get(i);
+										double w = parseContainerData(child.getContainerData());
+										double newW = (w/rest_weight_except_first) * new_rest_weight_except_first;
+										long longVal = Math.round(newW);
+										
+										child.setContainerData(Long.toString(longVal));
+										//debugstr += ", " + longVal;
+									}	
+								}
+								else //otherwise we assign all new space to the last component
+								{
+									MPartSashContainerElement rest1 = restChilds.get(restChilds.size() - 1);
+									rest1.setContainerData(Long.toString(Math.round(new_rest_weight_except_first)));
 								}
 								
 								ignoreSashWeights = false;
@@ -342,6 +343,23 @@ public class SashRenderer extends VaadinRenderer {
 				else
 					logger.error("Error in  widget hierarchy detected - if sash container has more than one element its child widget must has SashWidget as a parent");
 			}	
+		}
+	}
+	
+	private double parseContainerData(String containerData)
+	{
+		if (containerData == null)
+			return 0.0d;
+		
+		containerData = containerData.trim();
+		
+		try
+		{
+			return Double.parseDouble(containerData);
+		}
+		catch (NumberFormatException e) 
+		{
+			return 0.0d;
 		}
 	}
 	
