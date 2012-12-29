@@ -74,7 +74,11 @@ public class AddToLibraryToolControl
 				if ((uri.isEmpty()))
 					return;
 
-				createAndSelectMedia(uri);
+				Media media = new Media();
+				media.setName("No name");
+				media.setUri(uri);
+				media.setDescription("");
+				broker.send(MediaConstants.mediaEntrySelected, media);
 			}
 		});
 		
@@ -111,15 +115,5 @@ public class AddToLibraryToolControl
 		cc.addComponent(playMediaButton);
 		cc.addComponent(textField);
 		cc.addComponent(addToLibraryButton);
-	}
-	
-	private Media createAndSelectMedia(String uri)
-	{
-		Media media = new Media();
-		media.setName("No name");
-		media.setUri(uri);
-		media.setDescription("");
-		broker.send(MediaConstants.mediaEntrySelected, media);
-		return media;
 	}
 }
