@@ -32,6 +32,7 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
+import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.MenuBar.Command;
@@ -65,7 +66,7 @@ public class MenuItemRenderer extends ItemRenderer {
 			if (UIEvents.UILabel.LABEL.equals(attName)) {
 				ici.setText(newValue);
 			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
-				Resource icon = BundleResource.valueOf(newValue);
+				Resource icon = ResourceHelper.createResource(newValue);
 				ici.setIcon(icon);
 			} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
 				ici.setDescription(newValue);
@@ -118,7 +119,7 @@ public class MenuItemRenderer extends ItemRenderer {
 			text = text.replaceAll("&", "");
 			
 			//Prepare the icon
-			Resource icon = model.getIconURI() != null ? BundleResource.valueOf(model.getIconURI()) : null;
+			Resource icon = model.getIconURI() != null ? ResourceHelper.createResource(model.getIconURI()) : null;
 			
 			//Prepare the command
 			Command command = null;

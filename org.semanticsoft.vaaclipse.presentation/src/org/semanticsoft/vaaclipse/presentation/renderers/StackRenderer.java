@@ -42,6 +42,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.dnd.VaadinDropHandler;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
+import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 
@@ -205,7 +206,7 @@ public class StackRenderer extends VaadinRenderer {
 			String newName = (String) newValue;
 			tab.setCaption(getLabel(part, newName));
 		} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
-			Resource icon = part.getIconURI() != null ? BundleResource.valueOf(part.getIconURI())  : null;
+			Resource icon = part.getIconURI() != null ? ResourceHelper.createResource(part.getIconURI())  : null;
 			tab.setIcon(icon);
 		} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
 			String newTTip = (String) newValue;
@@ -299,7 +300,7 @@ public class StackRenderer extends VaadinRenderer {
 		if (mLabel instanceof MPart)
 			closable = ((MPart) mLabel).isCloseable();
 		
-		Resource icon = mLabel.getIconURI() != null ? BundleResource.valueOf(mLabel.getIconURI()) : null;
+		Resource icon = mLabel.getIconURI() != null ? ResourceHelper.createResource(mLabel.getIconURI()) : null;
 		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
 		tab.setClosable(closable);
 		tab.setDescription(mLabel.getLocalizedTooltip());

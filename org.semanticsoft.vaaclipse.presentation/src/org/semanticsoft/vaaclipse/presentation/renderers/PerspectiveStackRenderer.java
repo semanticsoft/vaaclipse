@@ -40,6 +40,7 @@ import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
+import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
@@ -571,7 +572,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					for (MPerspective p : perspectiveStackForSwitcher.getChildren())
 					{
 						Item item = container.addItem(p.getElementId());
-						item.getItemProperty(PERSPECTIVE_ICON).setValue(BundleResource.valueOf(p.getIconURI()));
+						item.getItemProperty(PERSPECTIVE_ICON).setValue(ResourceHelper.createResource(p.getIconURI()));
 						item.getItemProperty(PERSPECTIVE_LABEL).setValue(p.getLabel());
 					}
 					

@@ -35,6 +35,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
+import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
 import com.vaadin.terminal.Resource;
@@ -73,7 +74,7 @@ public class ToolItemRenderer extends ItemRenderer
 			if (UIEvents.UILabel.LABEL.equals(attName)) {
 				ici.setCaption(newValue);
 			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
-				Resource icon = BundleResource.valueOf(newValue);
+				Resource icon = ResourceHelper.createResource(newValue);
 				ici.setIcon(icon);
 			} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
 				ici.setDescription(newValue);
@@ -197,7 +198,7 @@ public class ToolItemRenderer extends ItemRenderer
 			{
 				if (iconURI != null)
 				{
-					Resource icon = BundleResource.valueOf(iconURI);
+					Resource icon = ResourceHelper.createResource(iconURI);
 					button.setIcon(icon);
 				}
 				else
