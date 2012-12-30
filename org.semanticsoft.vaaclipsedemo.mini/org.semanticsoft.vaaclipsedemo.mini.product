@@ -114,7 +114,6 @@
       <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
       <plugin id="org.semanticsoft.vaaclipse.app" autoStart="false" startLevel="2" />
-      <plugin id="org.semanticsoft.vaaclipse.theme" autoStart="true" startLevel="0" />
       <plugin id="org.semanticsoft.vaadin.osgi.staticres" autoStart="true" startLevel="0" />
    </configurations>
 

@@ -16,3 +16,4 @@ Require-Bundle: org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0",
 Import-Package: javax.annotation;version="1.1.0"
 Service-Component: OSGI-INF/themeManager.xml,
  OSGI-INF/themeEngine.xml
+Bundle-ActivationPolicy: lazy
