@@ -138,10 +138,10 @@ public class ThemeEngineImpl implements ThemeEngine
 		
 		themeEntry.setCssUri(cssUri);
 		
-		for (IConfigurationElement resourceEl : ce.getChildren("resourceuri")) {
-			String resourceUri = resourceEl.getAttribute("uri");
-			if (resourceUri != null) {
-				themeEntry.addResourceUri(resourceUri);
+		for (IConfigurationElement resourceEl : ce.getChildren("resourceLocationUri")) {
+			String resourceLocationUri = resourceEl.getAttribute("uri");
+			if (resourceLocationUri != null) {
+				themeEntry.addResourceUri(resourceLocationUri);
 			}
 		}
 	}

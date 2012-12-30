@@ -9,45 +9,45 @@
             description="Vaadin Reindeer theme"
             id="reindeer"
             label="Reindeer">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/">
-         </resourceuri>
+         </resourceLocationUri>
       </theme>
       <theme
             cssUri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/styles.css"
             description="Vaadin Chameleon theme"
             id="chameleon"
             label="Chameleon">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/">
-         </resourceuri>
+         </resourceLocationUri>
       </theme>
       <theme
             cssUri="platform:/plugin/com.vaadin/VAADIN/themes/runo/styles.css"
             description="Vaadin Runo theme"
             id="runo"
             label="Runo">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/com.vaadin/VAADIN/themes/runo/">
-         </resourceuri>
+         </resourceLocationUri>
       </theme>
       <theme
             cssUri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/styles.css"
             description="Vaadin Liferay theme"
             id="liferay"
             label="Liferay">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/">
-         </resourceuri>
+         </resourceLocationUri>
       </theme>
       <theme
             cssUri="platform:/plugin/com.vaadin/VAADIN/themes/base/styles.css"
             description="Vaadin Base theme"
             id="base"
             label="Base">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/com.vaadin/VAADIN/themes/base/">
-         </resourceuri>
+         </resourceLocationUri>
       </theme>
    </extension>
 

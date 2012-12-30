@@ -74,9 +74,9 @@
             cssUri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
             id="org.semanticsoft.vaaclipse.resources"
             insertPosition="after=MAIN_CSS">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
-         </resourceuri>
+         </resourceLocationUri>
          <themeid
                refid="reindeer">
          </themeid>
@@ -85,9 +85,9 @@
             cssUri="css/default.css"
             id="org.semanticsoft.vaaclipsedemo.cassandra.app.maincontrib"
             insertPosition="after=MAIN_CSS">
-         <resourceuri
+         <resourceLocationUri
                uri="img/">
-         </resourceuri>
+         </resourceLocationUri>
          <themeid
                refid="reindeer">
          </themeid>

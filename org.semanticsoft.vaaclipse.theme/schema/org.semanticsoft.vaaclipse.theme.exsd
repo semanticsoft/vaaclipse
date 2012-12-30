@@ -57,7 +57,7 @@
       <complexType>
          <sequence>
             <element ref="themeid" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="resourceuri" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="resourceLocationUri" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -92,7 +92,7 @@
       <complexType>
       	<sequence>
       		<element ref="inheritedTheme" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="resourceuri" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="resourceLocationUri" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -158,7 +158,7 @@
       </complexType>
    </element>
 
-   <element name="resourceuri">
+   <element name="resourceLocationUri">
       <complexType>
          <attribute name="uri" type="string" use="required">
             <annotation>

@@ -78,9 +78,9 @@
             cssUri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
             id="org.semanticsoft.vaaclipse.resources"
             insertPosition="after=MAIN_CSS">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
-         </resourceuri>
+         </resourceLocationUri>
          <themeid
                refid="chameleon">
          </themeid>
@@ -101,12 +101,12 @@
             cssUri="css/mediaplayer.css"
             id="org.semanticsoft.vaaclipsedemo.mediaplayer.maincontrib"
             insertPosition="after=MAIN_CSS">
-         <resourceuri
+         <resourceLocationUri
                uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons">
-         </resourceuri>
-         <resourceuri
+         </resourceLocationUri>
+         <resourceLocationUri
                uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/chameleon">
-         </resourceuri>
+         </resourceLocationUri>
          <themeid
                refid="chameleon">
          </themeid>
