@@ -76,7 +76,6 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 	{
 		this.window = window; //can not be injected, becouse window can change in different executions!
 		
-		parentCategory = null;
 		if (mediaLibrary.getSelectedMediaEntry() instanceof MediaCategory)
 			parentCategory = (MediaCategory) mediaLibrary.getSelectedMediaEntry();
 		else if (mediaLibrary.getSelectedMediaEntry() instanceof Media)
@@ -84,6 +83,8 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 			Media selectedMedia = (Media) mediaLibrary.getSelectedMediaEntry();
 			parentCategory = selectedMedia.getParent();
 		}
+		else
+			parentCategory = mediaLibrary;
 	}
 	
 	protected void createAndShowDlg(final MWindow window, String caption, String label)

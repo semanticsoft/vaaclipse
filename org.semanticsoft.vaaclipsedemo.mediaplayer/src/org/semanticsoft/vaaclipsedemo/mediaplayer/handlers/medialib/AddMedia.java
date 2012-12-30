@@ -5,7 +5,6 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib;
 
 import javax.inject.Inject;
 
-import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -18,12 +17,7 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaCategory;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
-import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
 
-import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
@@ -41,12 +35,6 @@ public class AddMedia extends AddMediaEntryBasic
 	
 	@Inject
 	MediaService mediaService;
-	
-	@CanExecute
-	public boolean canExecute(MediaLibrary medialib)
-	{
-		return medialib.getSelectedMediaEntry() != null;
-	}
 	
 	@Execute
 	public void addMedia(@Optional final String mediaUri, MediaLibrary mediaLibrary, final MWindow window)

@@ -97,18 +97,11 @@ public class AddToLibraryToolControl
 				if ((uri.isEmpty()))
 					return;
 				
-				if (mediaLibrary.getSelectedMediaEntry() == null)
-				{
-					((Window)window.getWidget()).showNotification("Select category in media library", Notification.TYPE_WARNING_MESSAGE);
-					return;
-				}
-				
 				//Don't forget create and use local context, not touch the context of current control!
 				IEclipseContext localContext = context.createChild();
 				Object addMediaHandler = ContextInjectionFactory.make(AddMedia.class, localContext);
 				localContext.set(String.class, uri); //media uri
-				if ((Boolean) ContextInjectionFactory.invoke(addMediaHandler, CanExecute.class, localContext, true))
-					ContextInjectionFactory.invoke(addMediaHandler, Execute.class, localContext);
+				ContextInjectionFactory.invoke(addMediaHandler, Execute.class, localContext);
 			}
 		});
 		
