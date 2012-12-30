@@ -5,7 +5,7 @@
    <extension
          point="org.semanticsoft.vaaclipse.theme">
       <theme
-            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/styles.css"
+            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/styles.css"
             description="Vaadin Reindeer theme"
             id="reindeer"
             label="Reindeer">
@@ -14,7 +14,7 @@
          </resourceuri>
       </theme>
       <theme
-            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/styles.css"
+            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/styles.css"
             description="Vaadin Chameleon theme"
             id="chameleon"
             label="Chameleon">
@@ -23,7 +23,7 @@
          </resourceuri>
       </theme>
       <theme
-            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/runo/styles.css"
+            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/runo/styles.css"
             description="Vaadin Runo theme"
             id="runo"
             label="Runo">
@@ -32,7 +32,7 @@
          </resourceuri>
       </theme>
       <theme
-            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/styles.css"
+            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/styles.css"
             description="Vaadin Liferay theme"
             id="liferay"
             label="Liferay">
@@ -41,7 +41,7 @@
          </resourceuri>
       </theme>
       <theme
-            cssuri="platform:/plugin/com.vaadin/VAADIN/themes/base/styles.css"
+            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/base/styles.css"
             description="Vaadin Base theme"
             id="base"
             label="Base">

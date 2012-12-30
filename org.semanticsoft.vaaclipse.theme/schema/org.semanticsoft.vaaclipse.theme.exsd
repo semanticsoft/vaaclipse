@@ -66,7 +66,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="cssuri" type="string" use="required">
+         <attribute name="cssUri" type="string" use="required">
             <annotation>
                <documentation>
                   uri to the stylesheet
@@ -115,7 +115,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="cssuri" type="string" use="required">
+         <attribute name="cssUri" type="string" use="required">
             <annotation>
                <documentation>
                   the css uri starting with platform:/plugin

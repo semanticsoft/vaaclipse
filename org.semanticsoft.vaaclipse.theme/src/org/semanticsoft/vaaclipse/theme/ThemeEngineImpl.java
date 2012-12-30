@@ -130,7 +130,7 @@ public class ThemeEngineImpl implements ThemeEngine
 
 	private void setupThemeEntry(ThemeEntryImpl themeEntry, IConfigurationElement ce)
 	{
-		String cssUri = ce.getAttribute("cssuri");
+		String cssUri = ce.getAttribute("cssUri");
 		if (!cssUri.startsWith("platform:/plugin/"))
 		{
 			cssUri = "platform:/plugin/" + ce.getContributor().getName() + "/" + cssUri;	

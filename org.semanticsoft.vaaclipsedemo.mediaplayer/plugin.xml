@@ -67,7 +67,7 @@
    <extension
          point="org.semanticsoft.vaaclipse.theme">
       <themecontribution
-            cssuri="css/chameleoncolor.css"
+            cssUri="css/chameleoncolor.css"
             id="org.semanticsoft.vaaclipsedemo.mediaplayer.chameleoncolor"
             insertPosition="after=MAIN_CSS">
          <themeid
@@ -75,7 +75,7 @@
          </themeid>
       </themecontribution>
       <themecontribution
-            cssuri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
+            cssUri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
             id="org.semanticsoft.vaaclipse.resources"
             insertPosition="after=MAIN_CSS">
          <resourceuri
@@ -98,7 +98,7 @@
          </themeid>
       </themecontribution>
       <themecontribution
-            cssuri="css/mediaplayer.css"
+            cssUri="css/mediaplayer.css"
             id="org.semanticsoft.vaaclipsedemo.mediaplayer.maincontrib"
             insertPosition="after=MAIN_CSS">
          <resourceuri
