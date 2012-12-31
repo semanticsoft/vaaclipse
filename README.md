@@ -1,4 +1,4 @@
 vaaclipse
 =========
 
-Vaaclipse - the vaadin renderer for Eclipse E4
+Vaaclipse is a framework for building web applications using Eclipse 4 platform and Vaadin.
