@@ -30,17 +30,26 @@
 	height: 16px;
 }
 
+.stackwidget .v-caption .v-icon,
+.stackwidget .v-caption-closable .v-icon {
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+
+.stackwidget .v-caption .v-captiontext,
+.stackwidget .v-caption-closable .v-captiontext {
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+
 .stackwidget .v-tabsheet-caption-close {
 	float: right;
 	width: 19px;
 	height: 18px;
 	margin: -1px -1px 0;
 	padding-left: 2px;
-}
-
-.v-ff .stackwidget .v-tabsheet-caption-close,
-.v-ie7 .stackwidget .v-tabsheet-caption-close {
-	margin-top: -17px;
 }
 
 .v-ie6 .stackwidget .v-tabsheet-caption-close {
