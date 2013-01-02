@@ -483,7 +483,10 @@ public class MinMaxAddon {
 	private MToolBar createTrim(MUIElement element) {
 		MTrimmedWindow window = (MTrimmedWindow) getWindowFor(element);
 		MPerspective activePerspective = modelService.getActivePerspective(window);
-
+		
+		if (element.getElementId() == null)
+			element.setElementId(UUID.randomUUID().toString());
+		
 		// Is there already a TrimControl there ?
 		String trimId = element.getElementId() + getMinimizedElementSuffix(element);
 		MToolBar toolBar = (MToolBar) modelService.find(trimId, window);
@@ -540,7 +543,8 @@ public class MinMaxAddon {
 		MDirectToolItem toolItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
 		toolItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/restore1.png");
 		toolItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.RestoreHandler");
-		toolItem.getTransientData().put("minimizedStack", element);
+		//toolItem.getTransientData().put("minimizedStack", element);
+		toolItem.setContainerData(element.getElementId());
 		toolBar.getChildren().add(toolItem);
 		
 		if (element instanceof MPlaceholder)
