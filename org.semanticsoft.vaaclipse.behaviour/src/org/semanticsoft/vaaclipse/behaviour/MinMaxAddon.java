@@ -540,7 +540,7 @@ public class MinMaxAddon {
 		MDirectToolItem toolItem = MenuFactoryImpl.eINSTANCE.createDirectToolItem();
 		toolItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/restore1.png");
 		toolItem.setContributionURI("bundleclass://org.semanticsoft.vaaclipse.behaviour/org.semanticsoft.vaaclipse.behaviour.RestoreHandler");
-		toolItem.setContainerData(element.getElementId());
+		toolItem.getTransientData().put("minimizedStack", element);
 		toolBar.getChildren().add(toolItem);
 		
 		if (element instanceof MPlaceholder)
