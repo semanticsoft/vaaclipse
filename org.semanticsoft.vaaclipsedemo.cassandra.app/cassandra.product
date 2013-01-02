@@ -4,7 +4,6 @@
 <product name="Cassandra" uid="org.semanticsoft.vaaclipsedemo.cassandra.app.product" id="org.semanticsoft.vaaclipsedemo.cassandra.app.product" application="org.semanticsoft.vaaclipse.app.application" version="1.0.0.M1" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
-      <win32>/org.semanticsoft.vaaclipsedemo.cassandra.app/config.ini</win32>
    </configIni>
 
    <launcherArgs>

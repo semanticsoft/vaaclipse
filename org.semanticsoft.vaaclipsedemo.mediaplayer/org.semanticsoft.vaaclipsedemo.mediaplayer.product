@@ -7,7 +7,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.framework.extensions=at.bestsolution.efxclipse.runtime.osgi -Dorg.eclipse.equinox.http.jetty.context.path=/mediaplayer -Dorg.osgi.service.http.port=8080</vmArgs>
+      <vmArgs>-Dorg.eclipse.equinox.http.jetty.context.path=/mediaplayer -Dorg.osgi.service.http.port=8080</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
@@ -24,7 +24,6 @@
    </vm>
 
    <plugins>
-      <plugin id="at.bestsolution.efxclipse.runtime.osgi" fragment="true"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="com.vaadin"/>
       <plugin id="javax.annotation"/>

@@ -4,12 +4,11 @@
 <product name="org.semanticsoft.vaaclipse.demo.contacts" id="org.semanticsoft.vaaclipse.demo.contacts.product" application="org.semanticsoft.vaaclipse.app.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
-      <win32>/org.semanticsoft.vaaclipse.demo.contacts/config.ini</win32>
    </configIni>
 
    <launcherArgs>
       <programArgs>-clearPersistedState</programArgs>
-      <vmArgs>-Dosgi.framework.extensions=at.bestsolution.efxclipse.runtime.osgi -Dorg.eclipse.equinox.http.jetty.context.path=/contacts -Dorg.osgi.service.http.port=8080</vmArgs>
+      <vmArgs>-Dorg.eclipse.equinox.http.jetty.context.path=/contacts -Dorg.osgi.service.http.port=8080</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
