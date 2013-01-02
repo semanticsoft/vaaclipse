@@ -20,9 +20,12 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MGenericStack;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
@@ -41,7 +44,6 @@ import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
-import org.semanticsoft.vaaclipse.util.Utils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
@@ -190,6 +192,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			{
 				perspective_button.get(oldSel).setState(false);
 				perspective_button.get(oldSel).setSwitchStateByUserClickEnabled(true);
+				
+				hideElementRecursive(oldSel);
 			}
 			
 			((VerticalLayout) stack.getWidget()).removeAllComponents();
@@ -197,7 +201,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			if (stack.getSelectedElement() != null)
 			{
 				// psr.showTab(stack.getSelectedElement());
-				connectReferencedElementsToPerspectiveWidgets(stack.getSelectedElement());
+				showElementRecursive(stack.getSelectedElement());
 				((VerticalLayout) stack.getWidget()).addComponent((Component) stack.getSelectedElement().getWidget());
 				perspective_button.get(stack.getSelectedElement()).setState(true);
 				perspective_button.get(stack.getSelectedElement()).setSwitchStateByUserClickEnabled(false);
@@ -221,39 +225,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					phComponent.removeComponent(refComponent);
 				}
 			}
-		}
-	}
-
-	private void connectReferencedElementsToPerspectiveWidgets(MElementContainer<? extends MUIElement> container)
-	{
-		for (MUIElement e : container.getChildren())
-		{
-			if (e instanceof MPlaceholder)
-			{
-				MPlaceholder ph = (MPlaceholder) e;
-				if (ph.isToBeRendered())
-				{
-					ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
-					Component refComponent = (Component) ph.getRef().getWidget();
-					phComponent.addComponent(refComponent);
-				}
-
-				ph.getRef().setCurSharedRef(ph);
-
-				MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
-				if (topLeftStack != null)
-				{
-					if (ph.getTags().contains(IPresentationEngine.MAXIMIZED))
-						((StackWidget) topLeftStack.getWidget()).setState(1);
-					else if (ph.getTags().contains(IPresentationEngine.MINIMIZED))
-						((StackWidget) topLeftStack.getWidget()).setState(-1);
-					else
-						((StackWidget) topLeftStack.getWidget()).setState(0);
-				}
-			}
-
-			if (e instanceof MElementContainer<?>)
-				connectReferencedElementsToPerspectiveWidgets((MElementContainer<MUIElement>) e);
 		}
 	}
 
@@ -615,4 +586,147 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			public void setMessage(String message) {}
 		});
 	}
+	
+	//-------------------------------------------------------
+	//-------------------------------------------------------
+	private void hideElementRecursive(MUIElement element) {
+		if (element == null || element.getWidget() == null)
+			return;
+		
+		if (element instanceof MPlaceholder) {
+			MPlaceholder ph = (MPlaceholder) element;
+			element = ph.getRef();
+		}
+		
+		// Hide any floating windows
+		if (element instanceof MWindow && element.getWidget() != null) {
+			element.setVisible(false);
+		}
+		
+		if (element instanceof MElementContainer<?>) {
+			MElementContainer<?> container = (MElementContainer<?>) element;
+			for (MUIElement childElement : container.getChildren()) {
+				hideElementRecursive(childElement);
+			}
+			
+			// OK, now process detached windows
+			if (element instanceof MWindow) {
+				for (MWindow w : ((MWindow) element).getWindows()) {
+					hideElementRecursive(w);
+				}
+			} else if (element instanceof MPerspective) {
+				for (MWindow w : ((MPerspective) element).getWindows()) {
+					hideElementRecursive(w);
+				}
+			}
+		}
+	}
+
+	private void showElementRecursive(MUIElement element) 
+	{
+		if (!element.isToBeRendered())
+			return;
+		
+		if (element instanceof MPlaceholder && element.getWidget() != null) {
+			MPlaceholder ph = (MPlaceholder) element;
+			MUIElement ref = ph.getRef();
+			ref.setCurSharedRef(ph);
+
+			ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
+			Component refComponent = (Component) ph.getRef().getWidget();
+			phComponent.addComponent(refComponent);
+
+			element = ref;
+			
+			//top right folder
+			MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
+			if (topLeftStack != null)
+			{
+				if (ph.getTags().contains(IPresentationEngine.MAXIMIZED))
+					((StackWidget) topLeftStack.getWidget()).setState(1);
+				else if (ph.getTags().contains(IPresentationEngine.MINIMIZED))
+					((StackWidget) topLeftStack.getWidget()).setState(-1);
+				else
+					((StackWidget) topLeftStack.getWidget()).setState(0);
+			}
+		}
+		
+		if (element instanceof MContext) {
+			IEclipseContext context = ((MContext) element).getContext();
+			if (context != null) {
+				IEclipseContext newParentContext = modelService
+						.getContainingContext(element);
+				if (context.getParent() != newParentContext) {
+					//					System.out.println("Update Context: " + context.toString() //$NON-NLS-1$
+					//							+ " new parent: " + newParentContext.toString()); //$NON-NLS-1$
+					context.setParent(newParentContext);
+				}
+			}
+		}
+
+		// Show any floating windows
+		if (element instanceof MWindow && element.getWidget() != null) {
+			int visCount = 0;
+			for (MUIElement kid : ((MWindow) element).getChildren()) {
+				if (kid.isToBeRendered() && kid.isVisible())
+					visCount++;
+			}
+			if (visCount > 0)
+				element.setVisible(true);
+		}
+
+		if (element instanceof MElementContainer<?>) {
+			MElementContainer<?> container = (MElementContainer<?>) element;
+			List<MUIElement> kids = new ArrayList<MUIElement>(
+					container.getChildren());
+			for (MUIElement childElement : kids) {
+				showElementRecursive(childElement);
+			}
+
+			// OK, now process detached windows
+			if (element instanceof MWindow) {
+				for (MWindow w : ((MWindow) element).getWindows()) {
+					showElementRecursive(w);
+				}
+			} else if (element instanceof MPerspective) {
+				for (MWindow w : ((MPerspective) element).getWindows()) {
+					showElementRecursive(w);
+				}
+			}
+		}
+	}
+	
+//	private void connectReferencedElementsToPerspectiveWidgets(MElementContainer<? extends MUIElement> container)
+//	{
+//		for (MUIElement e : container.getChildren())
+//		{
+//			if (e instanceof MPlaceholder)
+//			{
+//				MPlaceholder ph = (MPlaceholder) e;
+//				if (ph.isToBeRendered())
+//				{
+//					ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
+//					Component refComponent = (Component) ph.getRef().getWidget();
+//					phComponent.addComponent(refComponent);
+//				}
+//
+//				ph.getRef().setCurSharedRef(ph);
+//
+//				MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
+//				if (topLeftStack != null)
+//				{
+//					if (ph.getTags().contains(IPresentationEngine.MAXIMIZED))
+//						((StackWidget) topLeftStack.getWidget()).setState(1);
+//					else if (ph.getTags().contains(IPresentationEngine.MINIMIZED))
+//						((StackWidget) topLeftStack.getWidget()).setState(-1);
+//					else
+//						((StackWidget) topLeftStack.getWidget()).setState(0);
+//				}
+//			}
+//
+//			if (e instanceof MElementContainer<?>)
+//				connectReferencedElementsToPerspectiveWidgets((MElementContainer<MUIElement>) e);
+//		}
+//	}
+	
 }

@@ -19,7 +19,9 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
@@ -69,21 +71,19 @@ public class PlaceholderRenderer extends VaadinRenderer
 		if (refWidget == null) {
 			ref.setToBeRendered(true);
 			refWidget = (Component) renderingEngine.createGui(ref);
-		} //only create widget, not connect to parent - the connecting reference widgets will be when concrete perspective will be set
-//		else 
-//		{
-//			if (refWidget.getParent() != phComp) {
-//				phComp.addComponent(refWidget);
-//			}
-//		}
+		}
+		
+		if (refWidget.getParent() != phComp) {
+			phComp.addComponent(refWidget);
+		}
 
-//		if (ref instanceof MContext) {
-//			IEclipseContext context = ((MContext) ref).getContext();
-//			IEclipseContext newParentContext = getContext(ph);
-//			if (context.getParent() != newParentContext) {
-//				context.setParent(newParentContext);
-//			}
-//		}
+		if (ref instanceof MContext) {
+			IEclipseContext context = ((MContext) ref).getContext();
+			IEclipseContext newParentContext = getContext(ph);
+			if (context.getParent() != newParentContext) {
+				context.setParent(newParentContext);
+			}
+		}
 	}
 
 	private EventHandler widgetListener = new EventHandler() {
