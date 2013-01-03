@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.JavaEditor;
+
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
 
@@ -96,7 +98,7 @@ public class Outline
 	private EventHandler activateHandler = new EventHandler() {
 		public void handleEvent(Event event) {
 			MPart part = (MPart) event.getProperty(UIEvents.EventTags.ELEMENT);
-			if (part instanceof MInputPart && part.getObject() instanceof TextEditor)
+			if (part instanceof MInputPart && part.getObject() instanceof JavaEditor)
 			{
 				MInputPart inputPart = (MInputPart) part;
 				File file = new File(inputPart.getInputURI());
