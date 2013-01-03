@@ -295,7 +295,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					//vaadinApp.getMainWindow().showNotification("Close request for: " + lastClickedPerspective.getLabel());
 					if (lastClickedPerspective == activePerspective)
 					{
-						MPerspective nextRenderableAndVisiblePerspective = null;
+						MPerspective prevRenderableAndVisiblePerspective = null, nextRenderableAndVisiblePerspective = null;
 						boolean startSearch = false;
 						for (MPerspective p : perspectiveStackForSwitcher.getChildren())
 						{
@@ -307,10 +307,18 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 							
 							if (p == lastClickedPerspective)
 								startSearch = true;
+							
+							if (!startSearch && p.isToBeRendered() && p.isVisible())
+							{
+								prevRenderableAndVisiblePerspective = p;
+							}
 						}
 						
-						if (nextRenderableAndVisiblePerspective != null)
-							switchPerspective(nextRenderableAndVisiblePerspective);	
+						MPerspective newSelectedPerspective = nextRenderableAndVisiblePerspective != null ? nextRenderableAndVisiblePerspective 
+								: prevRenderableAndVisiblePerspective;
+						
+						if (newSelectedPerspective != null)
+							switchPerspective(newSelectedPerspective);	
 					}
 					
 					lastClickedPerspective.setToBeRendered(false);
