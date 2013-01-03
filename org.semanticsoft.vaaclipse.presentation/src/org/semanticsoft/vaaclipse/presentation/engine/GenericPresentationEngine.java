@@ -99,10 +99,27 @@ public class GenericPresentationEngine implements PresentationEngine {
 					createGui(added);
 				if (changedElement.getWidget() != null && added.isToBeRendered())
 					parentRenderer.addChildGui(added, changedElement);
+				
+				
+				// If the element being added is a placeholder, check to see
+				// if it's 'globally visible' and, if so, remove all other
+				// 'local' placeholders referencing the same element.
+				int newLocation = modelService.getElementLocation(added);
+				if (newLocation == EModelService.IN_SHARED_AREA || newLocation == EModelService.OUTSIDE_PERSPECTIVE) 
+				{
+					MWindow topWin = modelService.getTopLevelWindowFor(added);
+					modelService.hideLocalPlaceholders(topWin, null);
+				}
 			}
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType)) 
 			{
 				MUIElement removed = (MUIElement) event.getProperty(UIEvents.EventTags.OLD_VALUE);
+				
+				// Ensure that the element about to be removed is not the
+				// selected element
+				if (changedElement.getSelectedElement() == removed)
+					changedElement.setSelectedElement(null);
+				
 				if (removed.getWidget() != null && changedElement.getWidget() != null && removed.isToBeRendered())
 					parentRenderer.removeChildGui(removed, changedElement);
 			}
