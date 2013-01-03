@@ -248,7 +248,7 @@ public class VaadinApplication extends Application
 		fixNullElementIds(appModel);
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
-		ContextInjectionFactory.setDefault(appContext);
+		//ContextInjectionFactory.setDefault(appContext);
 		if (lcManager != null) {
 			ContextInjectionFactory.invoke(lcManager, ProcessAdditions.class,
 					appContext, null);

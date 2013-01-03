@@ -22,4 +22,4 @@ Export-Package: org.semanticsoft.vaaclipse.behaviour,
  org.semanticsoft.vaaclipse.behaviour.cleanup
 Bundle-Vendor: Rushan R. Gilmullin
 Service-Component: OSGI-INF/org.semanticsoft.vaaclipse.behaviour.xml
-Import-Package: javax.annotation;version="1.1.0"
+Import-Package: javax.annotation

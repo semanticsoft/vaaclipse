@@ -8,7 +8,7 @@ Bnd-LastModified: 1280258096925
 Bundle-Name: org.semanticsoft.vaadin.osgi.staticres
 Bundle-ManifestVersion: 2
 Created-By: 1.6.0_20 (Apple Inc.)
-Import-Package: javax.annotation;version="1.1.0",
+Import-Package: javax.annotation,
  javax.servlet;version="2.5",
  javax.servlet.http;version="2.5",
  org.osgi.framework;version="1.5",

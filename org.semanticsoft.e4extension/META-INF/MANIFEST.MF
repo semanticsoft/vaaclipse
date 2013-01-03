@@ -18,4 +18,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.semanticsoft.e4extension.service,
  org.semanticsoft.e4extension.shared
-Import-Package: javax.annotation;version="1.1.0"
+Import-Package: javax.annotation
