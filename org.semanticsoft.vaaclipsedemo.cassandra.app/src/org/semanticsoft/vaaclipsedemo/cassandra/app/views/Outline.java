@@ -11,6 +11,9 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
+
 import com.vaadin.data.Item;
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Panel;
@@ -32,7 +35,6 @@ import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.UIEvents;
@@ -44,7 +46,6 @@ import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.FileUtils;
 
 public class Outline
 {
-	private MArea editorArea;
 	private Pattern packagePattern = Pattern.compile("package +([a-zA-Z0-9\\.\\_]+) *;");
 	private Pattern importsPattern = Pattern.compile("import +([a-zA-Z0-9\\.\\_]+) *;");
 	private Pattern classPattern = Pattern.compile("class +([a-zA-Z0-9\\.\\_]+)[ \r\n]");
@@ -61,7 +62,7 @@ public class Outline
 	private static final String CAPTION_PROP = "caption";
 	
 	@Inject
-	public Outline(VerticalLayout parent, IEclipseContext context, EModelService modelService, MApplication app)
+	public Outline(VerticalLayout parent, IEclipseContext context, MApplication app)
 	{Class<?> o = Outline. class;
 		panel = new Panel();
 		panel.setSizeFull();
@@ -77,33 +78,27 @@ public class Outline
 		tree.setItemCaptionPropertyId(CAPTION_PROP);
 		tree.setItemIconPropertyId(ICON_PROP);
 		
-		editorArea = (MArea) modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.editorarea", app);
 		eventBroker = context.get(IEventBroker.class);
 	}
 	
 	@PostConstruct
 	void registerHandler()
 	{
-		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, selectElementHandler);
+		eventBroker.subscribe(UIEvents.UILifeCycle.ACTIVATE, activateHandler);
 	}
 	
 	@PreDestroy
 	void unregisterHandlers()
 	{
-		eventBroker.unsubscribe(selectElementHandler);
+		eventBroker.unsubscribe(activateHandler);
 	}
 	
-	private EventHandler selectElementHandler = new EventHandler() {
+	private EventHandler activateHandler = new EventHandler() {
 		public void handleEvent(Event event) {
-			Object element = event.getProperty(UIEvents.EventTags.ELEMENT);
-
-			if (!(element instanceof MPartStack))
-				return;
-			
-			MPartStack stack = (MPartStack) element;
-			if (stack.getSelectedElement() instanceof MInputPart)
+			MPart part = (MPart) event.getProperty(UIEvents.EventTags.ELEMENT);
+			if (part instanceof MInputPart && part.getObject() instanceof TextEditor)
 			{
-				MInputPart inputPart = (MInputPart)stack.getSelectedElement();
+				MInputPart inputPart = (MInputPart) part;
 				File file = new File(inputPart.getInputURI());
 				String content;
 				try
@@ -114,7 +109,7 @@ public class Outline
 				catch (IOException e)
 				{
 					e.printStackTrace();
-				}	
+				}
 			}
 		}
 	};

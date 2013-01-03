@@ -65,7 +65,7 @@
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_J7teoOr6EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.outline" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Outline" label="Outline" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/outline.png" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_GWHCMOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.console" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Console" label="Console" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/console.png" closeable="true"/>
-    <sharedElements xsi:type="advanced:Area" xmi:id="_QWERMOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.editorarea" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
+    <sharedElements xsi:type="advanced:Area" xmi:id="_QWERMOsAEeGrI5NvCZeHUA" elementId="org.eclipse.ui.editorss" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
       <children xsi:type="basic:PartStack" xmi:id="_LDFJAMKLAJLAJZKZJZKAWJ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.areadefaultstack"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_NdGKoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.4" label="Debug" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/debug.png" closeable="true"/>
@@ -88,7 +88,7 @@
     </trimBars>
     <trimBars xmi:id="_SeXUAu8EEd6FC9FFFFFFFF" elementId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar" side="Bottom"/>
   </children>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_BKZowDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.trimmedwindow.0" label="PopUpWindow" x="500" y="100" width="300" height="300">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_BKZowDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.trimmedwindow.0" toBeRendered="false" label="PopUpWindow" x="500" y="100" width="300" height="300">
     <tags>popup</tags>
     <mainMenu xmi:id="_Jy36cDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.0">
       <children xsi:type="menu:Menu" xmi:id="_vH7sYDHBEeKN_ZdbrEGlMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.1" label="File menu">

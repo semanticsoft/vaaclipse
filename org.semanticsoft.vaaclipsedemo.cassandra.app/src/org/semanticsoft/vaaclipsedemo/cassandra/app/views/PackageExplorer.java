@@ -28,20 +28,18 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.MContribution;
-import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.workbench.UIEvents;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.e4extension.service.EPartServiceExt;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.BundleActivatorImpl;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
 
 /**
  * @author rushan
@@ -63,8 +61,6 @@ public class PackageExplorer
 	@Inject
 	private MApplication application;
 
-	@Inject
-	private EModelService modelService;
 	
 	@Inject
 	private EPartService partService;
@@ -77,8 +73,6 @@ public class PackageExplorer
 	
 	private MToolItem linkWithEditorItem;
 	
-	private MArea editorArea;
-	private Console console;
 
 	// Gui components
 	public Tree tree;
@@ -229,11 +223,8 @@ public class PackageExplorer
 	
 	protected void openFile(File file)
 	{
-		if (editorArea == null)
-			editorArea = (MArea) modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.editorarea", application);
-		
 		String path = file.getAbsolutePath();
-		MInputPart part = partServiceExt.openUri(editorArea, path);
+		MInputPart part = partServiceExt.openUri(path);
 		int lastLsIndex = path.lastIndexOf(fs);
 		if (lastLsIndex > 0)
 			part.setLabel(path.substring(lastLsIndex + 1));	
@@ -247,18 +238,7 @@ public class PackageExplorer
 			pathStr = projectTreeRootIndex > -1 ? path.substring(i + 1) : path;
 		}
 		
-		getConsole().println("Open file: " + pathStr);
-	}
-	
-	private Console getConsole()
-	{
-		if (console == null)
-		{
-			console = (Console) 
-					((MContribution)modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.part.console", application)).getObject();
-		}
-		
-		return console;
+		eventBroker.send(CassandraConstants.CONSOLE_LOG, "Open file: " + pathStr);
 	}
 	
 	public boolean isLinkWithEditor()

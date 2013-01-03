@@ -11,6 +11,24 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import javax.annotation.PostConstruct;
+
+import javax.annotation.PreDestroy;
+
+import org.eclipse.e4.core.di.extensions.EventUtils;
+
+import org.eclipse.e4.ui.workbench.UIEvents;
+
+import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
+import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
+
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
@@ -31,16 +49,24 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 public class Console
 {
 	private Panel panel;
+	@Inject
 	private IEventBroker eventBroker;
 	private Label text = new Label();
 	private StringBuffer content = new StringBuffer();
 	private static final String ls = System.getProperty("line.separator");
+	
+	private EventHandler logEventHandler = new EventHandler() {
+		
+		public void handleEvent(Event event)
+		{
+			String msg = (String) event.getProperty(EventUtils.DATA);
+			println(msg);
+		}
+	};
 
 	@Inject
 	public void Console(VerticalLayout parent, IEclipseContext context)
 	{
-		eventBroker = context.get(IEventBroker.class);
-		
 		panel = new Panel();
 		panel.setSizeFull();
 		panel.setScrollable(true);
@@ -60,9 +86,18 @@ public class Console
 		
 		Bundle appBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
 		println(appBundle.getSymbolicName() + ", " + "version:" + appBundle.getVersion().toString());
-		
-//		Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.resources");
-//		println(resourcesBundle.getSymbolicName() + ", " + "version:" + resourcesBundle.getVersion().toString());
+	}
+	
+	@PostConstruct
+	public void postConstruct()
+	{
+		eventBroker.subscribe(CassandraConstants.CONSOLE_LOG, logEventHandler);
+	}
+	
+	@PreDestroy
+	public void preDestroy()
+	{
+		eventBroker.unsubscribe(logEventHandler);
 	}
 	
 	public void print(String msg)
