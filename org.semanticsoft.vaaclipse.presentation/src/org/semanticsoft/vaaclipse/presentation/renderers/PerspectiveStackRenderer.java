@@ -491,7 +491,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	private void refreshPerspectiveStackVisibility(MPerspectiveStack stack)
 	{
-		perspectiveSwitcherPanel.setVisible(filterRenderableAndVisibleElements(stack).size() > 0);
+		perspectiveSwitcherPanel.setVisible(stack.getChildren().size() > 0);
 	}
 
 	@Override
