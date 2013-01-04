@@ -22,7 +22,7 @@ public class OptionDialog extends Window
 	
 	public static interface ComponentProvider extends OptionListener
 	{
-		Component getComponent();
+		Component getComponent(OptionDialog optionDialog);
 		void setMessage(String message);
 	}
 
@@ -40,7 +40,7 @@ public class OptionDialog extends Window
 		}
 		
 		@Override
-		public Component getComponent()
+		public Component getComponent(OptionDialog optionDialog)
 		{
 			return label;
 		}
@@ -55,6 +55,7 @@ public class OptionDialog extends Window
 	private VerticalLayout content;
 	private HorizontalLayout buttons = new HorizontalLayout();
 	private Map<Button, Integer> button2option = new HashMap<Button, Integer>();
+	private Map<Integer, Button> option2button = new HashMap<>();
 
 	public OptionDialog()
 	{
@@ -63,7 +64,7 @@ public class OptionDialog extends Window
 		content = new VerticalLayout();
 		content.setSizeFull();
 		this.setContent(content);
-		Component component = componentProvider.getComponent();
+		Component component = componentProvider.getComponent(this);
 		content.addComponent(component);
 		content.addComponent(buttons);
 		content.setComponentAlignment(component, Alignment.TOP_CENTER);
@@ -93,17 +94,17 @@ public class OptionDialog extends Window
 	
 	public Component getComponent()
 	{
-		return this.componentProvider.getComponent();
+		return this.componentProvider.getComponent(this);
 	}
 	
 	public void setComponentProvider(ComponentProvider componentProvider)
 	{
 		if (componentProvider == null)
 			return;
-		Component newComponent = componentProvider.getComponent();
+		Component newComponent = componentProvider.getComponent(this);
 		if (newComponent != null)
 		{
-			Component oldComponent = this.componentProvider.getComponent();
+			Component oldComponent = this.componentProvider.getComponent(this);
 			this.content.removeComponent(oldComponent);
 			newComponent.setSizeFull();
 			this.content.addComponent(newComponent, 0);
@@ -150,6 +151,7 @@ public class OptionDialog extends Window
 		button.setCaption(optionText);
 		buttons.addComponent(button);
 		button2option.put(button, optionId);
+		option2button.put(optionId, button);
 		button.addListener(new Button.ClickListener() {
 
 			@Override
@@ -163,6 +165,12 @@ public class OptionDialog extends Window
 				getComponentProvider().optionSelected(OptionDialog.this, optionId);
 			}
 		});
+	}
+	
+	public void setOptionEnabled(int optionId, boolean enabled)
+	{
+		Button button = option2button.get(optionId);
+		button.setEnabled(enabled);
 	}
 
 	public static void show(Window parentWindow, String caption, String message, String[] options,

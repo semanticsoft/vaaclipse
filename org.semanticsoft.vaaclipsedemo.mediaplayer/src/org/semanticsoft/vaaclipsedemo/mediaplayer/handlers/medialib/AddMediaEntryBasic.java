@@ -49,7 +49,7 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 		}
 		
 		@Override
-		public Component getComponent()
+		public Component getComponent(OptionDialog optionDialog)
 		{
 			if (this.layout == null)
 			{

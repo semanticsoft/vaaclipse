@@ -56,15 +56,18 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_SeXUEe8EEd6FC9cDb6iV7g" elementId="_SeXUEe8EEd6FC9cDb6iV7g" label="Save All" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/save_all.png" command="_DGvDsOsiEeGZOI_suq-2CQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_SeXUE-8EEd6FC9cDb6iV7g" elementId="_SeXUE-8EEd6FC9cDb6iV7g" label="Print" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/print.png" command="_FEAosOsiEeGZOI_suq-2CQ"/>
       </children>
+      <children xsi:type="menu:Menu" xmi:id="_7fhxAFapEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.views" label="View">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_Cr5REFaqEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directmenuitem.showView" label="Show View" tooltip="Show View" contributionURI="bundleclass://org.semanticsoft.vaaclipse.additions/org.semanticsoft.vaaclipse.additions.view.ShowViewHandler"/>
+      </children>
     </mainMenu>
-    <sharedElements xsi:type="basic:Part" xmi:id="__UYwEOr4EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.packageexplorer" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.PackageExplorer" label="Package Explorer" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_explorer.png" closeable="true">
+    <sharedElements xsi:type="basic:Part" xmi:id="__UYwEOr4EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.packageexplorer" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.PackageExplorer" label="Package Explorer" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_explorer.png" tooltip="Package Explorer" closeable="true">
       <toolbar xmi:id="_tIHZQPSCEeGdUeu8GkJyQQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbar.0">
         <children xsi:type="menu:DirectToolItem" xmi:id="_L8CcoPSHEeGeg4kVMj6Vtg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.collapseall" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/collapse_all.png" tooltip="Collapse All" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.CollapseAll"/>
         <children xsi:type="menu:DirectToolItem" xmi:id="_2sbBEPSCEeGdUeu8GkJyQQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.linkwitheditor" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/link_to_editor.png" tooltip="Link with Editor" type="Check" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.LinkWithEditor"/>
       </toolbar>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_J7teoOr6EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.outline" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Outline" label="Outline" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/outline.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_GWHCMOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.console" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Console" label="Console" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/console.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_J7teoOr6EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.outline" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Outline" label="Outline" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/outline.png" tooltip="Outline" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_GWHCMOsAEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.console" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Console" label="Console" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/console.png" tooltip="Console" closeable="true"/>
     <sharedElements xsi:type="advanced:Area" xmi:id="_QWERMOsAEeGrI5NvCZeHUA" elementId="org.eclipse.ui.editorss" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
       <children xsi:type="basic:PartStack" xmi:id="_LDFJAMKLAJLAJZKZJZKAWJ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.areadefaultstack"/>
     </sharedElements>
@@ -108,11 +111,22 @@
     <children xmi:id="_SeXUEO8EEd6FC9cDb6iV7w" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_SeXUEO8EEd6FC9cDb6iV7x" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_7msNYPk9EeGeg4kVMj6Vtg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partdescriptor.0" label="PackageExplorer" tooltip="Package Explorer" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.PackageExplorer">
-    <toolbar xmi:id="_De44sPk-EeGeg4kVMj6Vtg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbar.0"/>
+  <descriptors xmi:id="_7msNYPk9EeGeg4kVMj6Vtg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.packageexplorer" label="PackageExplorer" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_explorer.png" tooltip="Package Explorer" closeable="true" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.PackageExplorer">
+    <tags>View</tags>
+    <tags>categoryTag:Java</tags>
+    <toolbar xmi:id="_bOr8UFaoEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbar.0">
+      <children xsi:type="menu:DirectToolItem" xmi:id="_c91lwFaoEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.collapseall" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/collapse_all.png" tooltip="Collapse All" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.CollapseAll"/>
+      <children xsi:type="menu:DirectToolItem" xmi:id="_dsFy4FaoEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.linkwitheditor" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/link_to_editor.png" tooltip="Link with Editor" type="Check" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.LinkWithEditor"/>
+    </toolbar>
   </descriptors>
-  <descriptors xmi:id="_VPArYPk-EeGeg4kVMj6Vtg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partdescriptor.1"/>
-  <descriptors xmi:id="_lksfjlskdjflafdlkjlsdf" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partdescriptor.2"/>
+  <descriptors xmi:id="_VPArYPk-EeGeg4kVMj6Vtg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.outline" label="Outline" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/outline.png" tooltip="Outline" closeable="true" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Outline">
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_lksfjlskdjflafdlkjlsdf" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.console" label="Console" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/console.png" tooltip="Console" closeable="true" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Console">
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
   <toolBarContributions xmi:id="_Wn6DkBfgEeKmpbrEZ1tscA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbarcontribution.0" parentId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main" positionInParent="after=org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main.saveall">
     <children xsi:type="menu:DirectToolItem" xmi:id="_YkAj4BfgEeKmpbrEZ1tscA" elementId="org.semanticsoft.e4test.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/collapse_all.png" tooltip="igogo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.CollapseAll"/>
   </toolBarContributions>

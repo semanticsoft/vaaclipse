@@ -84,6 +84,7 @@
       <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
       <plugin id="org.semanticsoft.e4extension"/>
       <plugin id="org.semanticsoft.e4modelextension"/>
+      <plugin id="org.semanticsoft.vaaclipse.additions"/>
       <plugin id="org.semanticsoft.vaaclipse.api"/>
       <plugin id="org.semanticsoft.vaaclipse.app"/>
       <plugin id="org.semanticsoft.vaaclipse.behaviour"/>

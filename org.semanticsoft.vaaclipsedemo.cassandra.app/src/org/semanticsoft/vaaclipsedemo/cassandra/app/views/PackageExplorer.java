@@ -252,9 +252,12 @@ public class PackageExplorer
 		
 		if (this.linkWithEditor)
 		{
-			MInputPart inputPart = (MInputPart) partService.getActivePart();
-			if (inputPart != null)
-				selectTreeNode(inputPart);
+			if (partService.getActivePart() instanceof MInputPart)
+			{
+				MInputPart inputPart = (MInputPart) partService.getActivePart();
+				if (inputPart != null)
+					selectTreeNode(inputPart);	
+			}
 			
 			eventBroker.subscribe(UIEvents.UILifeCycle.ACTIVATE, activatePartHandler);
 		}

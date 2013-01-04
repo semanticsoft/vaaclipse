@@ -26,6 +26,12 @@ import com.vaadin.Application;
 @SuppressWarnings("restriction")
 public class VaadinPresentationEngine extends GenericPresentationEngine {
 	
+	
+	public VaadinPresentationEngine()
+	{
+		System.out.println("VPE");
+	}
+	
 	@Override
 	public Object run(final MApplicationElement uiRoot, IEclipseContext appContext) {
 		

@@ -541,7 +541,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			IndexedContainer container = new IndexedContainer();			
 			
 			@Override
-			public Component getComponent()
+			public Component getComponent(OptionDialog optionDialog)
 			{
 				if (panel == null)
 				{

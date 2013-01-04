@@ -545,8 +545,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 			}
 		}
 	}
-
-	@PostConstruct
+	
 	public void postConstruct(IEclipseContext context) {
 		// Add the presentation engine to the context
 		context.set(IPresentationEngine.class.getName(), this);
