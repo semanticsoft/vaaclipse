@@ -26,6 +26,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
@@ -61,6 +62,8 @@ public class PackageExplorer
 	@Inject
 	private MApplication application;
 
+	@Inject
+	IEventBroker eventBroker;
 	
 	@Inject
 	private EPartService partService;
@@ -81,12 +84,29 @@ public class PackageExplorer
 	//State
 	private boolean linkWithEditor = false;
 	
-	IEventBroker eventBroker;
 	
+	private EventHandler collapseAllHandler = new EventHandler() {
+		
+		public void handleEvent(Event arg0)
+		{
+			for (Object rootId : tree.rootItemIds())
+			{
+				tree.collapseItemsRecursively(rootId);
+			}
+		}
+	};
 	
+	private EventHandler linkWithEditorHandler = new EventHandler() {
+		
+		public void handleEvent(Event event)
+		{
+			Boolean link = (Boolean) event.getProperty(EventUtils.DATA);
+			setLinkWithEditor(link);
+		}
+	};
 
 	@Inject
-	public void PackageExplorer(VerticalLayout parent, IEclipseContext context)
+	public void PackageExplorer(VerticalLayout parent)
 	{
 		panel = new Panel();
 		panel.setSizeFull();
@@ -95,14 +115,12 @@ public class PackageExplorer
 		File demoRoot = BundleActivatorImpl.getInstance().getHomeDirectory();
 		
 		createProjectTree(demoRoot);
-		
-		eventBroker = context.get(IEventBroker.class);
 	}
 	
 	@PostConstruct
 	void registerHandler()
 	{
-		//this is not work, becouse the find service search only in childs
+		//this is not work, becouse the find service search only in children
 		//linkWithEditorItem = (MToolItem) modelService.find("org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.linkwitheditor", application);
 		
 		for (MToolBarElement e : part.getToolbar().getChildren())
@@ -116,22 +134,16 @@ public class PackageExplorer
 		if (linkWithEditorItem != null)
 			setLinkWithEditor(linkWithEditorItem.isSelected());
 		
-//		eventBroker.subscribe("test1", new EventHandler() {
-//			
-//			public void handleEvent(Event event)
-//			{
-//				String msg = event.getProperty(IEventBroker.DATA).toString();
-//				String str = String.format("workbench with instanceid %s receive message from workbench with instanceid=%s ", context.get("e4ApplicationInstanceId"), msg);
-//				System.out.println(str);
-//			}
-//		});
+		eventBroker.subscribe(CassandraConstants.COLLAPSE_ALL, collapseAllHandler);
+		eventBroker.subscribe(CassandraConstants.LINK_WITH_EDITOR, linkWithEditorHandler);
 	}
 	
 	@PreDestroy
 	void unregisterHandlers()
 	{
-		System.out.println("pckexplorer destroy");
 		eventBroker.unsubscribe(activatePartHandler);
+		eventBroker.unsubscribe(collapseAllHandler);
+		eventBroker.unsubscribe(linkWithEditorHandler);
 	}
 	
 	private EventHandler activatePartHandler = new EventHandler() {
@@ -179,8 +191,6 @@ public class PackageExplorer
 					{
 						tree.select(event.getItemId());
 						
-//						getConsole().println("time: " + time + "; last time: " + lastTime);
-						
 						FileItem fileItem = (FileItem) event.getItem();
 						try
 						{
@@ -212,7 +222,6 @@ public class PackageExplorer
 		// Set tree to show the 'name' property as caption for items
 		tree.setItemCaptionPropertyId(FilesystemContainer.PROPERTY_NAME);
 		tree.setItemIconPropertyId(FilesystemContainer.PROPERTY_ICON);
-		// tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
 		
 		// Expand whole tree
 		for (Object id : tree.rootItemIds())
