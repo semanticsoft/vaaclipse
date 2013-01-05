@@ -17,6 +17,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.semanticsoft.e4extension.service.EPartServiceExt;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
@@ -53,6 +54,10 @@ class ShowViewDialogContent implements ComponentProvider
 	
 	@Inject
 	private EPartService partService;
+	
+	@Inject
+	private EPartServiceExt partServiceExt;
+	
 	
 	@Inject
 	private MApplication application;
@@ -96,7 +101,8 @@ class ShowViewDialogContent implements ComponentProvider
 	{
 		for (MPartDescriptor descriptor : descriptors) 
 		{
-			partService.showPart(descriptor.getElementId(), PartState.ACTIVATE);
+			//partService.showPart(descriptor.getElementId(), PartState.ACTIVATE);
+			partServiceExt.showPart(descriptor.getElementId(), PartState.ACTIVATE);
 		}
 	}
 	

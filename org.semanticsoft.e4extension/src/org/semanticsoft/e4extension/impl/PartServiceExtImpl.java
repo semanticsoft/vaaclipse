@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.semanticsoft.e4extension.impl;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -62,6 +64,8 @@ public class PartServiceExtImpl implements EPartServiceExt
 	EModelService modelService;
 	
 	Map<String, Pattern> patterns = new HashMap<String, Pattern>();
+	
+	private EPartService actualServiceImplementation;
 	
 
 	@Override
@@ -218,5 +222,78 @@ public class PartServiceExtImpl implements EPartServiceExt
 			return windows.get(0);
 		return null;
 	}
+	
+	private EPartService getActualServiceImplementation()
+	{
+		if (actualServiceImplementation != null)
+			return actualServiceImplementation;
+		
+		try
+		{
+			Method getActiveWindowService = partService.getClass().getDeclaredMethod("getActiveWindowService");
+			getActiveWindowService.setAccessible(true);
+			actualServiceImplementation = (EPartService)getActiveWindowService.invoke(partService);
+			return actualServiceImplementation;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+	
+	public MPart showPart(String id, PartState partState) {
+		Assert.isNotNull(id);
+		Assert.isNotNull(partState);
 
+		MPart part = partService.findPart(id);
+		if (part == null) {
+			MPartDescriptor descriptor = findDescriptor(id);
+			
+			try {
+				EPartService actualServiceImplementation = getActualServiceImplementation();
+				Method createPart = actualServiceImplementation.getClass().getDeclaredMethod("createPart", MPartDescriptor.class);
+				createPart.setAccessible(true);
+				part = (MPart) createPart.invoke(actualServiceImplementation, descriptor);	
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+			
+			if (part == null) {
+				return null;
+			}
+		}
+		
+		return partService.showPart(addPart(part), partState);
+	}
+	
+	public MPart addPart(MPart part) {
+		Assert.isNotNull(part);
+		MPart localPart = findPart(part.getElementId());
+		
+		try {
+			EPartService actualServiceImplementation = getActualServiceImplementation();
+			Method addPart = actualServiceImplementation.getClass().getDeclaredMethod("addPart", MPart.class, MPart.class);
+			addPart.setAccessible(true);
+			return (MPart) addPart.invoke(actualServiceImplementation, part, localPart == null ? part : localPart);
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+		
+		//return addPart(part, localPart == null ? part : localPart);
+	}
+	
+	public MPart findPart(String id) {
+		List<MPart> parts = getParts(MPart.class, id);
+		return parts.size() > 0 ? parts.get(0) : null;
+	}
+	
+	private <T> List<T> getParts(Class<T> cls, String id) {
+		return modelService.findElements(getWindow(), id, cls, null,
+				EModelService.OUTSIDE_PERSPECTIVE | EModelService.IN_ANY_PERSPECTIVE
+						| EModelService.IN_SHARED_AREA);
+	}
 }

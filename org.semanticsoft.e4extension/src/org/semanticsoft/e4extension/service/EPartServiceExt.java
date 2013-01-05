@@ -11,11 +11,13 @@
 
 package org.semanticsoft.e4extension.service;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 
 import e4modelextension.EditorPartDescriptor;
 
@@ -57,4 +59,14 @@ public interface EPartServiceExt
 	 * @return
 	 */
 	MInputPart openUri(MElementContainer<?> area, String inputUri);
+	
+	/**
+	 * Fixed method EPartService.showPart. Current method search any opened shared part and if allowMultiples == false (default) it
+	 * create placeholder on this part rather creating new. The differences from original showPart is that it search shared part in any perspective,
+	 * the orginal showPart search shared part in active perspective. I can not say is this bug or general contract of this method...
+	 * @param id
+	 * @param partState
+	 * @return
+	 */
+	MPart showPart(String id, PartState partState);
 }
