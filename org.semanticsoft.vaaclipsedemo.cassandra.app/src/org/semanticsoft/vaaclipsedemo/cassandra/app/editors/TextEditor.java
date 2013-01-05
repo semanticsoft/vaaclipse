@@ -11,32 +11,14 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-
-import javax.annotation.PreDestroy;
-
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-
-import com.vaadin.Application;
-
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
-
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
-
-import org.eclipse.e4.ui.workbench.UIEvents;
-
-import org.eclipse.e4.ui.services.internal.events.EventBroker;
-
-import javax.annotation.PostConstruct;
-
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import java.io.IOException;
 import javax.inject.Inject;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
 
 /**
  * @author rushan

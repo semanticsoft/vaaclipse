@@ -11,36 +11,21 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import javax.annotation.PostConstruct;
-
-import javax.annotation.PreDestroy;
-
-import org.eclipse.e4.core.di.extensions.EventUtils;
-
-import org.eclipse.e4.ui.workbench.UIEvents;
-
-import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
-
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
-
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
-
-import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
-
-import org.eclipse.core.runtime.Platform;
-import org.osgi.framework.Bundle;
-
 import com.vaadin.data.util.ObjectProperty;
-
 import com.vaadin.ui.Label;
-
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.osgi.framework.Bundle;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
 
 /**
  * @author rushan

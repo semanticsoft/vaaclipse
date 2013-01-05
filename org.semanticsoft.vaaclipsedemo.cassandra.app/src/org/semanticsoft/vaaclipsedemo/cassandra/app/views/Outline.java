@@ -11,11 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.JavaEditor;
-
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
-
 import com.vaadin.data.Item;
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Panel;
@@ -38,13 +33,13 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.UIEvents;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.FileUtils;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.JavaEditor;
 
 public class Outline
 {

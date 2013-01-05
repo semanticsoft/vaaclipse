@@ -85,8 +85,6 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_6RnVUE8FEeCyZoR8urPqaw" elementId="">
         <children xsi:type="menu:HandledToolItem" xmi:id="_9UPfUBqZEeGFVucrmhucYg" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.handledtoolitem.2" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/print.png" tooltip="Print" command="_FEAosOsiEeGZOI_suq-2CQ"/>
-        <children xsi:type="menu:ToolBarSeparator" xmi:id="_DLlu4DI5EeK8pMWOY8UYeA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbarseparator.0"/>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_CV4O4DI5EeK8pMWOY8UYeA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.0" label="Toggle visiblity" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.VisibilityHandler"/>
       </children>
     </trimBars>
     <trimBars xmi:id="_SeXUAu8EEd6FC9FFFFFFFF" elementId="org.semanticsoft.vaaclipsedemo.cassandra.bottomtrimbar" side="Bottom"/>

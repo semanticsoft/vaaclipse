@@ -11,19 +11,16 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.processor;
 
-import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
-
-import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
 
 /**
  * @author rushan
