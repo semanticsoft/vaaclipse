@@ -50,8 +50,6 @@ class ShowViewDialogContent implements ComponentProvider
 	private HierarchicalContainer container;
 	private OptionDialog optionDialog;
 	
-//	private Map<Integer, MPartDescriptor> descriptorsMap = new HashMap<Integer, MPartDescriptor>();
-	
 	@Inject
 	private EPartService partService;
 	
@@ -138,12 +136,6 @@ class ShowViewDialogContent implements ComponentProvider
 				}
 			}
 		});
-		
-		// Expand whole tree
-		for (Object id : tree.rootItemIds())
-		{
-			tree.expandItemsRecursively(id);
-		}
 	}
 	
 	private void setupCategoryItem(Item categoryItem, String category)
