@@ -35,17 +35,15 @@
               <children xsi:type="advanced:Placeholder" xmi:id="_xXEeoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.8" ref="_VNAcoOsOEeGrI5NvCZeHUA"/>
             </children>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_-rC2IOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.5" containerData="70">
-            <children xsi:type="basic:PartSashContainer" xmi:id="_Ms9RsOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.6" containerData="60" horizontal="true">
-              <children xsi:type="advanced:Placeholder" xmi:id="_eLV0IOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.9" containerData="70" ref="_QWERMOsAEeGrI5NvCZeHUA"/>
-              <children xsi:type="basic:PartStack" xmi:id="_eu_TwOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.5" containerData="30">
-                <children xsi:type="advanced:Placeholder" xmi:id="_qAfdMOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.10" ref="_J7teoOr6EeGrI5NvCZeHUA"/>
-              </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_Ms9RsOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partsashcontainer.6" containerData="40" horizontal="true">
+            <children xsi:type="advanced:Placeholder" xmi:id="_eLV0IOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.9" containerData="70" ref="_QWERMOsAEeGrI5NvCZeHUA"/>
+            <children xsi:type="basic:PartStack" xmi:id="_eu_TwOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.5" containerData="30">
+              <children xsi:type="advanced:Placeholder" xmi:id="_qAfdMOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.10" ref="_J7teoOr6EeGrI5NvCZeHUA"/>
             </children>
-            <children xsi:type="basic:PartStack" xmi:id="_S8R6sOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.6" containerData="40">
-              <children xsi:type="advanced:Placeholder" xmi:id="_TcAjoOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.11" ref="_GWHCMOsAEeGrI5NvCZeHUA"/>
-              <children xsi:type="advanced:Placeholder" xmi:id="_UwLhQOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.12" ref="_ZQfgMOsOEeGrI5NvCZeHUA"/>
-            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_S8R6sOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.6" containerData="30">
+            <children xsi:type="advanced:Placeholder" xmi:id="_TcAjoOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.11" ref="_GWHCMOsAEeGrI5NvCZeHUA"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_UwLhQOsPEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.12" ref="_ZQfgMOsOEeGrI5NvCZeHUA"/>
           </children>
         </children>
       </children>
