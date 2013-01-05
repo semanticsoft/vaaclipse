@@ -156,7 +156,8 @@ class ShowViewDialogContent implements ComponentProvider
 	private void setupDescriptorItem(Item descriptorItem, MPartDescriptor descriptor)
 	{
 		descriptorItem.getItemProperty(NAME_PROP).setValue(descriptor.getLabel());
-		descriptorItem.getItemProperty(ICON_PROP).setValue(BundleResource.valueOf(descriptor.getIconURI()));
+		if (descriptor.getIconURI() != null && descriptor.getIconURI().trim().length() > 0)
+			descriptorItem.getItemProperty(ICON_PROP).setValue(BundleResource.valueOf(descriptor.getIconURI()));
 		descriptorItem.getItemProperty(OBJECT_PROP).setValue(descriptor);
 	}
 
@@ -189,14 +190,18 @@ class ShowViewDialogContent implements ComponentProvider
 				
 				if (category != null)
 				{
-					if (!categoryTags.contains(category))
+					category = category.trim();
+					if (!category.isEmpty())
 					{
-						categoryTags.add(category);
-						Item categoryItem = data.addItem(category);
-						setupCategoryItem(categoryItem, category);	
+						if (!categoryTags.contains(category))
+						{
+							categoryTags.add(category);
+							Item categoryItem = data.addItem(category);
+							setupCategoryItem(categoryItem, category);	
+						}
+						
+						data.setParent(descriptor, category);	
 					}
-					
-					data.setParent(descriptor, category);
 				}
 			}
 		}

@@ -71,13 +71,13 @@
     <sharedElements xsi:type="advanced:Area" xmi:id="_QWERMOsAEeGrI5NvCZeHUA" elementId="org.eclipse.ui.editorss" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
       <children xsi:type="basic:PartStack" xmi:id="_LDFJAMKLAJLAJZKZJZKAWJ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.partstack.areadefaultstack"/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_NdGKoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.4" label="Debug" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/debug.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_R6SHoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.5" label="Variables" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/variables.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_VNAcoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.6" label="Breakpoints" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/breakpoints.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_ZQfgMOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.7" label="Display" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/display.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_MjCfsOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.8" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_QyaqMOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.9" label="Javadoc" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/javadoc.png" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_YVR-sOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.10" label="JUnit" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/junit.png" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_NdGKoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.debug" label="Debug" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/debug.png" tooltip="Debug" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_R6SHoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.variables" label="Variables" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/variables.png" tooltip="Variables" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_VNAcoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.breakpoints" label="Breakpoints" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/breakpoints.png" tooltip="Breakpoints" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_ZQfgMOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.display" label="Display" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/display.png" tooltip="Display" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_MjCfsOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.help" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" tooltip="Help" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_QyaqMOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.javadoc" label="Javadoc" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/javadoc.png" tooltip="Javadoc" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_YVR-sOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.junit" label="JUnit" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/junit.png" tooltip="JUnit" closeable="true"/>
     <trimBars xmi:id="_SeXUAu8EEd6FC9cDb6iV7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toptrimbar">
       <children xsi:type="menu:ToolBar" xmi:id="_YKLDFJLKJDFFDFDFFFFFFF" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main">
         <children xsi:type="menu:HandledToolItem" xmi:id="_MBzEwOsjEeGZOI_suq-2CQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main.save" label="" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/save.png" tooltip="Save" command="contacts.save"/>
@@ -124,6 +124,34 @@
   <descriptors xmi:id="_lksfjlskdjflafdlkjlsdf" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.console" label="Console" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/console.png" tooltip="Console" closeable="true" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Console">
     <tags>View</tags>
     <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_3_BwYFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.debug" label="Debug" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/debug.png" tooltip="Debug">
+    <tags>View</tags>
+    <tags>categoryTag:Debug</tags>
+  </descriptors>
+  <descriptors xmi:id="_4XyOoFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.variables" label="Variables" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/variables.png" tooltip="Variables">
+    <tags>View</tags>
+    <tags>categoryTag:Debug</tags>
+  </descriptors>
+  <descriptors xmi:id="_4p8VoFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.breakpoints" label="Breakpoints" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/breakpoints.png" tooltip="Breakpoints">
+    <tags>View</tags>
+    <tags>categoryTag:Debug</tags>
+  </descriptors>
+  <descriptors xmi:id="_4_nqsFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.display" label="Display" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/display.png" tooltip="Display">
+    <tags>View</tags>
+    <tags>categoryTag:Debug</tags>
+  </descriptors>
+  <descriptors xmi:id="_5RF1MFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.help" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" tooltip="Help">
+    <tags>View</tags>
+    <tags>categoryTag:Help</tags>
+  </descriptors>
+  <descriptors xmi:id="_7ONpMFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.javadoc" label="Javadoc" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/javadoc.png" tooltip="Javadoc">
+    <tags>View</tags>
+    <tags>categoryTag:Java</tags>
+  </descriptors>
+  <descriptors xmi:id="_7gqrIFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.junit" label="JUnit" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/junit.png" tooltip="JUnit">
+    <tags>View</tags>
+    <tags>categoryTag:Java</tags>
   </descriptors>
   <toolBarContributions xmi:id="_Wn6DkBfgEeKmpbrEZ1tscA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbarcontribution.0" parentId="org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main" positionInParent="after=org.semanticsoft.vaaclipsedemo.cassandra.toolbar.main.saveall">
     <children xsi:type="menu:DirectToolItem" xmi:id="_YkAj4BfgEeKmpbrEZ1tscA" elementId="org.semanticsoft.e4test.handledtoolitem.0" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/collapse_all.png" tooltip="igogo" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.CollapseAll"/>
