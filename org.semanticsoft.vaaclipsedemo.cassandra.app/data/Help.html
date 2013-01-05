@@ -1,0 +1,40 @@
+<p><strong>Cassandra</strong> is the IDE-like demo environment allowing you to browse and learn its own code and demonstrating some <em>Vaaclipse</em> features. You can obtain <strong>Cassandra</strong> sources from <a href="https://github.com/semanticsoft/vaaclipse">Vaaclipse repository</a>.</p>
+
+<h3>Bundles</h3>
+
+<ul>
+<li>
+<em>org.semanticsoft.vaaclipsedemo.cassandra.app</em> - application bundle providing product, demo implementation, resources and compiled widgetset.</li>
+<li>
+<em>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</em> - provides the vaadin addon binaires used in this demo.</li>
+</ul><h3>Product configuration</h3>
+
+<p>Open file <em>plugin.xml</em>. The extension point <em>org.eclipse.core.runtime.products</em> contains the product configuration. Read about product configuration in <a href="https://github.com/semanticsoft/vaaclipse/wiki/Project-configuration">Project configuration guid</a>.</p>
+
+<ul>
+<li>
+<em>applicationXMI</em> - this file contains the application model. You can browse it using reach UI in <em>Eclipse Model Editor</em>.</li>
+<li>
+<em>applicationWidgetset</em> - the location of application widgetset. As you can see this application uses widgetset is located in <em>widgetset/cassandra.widgetset.CassandraWidgetset</em>.</li>
+<li>
+<em>cssTheme</em> - the identifier of theme used by application. <strong>Cassandra</strong> uses the <em>reindeer</em> theme.</li>
+<li>
+<em>applicationHeaderIcon</em> - you can see this icon in the browser window title.</li>
+</ul><h3>Theme configuration</h3>
+
+<p>Open file <em>plugin.xml</em>. The extension point <em>org.semanticsoft.vaaclipse.theme</em> contains the theme configuration. This extension point introduces the theme contribution <em>org.semanticsoft.vaaclipsedemo.cassandra.app.maincontrib</em> that extends the <em>reindeer</em> theme with stylesheet <em>"css/default.css"</em> and resources in <em>"img/"</em>. The another contribution <em>org.semanticsoft.vaaclipse.resources</em> contains stylesheet used by Vaaclipse. Read about themes and theme contributions in <a href="https://github.com/semanticsoft/vaaclipse/wiki/Resource-system">Resource system guide</a>. Shortly, theme contribution extends the given themes with resources and styles. Theme contributions help us to build modular applications. Contributions are counterparts to theme inheritance (that has more limited use). For example, we can create the new theme with our resources and styles and inherit it from <em>reindeer</em> theme or use the <em>reindeer</em> theme itself extending with our resources and styles. The second way is more preferable (see <em>Contribution vs inheritance</em> section of <a href="https://github.com/semanticsoft/vaaclipse/wiki/Resource-system">Resource system guide</a>).</p>
+
+<h3>Java code</h3>
+
+<p>Package <em>org.semanticsoft.vaaclipsedemo.cassandra.app</em></p>
+
+<ul>
+<li>
+<em>.views</em> contains the contribution classes for parts. For example, <em>PackageExplorer</em> class contains the contribution for part with elementId = <em>org.semanticsoft.vaaclipsedemo.cassandra.app.part.packageexplorer</em>.</li>
+<li>
+<em>.editors</em> contains the contribution classes for editors. The editors in this demo don't allow editing source code, but you can familiarize with editors infrastructure on this sample.</li>
+<li>
+<em>.toolitems</em> contains the contributions for <em>Tool Items</em>.</li>
+<li>
+<em>.handlers</em> contains the contributions classes for handlers. For example, <em>CollapseAll</em> class contains the contribution for Direct Tool Item with elementId = <em>org.semanticsoft.vaaclipsedemo.cassandra.app.directtoolitem.collapseall</em>.</li>
+</ul>

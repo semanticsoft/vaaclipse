@@ -27,7 +27,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.di;bundle-version="0.10.1",
  org.semanticsoft.vaaclipse.theme;bundle-version="1.0.0",
  org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.additions;bundle-version="1.0.0"
+ org.semanticsoft.vaaclipse.additions;bundle-version="1.0.0",
+ org.apache.commons.io;bundle-version="2.4.0"
 Import-Package: javax.annotation;version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Rushan R. Gilmullin

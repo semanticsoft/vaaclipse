@@ -75,7 +75,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_R6SHoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.variables" label="Variables" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/variables.png" tooltip="Variables" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_VNAcoOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.breakpoints" label="Breakpoints" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/breakpoints.png" tooltip="Breakpoints" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_ZQfgMOsOEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.display" label="Display" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/display.png" tooltip="Display" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_MjCfsOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.help" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" tooltip="Help" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_MjCfsOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.help" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Help" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" tooltip="Help" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_QyaqMOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.javadoc" label="Javadoc" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/javadoc.png" tooltip="Javadoc" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_YVR-sOsaEeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.junit" label="JUnit" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/junit.png" tooltip="JUnit" closeable="true"/>
     <trimBars xmi:id="_SeXUAu8EEd6FC9cDb6iV7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.toptrimbar">
@@ -141,7 +141,7 @@
     <tags>View</tags>
     <tags>categoryTag:Debug</tags>
   </descriptors>
-  <descriptors xmi:id="_5RF1MFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.help" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" tooltip="Help">
+  <descriptors xmi:id="_5RF1MFdGEeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.help" label="Help" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/help.png" tooltip="Help" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.Help">
     <tags>View</tags>
     <tags>categoryTag:Help</tags>
   </descriptors>

@@ -16,7 +16,7 @@ import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -38,7 +39,6 @@ import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
-import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.FileUtils;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.JavaEditor;
 
 public class Outline
@@ -96,11 +96,17 @@ public class Outline
 			if (part instanceof MInputPart && part.getObject() instanceof JavaEditor)
 			{
 				MInputPart inputPart = (MInputPart) part;
-				File file = new File(inputPart.getInputURI());
+				
 				String content;
 				try
 				{
-					content = FileUtils.readFile(file, "UTF-8");
+					FileInputStream is = new FileInputStream(inputPart.getInputURI());
+					try {
+						content = IOUtils.toString(is);
+				    } finally {
+				    	is.close();
+				    }
+					
 					refreshTree(content);
 				}
 				catch (IOException e)

@@ -11,6 +11,10 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.FileInputStream;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -57,7 +61,12 @@ public class TextEditor extends FileView
 	{
 		try
 		{
-			content = FileUtils.readFile(getFile(), "UTF-8");
+			FileInputStream inputStream = new FileInputStream(getFile());
+		    try {
+		        content = IOUtils.toString(inputStream);
+		    } finally {
+		        inputStream.close();
+		    }
 		}
 		catch (IOException e)
 		{
