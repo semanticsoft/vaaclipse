@@ -292,15 +292,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 		{
 			renderer.bindWidget(element);
 		}
-
-		// Does not work: why?
-		// if (parent != null) {
-		// element.setParent(parent);
-		// }
-
-		// TODO set visible here?
-		//element.setVisible(true);
-
+		
 		if (element instanceof MElementContainer) {
 
 			// first create the GUI for the children
@@ -314,6 +306,11 @@ public class GenericPresentationEngine implements PresentationEngine {
 			// then let the renderer process them
 			renderer.processContents(container);
 		}
+		
+		//set element visibility
+		if (element.isToBeRendered() && element.getWidget() != null)
+			renderer.setVisible(element, element.isVisible());
+		
 		renderer.hookControllerLogic(element);
 
 		return element.getWidget();

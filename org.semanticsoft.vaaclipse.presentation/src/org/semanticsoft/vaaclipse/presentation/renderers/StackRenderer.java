@@ -476,8 +476,6 @@ public class StackRenderer extends VaadinRenderer {
 	@Override
 	public void setVisible(MUIElement changedElement, boolean visible) {
 		TabSheet tabPane = (TabSheet) changedElement.getWidget();
-		tabPane.requestRepaintRequests();
-		tabPane.getParent().requestRepaintRequests();
 		tabPane.setVisible(visible);
 	}
 	
