@@ -76,9 +76,9 @@ public class OpenFileProcessor
 	{
 		eventBroker.subscribe(CassandraConstants.OPEN_FILE, openFileHandler);
 		
-//		File srcStore = BundleActivatorImpl.getInstance().getSrcStore();
-//		String projectName = "cassandra";
-//		File welcome = FileUtils.getFile(srcStore, projectName, "data", "Welcome.html");
-//		openFile(welcome);
+		File srcStore = BundleActivatorImpl.getInstance().getSrcStore();
+		String projectName = "cassandra";
+		File welcome = FileUtils.getFile(srcStore, projectName, "data", "Welcome.html");
+		openFile(welcome);
 	}
 }
