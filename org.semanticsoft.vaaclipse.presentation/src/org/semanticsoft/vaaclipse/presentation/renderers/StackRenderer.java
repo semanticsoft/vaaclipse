@@ -274,10 +274,10 @@ public class StackRenderer extends VaadinRenderer {
 	@Override
 	public void processContents(final MElementContainer<MUIElement> container) {
 		MPartStack stack = (MPartStack)(MElementContainer<?>)container;
-		TabSheet parentPane = (TabSheet) container.getWidget();
-		for (MUIElement element : container.getChildren()) {
-			if (element instanceof MStackElement)
-				addTab(parentPane, (MStackElement) element, parentPane.getComponentCount());
+		StackWidget stackWidget = (StackWidget) stack.getWidget();
+		for (MStackElement element : stack.getChildren()) 
+		{
+			addTab(stackWidget, (MStackElement) element, stackWidget.getComponentCount());
 		}
 		
 		// if there are childs in stack and the selected element is not
@@ -285,6 +285,12 @@ public class StackRenderer extends VaadinRenderer {
 		if (stack.getChildren().size() > 0 && stack.getSelectedElement() == null)
 		{
 			stack.setSelectedElement(stack.getChildren().get(0));
+		}
+		
+		if (stack.getSelectedElement() != null)
+		{
+			Component stackSelectedComponent = (Component) stack.getSelectedElement().getWidget();
+			stackWidget.setSelectedTab(stackSelectedComponent);	
 		}
 	}
 
