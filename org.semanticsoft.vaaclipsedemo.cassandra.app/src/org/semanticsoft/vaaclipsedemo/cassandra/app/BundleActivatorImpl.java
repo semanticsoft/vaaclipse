@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -45,8 +47,9 @@ public class BundleActivatorImpl implements BundleActivator
 	private ServiceTracker locationServiceTracker;
 
 	private IPath stateLocation;
-	
+
 	private File cassandraHome;
+	private File srcStore;
 
 	public void start(BundleContext context) throws Exception
 	{
@@ -56,51 +59,60 @@ public class BundleActivatorImpl implements BundleActivator
 		upackProjects();
 	}
 
-	private void upackProjects()
+	private void upackProjects() throws Exception
 	{
-		String userHome = System.getProperty("user.home");
-		cassandraHome = new File(userHome + File.separator + "/.cassandra");
+		cassandraHome = FileUtils.getFile(FileUtils.getUserDirectory(), "/.cassandra");
 
 		if (!cassandraHome.isFile()) // prevent that there are user file with this name
 		{
 			if (!cassandraHome.exists())
-			{
 				cassandraHome.mkdir();
+			
+			Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
+			
+			//create the src root with unique name (to prevent the intersection with the user data in case he have own folder .cassandra in user home)
+			File srcRoot = FileUtils.getFile(cassandraHome, "63048fd1-69d0-4eb8-be75-bb33964f821c");
+			String version = resourcesBundle.getVersion().toString();
+			srcStore = FileUtils.getFile(srcRoot, version);
+			
+			if (!srcStore.exists())
+			{
+				srcStore.mkdir();
 				
+				URL url = resourcesBundle.getEntry("data/cassandra.zip");
+				InputStream inputStream = url.openConnection().getInputStream();
 				try {
-					Bundle resourcesBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
-					URL url = resourcesBundle.getEntry("data/cassandra.zip");
-					//URL url = new URL("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.resources/src/cassandra.zip");
-				    InputStream inputStream = url.openConnection().getInputStream();
-				    extractFolder(cassandraHome, inputStream);
-				     inputStream.close();
-				} catch (Exception e) {
-				    e.printStackTrace();
+					extractFolder(srcStore, inputStream);
+				}
+				finally {
+					inputStream.close();
 				}
 			}
 		}
+		else
+			throw new RuntimeException("There is the file with name .cassandra in user home");
 	}
-	
-	static public void extractFolder(File destPath, InputStream inputStream) throws ZipException, IOException 
+
+	static public void extractFolder(File destPath, InputStream inputStream) throws ZipException, IOException
 	{
-	    int BUFFER = 2048;
-	    ZipInputStream zis = new ZipInputStream(new BufferedInputStream(inputStream));
-	    
-	    ZipEntry entry;
-	    // Process each entry
-	    while ((entry = zis.getNextEntry()) != null)
-	    {
-	        // grab a zip file entry
-	        String currentEntry = entry.getName();
-	        File destCatalog = new File(destPath, currentEntry);
-	        //destFile = new File(newPath, destFile.getName());
-	        File destinationParent = destCatalog.getParentFile();
+		int BUFFER = 2048;
+		ZipInputStream zis = new ZipInputStream(new BufferedInputStream(inputStream));
 
-	        // create the parent directory structure if needed
-	        destinationParent.mkdirs();
+		ZipEntry entry;
+		// Process each entry
+		while ((entry = zis.getNextEntry()) != null)
+		{
+			// grab a zip file entry
+			String currentEntry = entry.getName();
+			File destCatalog = new File(destPath, currentEntry);
+			// destFile = new File(newPath, destFile.getName());
+			File destinationParent = destCatalog.getParentFile();
 
-	        if (!entry.isDirectory())
-	        {
+			// create the parent directory structure if needed
+			destinationParent.mkdirs();
+
+			if (!entry.isDirectory())
+			{
 				int count;
 				byte data[] = new byte[BUFFER];
 				// write the files to the disk
@@ -112,8 +124,8 @@ public class BundleActivatorImpl implements BundleActivator
 				}
 				dest.flush();
 				dest.close();
-	        }
-	    }
+			}
+		}
 	}
 
 	public void stop(BundleContext context) throws Exception
@@ -162,9 +174,13 @@ public class BundleActivatorImpl implements BundleActivator
 		return context;
 	}
 
-	
 	public File getHomeDirectory()
 	{
 		return cassandraHome;
+	}
+	
+	public File getSrcStore()
+	{
+		return srcStore;
 	}
 }

@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import org.apache.commons.io.FileUtils;
+
 import com.vaadin.Application;
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
@@ -112,9 +114,7 @@ public class PackageExplorer
 		panel.setSizeFull();
 		parent.addComponent(panel);
 		
-		File demoRoot = BundleActivatorImpl.getInstance().getHomeDirectory();
-		
-		createProjectTree(demoRoot);
+		createProjectTree();
 	}
 	
 	@PostConstruct
@@ -156,10 +156,13 @@ public class PackageExplorer
 			selectTreeNode((MInputPart) element);
 		}
 	};
+	private File demoRoot;
 
-	private void createProjectTree(File demoRoot)
+	private void createProjectTree()
 	{
-		tree = new Tree(PROJECT_TREE_ROOT);
+		demoRoot = BundleActivatorImpl.getInstance().getSrcStore();
+		
+		tree = new Tree();
 		tree.setSizeFull();
 		tree.setImmediate(true);
 		panel.addComponent(tree);
@@ -171,6 +174,9 @@ public class PackageExplorer
 		FileTypeResolver.addIcon("xml", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/xml.png"));
 		FileTypeResolver.addExtension("css", "css");
 		FileTypeResolver.addIcon("css", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/css.png"));
+		FileTypeResolver.addExtension("html", "html");
+		FileTypeResolver.addIcon("html", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/html.png"));
+		
 		FileTypeResolver.addIcon("image/png", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/img.png"));
 		
 		FileTypeResolver.addIcon("inode/directory", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/folder.png"));
@@ -223,11 +229,19 @@ public class PackageExplorer
 		tree.setItemCaptionPropertyId(FilesystemContainer.PROPERTY_NAME);
 		tree.setItemIconPropertyId(FilesystemContainer.PROPERTY_ICON);
 		
-		// Expand whole tree
 		for (Object id : tree.rootItemIds())
 		{
-			tree.expandItemsRecursively(id);
+			tree.expandItem(id);
 		}
+		
+		String projectName = "cassandra";
+		File data = FileUtils.getFile(demoRoot, projectName, "data");
+		if (data != null)
+			tree.expandItem(data);
+		
+		File rootPackage = FileUtils.getFile(demoRoot, projectName, "src");
+		if (rootPackage != null)
+			tree.expandItemsRecursively(rootPackage);
 	}
 	
 	protected void openFile(File file)
