@@ -438,6 +438,14 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			if (selectedPerspective != null)
 				switchPerspective(selectedPerspective);
 		}
+		else if (!selectedPerspective.isToBeRendered() || !selectedPerspective.isVisible())
+		{
+			selectedPerspective = (MPerspective) findFirstRenderableAndVisibleElement(perspectiveStack);
+			if (selectedPerspective != null)
+				switchPerspective(selectedPerspective);
+			else
+				perspectiveStack.setSelectedElement(null);
+		}
 		else
 		{
 			// reset selected element (set selected element handler will work)
