@@ -113,26 +113,32 @@ public class StaticResources extends HttpServlet {
 		
 		String resourcePath = alias + path;
 		
+		String themeId = resourceInfoProvider.getCssTheme();
+		InputStream in = getInputStream(resourcePath, 
+				themeEngine.getTheme(themeId),
+				resourceInfoProvider.getApplicationtWidgetset(), 
+				resourceInfoProvider.getApplicationtWidgetsetName(), 
+				resourceInfoProvider.getApplicationHeaderIcon());
+		
+		if (in == null)
+		{
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
 		try {
-			String themeId = resourceInfoProvider.getCssTheme();
-			InputStream in = getInputStream(resourcePath, 
-					themeEngine.getTheme(themeId),
-					resourceInfoProvider.getApplicationtWidgetset(), 
-					resourceInfoProvider.getApplicationtWidgetsetName(), 
-					resourceInfoProvider.getApplicationHeaderIcon());
-			
-			if (in == null)
-			{
-				resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-				return;
-			}
-			
 			OutputStream out = resp.getOutputStream();
 
 			byte[] buffer = new byte[1024];
 			int read = 0;
-			while (-1 != (read = in.read(buffer))) {
-				out.write(buffer, 0, read);
+			
+			try {
+				while (-1 != (read = in.read(buffer))) {
+					out.write(buffer, 0, read);
+				}	
+			}
+			finally {
+				out.close();
 			}
 		}
 		catch(Exception e)
@@ -140,9 +146,12 @@ public class StaticResources extends HttpServlet {
 			e.printStackTrace();
 			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
+		finally {
+			in.close();
+		}
 	}
 	
-	public InputStream getInputStream(String url, Theme theme, String e4WidgetsetUri, String e4WidgetsetName, String headerIconUri) throws Exception
+	public InputStream getInputStream(String url, Theme theme, String e4WidgetsetUri, String e4WidgetsetName, String headerIconUri)
 	{
 		String path = null;
 		
@@ -248,10 +257,14 @@ public class StaticResources extends HttpServlet {
 				throw new IllegalArgumentException("хз что такое");	
 		}
 		
-		URL u = new URL(path);
-		
-		InputStream in = u.openStream();
-		return in;
+		try {
+			URL u = new URL(path);
+			return u.openStream();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	private static String buildSegments(String[] segments, int start)
