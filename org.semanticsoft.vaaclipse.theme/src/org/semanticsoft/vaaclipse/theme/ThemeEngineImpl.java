@@ -3,7 +3,6 @@
  */
 package org.semanticsoft.vaaclipse.theme;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,11 +31,6 @@ public class ThemeEngineImpl implements ThemeEngine
 	{
 		IExtensionRegistry registry = RegistryFactory.getRegistry();
 		IExtensionPoint extPoint = registry.getExtensionPoint("org.semanticsoft.vaaclipse.theme");
-
-		//load any modified style sheets
-		File modDir= new File(
-				System.getProperty("user.home") + System.getProperty("file.separator") + ".e4css" + System.getProperty("file.separator")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		File[] modifiedFiles = modDir.listFiles();
 		
 		Map<Theme, List<String>> inherited = new HashMap<>();
 		//add themes
