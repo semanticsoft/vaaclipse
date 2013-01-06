@@ -233,7 +233,7 @@ public class PackageExplorer
 			tree.expandItem(id);
 		}
 		
-		String projectName = "cassandra";
+		String projectName = "org.semanticsoft.vaaclipsedemo.cassandra.app";
 		File data = FileUtils.getFile(demoRoot, projectName, "data");
 		if (data != null)
 			tree.expandItem(data);
