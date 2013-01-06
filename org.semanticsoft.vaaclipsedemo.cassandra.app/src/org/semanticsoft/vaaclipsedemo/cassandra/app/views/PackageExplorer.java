@@ -53,7 +53,6 @@ public class PackageExplorer
 	private static final Action ACTION_ADD = new Action("Add child item");
 	private static final Action ACTION_DELETE = new Action("Delete");
 	private static final Action[] ACTIONS = new Action[] { ACTION_ADD, ACTION_DELETE };
-	private static final String fs = System.getProperty("file.separator");
 	private static final String PROJECT_TREE_ROOT = "Cassandra Demo";
 	
 	@Inject
@@ -208,7 +207,7 @@ public class PackageExplorer
 									final File file = (File) f.get(fileItem);
 									if (!file.equals(lastFile))
 									{
-										openFile(file);
+										eventBroker.send(CassandraConstants.OPEN_FILE, file);
 										lastFile = file;
 									}
 									break;
@@ -242,26 +241,6 @@ public class PackageExplorer
 		File rootPackage = FileUtils.getFile(demoRoot, projectName, "src");
 		if (rootPackage != null)
 			tree.expandItemsRecursively(rootPackage);
-	}
-	
-	protected void openFile(File file)
-	{
-		String path = file.getAbsolutePath();
-		MInputPart part = partServiceExt.openUri(path);
-		int lastLsIndex = path.lastIndexOf(fs);
-		if (lastLsIndex > 0)
-			part.setLabel(path.substring(lastLsIndex + 1));	
-		
-		
-		String pathStr = path;
-		int projectTreeRootIndex = path.indexOf(".cassandra");
-		if (projectTreeRootIndex > -1)
-		{
-			int i = path.indexOf(fs, projectTreeRootIndex);
-			pathStr = projectTreeRootIndex > -1 ? path.substring(i + 1) : path;
-		}
-		
-		eventBroker.send(CassandraConstants.CONSOLE_LOG, "Open file: " + pathStr);
 	}
 	
 	public boolean isLinkWithEditor()

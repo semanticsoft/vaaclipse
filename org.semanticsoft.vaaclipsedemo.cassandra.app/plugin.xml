@@ -67,6 +67,10 @@
             beforefragment="true"
             class="org.semanticsoft.vaaclipsedemo.cassandra.app.processor.TextEditorProcessor">
       </processor>
+      <processor
+            beforefragment="false"
+            class="org.semanticsoft.vaaclipsedemo.cassandra.app.processor.OpenFileProcessor">
+      </processor>
    </extension>
    <extension
          point="org.semanticsoft.vaaclipse.theme">
