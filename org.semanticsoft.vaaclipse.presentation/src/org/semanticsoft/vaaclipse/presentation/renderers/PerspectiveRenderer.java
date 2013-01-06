@@ -41,7 +41,7 @@ public class PerspectiveRenderer extends VaadinRenderer
 	{
 		VerticalLayout perspectivePanel = (VerticalLayout) element.getWidget();
 		for (MUIElement e : element.getChildren()) {
-			if (e.getWidget() != null) {
+			if (e.isToBeRendered() && e.getWidget() != null) {
 				perspectivePanel.addComponent((Component) e.getWidget());
 			}
 		}

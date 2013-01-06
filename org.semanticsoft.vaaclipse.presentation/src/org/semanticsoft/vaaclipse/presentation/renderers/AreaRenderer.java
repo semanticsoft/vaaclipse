@@ -57,9 +57,12 @@ public class AreaRenderer extends VaadinRenderer
 		parentPane.removeAllComponents();
 		for (MUIElement element : container.getChildren())
 		{
-			if (element instanceof MPlaceholder)
-				element = ((MPlaceholder) element).getRef();
-			parentPane.addComponent((Component) element.getWidget());
+			if (element.isToBeRendered())
+			{
+				if (element instanceof MPlaceholder)
+					element = ((MPlaceholder) element).getRef();
+				parentPane.addComponent((Component) element.getWidget());	
+			}
 		}
 	}
 	

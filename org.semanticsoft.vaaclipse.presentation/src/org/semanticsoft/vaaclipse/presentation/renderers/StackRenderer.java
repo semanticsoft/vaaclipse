@@ -277,7 +277,8 @@ public class StackRenderer extends VaadinRenderer {
 		StackWidget stackWidget = (StackWidget) stack.getWidget();
 		for (MStackElement element : stack.getChildren()) 
 		{
-			addTab(stackWidget, (MStackElement) element, stackWidget.getComponentCount());
+			if (element.isToBeRendered())
+				addTab(stackWidget, (MStackElement) element, stackWidget.getComponentCount());
 		}
 		
 		// if there are childs in stack and the selected element is not

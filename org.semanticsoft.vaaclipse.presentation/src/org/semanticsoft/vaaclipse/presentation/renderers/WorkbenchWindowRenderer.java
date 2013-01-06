@@ -312,7 +312,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 
 			for (MUIElement e : element.getChildren())
 			{
-				if (e.getWidget() != null)
+				if (e.isToBeRendered() && e.getWidget() != null)
 				{
 					if (e instanceof MPerspectiveStack)
 					{
@@ -361,45 +361,6 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 			}
 		}
 	}
-
-	// @Override
-	// public void refreshPlatformElement(MElementContainer<?> element) {
-	// if ((MUIElement) element instanceof MTrimmedWindow) {
-	// MTrimmedWindow window = (MTrimmedWindow) ((MUIElement) element);
-	// WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
-	//
-	// for (MTrimBar trim : window.getTrimBars()) {
-	// Component c = (Component) trim.getWidget();
-	// switch (trim.getSide()) {
-	// case BOTTOM:
-	// vWindow.setBottomBar(c);
-	// break;
-	// case LEFT:
-	// vWindow.setLeftBar(c);
-	// break;
-	// case RIGHT:
-	// vWindow.setRightBar(c);
-	// break;
-	// case TOP:
-	// vWindow.setTopBar(c);
-	// break;
-	// }
-	// }
-	//
-	// }
-	// }
-
-	// @Override
-	// public void addChild(MUIElement child, MElementContainer<MUIElement>
-	// element)
-	// {
-	// if (!(child instanceof MWindowElement && (MElementContainer<?>)element
-	// instanceof MWindow))
-	// return;
-	//
-	// super.addChild(child, element);
-	//
-	// }
 
 	@Override
 	public void addChildGui(MUIElement child, MElementContainer<MUIElement> element)

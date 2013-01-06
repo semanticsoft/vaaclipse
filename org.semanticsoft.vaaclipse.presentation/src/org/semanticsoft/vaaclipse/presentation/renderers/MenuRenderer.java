@@ -42,7 +42,7 @@ public class MenuRenderer extends BasicMenuToolbarTrimbarRenderer
 	@Override
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)
 	{
-		if (!(element instanceof MMenu))
+		if (!(element instanceof MMenu) || !element.isToBeRendered())
 			return;
 		
 		if (MWindow.class.isAssignableFrom(parent.getClass()))

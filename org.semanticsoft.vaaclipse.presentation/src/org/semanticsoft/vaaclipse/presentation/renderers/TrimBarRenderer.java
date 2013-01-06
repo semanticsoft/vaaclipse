@@ -113,19 +113,21 @@ public class TrimBarRenderer extends VaadinRenderer {
 		boolean isFirst = true;
 		trimBarWidget.removeAllComponents();
 		for (MUIElement element : container.getChildren()) {
-			//CssLayout subToolbar = (CssLayout) renderer.createGui(element);
-			ComponentContainer subToolbar = (ComponentContainer) element.getWidget();
-			subToolbar.setVisible(element.isVisible());
-			if (subToolbar != null) {
-				if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-					subToolbar.addStyleName("horizontaltrimelement");
-				else
-					subToolbar.addStyleName("verticaltrimelement");
-				
-				subToolbar.setSizeUndefined();
-				
-				trimBarWidget.addComponent(subToolbar);
-				isFirst = false;
+			if (element.isToBeRendered())
+			{
+				ComponentContainer subToolbar = (ComponentContainer) element.getWidget();
+				subToolbar.setVisible(element.isVisible());
+				if (subToolbar != null) {
+					if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
+						subToolbar.addStyleName("horizontaltrimelement");
+					else
+						subToolbar.addStyleName("verticaltrimelement");
+					
+					subToolbar.setSizeUndefined();
+					
+					trimBarWidget.addComponent(subToolbar);
+					isFirst = false;
+				}	
 			}
 		}
 		
