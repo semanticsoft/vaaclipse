@@ -40,7 +40,7 @@ public class DefaultPartAddingLogic
 	EModelService modelService;
 	
 	@Execute
-	public void execute(MWindow window, @Optional MElementContainer<?> area, MPart part, EPartService partService, EModelService modelService, IPresentationEngine engine)
+	public void execute(MWindow window, @Optional MElementContainer<?> area, MPart part, EModelService modelService)
 	{
 		if (area != null)
 		{

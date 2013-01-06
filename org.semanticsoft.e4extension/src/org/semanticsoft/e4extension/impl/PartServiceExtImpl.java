@@ -30,6 +30,7 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
@@ -143,7 +144,25 @@ public class PartServiceExtImpl implements EPartServiceExt
 		EditorPartDescriptor editorPartDescriptor = findEditorPartDescriptor(inputUri);
 		MInputPart part = ensurePartAdded(getWindow(), area, editorPartDescriptor, inputUri);
 		
-		partService.showPart(part, PartState.ACTIVATE);
+		//ATTENTION!!! We should use the EPartService showPart method ONLY if all contexts are crated (i.e. model is rendered)
+		//But this method (openURI) should be usable when model is not rendered. So we check the context and if it is created we use
+		//servive methods.
+		if (application.getContext() != null)
+			partService.showPart(part, PartState.ACTIVATE);
+		else //otherwise just select it in its container
+		{
+			MPlaceholder partPh = modelService.findPlaceholderFor(getWindow(), part);
+			if (partPh != null)
+			{
+				MElementContainer<MUIElement> parent = partPh.getParent();
+				parent.setSelectedElement(partPh);
+			}
+			else
+			{
+				MElementContainer<MUIElement> parent = part.getParent();
+				parent.setSelectedElement(part);
+			}
+		}
 		return part;
 	}
 	
@@ -194,7 +213,7 @@ public class PartServiceExtImpl implements EPartServiceExt
 			part.setInputURI(inputUri);
 			
 			//create context for add logic and set context info
-			IEclipseContext localContext = application.getContext().createChild();
+			IEclipseContext localContext = eclipseContext.createChild();
 			localContext.set(MPart.class, part);
 			localContext.set(MElementContainer.class, area);
 			localContext.set(MInputPart.class, part);
