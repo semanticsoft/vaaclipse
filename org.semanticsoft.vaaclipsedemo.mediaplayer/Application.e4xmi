@@ -55,7 +55,7 @@
       <children xsi:type="menu:Menu" xmi:id="_xC5CQjDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.file" label="File">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRTDGEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.quit" label="Quit" command="_xC4bODDGEeKcFLjGBzrJfw"/>
       </children>
-      <children xsi:type="menu:Menu" xmi:id="_NSm9UEvDEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.0" label="View">
+      <children xsi:type="menu:Menu" xmi:id="_NSm9UEvDEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.menu.0" label="Themes">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_mdqloEvFEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handledmenuitem.0" label="Reindeer" command="_hiBt0EyQEeKbU9kDDO2U-g">
           <parameters xmi:id="_DmIyYExPEeKbU9kDDO2U-g" elementId="" name="theme" value="reindeer"/>
         </children>
