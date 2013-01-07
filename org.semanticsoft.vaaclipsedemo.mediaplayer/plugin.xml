@@ -73,6 +73,27 @@
          <themeid
                refid="chameleon">
          </themeid>
+         <resourceLocationUri
+               uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/chameleon">
+         </resourceLocationUri>
+      </themecontribution>
+      <themecontribution
+            id="org.semanticsoft.vaaclipsedemo.mediaplayer.themecontribution2">
+         <themeid
+               refid="reindeer">
+         </themeid>
+         <themeid
+               refid="runo">
+         </themeid>
+         <themeid
+               refid="liferay">
+         </themeid>
+         <themeid
+               refid="base">
+         </themeid>
+         <resourceLocationUri
+               uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/others">
+         </resourceLocationUri>
       </themecontribution>
       <themecontribution
             cssUri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/styles.css"
@@ -103,9 +124,6 @@
             insertPosition="after=MAIN_CSS">
          <resourceLocationUri
                uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons">
-         </resourceLocationUri>
-         <resourceLocationUri
-               uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/chameleon">
          </resourceLocationUri>
          <themeid
                refid="chameleon">

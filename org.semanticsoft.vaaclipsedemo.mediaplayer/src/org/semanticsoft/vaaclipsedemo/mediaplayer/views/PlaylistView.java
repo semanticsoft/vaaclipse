@@ -94,12 +94,14 @@ public class PlaylistView
 	{
 		tableContainer.addItem(media);
 		this.playlist.addMedia(media);
+		updatePlaylistStyle();
 	}
 
 	public void addMediaAfter(Media prevMedia, Media media)
 	{
 		tableContainer.addItemAfter(prevMedia, media);
 		this.playlist.addMediaAfter(media);
+		updatePlaylistStyle();
 	}
 	
 	EventHandler mediaOrderHandler = new EventHandler() {
@@ -124,6 +126,7 @@ public class PlaylistView
 				if (deletedMedia != null)
 				{
 					tableContainer.removeItem(deletedMedia);
+					updatePlaylistStyle();
 				}
 			}
 		};
@@ -148,11 +151,7 @@ public class PlaylistView
 			tableContainer.addItem(media);
 		}
 		
-//		TextOverlay notFoundOverlay = new TextOverlay(this.panel, "<i>[Drag here]</i>");
-//		notFoundOverlay.setContentMode(TextOverlay.CONTENT_RAW);
-//		notFoundOverlay.setComponentAnchor(Alignment.MIDDLE_CENTER);
-//		notFoundOverlay.setOverlayAnchor(Alignment.MIDDLE_CENTER);
-//		((Window)window.getWidget()).addComponent(notFoundOverlay);
+		updatePlaylistStyle();
 		
 		eventBroker.subscribe(MediaConstants.reversePlaylist, mediaOrderHandler);
 		eventBroker.subscribe(MediaConstants.deleteMediaFromPlaylist, deleteMediaHandler);
@@ -245,5 +244,13 @@ public class PlaylistView
 				playlist.setSelectedMedia(media);
 			}
 		});
+	}
+	
+	private void updatePlaylistStyle()
+	{
+		if (this.playlist.getMediaList().isEmpty())
+			table.addStyleName("emptyplaylist");
+		else
+			table.removeStyleName("emptyplaylist");
 	}
 }

@@ -6,3 +6,10 @@
 	/* margin-right: 30px; */
 	float: right;
 }
+
+.emptyplaylist .v-table-body {
+    background: url("dragmedia.png");
+    background-repeat:no-repeat;
+	background-position:center center;
+	background-color: transparent;
+}
