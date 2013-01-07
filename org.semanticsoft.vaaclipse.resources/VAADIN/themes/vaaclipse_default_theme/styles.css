@@ -163,7 +163,7 @@
 div.v-button-vaaclipsebutton,
 div.v-disabled.v-button-vaaclipsebutton {
 	background: transparent;
-	border: solid 1px transparent;
+	border: none;
 	padding: 0px;
 	border-radius:3px;
 	height: auto;
