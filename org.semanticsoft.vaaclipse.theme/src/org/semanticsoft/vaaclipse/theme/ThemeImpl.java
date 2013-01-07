@@ -1,15 +1,12 @@
 package org.semanticsoft.vaaclipse.theme;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
@@ -99,7 +96,8 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 			
 			for (ThemeContribution c : this.getContributions())
 			{
-				cssCashList.add(c.getCssUri());
+				if (c.getCssUri() != null)
+					cssCashList.add(c.getCssUri());
 			}
 		}
 		return cssCashList;
@@ -158,8 +156,6 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 			inheritedBuffer.append(String.format("@import \"../%s/styles.css\";", inherited.getWebId()));
 		}
 		
-		URL u = new URL(cssUri);
-		
 		List<ThemeContributionImpl> afterMainCss = new ArrayList<>();
 		List<ThemeContributionImpl> afterInheritedImports = new ArrayList<>();
 		List<ThemeContributionImpl> beforeInheritedImports = new ArrayList<>();
@@ -168,6 +164,9 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 		
 		for (ThemeContribution c : this.contributions)
 		{
+			if (c.getCssUri() == null)
+				continue;
+			
 			ThemeContributionImpl contribution = (ThemeContributionImpl) c;
 			String pos = contribution.getInsertPosition();
 			String[] split = pos.split("=");
