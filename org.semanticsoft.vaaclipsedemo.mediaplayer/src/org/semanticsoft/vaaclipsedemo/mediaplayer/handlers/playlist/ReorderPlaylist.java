@@ -20,7 +20,7 @@ public class ReorderPlaylist
 	@CanExecute
 	public boolean canExecute(Playlist playlist)
 	{
-		return !playlist.getMediaList().isEmpty();
+		return playlist.getMediaList().size() > 1;
 	}
 	
 	@Execute

@@ -39,7 +39,7 @@ public class LoginProvider
 	public void postConstruct(VerticalLayout parent)
 	{
 		//Set the caption of login page (window)
-		vaadinApp.getMainWindow().setCaption("Login to Mini");
+		vaadinApp.getMainWindow().setCaption("Login to Mediaplayer");
 				
 				
 		Panel loginPanel = new Panel("Login");
