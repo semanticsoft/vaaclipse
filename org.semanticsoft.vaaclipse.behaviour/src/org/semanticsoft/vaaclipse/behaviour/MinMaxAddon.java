@@ -218,7 +218,6 @@ public class MinMaxAddon {
 						if (toolBar.isVisible())
 						{
 							toolBar.setVisible(false);
-							System.out.println(toolBar.isVisible());
 						}
 					}
 				}

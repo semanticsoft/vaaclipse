@@ -134,8 +134,7 @@ public class VaadinRenderer implements GenericRenderer {
 	}
 
 	public void hookControllerLogic(MUIElement element) {
-		// System.out.println("GenericRenderer.hookControllerLogic(): " +
-		// element);
+		
 	}
 
 //	public IEclipseContext getContext(MUIElement element) {

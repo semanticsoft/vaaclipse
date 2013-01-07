@@ -667,14 +667,15 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			}
 		}
 		
-		if (element instanceof MContext) {
+		if (element instanceof MContext) 
+		{
 			IEclipseContext context = ((MContext) element).getContext();
-			if (context != null) {
+			if (context != null) 
+			{
 				IEclipseContext newParentContext = modelService
 						.getContainingContext(element);
-				if (context.getParent() != newParentContext) {
-					//					System.out.println("Update Context: " + context.toString() //$NON-NLS-1$
-					//							+ " new parent: " + newParentContext.toString()); //$NON-NLS-1$
+				if (context.getParent() != newParentContext) 
+				{
 					context.setParent(newParentContext);
 				}
 			}

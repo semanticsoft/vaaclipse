@@ -65,7 +65,6 @@ public class MediaInfoEditor extends MediaInfoBase
 		@Override
 		public void textChange(TextChangeEvent event)
 		{
-			System.out.println("value changed");
 			if (!dirtable.isDirty())
 				dirtable.setDirty(true);
 		}

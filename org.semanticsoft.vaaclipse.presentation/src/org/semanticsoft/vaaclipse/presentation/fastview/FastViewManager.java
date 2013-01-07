@@ -55,8 +55,6 @@ public class FastViewManager
 			if (element2man.containsKey(minimizedElement))
 				return;
 			
-			System.out.println("minimized");
-			
 			//Disable drag mode
 			if (minimizedElement.getWidget() != null)
 			{
@@ -94,8 +92,6 @@ public class FastViewManager
 				
 				if (!element2man.containsKey(minimizedElement))
 					return;
-				
-				System.out.println("restore");
 				
 				element2man.remove(minimizedElement).dispose();
 				

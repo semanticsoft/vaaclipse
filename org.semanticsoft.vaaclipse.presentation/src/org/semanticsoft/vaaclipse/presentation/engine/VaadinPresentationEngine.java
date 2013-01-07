@@ -26,12 +26,6 @@ import com.vaadin.Application;
 @SuppressWarnings("restriction")
 public class VaadinPresentationEngine extends GenericPresentationEngine {
 	
-	
-	public VaadinPresentationEngine()
-	{
-		System.out.println("VPE");
-	}
-	
 	@Override
 	public Object run(final MApplicationElement uiRoot, IEclipseContext appContext) {
 		
@@ -46,8 +40,7 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 	@PostConstruct
 	public void postConstruct(IEclipseContext context) {
 		super.postConstruct(context);
-
-		System.out.println("VaadinPresentationEngine.postConstruct()");
+		
 		// Add the presentation engine to the context
 		context.set(IPresentationEngine.class.getName(), this);
 

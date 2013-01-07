@@ -356,10 +356,6 @@ public class StackRenderer extends VaadinRenderer {
 				}
 			});
 		}
-		else
-		{
-			System.out.println("in shared area");
-		}
 		
 		sw.addListener(new SelectedTabChangeListener() {
 			

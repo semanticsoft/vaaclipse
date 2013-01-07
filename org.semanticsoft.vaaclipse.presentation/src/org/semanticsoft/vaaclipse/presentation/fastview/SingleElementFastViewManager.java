@@ -330,10 +330,8 @@ public class SingleElementFastViewManager
 	public synchronized void showStack(boolean show) {
 		Component ctf = (Component) minimizedElement.getWidget();
 		
-		if (show && !isShowing) {
-			
-			System.out.println("показать стек");
-			
+		if (show && !isShowing) 
+		{
 			hostPane = getHostPane();
 
 			ctf.setVisible(true);
@@ -348,11 +346,9 @@ public class SingleElementFastViewManager
 			((VerticalLayout)vaadinApplication.getMainWindow().getContent()).addListener(layoutClickListener);
 			
 			isShowing = true;
-		} else if (!show && isShowing) {
-			System.out.println("скрыть стек");
-			
-//			vaadinApplication.getMainWindow().removeListener(resizeListener);
-
+		} 
+		else if (!show && isShowing) 
+		{
 			if (hostPane != null) {
 				vaadinApplication.getMainWindow().removeWindow(hostPane);
 				// capture the current shell's bounds

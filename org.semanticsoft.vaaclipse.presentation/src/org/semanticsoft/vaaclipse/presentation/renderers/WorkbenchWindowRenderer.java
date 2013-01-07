@@ -288,10 +288,6 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 					{
 						mWindow.setWidth((int) window.getWidth());
 						mWindow.setHeight((int) window.getHeight());
-
-						// System.out.println(String.format("%s, %s, %s, %s",
-						// mWindow.getX(), mWindow.getY(), mWindow.getWidth(),
-						// mWindow.getHeight()));
 					}
 				});
 

@@ -155,8 +155,6 @@ public class VaadinDropHandler implements DropHandler
 					}
 				}
 				targetFolder.setSelectedElement(draggingElement);
-				
-				System.out.println("saljdflsdjf;");
 			}
 			else if (dropType.equals("DropToTabsheetBody"))
 			{

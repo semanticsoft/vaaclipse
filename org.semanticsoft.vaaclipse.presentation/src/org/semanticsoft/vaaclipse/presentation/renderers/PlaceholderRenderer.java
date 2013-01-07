@@ -128,7 +128,6 @@ public class PlaceholderRenderer extends VaadinRenderer
 				return;
 			}
 			
-			System.out.println("fsf");
 			final MPlaceholder ph = (MPlaceholder) changedObj;
 			MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
 			if (topLeftStack != null)

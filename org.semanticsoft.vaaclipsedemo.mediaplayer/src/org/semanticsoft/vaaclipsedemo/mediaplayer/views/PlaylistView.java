@@ -243,7 +243,6 @@ public class PlaylistView
 			{
 				Media media = (Media) table.getValue();
 				playlist.setSelectedMedia(media);
-				System.out.println("media selected: " + media.getName());
 			}
 		});
 	}

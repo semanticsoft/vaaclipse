@@ -42,7 +42,5 @@ public class MinMaxProcessor {
 		minMaxAddon.setElementId("MinMaxAddon");
 		minMaxAddon.setContributionURI(MIN_MAX_CONTRIBUTION_URI);
 		application.getAddons().add(minMaxAddon);
-		
-		System.out.println("Minmax processor is started");
 	}
 }

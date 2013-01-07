@@ -24,8 +24,6 @@ public class BehaviourProcessor implements Behaviour {
 	void execute(IEclipseContext context) {
 		
 		context.set(Behaviour.class, this);
-		
-		System.out.println("Behaviour processor is started");
 	}
 
 	@Override

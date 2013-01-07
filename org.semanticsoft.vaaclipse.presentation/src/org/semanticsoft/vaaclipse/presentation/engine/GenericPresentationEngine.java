@@ -264,11 +264,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 				IEclipseContext eclipseContext = getContext(parent).createChild(getContextName(element));
 				populateModelInterfaces(ctxt, eclipseContext, element.getClass().getInterfaces());
 				ctxt.setContext(eclipseContext);
-
-				// System.out.println("create context: " +
-				// eclipseContext.toString() + " parent context: "
-				// + parentContext.toString());
-
+				
 				// make sure the context knows about these variables that have
 				// been defined in the model
 				for (String variable : ctxt.getVariables()) {
@@ -520,7 +516,6 @@ public class GenericPresentationEngine implements PresentationEngine {
 
 	@Override
 	public Object run(MApplicationElement uiRoot, IEclipseContext appContext) {
-		System.out.println("GenericPresentationEngine.run(): " + uiRoot + ":" + appContext);
 		appContext.set(GenericPresentationEngine.class, this);
 		if (uiRoot instanceof MApplication) {
 			theApp = (MApplication) uiRoot;
@@ -528,7 +523,6 @@ public class GenericPresentationEngine implements PresentationEngine {
 				createGui(window);
 			}
 		}
-		System.out.println("GenericPresentationEngine.run(): Finished");
 		return IApplication.EXIT_OK;
 	}
 
