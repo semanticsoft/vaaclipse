@@ -169,6 +169,8 @@ div.v-disabled.v-button-vaaclipsebutton {
 	height: auto;
 	width: auto;
 	margin: 2px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
 }
 
 div.v-button-vaaclipsebutton .v-button-wrap,
