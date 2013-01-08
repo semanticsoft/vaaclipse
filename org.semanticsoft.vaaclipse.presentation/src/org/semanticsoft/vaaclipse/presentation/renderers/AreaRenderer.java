@@ -200,6 +200,12 @@ public class AreaRenderer extends VaadinRenderer
 							setState(ph, IPresentationEngine.MAXIMIZED);
 						else if (oldState == 1 && newState == 0)
 							setState(ph, null);
+						else if (oldState == 1 && newState == -1)
+						{
+							ph.getTags().remove(IPresentationEngine.MINIMIZED);
+							ph.getTags().remove(IPresentationEngine.MAXIMIZED);
+							ph.getTags().add(IPresentationEngine.MINIMIZED);
+						}
 						else if (oldState == -1 && newState == 0)
 						{
 							ph.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);

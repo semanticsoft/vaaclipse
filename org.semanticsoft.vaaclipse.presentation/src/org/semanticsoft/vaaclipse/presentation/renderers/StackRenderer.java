@@ -335,6 +335,12 @@ public class StackRenderer extends VaadinRenderer {
 						setState(element, IPresentationEngine.MAXIMIZED);
 					else if (oldState == 1 && newState == 0)
 						setState(element, null);
+					else if (oldState == 1 && newState == -1)
+					{
+						element.getTags().remove(IPresentationEngine.MINIMIZED);
+						element.getTags().remove(IPresentationEngine.MAXIMIZED);
+						element.getTags().add(IPresentationEngine.MINIMIZED);
+					}
 					else if (oldState == -1 && newState == 0)
 					{
 						element.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);

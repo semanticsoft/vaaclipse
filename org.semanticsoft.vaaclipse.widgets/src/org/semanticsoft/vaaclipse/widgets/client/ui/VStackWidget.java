@@ -257,6 +257,10 @@ public class VStackWidget extends VDDTabSheet implements Paintable, DragHandlerF
         		{
         			setState(NORMAL);
         		}
+        		else if (this.state == MAXIMIZED)
+        		{
+        			setState(MINIMIZED);
+        		}
         		
             	client.updateVariable(this.id, "vaadock_tabsheet_state", new Integer(this.state), true);
 			}
