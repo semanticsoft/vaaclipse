@@ -9,19 +9,16 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
 import org.semanticsoft.vaaclipse.publicapi.authentication.User;
+import org.semanticsoft.vaaclipsedemo.mediaplayer.MediaplayerActivator;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.LoginForm.LoginEvent;
-import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.LoginForm;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.ui.LoginForm.LoginEvent;
 import com.vaadin.ui.LoginForm.LoginListener;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  * @author rushan
@@ -69,6 +66,7 @@ public class LoginProvider
 				//send message AuthenticationConstants.Events.Authentication with User object:
 				if (check(username, password))
 				{
+					MediaplayerActivator.getInstance().getUserCounter().increment();
 					User user = new User(username);
 					eventBroker.send(AuthenticationConstants.Events.Authentication, user);
 				}

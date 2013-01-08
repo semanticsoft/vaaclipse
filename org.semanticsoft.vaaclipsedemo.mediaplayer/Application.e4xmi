@@ -73,6 +73,7 @@
         </children>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_xC5CRjDGEeKcFLjGBzrJfw" label="Help">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_C8hxAFm-EeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.directmenuitem.0" label="Logged Users Count" tooltip="Total logged users count since Mediaplayer start" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.help.UsersCountHandler"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRzDGEeKcFLjGBzrJfw" label="About" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
       </children>
     </mainMenu>
