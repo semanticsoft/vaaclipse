@@ -11,12 +11,8 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -24,19 +20,15 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
-import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
-import org.eclipse.e4.ui.workbench.UIEvents.UIElement;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
-import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
@@ -85,37 +77,6 @@ public class PlaceholderRenderer extends VaadinRenderer
 			}
 		}
 	}
-
-	private EventHandler widgetListener = new EventHandler() {
-		public void handleEvent(Event event)
-		{
-			final MUIElement changedElement = (MUIElement) event.getProperty(EventTags.ELEMENT);
-			if (!(changedElement instanceof MPartStack))
-				return;
-			
-			int loc = modelService.getElementLocation(changedElement);
-			if (loc != EModelService.IN_SHARED_AREA)
-				return;
-			
-			MArea areaModel = findArea(changedElement);
-			if (areaModel != null)
-			{
-				refreshState(areaModel);
-			}
-		}
-
-		private MArea findArea(MUIElement element)
-		{
-			MUIElement parent = element.getParent();
-			while (parent != null)
-			{
-				if (parent instanceof MArea)
-					return (MArea) parent;
-				parent = parent.getParent();
-			}
-			return null;
-		}
-	};
 	
 	EventHandler tagListener = new EventHandler() {
 		@Override
@@ -150,88 +111,12 @@ public class PlaceholderRenderer extends VaadinRenderer
 	@PostConstruct
 	void postConstruct()
 	{
-		eventBroker.subscribe(UIElement.TOPIC_WIDGET, widgetListener);
 		eventBroker.subscribe(UIEvents.ApplicationElement.TOPIC_TAGS, tagListener);
 	}
 	
-	/**
-	 * This method find the top right part stack (located in top right corner)
-	 * and apply its maximuze and minimize buttons to entire area. The hide the
-	 * maximize and minimize buttons ot other stacks in this area. So, there are
-	 * implemented the eclipse3-like approach to manage area (in e4 swt renderer
-	 * is used other way - if more than one stack is located in area, the top
-	 * container-tabfolder is created for entire area and buttons of this
-	 * container folder is used - i found this way is too heavy-weight).
-	 */
-	@SuppressWarnings("restriction")
-	private void refreshState(final MArea area)
+	@PreDestroy
+	void preDestroy()
 	{
-		MPartStack topLeftStak = HierarchyUtils.findTopLeftFolder(area);
-		if (topLeftStak != null)
-		{
-			StackWidget topLeftStackWidget = (StackWidget) topLeftStak.getWidget();
-			if (topLeftStackWidget != null)
-			{
-				topLeftStackWidget.setMaximizeEnabled(true);
-				topLeftStackWidget.setMinimizeEnabled(true);
-				topLeftStackWidget.removeAllStateListeners();
-				
-				topLeftStackWidget.addStateListener(new StateListener() {
-					
-					@Override
-					public void stateChanged(int newState, int oldState)
-					{
-						MPlaceholder ph = area.getCurSharedRef();
-						if (oldState == 0 && newState == 1)
-							setState(ph, IPresentationEngine.MAXIMIZED);
-						else if (oldState == 1 && newState == 0)
-							setState(ph, null);
-						else if (oldState == -1 && newState == 0)
-						{
-							ph.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);
-							ph.getTags().remove(IPresentationEngine.MINIMIZED);
-						}
-						else if (oldState == 0 && newState == -1)
-							setState(ph, IPresentationEngine.MINIMIZED);
-					}
-
-					private void setState(MUIElement element, String state)
-					{
-						element.getTags().remove(IPresentationEngine.MINIMIZED_BY_ZOOM);
-						if (IPresentationEngine.MINIMIZED.equals(state))
-						{
-							element.getTags().remove(IPresentationEngine.MAXIMIZED);
-							element.getTags().add(IPresentationEngine.MINIMIZED);
-						}
-						else if (IPresentationEngine.MAXIMIZED.equals(state))
-						{
-							element.getTags().remove(IPresentationEngine.MINIMIZED);
-							element.getTags().add(IPresentationEngine.MAXIMIZED);
-						}
-						else
-						{
-							element.getTags().remove(IPresentationEngine.MINIMIZED);
-							element.getTags().remove(IPresentationEngine.MAXIMIZED);
-						}
-					}
-				});
-			}
-
-			List<MPartStack> stacks = modelService.findElements(area, null, MPartStack.class, null);
-
-			for (MPartStack stack : stacks)
-			{
-				if (stack.isToBeRendered() && stack != topLeftStak)
-				{
-					StackWidget stackWidget = (StackWidget) stack.getWidget();
-					if (stackWidget != null)
-					{
-						stackWidget.setMaximizeEnabled(false);
-						stackWidget.setMinimizeEnabled(false);
-						stackWidget.removeAllStateListeners();
-					}
-				}
-			}
-		}
+		eventBroker.unsubscribe(tagListener);
 	}
 }
