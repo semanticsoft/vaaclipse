@@ -555,7 +555,10 @@ public class MinMaxAddon {
 			MUILabel labelElement = getLabelElement(element);
 			if (labelElement != null)
 			{
-				partItem.setIconURI(labelElement.getIconURI());
+				if (labelElement.getIconURI() != null && labelElement.getIconURI().trim().length() > 0)
+					partItem.setIconURI(labelElement.getIconURI());
+				else
+					partItem.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/editor_area.png");
 				toolBar.getChildren().add(partItem);
 				MPart part = getLeafPart(element);
 				item2Element.put(partItem, part);
