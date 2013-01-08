@@ -30,6 +30,15 @@ public class OptionDialog extends Window
 	private String msg;
 	private boolean modal = true;
 	
+	public static final OptionListener CLOSE_LISTENER = new OptionListener() {
+		
+		@Override
+		public void optionSelected(OptionDialog optionDialog, int optionId)
+		{
+			optionDialog.close();
+		}
+	};
+	
 	private ComponentProvider componentProvider = new ComponentProvider() {
 		
 		Label label = new Label();
@@ -173,8 +182,8 @@ public class OptionDialog extends Window
 		button.setEnabled(enabled);
 	}
 
-	public static void show(Window parentWindow, String caption, String message, String[] options,
-			OptionListener optionListener, int w, int h, int units)
+	public static void show(Window parentWindow, String caption, String message, String[] options, int w, int h, int units,
+			OptionListener optionListener)
 	{
 		OptionDialog optionDialog = new OptionDialog();
 		if (w > 0 && h > 0)
@@ -199,6 +208,6 @@ public class OptionDialog extends Window
 	public static void show(Window parentWindow, String caption, String message, String[] options,
 			OptionListener optionListener)
 	{
-		show(parentWindow, caption, message, options, optionListener, -1, -1, -1);
+		show(parentWindow, caption, message, options, -1, -1, -1, optionListener);
 	}
 }

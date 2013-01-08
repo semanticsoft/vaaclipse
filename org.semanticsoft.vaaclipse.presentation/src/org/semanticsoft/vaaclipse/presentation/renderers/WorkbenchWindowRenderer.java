@@ -209,6 +209,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 						OptionDialog.show((Window) mWindow.getWidget(), caption,
 								msg, 
 								new String[] {"Yes", "No", "Cancel"},
+								400, 80, Component.UNITS_PIXELS,
 								new OptionDialog.OptionListener() {
 
 									@Override
@@ -237,7 +238,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 										saveCandidate = null;
 										dlg.close();
 									}
-								}, 400, 80, Component.UNITS_PIXELS);
+								});
 
 						return Save.CANCEL;
 					}

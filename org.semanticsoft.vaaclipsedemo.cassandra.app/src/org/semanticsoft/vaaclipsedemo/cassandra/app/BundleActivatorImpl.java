@@ -11,8 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -23,31 +21,17 @@ import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.Filter;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.util.tracker.ServiceTracker;
 
 public class BundleActivatorImpl implements BundleActivator
 {
-
-	private static final String F_META_AREA = ".metadata"; //$NON-NLS-1$
-	private static final String F_PLUGIN_DATA = ".plugins"; //$NON-NLS-1$
-
 	private static BundleActivatorImpl instance;
 
 	private BundleContext context;
-
-	private ServiceTracker locationServiceTracker;
-
-	private IPath stateLocation;
-
 	private File cassandraHome;
 	private File srcStore;
 
@@ -132,36 +116,6 @@ public class BundleActivatorImpl implements BundleActivator
 	{
 		this.context = null;
 		instance = null;
-	}
-
-	public IPath getStateLocation()
-	{
-		try
-		{
-			if (stateLocation == null)
-			{
-				Filter filter = context.createFilter(Location.INSTANCE_FILTER);
-				if (locationServiceTracker == null)
-				{
-					locationServiceTracker = new ServiceTracker(context, filter, null);
-					locationServiceTracker.open();
-				}
-				Location location = (Location) locationServiceTracker.getService();
-				if (location != null)
-				{
-					IPath path = new Path(location.getURL().getPath());
-					stateLocation = path.append(F_META_AREA).append(F_PLUGIN_DATA)
-							.append(context.getBundle().getSymbolicName());
-					stateLocation.toFile().mkdirs();
-				}
-			}
-		}
-		catch (InvalidSyntaxException e)
-		{
-			// ignore this. It should never happen as we have tested the above
-			// format.
-		}
-		return stateLocation;
 	}
 
 	public static BundleActivatorImpl getInstance()
