@@ -11,7 +11,10 @@
 
 package org.semanticsoft.vaaclipse.presentation.fastview;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -21,14 +24,21 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.Events;
 import org.semanticsoft.vaaclipse.presentation.renderers.StackRenderer;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
+
+import com.vaadin.ui.AbstractOrderedLayout;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 
@@ -42,8 +52,12 @@ public class FastViewManager
 	@Inject
 	private IEclipseContext context;
 	
+	@Inject
+	private EModelService modelService;
+	
 	private Map<MUIElement, SingleElementFastViewManager> element2man = new HashMap<MUIElement, SingleElementFastViewManager>();
 	private Map<StackWidget, LayoutDragMode> layoutDragMode = new HashMap<>();
+	private Map<MUIElement, List<MPartStack>> areaStackWidgets = new HashMap<>();
 	
 	private EventHandler minimizeHandler = new EventHandler() {
 		
@@ -56,16 +70,24 @@ public class FastViewManager
 				return;
 			
 			//Disable drag mode
-			if (minimizedElement.getWidget() != null)
+			if (minimizedElement instanceof MPartStack)
 			{
-				if (minimizedElement.getWidget() instanceof StackWidget)
+				disableDrag((MPartStack)minimizedElement);
+			}
+			else if (minimizedElement instanceof MPlaceholder) //area
+			{
+				if (((MPlaceholder) minimizedElement).getRef() != null)
 				{
-					StackWidget sw = (StackWidget) minimizedElement.getWidget();
-					if (sw.getDragMode() != null && !sw.getDragMode().equals(LayoutDragMode.NONE))
+					List<MPartStack> stacks = modelService.findElements(((MPlaceholder) minimizedElement).getRef(), null, MPartStack.class, null);
+					
+					for (MPartStack stack : stacks)
 					{
-						layoutDragMode.put(sw, sw.getDragMode());
-						sw.setDragMode(LayoutDragMode.NONE);
+						if (stack.getWidget() != null)
+						{
+							disableDrag(stack);	
+						}
 					}
+					areaStackWidgets.put(minimizedElement, stacks);	
 				}
 			}
 			
@@ -96,20 +118,71 @@ public class FastViewManager
 				element2man.remove(minimizedElement).dispose();
 				
 				//restore drag mode
-				if (minimizedElement.getWidget() != null)
+				if (minimizedElement instanceof MPartStack)
 				{
-					if (minimizedElement.getWidget() instanceof StackWidget)
+					restoreDrag((MPartStack) minimizedElement);
+				}
+				else if (minimizedElement instanceof MPlaceholder) //area
+				{
+					MPlaceholder ph = (MPlaceholder) minimizedElement;
+					if (ph.getRef() != null)
 					{
-						StackWidget sw = (StackWidget) minimizedElement.getWidget();
-						LayoutDragMode ldm = layoutDragMode.remove(sw);
-						if (ldm != null)
+						List<MPartStack> stacks = areaStackWidgets.remove(minimizedElement);
+						if (stacks != null)
 						{
-							sw.setDragMode(ldm);
+							for (MPartStack stack : stacks)
+							{
+								restoreDrag(stack);
+							}
 						}
 					}
 				}
 			}
-		};
+	};
+	
+//	private void gatherStacksWidgets(ComponentContainer container, List<StackWidget> stackWidgets)
+//	{
+//		Iterator<Component> it = container.getComponentIterator();
+//		while (it.hasNext())
+//		{
+//			Component child = it.next();
+//			if (child instanceof StackWidget)
+//			{
+//				stackWidgets.add((StackWidget) child);
+//			}
+//			
+//			if (child instanceof ComponentContainer)
+//			{
+//				gatherStacksWidgets((ComponentContainer) child, stackWidgets);
+//			}
+//		}
+//	}
+	
+	private void disableDrag(MPartStack stack)
+	{
+		StackWidget sw = (StackWidget) stack.getWidget();
+		if (sw != null)
+		{
+			if (sw.getDragMode() != null && !sw.getDragMode().equals(LayoutDragMode.NONE))
+			{
+				layoutDragMode.put(sw, sw.getDragMode());
+				sw.setDragMode(LayoutDragMode.NONE);
+			}	
+		}
+	}
+	
+	private void restoreDrag(MPartStack stack)
+	{
+		StackWidget sw = (StackWidget) stack.getWidget();
+		if (sw != null)
+		{
+			LayoutDragMode ldm = layoutDragMode.remove(sw);
+			if (ldm != null)
+			{
+				sw.setDragMode(ldm);
+			}	
+		}
+	}
 	
 	@PostConstruct
 	public void postConstruct(IEventBroker eventBroker)
