@@ -7,7 +7,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dorg.eclipse.equinox.http.jetty.context.path=/mediaplayer -Dorg.osgi.service.http.port=8080</vmArgs>
+      <vmArgs>-Xmx4000m -server -Dorg.eclipse.equinox.http.jetty.context.path=/mediaplayer -Dorg.osgi.service.http.port=8080</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 

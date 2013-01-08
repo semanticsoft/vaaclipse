@@ -3,11 +3,12 @@
 
 <product name="Cassandra" uid="org.semanticsoft.vaaclipsedemo.cassandra.app.product" id="org.semanticsoft.vaaclipsedemo.cassandra.app.product" application="org.semanticsoft.vaaclipse.app.application" version="1.0.0.M1" useFeatures="false" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dorg.eclipse.equinox.http.jetty.context.path=/cassandra -Dorg.osgi.service.http.port=8080</vmArgs>
+      <vmArgs>-Xmx4000m -server -Dorg.eclipse.equinox.http.jetty.context.path=/cassandra -Dorg.osgi.service.http.port=8081</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
@@ -24,8 +25,10 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="com.ibm.icu"/>
