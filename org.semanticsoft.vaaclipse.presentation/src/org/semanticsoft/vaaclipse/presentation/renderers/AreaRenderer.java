@@ -88,7 +88,7 @@ public class AreaRenderer extends VaadinRenderer
 			
 			if (area != null)
 			{
-				refreshState(area);
+				refreshTopRightState(area);
 			}
 		}
 
@@ -142,9 +142,10 @@ public class AreaRenderer extends VaadinRenderer
 	@Override
 	public void processContents(MElementContainer<MUIElement> container)
 	{
-		AbstractOrderedLayout parentPane = (AbstractOrderedLayout) container.getWidget();
+		MArea area = (MArea)(MElementContainer<?>)container;
+		AbstractOrderedLayout parentPane = (AbstractOrderedLayout) area.getWidget();
 		parentPane.removeAllComponents();
-		for (MUIElement element : container.getChildren())
+		for (MUIElement element : area.getChildren())
 		{
 			if (element.isToBeRendered())
 			{
@@ -153,6 +154,8 @@ public class AreaRenderer extends VaadinRenderer
 				parentPane.addComponent((Component) element.getWidget());	
 			}
 		}
+		
+		refreshTopRightState(area);
 	}
 	
 	public static MArea findArea(MUIElement element) {
@@ -175,7 +178,7 @@ public class AreaRenderer extends VaadinRenderer
 	 * container folder is used - i found this way is too heavy-weight).
 	 */
 	@SuppressWarnings("restriction")
-	private void refreshState(final MArea area)
+	private void refreshTopRightState(final MArea area)
 	{
 		MPartStack topLeftStak = HierarchyUtils.findTopLeftFolder(area);
 		if (topLeftStak != null)
