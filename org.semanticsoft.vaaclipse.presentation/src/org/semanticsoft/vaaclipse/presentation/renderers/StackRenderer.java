@@ -40,8 +40,8 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.dnd.VaadinDropHandler;
-import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
@@ -68,6 +68,9 @@ public class StackRenderer extends VaadinRenderer {
 	private EPartService partService;
 	private Map<Component, MStackElement> vaatab2Element = new HashMap<Component, MStackElement>();
 	private boolean ignoreTabSelChanges = false;
+	
+	@Inject
+	VaadinExecutorService communicationManager;
 	
 	private EventHandler tagListener = new EventHandler() {
 		@Override
@@ -372,29 +375,7 @@ public class StackRenderer extends VaadinRenderer {
 					{
 						stack.setSelectedElement(stackElement);
 						
-						// Ensure we're activating a stack in the current perspective,
-						// when using a dialog to open a perspective
-						// we end up in the situation where this stack is in the
-						// previously active perspective
-						int location = modelService.getElementLocation(stack);
-						if ((location & EModelService.IN_ACTIVE_PERSPECTIVE) == 0
-								&& (location & EModelService.OUTSIDE_PERSPECTIVE) == 0
-								&& (location & EModelService.IN_SHARED_AREA) == 0)
-							return;
-
-						if (!isValid(stackElement))
-							return;
-
-						if (stackElement instanceof MPlaceholder)
-							stackElement = (MStackElement) ((MPlaceholder) stackElement).getRef();
-						
-						IEclipseContext curContext = getContext(stackElement);
-						if (curContext != null) {
-							EPartService ps = (EPartService) curContext.get(EPartService.class
-									.getName());
-							if (ps != null)
-								ps.activate((MPart) stackElement, true);
-						}
+						activateStack(stack);
 					}
 				}
 			}
@@ -407,6 +388,50 @@ public class StackRenderer extends VaadinRenderer {
 						closePart(stackElement);
 					}
 				});
+	}
+	
+	private void activateStack(MPartStack stack)
+	{
+		communicationManager.invokeLater(new ActivationRunnable(stack));
+	}
+	
+	private class ActivationRunnable implements Runnable {
+		
+		private MPartStack stack;
+		
+		public ActivationRunnable(MPartStack stack)
+		{
+			this.stack = stack;
+		}
+		
+		@Override
+		public void run()
+		{
+			MStackElement stackElement = stack.getSelectedElement();
+			// Ensure we're activating a stack in the current perspective,
+			// when using a dialog to open a perspective
+			// we end up in the situation where this stack is in the
+			// previously active perspective
+			int location = modelService.getElementLocation(stack);
+			if ((location & EModelService.IN_ACTIVE_PERSPECTIVE) == 0
+					&& (location & EModelService.OUTSIDE_PERSPECTIVE) == 0
+					&& (location & EModelService.IN_SHARED_AREA) == 0)
+				return;
+
+			if (!isValid(stackElement))
+				return;
+
+			if (stackElement instanceof MPlaceholder)
+				stackElement = (MStackElement) ((MPlaceholder) stackElement).getRef();
+			
+			IEclipseContext curContext = getContext(stackElement);
+			if (curContext != null) {
+				EPartService ps = (EPartService) curContext.get(EPartService.class
+						.getName());
+				if (ps != null)
+					ps.activate((MPart) stackElement, true);
+			}
+		}
 	}
 	
 	private boolean isValid(MUIElement element) {
