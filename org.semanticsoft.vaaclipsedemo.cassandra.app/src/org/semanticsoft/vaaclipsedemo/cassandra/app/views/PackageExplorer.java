@@ -171,6 +171,8 @@ public class PackageExplorer
 		FileTypeResolver.addIcon("java", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/java.png"));
 		FileTypeResolver.addExtension("xml", "xml");
 		FileTypeResolver.addIcon("xml", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/xml.png"));
+		FileTypeResolver.addExtension("e4xmi", "e4xmi");
+		FileTypeResolver.addIcon("e4xmi", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/xmi.png"));
 		FileTypeResolver.addExtension("css", "css");
 		FileTypeResolver.addIcon("css", BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/css.png"));
 		FileTypeResolver.addExtension("html", "html");
