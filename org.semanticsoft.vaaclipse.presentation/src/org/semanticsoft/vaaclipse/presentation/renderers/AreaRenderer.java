@@ -52,8 +52,8 @@ public class AreaRenderer extends VaadinRenderer
 		{
 			Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
 			
-			//Stacks can not contains another stacks (yes, theoretically it can contains the stack in child placeholder, but we don't consider
-			//this for perfomance issues)
+			//Stacks can not contains another stacks (yes, theoretically it can contains the stack in child placeholder, but
+			//we search only top level stacks)
 			if (changedObj instanceof MPartStack)
 				return;
 			
