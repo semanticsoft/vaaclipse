@@ -57,6 +57,10 @@
       <children xsi:type="menu:Menu" xmi:id="_7fhxAFapEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.views" label="View">
         <children xsi:type="menu:DirectMenuItem" xmi:id="_Cr5REFaqEeK_Rb_dwjIffA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directmenuitem.showView" label="Show View" tooltip="Show View" contributionURI="bundleclass://org.semanticsoft.vaaclipse.additions/org.semanticsoft.vaaclipse.additions.view.ShowViewHandler"/>
       </children>
+      <children xsi:type="menu:Menu" xmi:id="_YEK7sFoXEeKnfsmaJ7gmMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.menu.help" label="Help">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_czNdsFoXEeKnfsmaJ7gmMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directmenuitem.0" label="Logged Users Count" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.UsersCountHandler"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_lC8fQFoXEeKnfsmaJ7gmMA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.directmenuitem.0" label="About" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.handlers.AboutHandler"/>
+      </children>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="__UYwEOr4EeGrI5NvCZeHUA" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.part.packageexplorer" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.cassandra.app/org.semanticsoft.vaaclipsedemo.cassandra.app.views.PackageExplorer" label="Package Explorer" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/package_explorer.png" tooltip="Package Explorer" closeable="true">
       <toolbar xmi:id="_tIHZQPSCEeGdUeu8GkJyQQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.toolbar.0">

@@ -47,7 +47,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.e4extension.service.EPartServiceExt;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
-import org.semanticsoft.vaaclipsedemo.cassandra.app.BundleActivatorImpl;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.CassandraActivator;
 import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
 
 /**
@@ -165,7 +165,7 @@ public class PackageExplorer
 
 	private void createProjectTree()
 	{
-		demoRoot = BundleActivatorImpl.getInstance().getSrcStore();
+		demoRoot = CassandraActivator.getInstance().getSrcStore();
 		
 		tree = new Tree();
 		tree.setSizeFull();

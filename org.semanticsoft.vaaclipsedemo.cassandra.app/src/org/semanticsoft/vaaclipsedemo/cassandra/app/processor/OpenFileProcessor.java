@@ -5,7 +5,7 @@ package org.semanticsoft.vaaclipsedemo.cassandra.app.processor;
 
 import org.apache.commons.io.FileUtils;
 
-import org.semanticsoft.vaaclipsedemo.cassandra.app.BundleActivatorImpl;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.CassandraActivator;
 
 import org.semanticsoft.e4extension.service.EPartServiceExt;
 
@@ -76,7 +76,7 @@ public class OpenFileProcessor
 	{
 		eventBroker.subscribe(CassandraConstants.OPEN_FILE, openFileHandler);
 		
-		File srcStore = BundleActivatorImpl.getInstance().getSrcStore();
+		File srcStore = CassandraActivator.getInstance().getSrcStore();
 		String projectName = "org.semanticsoft.vaaclipsedemo.cassandra.app";
 		File welcome = FileUtils.getFile(srcStore, projectName, "data", "Welcome.html");
 		openFile(welcome);

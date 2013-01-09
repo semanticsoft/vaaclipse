@@ -41,7 +41,7 @@
          </property>
          <property
                name="applicationHeaderIcon"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/favicon.ico">
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/vaaclipse.png">
          </property>
       </product>
    </extension>
@@ -70,6 +70,10 @@
       <processor
             beforefragment="false"
             class="org.semanticsoft.vaaclipsedemo.cassandra.app.processor.OpenFileProcessor">
+      </processor>
+      <processor
+            beforefragment="true"
+            class="org.semanticsoft.vaaclipsedemo.cassandra.app.processor.UsersCountProcessor">
       </processor>
    </extension>
    <extension

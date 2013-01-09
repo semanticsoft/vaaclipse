@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app;
 
+import org.semanticsoft.vaaclipsedemo.cassandra.app.user.UserCounter;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
@@ -27,13 +30,16 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class BundleActivatorImpl implements BundleActivator
+public class CassandraActivator implements BundleActivator
 {
-	private static BundleActivatorImpl instance;
+	private static CassandraActivator instance;
 
 	private BundleContext context;
 	private File cassandraHome;
 	private File srcStore;
+	
+	private UserCounter userCounter;
+	private Date startTime;
 
 	public void start(BundleContext context) throws Exception
 	{
@@ -41,6 +47,9 @@ public class BundleActivatorImpl implements BundleActivator
 		this.context = context;
 
 		upackProjects();
+		
+		this.userCounter = new UserCounter();
+		this.startTime = new Date();
 	}
 
 	private void upackProjects() throws Exception
@@ -118,7 +127,7 @@ public class BundleActivatorImpl implements BundleActivator
 		instance = null;
 	}
 
-	public static BundleActivatorImpl getInstance()
+	public static CassandraActivator getInstance()
 	{
 		return instance;
 	}
@@ -136,5 +145,15 @@ public class BundleActivatorImpl implements BundleActivator
 	public File getSrcStore()
 	{
 		return srcStore;
+	}
+	
+	public UserCounter getUserCounter()
+	{
+		return userCounter;
+	}
+	
+	public Date getStartTime()
+	{
+		return startTime;
 	}
 }
