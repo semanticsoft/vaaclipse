@@ -172,7 +172,65 @@ public class PartServiceExtImpl implements EPartServiceExt
 		return this.openUri(null, inputUri);
 	}
 	
+	@Override
+	public void closeUri(String inputUri, boolean saveBeforeClose)
+	{
+		MInputPart part = findPart(getWindow(), inputUri);
+		
+		if (part == null)
+			return;
+		
+		if (saveBeforeClose)
+		{
+			IEclipseContext partContext = part.getContext();
+			if (partContext == null)
+				partContext = modelService.getContainingContext(part);
+			
+			// Allow closes to be 'canceled'
+			EPartService partService = (EPartService) partContext.get(EPartService.class.getName());
+			if (partService.savePart(part, true)) {
+				partService.hidePart(part, true);
+			}
+		}
+		else
+		{
+			partService.hidePart(part, true);
+		}
+	}
+	
 	private MInputPart ensurePartAdded(MWindow window, MElementContainer<?> area, EditorPartDescriptor editorPartDescriptor, String inputUri)
+	{
+		MInputPart part = findPart(window, inputUri);
+		
+		if (part == null)
+		{//else we create new part and add it with specified logic
+			
+			//create part
+			part = createInputPart(editorPartDescriptor);
+			part.setInputURI(inputUri);
+			
+			//create context for add logic and set context info
+			IEclipseContext localContext = eclipseContext.createChild();
+			localContext.set(MPart.class, part);
+			localContext.set(MElementContainer.class, area);
+			localContext.set(MInputPart.class, part);
+			localContext.set(MWindow.class, window);
+			
+			//obtain adding logic
+			IContributionFactory contributionFactory = (IContributionFactory) localContext.get(IContributionFactory.class
+					.getName());
+			Object addLogic = contributionFactory.create(editorPartDescriptor.getPartAddingLogicUri(), localContext);
+			
+			//execute adding logic
+			ContextInjectionFactory.invoke(addLogic, Execute.class, localContext);
+			
+			//now part is added to window, so we all work is done
+		}
+		
+		return part;
+	}
+
+	private MInputPart findPart(MWindow window, String inputUri)
 	{
 		MPerspectiveStack stack = null;
 		for (MUIElement e : window.getChildren()) {
@@ -204,32 +262,6 @@ public class PartServiceExtImpl implements EPartServiceExt
 				}
 			}
 		}
-		
-		if (part == null)
-		{//else we create new part and add it with specified logic
-			
-			//create part
-			part = createInputPart(editorPartDescriptor);
-			part.setInputURI(inputUri);
-			
-			//create context for add logic and set context info
-			IEclipseContext localContext = eclipseContext.createChild();
-			localContext.set(MPart.class, part);
-			localContext.set(MElementContainer.class, area);
-			localContext.set(MInputPart.class, part);
-			localContext.set(MWindow.class, window);
-			
-			//obtain adding logic
-			IContributionFactory contributionFactory = (IContributionFactory) localContext.get(IContributionFactory.class
-					.getName());
-			Object addLogic = contributionFactory.create(editorPartDescriptor.getPartAddingLogicUri(), localContext);
-			
-			//execute adding logic
-			ContextInjectionFactory.invoke(addLogic, Execute.class, localContext);
-			
-			//now part is added to window, so we all work is done
-		}
-		
 		return part;
 	}
 	

@@ -60,10 +60,12 @@ public interface EPartServiceExt
 	 */
 	MInputPart openUri(MElementContainer<?> area, String inputUri);
 	
+	void closeUri(String inputUri, boolean saveBeforeClose);
+	
 	/**
 	 * Fixed method EPartService.showPart. Current method search any opened shared part and if allowMultiples == false (default) it
 	 * create placeholder on this part rather creating new. The differences from original showPart is that it search shared part in any perspective,
-	 * the orginal showPart search shared part in active perspective. I can not say is this bug or general contract of this method...
+	 * the original showPart search shared part in active perspective. I can not say is this bug or general contract of this method...
 	 * @param id
 	 * @param partState
 	 * @return
