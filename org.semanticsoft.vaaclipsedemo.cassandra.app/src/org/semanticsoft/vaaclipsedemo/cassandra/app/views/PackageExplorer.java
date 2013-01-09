@@ -11,6 +11,12 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import java.util.Collections;
+
+import java.util.ArrayList;
+
+import java.util.List;
+
 import org.apache.commons.io.FileUtils;
 
 import com.vaadin.Application;
@@ -272,7 +278,20 @@ public class PackageExplorer
 
 	private void selectTreeNode(MInputPart inputPart)
 	{
-		final File f = new File(inputPart.getInputURI());
+		File f = new File(inputPart.getInputURI());
+		File dir = f.getParentFile();
+		List<File> pathToParent = new ArrayList<File>();
+		pathToParent.add(dir);
+		while (!dir.equals(demoRoot) && dir != null)
+		{
+			dir = dir.getParentFile();
+			pathToParent.add(dir);
+		}
+		Collections.reverse(pathToParent);
+		for (File d : pathToParent)
+		{
+			tree.expandItem(d);
+		}
 		tree.select(f);
 	}
 }
