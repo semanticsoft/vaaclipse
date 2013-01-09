@@ -42,25 +42,34 @@ public abstract class MediaInfoBase
 		{
 			grid = new GridLayout(2, 3);
 			
-			grid.addComponent(new Label("Name: "), 0, 0);
+			int k = 0;
+			
+			grid.addComponent(new Label("Name: "), 0, k);
 			Component nc = getNameComponent();
 			nc.setWidth("100%");
-			grid.addComponent(nc, 1, 0);
-			grid.addComponent(new Label("URI: "), 0, 1);
+			grid.addComponent(nc, 1, k++);
+			
 			Component uc = getUriComponent();
-			uc.setWidth("100%");
-			grid.addComponent(uc, 1, 1);
-			grid.addComponent(new Label("Description: "), 0, 2);
+			if (uc != null)
+			{
+				grid.addComponent(new Label("URI: "), 0, k);
+				uc.setWidth("100%");
+				grid.addComponent(uc, 1, k++);
+			}
+			
+			grid.addComponent(new Label("Description: "), 0, k);
 			Component dc = getDescriptionComponent();
 			dc.setSizeFull();
-			grid.addComponent(dc, 1, 2);
+			grid.addComponent(dc, 1, k);
 			layout.addComponent(grid);
 			
 			grid.setColumnExpandRatio(0, 20);
 			grid.setColumnExpandRatio(1, 80);
-			grid.setRowExpandRatio(0, 10);
-			grid.setRowExpandRatio(1, 10);
-			grid.setRowExpandRatio(2, 100);
+			
+			grid.setRowExpandRatio(k, 100);
+			grid.setRowExpandRatio(--k, 10);
+			if (--k >= 0)
+				grid.setRowExpandRatio(k, 10);
 			
 			grid.setSizeFull();
 		}

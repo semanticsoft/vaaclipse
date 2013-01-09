@@ -32,10 +32,13 @@ public class MediaInfoEditor extends MediaInfoBase
 	@Inject
 	IEventBroker eventBroker;
 	
+	private MInputPart inputPart;
+	
 	@Inject
 	public MediaInfoEditor(VerticalLayout parent, IEclipseContext context, MediaService service, MInputPart inputPart, SavePromptSetup promptProvider)
 	{
 		super(parent, context);
+		this.inputPart = inputPart;
 		Media media = service.findMedia(inputPart.getInputURI());
 		if (media != null)
 		{
@@ -47,11 +50,9 @@ public class MediaInfoEditor extends MediaInfoBase
 		
 		this.name.setImmediate(true);
 		this.description.setImmediate(true);
-		this.uri.setImmediate(true);
 		
 		this.name.addListener(textChangeListener);
 		this.description.addListener(textChangeListener);
-		this.uri.addListener(textChangeListener);
 	}
 	
 	@Inject
@@ -59,7 +60,6 @@ public class MediaInfoEditor extends MediaInfoBase
 
 	private TextField name = new TextField();
 	private TextField description = new TextField();
-	private TextField uri = new TextField();
 	private TextChangeListener textChangeListener = new TextChangeListener() {
 		
 		@Override
@@ -85,21 +85,23 @@ public class MediaInfoEditor extends MediaInfoBase
 	@Override
 	protected Component getUriComponent()
 	{
-		return this.uri;
+		return null;
 	}
 
 	protected void insertMedia(Media media)
 	{
 		name.setPropertyDataSource(new ObjectProperty<String>(media.getName(), String.class));
-		uri.setPropertyDataSource(new ObjectProperty<String>(media.getUri(), String.class));
 		description.setPropertyDataSource(new ObjectProperty<String>(media.getDescription(), String.class));
 	}
 	
 	@Persist
 	public void persist()
 	{
-		this.media.setName(name.getValue().toString());
-		this.media.setUri(uri.getValue().toString());
+		String newName = name.getValue().toString();
+		
+		this.inputPart.setLabel(newName);
+		
+		this.media.setName(newName);
 		this.media.setDescription(description.getValue().toString());
 		
 		dirtable.setDirty(false);
