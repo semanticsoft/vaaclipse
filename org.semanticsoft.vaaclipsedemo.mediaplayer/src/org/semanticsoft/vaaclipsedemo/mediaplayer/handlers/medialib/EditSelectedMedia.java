@@ -23,7 +23,7 @@ public class EditSelectedMedia
 	}
 	
 	@Execute
-	public void play(MediaLibrary medialib, EPartServiceExt partServiceExt)
+	public void edit(MediaLibrary medialib, EPartServiceExt partServiceExt)
 	{
 		if (medialib.getSelectedMediaEntry() instanceof Media)
 		{
