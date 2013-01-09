@@ -532,6 +532,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	private void openOpenPerspectiveWindow()
 	{
 		OptionDialog dlg = new OptionDialog();
+		dlg.setCaption("Open perspective");
 		dlg.setModal(true);
 		dlg.setWidth("300");
 		dlg.setHeight("600");
