@@ -23,7 +23,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 public class CodeLineToolItem
 {
 	@Inject
-	public void CodeLabelToolItem(ComponentContainer parent, IEclipseContext context)
+	public CodeLineToolItem(ComponentContainer parent, IEclipseContext context)
 	{
 		//the parent - is toolcontrol widget, we must add style for layouting in trimbar to parent widget, not to user control 
 		parent.addStyleName("codeline");

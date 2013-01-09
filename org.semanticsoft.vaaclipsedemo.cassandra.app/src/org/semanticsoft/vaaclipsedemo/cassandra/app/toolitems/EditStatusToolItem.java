@@ -19,7 +19,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 public class EditStatusToolItem
 {
 	@Inject
-	public void EditModeToolItem(ComponentContainer parent, IEclipseContext context)
+	public EditStatusToolItem(ComponentContainer parent, IEclipseContext context)
 	{
 		//the parent - is toolcontrol widget, we must add style for layouting in trimbar to parent widget, not to user control
 		parent.addStyleName("editstatus");
