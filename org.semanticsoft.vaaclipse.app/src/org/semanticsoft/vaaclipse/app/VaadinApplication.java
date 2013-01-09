@@ -16,6 +16,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.RegistryFactory;
@@ -62,6 +64,7 @@ import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeManager;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.gwt.server.WebApplicationContext;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -149,7 +152,8 @@ public class VaadinApplication extends Application
 				Theme theme = (Theme) event.getProperty(IEventBroker.DATA);
 				if (theme != null)
 				{
-					VaadinE4Application.getInstance().setCssTheme(theme.getId());
+					HttpSession session = ((WebApplicationContext) getContext()).getHttpSession();
+					session.setAttribute(ThemeConstants.Attrubutes.themeid, theme.getId());
 					setThemeInternal(theme.getWebId());
 				}
 			}

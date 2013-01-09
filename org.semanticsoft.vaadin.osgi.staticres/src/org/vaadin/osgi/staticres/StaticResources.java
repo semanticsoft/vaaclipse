@@ -34,6 +34,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpService;
 import org.semanticsoft.vaaclipse.api.ResourceInfoProvider;
 import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
+import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeContribution;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeEngine;
 import org.semanticsoft.vaaclipse.util.Utils;
@@ -113,7 +114,7 @@ public class StaticResources extends HttpServlet {
 		
 		String resourcePath = alias + path;
 		
-		String themeId = resourceInfoProvider.getCssTheme();
+		String themeId = (String) req.getSession().getAttribute(ThemeConstants.Attrubutes.themeid);
 		InputStream in = getInputStream(resourcePath, 
 				themeEngine.getTheme(themeId),
 				resourceInfoProvider.getApplicationtWidgetset(), 

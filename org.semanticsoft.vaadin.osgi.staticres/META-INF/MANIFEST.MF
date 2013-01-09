@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Service-Component: OSGI-INF/org.vaadin.osgi.staticres.StaticResources.
  xml
 Private-Package: org.vaadin.osgi.staticres
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 1.0.0.M2
 Tool: Bnd-0.0.401
 Bnd-LastModified: 1280258096925
 Bundle-Name: org.semanticsoft.vaadin.osgi.staticres
