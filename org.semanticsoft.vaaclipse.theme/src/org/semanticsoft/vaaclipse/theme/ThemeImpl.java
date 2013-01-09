@@ -121,7 +121,7 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 				resourcesCashList.addAll(c.getResourceLocationURIs());
 			}
 		}
-		return resourcesCashList;
+		return Collections.unmodifiableList(resourcesCashList);
 	}
 	
 	@Override
