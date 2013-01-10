@@ -117,6 +117,7 @@ public class PackageExplorer
 	{
 		panel = new Panel();
 		panel.setSizeFull();
+		panel.getContent().setSizeFull();
 		parent.addComponent(panel);
 		
 		createProjectTree();
