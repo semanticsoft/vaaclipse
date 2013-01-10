@@ -135,6 +135,7 @@ public class MediaLibraryView {
 		tree.setDragMode(TreeDragMode.NODE);
 		tree.setSizeFull();
 		tree.setImmediate(true);
+		panel.getContent().setSizeFull();
 		panel.addComponent(tree);
 
 		container = createMediaLibraryDataSource();
