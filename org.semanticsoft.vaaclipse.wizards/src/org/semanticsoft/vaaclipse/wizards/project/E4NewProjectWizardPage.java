@@ -11,7 +11,6 @@
 package org.semanticsoft.vaaclipse.wizards.project;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.pde.internal.ui.wizards.plugin.AbstractFieldData;
 import org.eclipse.swt.widgets.Composite;
 
 public class E4NewProjectWizardPage extends org.eclipse.pde.internal.ui.wizards.plugin.NewProjectCreationPage {

@@ -11,7 +11,6 @@ import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstan
 import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.MediaplayerActivator;
 
-import com.vaadin.Application;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.LoginForm.LoginEvent;

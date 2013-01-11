@@ -35,9 +35,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
-import org.semanticsoft.vaaclipse.app.VaadinOSGiCommunicationManager;
-
-import com.vaadin.Application;
 
 public class CleanupAddon {
 	@Inject

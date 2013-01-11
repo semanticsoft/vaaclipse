@@ -6,8 +6,6 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.playlist;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;

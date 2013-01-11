@@ -11,13 +11,10 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.FileInputStream;
-
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import java.io.FileInputStream;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;

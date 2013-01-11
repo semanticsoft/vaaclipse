@@ -28,8 +28,6 @@ import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
-import org.semanticsoft.vaaclipse.widgets.StackWidget;
-import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
 

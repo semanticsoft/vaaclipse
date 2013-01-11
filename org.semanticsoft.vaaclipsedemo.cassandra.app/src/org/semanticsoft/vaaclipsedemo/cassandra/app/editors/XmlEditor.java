@@ -3,23 +3,12 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import java.io.IOException;
-
-import java.io.UnsupportedEncodingException;
-
-import java.io.ByteArrayOutputStream;
-
-import org.apache.commons.io.IOUtils;
-
-import java.io.InputStream;
-
-import com.uwyn.jhighlight.renderer.XhtmlRendererFactory;
-
-import javax.annotation.PostConstruct;
-
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 

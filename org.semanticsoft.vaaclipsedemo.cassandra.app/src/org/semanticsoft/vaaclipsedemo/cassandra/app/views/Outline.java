@@ -12,7 +12,6 @@
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
 import com.vaadin.data.Item;
-import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -26,7 +25,6 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
-import org.apache.commons.io.IOUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;

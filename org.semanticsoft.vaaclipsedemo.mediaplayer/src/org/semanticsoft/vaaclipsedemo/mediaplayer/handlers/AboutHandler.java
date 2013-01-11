@@ -14,7 +14,6 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
-import com.vaadin.Application;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Window;
 

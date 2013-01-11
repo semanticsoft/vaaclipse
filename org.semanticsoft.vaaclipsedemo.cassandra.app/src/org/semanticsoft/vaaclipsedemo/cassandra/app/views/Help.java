@@ -3,24 +3,13 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import java.io.FileInputStream;
-import org.apache.commons.io.IOUtils;
-
-import java.util.Scanner;
-
-import java.io.IOException;
-
-import java.io.InputStream;
-
-import java.net.URL;
-
-import java.net.URI;
-
-import javax.annotation.PostConstruct;
-
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 

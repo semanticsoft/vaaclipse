@@ -11,25 +11,19 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import java.util.Collections;
-
-import java.util.ArrayList;
-
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-
-import com.vaadin.Application;
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
 import com.vaadin.event.ItemClickEvent;
-import com.vaadin.service.FileTypeResolver;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.util.FileTypeResolver;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;

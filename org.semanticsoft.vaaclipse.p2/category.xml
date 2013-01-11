@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.semanticsoft.vaaclipse.feature.dependencies_0.0.1.qualifier.jar" id="org.semanticsoft.vaaclipse.feature.dependencies" version="0.0.1.qualifier">
+      <category name="external_dependencies"/>
+   </feature>
+   <category-def name="external_dependencies" label="External dependencies"/>
+</site>

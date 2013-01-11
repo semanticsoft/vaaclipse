@@ -11,8 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app;
 
-import org.semanticsoft.vaaclipsedemo.cassandra.app.user.UserCounter;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -24,11 +22,11 @@ import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.user.UserCounter;
 
 public class CassandraActivator implements BundleActivator
 {

@@ -20,17 +20,17 @@ import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.fastview.FastViewManager;
 
-import com.vaadin.Application;
-
+import com.vaadin.ui.UI;
 
 @SuppressWarnings("restriction")
 public class VaadinPresentationEngine extends GenericPresentationEngine {
-	
+
 	@Override
-	public Object run(final MApplicationElement uiRoot, IEclipseContext appContext) {
-		
+	public Object run(final MApplicationElement uiRoot,
+			IEclipseContext appContext) {
+
 		ContextInjectionFactory.make(FastViewManager.class, appContext);
-		
+
 		super.run(uiRoot, appContext);
 
 		return "";
@@ -40,25 +40,26 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 	@PostConstruct
 	public void postConstruct(IEclipseContext context) {
 		super.postConstruct(context);
-		
+
 		// Add the presentation engine to the context
 		context.set(IPresentationEngine.class.getName(), this);
 
 		// TODO use parameter or registry
-		IContributionFactory contribFactory = context.get(IContributionFactory.class);
+		IContributionFactory contribFactory = context
+				.get(IContributionFactory.class);
 		try {
-			rendererFactory = (RendererFactory) contribFactory.create(
-					"bundleclass://org.semanticsoft.vaaclipse.presentation/org.semanticsoft.vaaclipse.presentation.renderers.VaadinRendererFactory", context);
+			rendererFactory = (RendererFactory) contribFactory
+					.create("bundleclass://org.semanticsoft.vaaclipse.presentation/org.semanticsoft.vaaclipse.presentation.renderers.VaadinRendererFactory",
+							context);
 		} catch (Exception e) {
 			logger.warn(e, "Could not create rendering factory");
 		}
 	}
-	
+
 	@Override
-	public void stop()
-	{
+	public void stop() {
 		super.stop();
-		Application vaadinApp = theApp.getContext().get(Application.class);
-		vaadinApp.close();
+		UI ui = theApp.getContext().get(UI.class);
+		ui.close();
 	}
 }

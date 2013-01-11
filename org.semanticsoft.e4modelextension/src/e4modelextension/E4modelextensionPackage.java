@@ -3,9 +3,7 @@
 package e4modelextension;
 
 import org.eclipse.e4.ui.model.application.descriptor.basic.impl.BasicPackageImpl;
-
 import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;

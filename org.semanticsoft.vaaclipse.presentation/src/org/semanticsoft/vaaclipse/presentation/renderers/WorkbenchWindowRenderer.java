@@ -38,14 +38,11 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.general.Condition;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
-import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
 import org.semanticsoft.vaaclipse.publicapi.editor.SavePromptSetup;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
-import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.ExternalResource;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;

@@ -2,11 +2,7 @@ package org.semanticsoft.e4tools.extension;
 
 import javax.inject.Inject;
 
-import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.property.list.IListProperty;
-import org.eclipse.e4.tools.emf.ui.internal.common.VirtualEntry;
-import org.eclipse.e4.tools.emf.ui.internal.common.component.ApplicationEditor;
-import org.eclipse.emf.databinding.EMFProperties;
 
 import e4modelextension.E4modelextensionPackage;
 

@@ -16,7 +16,6 @@ import com.vaadin.ui.VerticalLayout;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.vaadin.codelabel.CodeLabel;
 
 /**
  * @author rushan

@@ -17,9 +17,6 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.WidgetInfo;
-import org.semanticsoft.vaaclipse.widgets.StackWidget;
-import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
-import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Window;

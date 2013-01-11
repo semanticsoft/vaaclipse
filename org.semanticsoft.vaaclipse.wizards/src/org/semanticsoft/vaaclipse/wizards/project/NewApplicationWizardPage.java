@@ -17,13 +17,10 @@ package org.semanticsoft.vaaclipse.wizards.project;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.pde.internal.ui.wizards.IProjectProvider;
-import org.eclipse.pde.internal.ui.wizards.plugin.AbstractFieldData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

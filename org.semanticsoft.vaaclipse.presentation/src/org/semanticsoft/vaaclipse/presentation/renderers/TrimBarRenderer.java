@@ -36,8 +36,6 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
-import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
-import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;

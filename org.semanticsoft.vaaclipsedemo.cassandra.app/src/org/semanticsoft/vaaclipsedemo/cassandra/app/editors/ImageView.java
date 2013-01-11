@@ -11,8 +11,7 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.FileResource;
+import com.vaadin.server.FileResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.VerticalLayout;

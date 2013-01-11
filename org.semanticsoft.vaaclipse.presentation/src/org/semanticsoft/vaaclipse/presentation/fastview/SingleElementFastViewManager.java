@@ -37,10 +37,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.Behaviour;
-import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
-import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
-import com.vaadin.Application;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.AbstractLayout;

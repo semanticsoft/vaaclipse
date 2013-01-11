@@ -3,28 +3,18 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.processor;
 
-import org.apache.commons.io.FileUtils;
-
-import org.semanticsoft.vaaclipsedemo.cassandra.app.CassandraActivator;
-
-import org.semanticsoft.e4extension.service.EPartServiceExt;
-
 import java.io.File;
-
-import org.eclipse.e4.core.di.extensions.EventUtils;
-
-import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
-
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
-import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipsedemo.cassandra.app.editors.TextEditor;
+import org.semanticsoft.e4extension.service.EPartServiceExt;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.CassandraActivator;
+import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants;
 
 /**
  * @author rushan

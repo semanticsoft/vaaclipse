@@ -10,7 +10,6 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
 import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 
-import com.vaadin.Application;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.LoginForm.LoginEvent;

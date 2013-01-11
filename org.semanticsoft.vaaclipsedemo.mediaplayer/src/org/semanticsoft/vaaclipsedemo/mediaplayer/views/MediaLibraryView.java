@@ -22,12 +22,10 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaEntry;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.Container.Hierarchical;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.ItemClickEvent;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;

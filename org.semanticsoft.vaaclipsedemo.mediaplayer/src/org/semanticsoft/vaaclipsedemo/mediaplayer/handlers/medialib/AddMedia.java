@@ -19,7 +19,6 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.Notification;
 
 /**
  * @author rushan

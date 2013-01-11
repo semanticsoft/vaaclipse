@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.handlers;
 
-import com.vaadin.Application;
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;

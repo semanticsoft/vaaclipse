@@ -3,7 +3,6 @@ package org.semanticsoft.e4tools.extension;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.e4.tools.emf.ui.common.IEditorFeature;
 import org.eclipse.e4.ui.model.fragment.impl.FragmentPackageImpl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;

@@ -6,6 +6,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 
+@SuppressWarnings({ "restriction" })
 public class SeparatedEventBrokerFactory extends ContextFunction {
 	
 	public SeparatedEventBrokerFactory()

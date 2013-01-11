@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Sep 27, 2012 2:17:28 PM                                                        
+
+     Aggregate-P2-deployment
+     description
+     ====================================================================== -->
+<project default="copy.repo.to.dir" name="Vaaclipse Utilities P2 aggregate repository build.xml">
+	<!--
+	To test output, run maven in root folder:
+		$ mvn clean verify -DP2_BASE_FOLDER=/somedir/Vaaclipse-p2/repository"
+	-->
+
+
+	<target name="init">
+		<property name="update.site.source.dir" value="${from-repo}" />
+
+		<!-- load properties from file -->
+		<condition property="associate.properties" value="${basedir}/associate.properties">
+			<available file="${basedir}/associate.properties" type="file" />
+		</condition>
+		<echo>
+	This script requires Ant 1.8+ and JDK 1.6+.
+	-------------------------------------------
+	$ant.version = ${ant.version}
+	$ant.home = ${ant.home}
+	$ant.java.version = ${ant.java.version}
+	$java.home = ${java.home}</echo>
+		<property file="${associate.properties}" />
+		<echo>Loaded associate sites from ${associate.properties}</echo>
+
+		<available file="lib/ant-contrib.jar" type="file" property="ant-contrib.jar.exists" />
+		<antcall target="get.ant-contrib" />
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="lib/ant-contrib.jar" />
+			</classpath>
+		</taskdef>
+
+		<available file="lib/saxon.jar" type="file" property="saxon.jar.exists" />
+		<antcall target="get.saxon" />
+	</target>
+
+	<target name="basic.build" description="Vaaclipse aggregate P2 repository" depends="init, unpack.content.jar,remove.references,add.associate.sites,remove.uncategorized.category,pack.content.jar" />
+
+	<target name="add.associate.sites" if="associate.sites">
+		<if>
+			<and>
+				<!-- Defined in associate.sites -->
+				<isset property="associate.sites" />
+				<not>
+					<equals arg1="${associate.sites}" arg2="" />
+				</not>
+			</and>
+			<then>
+				<!-- counter variable -->
+				<var name="associate.sites.0" value="" />
+				<for param="associate.site" list="${associate.sites}" delimiter=",">
+					<sequential>
+						<var name="associate.sites.0" value="${associate.sites.0}00" />
+						<echo>length=${associate.sites.0}</echo>
+					</sequential>
+				</for>
+				<length property="associate.sites.length" string="${associate.sites.0}" />
+
+				<echo>length=${associate.sites.length}</echo>
+
+				<loadfile srcfile="${update.site.source.dir}/content.xml" property="content.xml">
+					<filterchain>
+						<tailfilter lines="-1" skip="1" />
+					</filterchain>
+				</loadfile>
+				<echo file="${update.site.source.dir}/content.xml" message="${content.xml}" />
+				<echo file="${update.site.source.dir}/content.xml" append="true">  &lt;references size='${associate.sites.length}'>
+</echo>
+				<for param="associate.site" list="${associate.sites}" delimiter=",">
+					<sequential>
+						<!-- insert into content.xml -->
+						<echo file="${update.site.source.dir}/content.xml" append="true">    &lt;repository uri='@{associate.site}' url='@{associate.site}' type='0' options='1'/>
+    &lt;repository uri='@{associate.site}' url='@{associate.site}' type='1' options='1'/>
+</echo>
+					</sequential>
+				</for>
+				<echo file="${update.site.source.dir}/content.xml" append="true">  &lt;/references>
+&lt;/repository>
+</echo>
+			</then>
+		</if>
+	</target>
+
+	<target name="remove.references">
+		<copy file="${update.site.source.dir}/content.xml" tofile="${update.site.source.dir}/content.old.xml" overwrite="true" />
+		<xslt style="remove-references.xsl" in="${update.site.source.dir}/content.old.xml" out="${update.site.source.dir}/content.xml" />
+	</target>
+
+	<target name="remove.uncategorized.category">
+		<copy file="${update.site.source.dir}/content.xml" tofile="${update.site.source.dir}/content.old.xml" overwrite="true" />
+		<xslt style="remove-uncategorized.xsl" in="${update.site.source.dir}/content.old.xml" out="${update.site.source.dir}/content.xml" />
+	</target>
+
+	<target name="unpack.content.jar">
+		<if>
+			<available file="${update.site.source.dir}/content.jar" type="file" />
+			<then>
+				<unzip src="${update.site.source.dir}/content.jar" dest="${update.site.source.dir}" />
+				<delete file="${update.site.source.dir}/content.jar" />
+			</then>
+		</if>
+	</target>
+
+	<target name="pack.content.jar">
+		<zip destfile="${update.site.source.dir}/content.jar" basedir="${update.site.source.dir}" includes="content.xml" />
+		<delete file="${update.site.source.dir}/content.xml" />
+		<delete file="${update.site.source.dir}/content.old.xml" />
+	</target>
+
+	<target name="copy.repo.to.dir" depends="basic.build">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset includes="**/*" dir="${to_repo_final}" />
+		</delete>
+		<delete dir="${output.dir}" />
+		<mkdir dir="${output.dir}" />
+		<copy todir="${output.dir}">
+			<fileset dir="${from-repo}" includes="**/*" />
+		</copy>
+	</target>
+
+	<target name="get.ant-contrib" unless="ant-contrib.jar.exists">
+		<property name="ANTCONTRIB_MIRROR" value="http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3" />
+		<get usetimestamp="true" dest="${basedir}/ant-contrib-1.0b3-bin.zip" src="${ANTCONTRIB_MIRROR}/ant-contrib-1.0b3-bin.zip" />
+		<!-- <touch file="${basedir}/ant-contrib-1.0b3-bin.zip" /> -->
+		<mkdir dir="${basedir}/lib" />
+		<mkdir dir="${basedir}/ant-contrib-1.0b3-bin.zip_" />
+		<unzip src="${basedir}/ant-contrib-1.0b3-bin.zip" dest="${basedir}/ant-contrib-1.0b3-bin.zip_" overwrite="true" />
+		<copy file="${basedir}/ant-contrib-1.0b3-bin.zip_/ant-contrib/ant-contrib-1.0b3.jar" tofile="${basedir}/lib/ant-contrib.jar" failonerror="true" />
+		<delete file="${basedir}/ant-contrib-1.0b3-bin.zip" quiet="true" />
+		<delete dir="${basedir}/ant-contrib-1.0b3-bin.zip_" includeemptydirs="true" quiet="true" />
+	</target>
+
+	<target name="get.saxon" unless="saxon.jar.exists">
+		<property name="SAXON_MIRROR" value="http://downloads.sourceforge.net/project/saxon/Saxon-HE/9.4/SaxonHE9-4-0-4J.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fsaxon%2Ffiles%2FSaxon-HE%2F9.4%2F&amp;ts=1348855752&amp;use_mirror=ufpr" />
+		<get usetimestamp="true" dest="${basedir}/saxonhe9-4-0-4j.zip" src="${SAXON_MIRROR}" />
+		<!-- <touch file="${basedir}/saxonhe9-4-0-4j.zip" /> -->
+		<mkdir dir="${basedir}/lib" />
+		<mkdir dir="${basedir}/saxonhe9-4-0-4j.zip_" />
+		<unzip src="${basedir}/saxonhe9-4-0-4j.zip" dest="${basedir}/saxonhe9-4-0-4j.zip_" overwrite="true" />
+		<copy file="${basedir}/saxonhe9-4-0-4j.zip_/saxon9he.jar" tofile="${basedir}/lib/saxon.jar" failonerror="true" />
+		<delete file="${basedir}/saxonhe9-4-0-4j.zip" quiet="true" />
+		<delete dir="${basedir}/saxonhe9-4-0-4j.zip_" includeemptydirs="true" quiet="true" />
+	</target>
+</project>

@@ -4,7 +4,6 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.help;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;

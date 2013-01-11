@@ -3,7 +3,6 @@
 package e4modelextension;
 
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
