@@ -155,6 +155,7 @@
 				<module>org.semanticsoft.e4tools.extension</module>
 				
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.boundsinfo</module>
 			</modules>
 		</profile>
 
