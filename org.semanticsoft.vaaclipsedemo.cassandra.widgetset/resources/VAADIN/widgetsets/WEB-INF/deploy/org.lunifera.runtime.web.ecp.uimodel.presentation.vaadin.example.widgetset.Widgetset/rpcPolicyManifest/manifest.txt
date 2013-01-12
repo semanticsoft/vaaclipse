@@ -1,2 +1,0 @@
-# Module org.lunifera.runtime.web.ecp.uimodel.presentation.vaadin.example.widgetset.Widgetset
-# RPC service class, partial path of RPC policy file
