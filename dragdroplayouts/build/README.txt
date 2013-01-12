@@ -1,1 +1,0 @@
-The build script generates build artifacts into this directory. Leave it empty.

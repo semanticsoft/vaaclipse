@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="0" hostname="ruhome" name="fi.jasoft.dragdroplayouts.filters.DragFilterTest" tests="1" time="0.093" timestamp="2012-11-29T11:07:53">
-  <properties />
-  <testcase classname="fi.jasoft.dragdroplayouts.filters.DragFilterTest" name="testLiteralFilters" time="0.031" />
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

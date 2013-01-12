@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Vaadin-Package-Version: 1
-Vaadin-Widgetsets: fi.jasoft.dragdroplayouts.DragDropLayoutsWidgetSet
-Vaadin-License-Title: Apache 2.0
-Implementation-Title: DragDropLayouts
-Implementation-Version: 0.7.1
-Implementation-Vendor: John Ahlroos
-
