@@ -47,9 +47,6 @@ public class CleanupAddon {
 	MApplication app;
 	
 	@Inject
-	Application vaadinapp;
-	
-	@Inject
 	VaadinExecutorService communicationManager;
 
 	private EventHandler childrenHandler = new EventHandler() {
