@@ -17,15 +17,17 @@ import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Window;
 
-public class AboutHandler 
-{
-	
+public class AboutHandler {
+
 	@Execute
-	public void about(MWindow window)
-	{
+	public void about(MWindow window) {
 		Window vWindow = (Window) window.getWidget();
-		
-		OptionDialog.show(vWindow, "About", String.format("Mediaplayer - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
-	}	
-	
+		OptionDialog
+				.show(vWindow.getUI(),
+						"About",
+						String.format("Mediaplayer - demo application for Vaaclipse Framework"),
+						new String[] { "OK" }, 500, 100,
+						Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
+	}
+
 }

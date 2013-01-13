@@ -173,7 +173,7 @@ public class PlaylistView
 		table.setSizeFull();
 		table.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
 
-		this.panel.addComponent(table);
+		this.panel.setContent(table);
 		
 		tableContainer = new CustomBeanItemContainer<Media>(Media.class);
 		table.setContainerDataSource(tableContainer);

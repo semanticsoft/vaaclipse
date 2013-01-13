@@ -43,9 +43,9 @@ public class TextEditor extends FileView
 		e.setSizeFull();
 		((VerticalLayout)e.getContent()).setMargin(true);
 		//e.setMargin(true);
-		e.setScrollable(true);
+//		e.setScrollable(true);
 		text = new Label(readContent(), Label.CONTENT_PREFORMATTED);
-		e.addComponent(text);
+		e.setContent(text);
 		container.addComponent(e);
 	}
 

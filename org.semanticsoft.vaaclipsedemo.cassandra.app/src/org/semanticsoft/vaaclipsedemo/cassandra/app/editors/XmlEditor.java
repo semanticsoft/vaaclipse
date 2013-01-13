@@ -18,17 +18,17 @@ import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
  */
 public class XmlEditor extends TextEditor
 {
-	Panel e = new Panel();
+	Panel panel = new Panel();
 	
 	@Inject
 	public XmlEditor(VerticalLayout container, MInputPart inputPart)
 	{
 		super(inputPart.getInputURI());
 		
-		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
-		e.setScrollable(true);
-		container.addComponent(e);
+		panel.setSizeFull();
+		((VerticalLayout)panel.getContent()).setMargin(true);
+//		e.setScrollable(true);
+		container.addComponent(panel);
 	}
 	
 	@PostConstruct
@@ -65,6 +65,6 @@ public class XmlEditor extends TextEditor
 		}
 		
 		text = new Label(html, Label.CONTENT_XHTML);
-		e.addComponent(text);
+		panel.setContent(text);
 	}
 }

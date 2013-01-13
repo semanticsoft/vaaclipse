@@ -89,17 +89,17 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 	
 	protected void createAndShowDlg(final MWindow window, String caption, String label)
 	{
-		OptionDialog dlg = new OptionDialog();
+		final Window vaadinWindow = (Window) window.getWidget();
+		OptionDialog dlg = new OptionDialog(vaadinWindow.getUI());
 		dlg.setModal(true);
 		dlg.setCaption(caption);
 		componentProvider = new NewMediaEntryComponentProvider(label);
 		dlg.setComponentProvider(componentProvider);
 		
+		vaadinWindow.getUI().addWindow(dlg);
+		
 		dlg.addOption(0, "Create");
 		dlg.addOption(1, "Cancel");
-		
-		final Window vaadinWindow = (Window) window.getWidget();
-		vaadinWindow.addWindow(dlg);
 		
 		dlg.setOptionListener(this);
 	}

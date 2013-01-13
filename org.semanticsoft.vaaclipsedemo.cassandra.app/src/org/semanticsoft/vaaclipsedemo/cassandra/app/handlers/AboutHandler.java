@@ -20,6 +20,6 @@ public class AboutHandler
 	{
 		Window vWindow = (Window) window.getWidget();
 		
-		OptionDialog.show(vWindow, "About", String.format("Cassandra - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
+		OptionDialog.show(vWindow.getUI(), "About", String.format("Cassandra - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
 	}
 }

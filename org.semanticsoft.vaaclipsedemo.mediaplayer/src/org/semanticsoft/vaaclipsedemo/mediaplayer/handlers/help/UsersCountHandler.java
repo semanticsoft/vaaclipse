@@ -27,6 +27,6 @@ public class UsersCountHandler
 		
 		Window vWindow = (Window) window.getWidget();
 		
-		OptionDialog.show(vWindow, "Total Logged Users Count", String.format("%s users was logged to Mediaplayer since application has started at %s", usersCount, startTime), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
+		OptionDialog.show(vWindow.getUI(), "Total Logged Users Count", String.format("%s users was logged to Mediaplayer since application has started at %s", usersCount, startTime), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
 	}
 }

@@ -27,7 +27,7 @@ public class Help
 	{
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.setScrollable(true);
+//		panel.setScrollable(true);
 		parent.addComponent(panel);
 	}
 	
@@ -52,6 +52,6 @@ public class Help
 			content = new Label("Can not open file " + helpPath);
 		}
 		
-		panel.addComponent(content);
+		panel.setContent(content);
 	}
 }

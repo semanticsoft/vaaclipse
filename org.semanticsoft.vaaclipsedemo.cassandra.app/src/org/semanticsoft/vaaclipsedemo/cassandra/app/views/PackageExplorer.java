@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import com.vaadin.ui.UI;
+
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
@@ -58,7 +60,7 @@ public class PackageExplorer
 	@Inject
 	private IEclipseContext context;
 	@Inject
-	private Application app;
+	private UI ui;
 	
 	@Inject
 	private MApplication application;
@@ -164,7 +166,7 @@ public class PackageExplorer
 		tree = new Tree();
 		tree.setSizeFull();
 		tree.setImmediate(true);
-		panel.addComponent(tree);
+		panel.setContent(tree);
 		
 		FilesystemContainer fsc = new FilesystemContainer(demoRoot, true);
 		FileTypeResolver.addExtension("java", "java");

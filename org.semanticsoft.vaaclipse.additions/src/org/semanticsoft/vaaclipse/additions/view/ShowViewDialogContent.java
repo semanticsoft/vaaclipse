@@ -111,7 +111,7 @@ class ShowViewDialogContent implements ComponentProvider
 		tree.setDragMode(TreeDragMode.NODE);
 		tree.setSizeFull();
 		tree.setImmediate(true);
-		panel.addComponent(tree);
+		panel.setContent(tree);
 
 		container = createDataSource();
 		tree.setContainerDataSource(container);

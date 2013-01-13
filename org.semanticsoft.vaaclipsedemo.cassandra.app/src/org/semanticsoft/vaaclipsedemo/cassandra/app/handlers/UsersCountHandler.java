@@ -13,18 +13,25 @@ import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
 /**
  * @author rushan
- *
+ * 
  */
-public class UsersCountHandler
-{
+public class UsersCountHandler {
 	@Execute
-	public void showLoggedUsersCount(MWindow window)
-	{
-		int usersCount = CassandraActivator.getInstance().getUserCounter().getValue();
-		String startTime = new SimpleDateFormat("dd.MM.yyyy HH:mm z").format(CassandraActivator.getInstance().getStartTime());
-		
+	public void showLoggedUsersCount(MWindow window) {
+		int usersCount = CassandraActivator.getInstance().getUserCounter()
+				.getValue();
+		String startTime = new SimpleDateFormat("dd.MM.yyyy HH:mm z")
+				.format(CassandraActivator.getInstance().getStartTime());
+
 		Window vWindow = (Window) window.getWidget();
-		
-		OptionDialog.show(vWindow, "Total Logged Users Count", String.format("%s users was logged to Cassandra since application has started at %s", usersCount, startTime), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
+
+		OptionDialog
+				.show(vWindow.getUI(),
+						"Total Logged Users Count",
+						String.format(
+								"%s users was logged to Cassandra since application has started at %s",
+								usersCount, startTime), new String[] { "OK" },
+						500, 100, Component.UNITS_PIXELS,
+						OptionDialog.CLOSE_LISTENER);
 	}
 }

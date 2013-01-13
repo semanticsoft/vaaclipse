@@ -114,10 +114,9 @@
 				<module>org.semanticsoft.vaaclipse.target.juno</module>
 
 				<!-- exclusive for P2 -->
-				<module>org.semanticsoft.vaaclipse.p2</module>
+<!-- 				<module>org.semanticsoft.vaaclipse.p2</module> -->
 
 				<!-- P2 features -->
-				<module>org.semanticsoft.vaaclipse.feature.dependencies</module>
 				<!-- end P2 features -->
 
 				<module>org.semanticsoft.vaaclipse.additions</module>
@@ -155,11 +154,81 @@
 				<module>org.semanticsoft.e4tools.extension</module>
 				
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
-				<module>org.semanticsoft.vaaclipse.vaadin.addon.boundsinfo</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>p2-kepler</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.kepler</module>
 
+				<!-- exclusive for P2 -->
+<!-- 				<module>org.semanticsoft.vaaclipse.p2</module> -->
+
+				<!-- P2 features -->
+				<!-- end P2 features -->
+
+				<module>org.semanticsoft.vaaclipse.additions</module>
+				<module>org.semanticsoft.vaaclipse.api</module>
+				<module>org.semanticsoft.vaaclipse.app</module>
+				<module>org.semanticsoft.vaaclipse.behaviour</module>
+				<module>org.semanticsoft.vaaclipse.contributions</module>
+				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
+				<module>org.semanticsoft.vaaclipse.presentation</module>
+				<module>org.semanticsoft.vaaclipse.publicapi</module>
+				<module>org.semanticsoft.vaaclipse.resources</module>
+				<module>org.semanticsoft.vaaclipse.targetdef</module>
+				<module>org.semanticsoft.vaaclipse.theme</module>
+				<module>org.semanticsoft.vaaclipse.util</module>
+				<module>org.semanticsoft.vaaclipse.wizards</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+				<module>
+						org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons
+					</module>
+				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
+				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
+				<module>
+						org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons
+					</module>
+				<module>org.semanticsoft.vaaclipsedemo.mini</module>
+				<module>org.semanticsoft.vaadin</module>
+				<module>org.semanticsoft.vaadin.osgi.staticres</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
+				<module>org.semanticsoft.e4extension</module>
+				<module>org.semanticsoft.e4modelextension</module>
+				<module>org.semanticsoft.e4tools.extension</module>
+				
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
+			</modules>
+		</profile>
 		<profile>
 			<id>deps-kepler</id>
 			<activation>

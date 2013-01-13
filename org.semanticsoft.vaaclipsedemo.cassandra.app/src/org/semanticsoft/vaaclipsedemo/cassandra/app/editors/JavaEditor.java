@@ -19,27 +19,24 @@ import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 
 /**
  * @author rushan
- *
+ * 
  */
-public class JavaEditor extends TextEditor
-{
+public class JavaEditor extends TextEditor {
 	@Inject
-	public JavaEditor(VerticalLayout container, MInputPart inputPart)
-	{
+	public JavaEditor(VerticalLayout container, MInputPart inputPart) {
 		super(inputPart.getInputURI());
-		
+
 		Panel e = new Panel();
 		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
-		e.setScrollable(true);
+		((VerticalLayout) e.getContent()).setMargin(true);
+		// e.setScrollable(true);
 		text = new CodeLabel(readContent());
-		e.addComponent(text);
+		e.setContent(text);
 		container.addComponent(e);
 	}
-	
+
 	@PreDestroy
-	public void preDestory()
-	{
+	public void preDestory() {
 		System.out.println("predestroy");
 	}
 }
