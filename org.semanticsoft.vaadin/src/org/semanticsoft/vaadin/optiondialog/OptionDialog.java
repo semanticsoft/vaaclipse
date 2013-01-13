@@ -10,6 +10,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
@@ -61,8 +62,10 @@ public class OptionDialog extends Window {
 	private HorizontalLayout buttons = new HorizontalLayout();
 	private Map<Button, Integer> button2option = new HashMap<Button, Integer>();
 	private Map<Integer, Button> option2button = new HashMap<>();
+	private UI parentWindow;
 
-	public OptionDialog() {
+	public OptionDialog(UI parentWindow) {
+		this.parentWindow = parentWindow;
 		// msgLabel.setWidth("100%");
 		// buttons.setWidth("100%");
 		content = new VerticalLayout();
@@ -113,13 +116,12 @@ public class OptionDialog extends Window {
 		}
 	}
 
-	public void open(Window parentWindow) {
-		parentWindow.addWindow(parentWindow);
+	public void open(UI parentWindow) {
+		parentWindow.addWindow(this);
 	}
 
 	public void close() {
-		if (getParent() != null)
-			getParent().removeWindow(OptionDialog.this);
+		parentWindow.removeWindow(OptionDialog.this);
 	}
 
 	public boolean isModal() {
@@ -164,10 +166,10 @@ public class OptionDialog extends Window {
 		button.setEnabled(enabled);
 	}
 
-	public static void show(Window parentWindow, String caption,
-			String message, String[] options, int w, int h, int units,
+	public static void show(UI parentWindow, String caption,
+			String message, String[] options, int w, int h, Unit units,
 			OptionListener optionListener) {
-		OptionDialog optionDialog = new OptionDialog();
+		OptionDialog optionDialog = new OptionDialog(parentWindow);
 		if (w > 0 && h > 0) {
 			optionDialog.setWidth(w, units);
 			optionDialog.setHeight(h, units);
@@ -177,17 +179,15 @@ public class OptionDialog extends Window {
 		optionDialog.setCaption(caption);
 		optionDialog.setMessage(message);
 		optionDialog.setOptionListener(optionListener);
-
+		
 		for (int i = 0; i < options.length; i++) {
 			optionDialog.addOption(i, options[i]);
 		}
-
-		parentWindow.addWindow(optionDialog);
 	}
 
-	public static void show(Window parentWindow, String caption,
+	public static void show(UI parentWindow, String caption,
 			String message, String[] options, OptionListener optionListener) {
-		show(parentWindow, caption, message, options, -1, -1, -1,
+		show(parentWindow, caption, message, options, -1, -1, null,
 				optionListener);
 	}
 }
