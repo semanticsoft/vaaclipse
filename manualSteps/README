@@ -1,0 +1,9 @@
+ 
+ ==========================================
+ Install the dragdroplayouts-development.jar under the group com.vaadin.addon.patch in your local maven repo:
+ mvn install:install-file -Dfile=dragdroplayouts-development.jar -DgroupId=com.vaadin.addon.patch 
+ 					-DartifactId=dragdroplayouts -Dversion=0.0.1 -Dpackaging=jar 
+ ==========================================
+ 
+ 
+ 

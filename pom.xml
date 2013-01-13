@@ -86,7 +86,7 @@
 		<profile>
 			<id>p2-juno</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<defaultGoal>verify</defaultGoal>
@@ -156,13 +156,14 @@
 				
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.boundsinfo</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 			</modules>
 		</profile>
 
 		<profile>
 			<id>deps-kepler</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<defaultGoal>verify</defaultGoal>
