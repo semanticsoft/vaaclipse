@@ -11,3 +11,5 @@ xtend-gen/
 plugin.xml_gen
 .project
 *.tmp
+**/resources/VAADIN/widgetsets
+**/resources/VAADIN/gwt-unitCache
