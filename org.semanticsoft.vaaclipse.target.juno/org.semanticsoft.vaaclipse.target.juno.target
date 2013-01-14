@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?>
-
-<target name="org.semanticsoft.vaaclipse.target.juno" sequenceNumber="-1"/>
+<?pde version="3.8"?><target name="org.semanticsoft.vaaclipse.target.juno" sequenceNumber="1">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.platform.ide" version="4.2.1.M20120914-1800"/>
+<unit id="org.eclipse.equinox.sdk.feature.group" version="3.8.0.v20120522-1841-7M7fA78g5_y-g-jtHxcd5k8q8lFR"/>
+<unit id="org.eclipse.ui.juno.feature.feature.group" version="4.2.1.v20121220-2014"/>
+<repository location="http://download.eclipse.org/eclipse/updates/4.2"/>
+</location>
+<location path="${project_loc}/local" type="Directory"/>
+</locations>
+</target>
