@@ -19,65 +19,68 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  * @author rushan
- * 
+ *
  */
-public class LoginProvider {
+public class LoginProvider
+{
 	@Inject
 	IEventBroker eventBroker;
-
+	
 	@Inject
-	UI vaadinUI;
-
+	UI ui;
+	
 	@PostConstruct
-	public void postConstruct(VerticalLayout parent) {
-		// Set the caption of login page (window)
-		vaadinUI.setCaption("Login to Mediaplayer");
-
+	public void postConstruct(VerticalLayout parent)
+	{
+		//Set the caption of login page (window)
+		ui.getPage().setTitle("Login to Mediaplayer");
+				
+				
 		Panel loginPanel = new Panel("Login");
 		loginPanel.setWidth("250px");
 		parent.addComponent(loginPanel);
-
+		
 		parent.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
-
+		
 		LoginForm login = new LoginForm();
 		loginPanel.setContent(login);
-
+		
 		login.addListener(new LoginListener() {
-
+			
 			@Override
-			public void onLogin(LoginEvent event) {
+			public void onLogin(LoginEvent event)
+			{
 				String username = event.getLoginParameter("username");
 				String password = event.getLoginParameter("password");
-
+                
 				if (username.trim().isEmpty())
 					username = null;
-
+				
 				if (username == null)
 					username = "guest";
-
-				// Here you check username and password and if user with given
-				// password exists
-				// send message AuthenticationConstants.Events.Authentication
-				// with User object:
-				if (check(username, password)) {
-					MediaplayerActivator.getInstance().getUserCounter()
-							.increment();
+				
+				//Here you check username and password and if user with given password exists 
+				//send message AuthenticationConstants.Events.Authentication with User object:
+				if (check(username, password))
+				{
+					MediaplayerActivator.getInstance().getUserCounter().increment();
 					User user = new User(username);
-					eventBroker
-							.send(AuthenticationConstants.Events.Authentication,
-									user);
-				} else {
-					Notification.show("User does not exist",
-							Notification.Type.WARNING_MESSAGE);
+					eventBroker.send(AuthenticationConstants.Events.Authentication, user);
+				}
+				else
+				{
+					Notification.show("User does not exist", Notification.Type.WARNING_MESSAGE);
 				}
 			}
 		});
 	};
-
-	private boolean check(String username, String password) {
+	
+	private boolean check(String username, String password)
+	{
 		return true;
 	}
 }

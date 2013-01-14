@@ -11,8 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import com.vaadin.ui.UI;
-
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
@@ -29,6 +27,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -59,8 +58,6 @@ public class PackageExplorer
 	
 	@Inject
 	private IEclipseContext context;
-	@Inject
-	private UI ui;
 	
 	@Inject
 	private MApplication application;

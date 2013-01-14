@@ -30,6 +30,9 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.Events;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
+
+import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 
 
 /**

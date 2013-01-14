@@ -11,6 +11,7 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import javax.annotation.PreDestroy;
@@ -19,24 +20,27 @@ import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 
 /**
  * @author rushan
- * 
+ *
  */
-public class JavaEditor extends TextEditor {
+public class JavaEditor extends TextEditor
+{
 	@Inject
-	public JavaEditor(VerticalLayout container, MInputPart inputPart) {
+	public JavaEditor(VerticalLayout container, MInputPart inputPart)
+	{
 		super(inputPart.getInputURI());
-
+		
 		Panel e = new Panel();
 		e.setSizeFull();
-		((VerticalLayout) e.getContent()).setMargin(true);
-		// e.setScrollable(true);
-		text = new CodeLabel(readContent());
+		((VerticalLayout)e.getContent()).setMargin(true);
+		//text = new CodeLabel(readContent());
+		text = new Label(readContent());
 		e.setContent(text);
 		container.addComponent(e);
 	}
-
+	
 	@PreDestroy
-	public void preDestory() {
+	public void preDestory()
+	{
 		System.out.println("predestroy");
 	}
 }

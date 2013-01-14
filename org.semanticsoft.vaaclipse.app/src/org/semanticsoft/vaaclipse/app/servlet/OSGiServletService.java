@@ -26,6 +26,7 @@ import com.vaadin.server.VaadinSession;
 public class OSGiServletService extends VaadinServletService {
 
 	private final IVaadinSessionFactory factory;
+	private VaadinOSGiCommunicationManager communicationManager;
 
 	public OSGiServletService(VaadinServlet servlet,
 			DeploymentConfiguration deploymentConfiguration,
@@ -49,10 +50,9 @@ public class OSGiServletService extends VaadinServletService {
 	@Override
 	protected AbstractCommunicationManager createCommunicationManager(
 			VaadinSession session) {
-		return super.createCommunicationManager(session);
+		communicationManager = new VaadinOSGiCommunicationManager(session);
+		return communicationManager;
 	}
-
-
 
 	/**
 	 * Creates new instances of vaadin sessions.

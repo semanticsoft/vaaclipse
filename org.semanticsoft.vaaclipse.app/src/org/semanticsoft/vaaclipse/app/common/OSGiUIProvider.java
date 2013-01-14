@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.semanticsoft.vaaclipse.app.common;
 
+import org.semanticsoft.vaaclipse.app.VaadinE4Application;
 import org.semanticsoft.vaaclipse.app.webapp.VaadinUI;
 
 import com.vaadin.server.UIClassSelectionEvent;
@@ -34,5 +35,10 @@ public class OSGiUIProvider extends UIProvider {
 	@Override
 	public UI createInstance(UICreateEvent event) {
 		return new VaadinUI();
+	}
+	
+	@Override
+	public String getTheme(UICreateEvent event) {
+		return VaadinE4Application.getInstance().getCssTheme();
 	}
 }

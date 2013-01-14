@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import org.apache.commons.io.IOUtils;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -42,8 +44,6 @@ public class TextEditor extends FileView
 		Panel e = new Panel();
 		e.setSizeFull();
 		((VerticalLayout)e.getContent()).setMargin(true);
-		//e.setMargin(true);
-//		e.setScrollable(true);
 		text = new Label(readContent(), Label.CONTENT_PREFORMATTED);
 		e.setContent(text);
 		container.addComponent(e);

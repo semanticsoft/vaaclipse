@@ -3,6 +3,8 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import org.apache.commons.io.IOUtils;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -27,7 +29,6 @@ public class Help
 	{
 		panel = new Panel();
 		panel.setSizeFull();
-//		panel.setScrollable(true);
 		parent.addComponent(panel);
 	}
 	

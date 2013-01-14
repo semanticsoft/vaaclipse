@@ -21,39 +21,35 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 
-public class AddToLibraryToolControl {
+public class AddToLibraryToolControl
+{
 	private Button playMediaButton;
 	private TextField textField;
-
+	
 	@Inject
 	IEventBroker broker;
-
+	
 	@Inject
 	MediaLibrary mediaLibrary;
-
+	
 	@Inject
 	EPartServiceExt partServiceExt;
-
-	@Inject
-	UI vaadinUi;
-
+	
 	@Inject
 	EModelService modelService;
-
+	
 	@Inject
 	IEclipseContext context;
-
+	
 	@Inject
 	MWindow window;
 
 	@PostConstruct
-	public void postConstruct(ComponentContainer cc) {
+	public void postConstruct(ComponentContainer cc)
+	{
 		playMediaButton = new Button("Play media: ");
-		playMediaButton
-				.setIcon(BundleResource
-						.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/watch.png"));
+		playMediaButton.setIcon(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/watch.png"));
 		playMediaButton.setDescription("Play media");
 		textField = new TextField();
 		textField.setWidth("20em");
@@ -62,10 +58,11 @@ public class AddToLibraryToolControl {
 		playMediaButton.addListener(new ClickListener() {
 
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(ClickEvent event)
+			{
 				if (textField.getValue() == null)
 					return;
-
+				
 				String uri = textField.getValue().toString().trim();
 				if ((uri.isEmpty()))
 					return;
@@ -77,34 +74,30 @@ public class AddToLibraryToolControl {
 				broker.send(MediaConstants.mediaEntrySelected, media);
 			}
 		});
-
+		
 		Button addToLibraryButton = new Button("Add...");
-		addToLibraryButton
-				.setIcon(BundleResource
-						.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png"));
+		addToLibraryButton.setIcon(BundleResource.valueOf("platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/add.png"));
 		addToLibraryButton.setDescription("Add media to library");
 		addToLibraryButton.addListener(new ClickListener() {
-
+			
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(ClickEvent event)
+			{
 				if (textField.getValue() == null)
 					return;
-
+				
 				String uri = textField.getValue().toString().trim();
 				if ((uri.isEmpty()))
 					return;
-
-				// Don't forget create and use local context, not touch the
-				// context of current control!
+				
+				//Don't forget create and use local context, not touch the context of current control!
 				IEclipseContext localContext = context.createChild();
-				Object addMediaHandler = ContextInjectionFactory.make(
-						AddMedia.class, localContext);
-				localContext.set(String.class, uri); // media uri
-				ContextInjectionFactory.invoke(addMediaHandler, Execute.class,
-						localContext);
+				Object addMediaHandler = ContextInjectionFactory.make(AddMedia.class, localContext);
+				localContext.set(String.class, uri); //media uri
+				ContextInjectionFactory.invoke(addMediaHandler, Execute.class, localContext);
 			}
 		});
-
+		
 		cc.addComponent(playMediaButton);
 		cc.addComponent(textField);
 		cc.addComponent(addToLibraryButton);

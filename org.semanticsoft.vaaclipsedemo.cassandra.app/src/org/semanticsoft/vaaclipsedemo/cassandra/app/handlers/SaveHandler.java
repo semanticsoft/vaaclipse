@@ -12,21 +12,21 @@
 package org.semanticsoft.vaaclipsedemo.cassandra.app.handlers;
 
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
+
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 
 public class SaveHandler {
-
+	
 	@CanExecute
 	public boolean canExecute() {
 		return true;
 	}
 
 	@Execute
-	public void execute(IEclipseContext context, UI ui)
+	public void execute(IEclipseContext context)
 			throws InvocationTargetException, InterruptedException {
 		Notification.show("Save");
 	}

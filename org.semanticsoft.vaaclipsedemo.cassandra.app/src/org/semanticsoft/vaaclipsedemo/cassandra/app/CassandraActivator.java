@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;

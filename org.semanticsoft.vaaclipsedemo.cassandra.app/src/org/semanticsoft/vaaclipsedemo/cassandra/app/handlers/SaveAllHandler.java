@@ -27,9 +27,9 @@ public class SaveAllHandler {
 	}
 	
 	@Execute
-	public void execute(IEclipseContext context, UI ui)
+	public void execute(IEclipseContext context)
 			throws InvocationTargetException, InterruptedException {
-		Notification.show("Save all");
+		Notification.show("Save All");
 	}
 
 }

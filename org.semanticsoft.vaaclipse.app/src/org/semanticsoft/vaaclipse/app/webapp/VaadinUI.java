@@ -62,7 +62,6 @@ import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstan
 import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
-import org.semanticsoft.vaaclipse.publicapi.theme.ThemeManager;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedHttpSession;
@@ -105,7 +104,7 @@ public class VaadinUI extends UI {
 	}
 
 	private void setThemeInternal(String themeId) {
-		// TODO not handled yet
+		throw new RuntimeException("The changing theme in runtime is not supported by Vaadin 7");
 	}
 
 	@Override
@@ -133,10 +132,6 @@ public class VaadinUI extends UI {
 						}
 					}
 				});
-
-		String themeId = VaadinE4Application.getInstance().getCssTheme();
-		ThemeManager themeManager = appContext.get(ThemeManager.class);
-		themeManager.setTheme(themeId);
 
 		String authProvider = VaadinE4Application.getInstance()
 				.getApplicationAuthenticationProvider();
@@ -382,6 +377,7 @@ public class VaadinUI extends UI {
 			presentationURI = presentationEngineURI;
 		}
 		eclipseContext.set(E4Workbench.PRESENTATION_URI_ARG, presentationURI);
+		eclipseContext.set(UI.class, this);
 
 		// eclipseContext.set(EModelService.class, new
 		// ModelServiceImpl(eclipseContext));

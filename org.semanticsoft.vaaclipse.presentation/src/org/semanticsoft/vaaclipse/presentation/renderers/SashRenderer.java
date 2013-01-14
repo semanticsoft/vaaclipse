@@ -30,12 +30,18 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
+import org.semanticsoft.vaaclipse.widgets.SashWidget;
+import org.semanticsoft.vaaclipse.widgets.SashWidgetHorizontal;
+import org.semanticsoft.vaaclipse.widgets.SashWidgetVertical;
+import org.semanticsoft.vaaclipse.widgets.SplitPositionChangedListener;
 
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 public class SashRenderer extends VaadinRenderer {
@@ -330,8 +336,8 @@ public class SashRenderer extends VaadinRenderer {
 							//and last thing what we must do - tell the WorkbenchWindow to recalculate bounds of it content
 							//(because bounds of some content of workbench window changed after sash widget split position changed)
 							MWindow window = modelService.getTopLevelWindowFor(sash);
-							WorkbenchWindow wWindow = (WorkbenchWindow) window.getWidget();
-							wWindow.invalidateBounds();
+							TrimmedWindowContent windowContent = (TrimmedWindowContent) ((Panel) window.getWidget()).getContent();
+							windowContent.invalidateBounds();
 						}
 					});
 				}

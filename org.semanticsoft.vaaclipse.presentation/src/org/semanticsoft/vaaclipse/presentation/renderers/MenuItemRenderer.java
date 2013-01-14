@@ -33,6 +33,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 
+import com.vaadin.server.Resource;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 

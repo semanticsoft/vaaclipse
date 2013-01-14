@@ -36,10 +36,14 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
+import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
+import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
 
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Panel;
 
 
 @SuppressWarnings("restriction")
@@ -104,9 +108,9 @@ public class TrimBarRenderer extends VaadinRenderer {
 		int orientation = trimBar.getSide().getValue();
 		CssLayout trimBarWidget = (CssLayout) container.getWidget();
 		if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-			trimBarWidget.setHeight(-1);
+			trimBarWidget.setHeight(-1, Unit.PIXELS);
 		else
-			trimBarWidget.setWidth(-1);
+			trimBarWidget.setWidth(-1, Unit.PIXELS);
 
 		boolean isFirst = true;
 		trimBarWidget.removeAllComponents();
@@ -183,9 +187,9 @@ public class TrimBarRenderer extends VaadinRenderer {
 		if (orientation == SideValue.TOP_VALUE)
 		{
 			MWindow window = modelService.getTopLevelWindowFor(trimBar);
-			WorkbenchWindow windowWidget = (WorkbenchWindow) window.getWidget();
+			TrimmedWindowContent windowContent = (TrimmedWindowContent) ((Panel) window.getWidget()).getContent();
 			
-			TopbarComponent topbar = windowWidget.getTopbar();
+			TopbarComponent topbar = windowContent.getTopbar();
 			if (topbar != null)
 				topbar.setVisible(trimBarWidget.getComponentCount() != 0);
 		}

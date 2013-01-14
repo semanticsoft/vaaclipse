@@ -62,10 +62,8 @@ public class OptionDialog extends Window {
 	private HorizontalLayout buttons = new HorizontalLayout();
 	private Map<Button, Integer> button2option = new HashMap<Button, Integer>();
 	private Map<Integer, Button> option2button = new HashMap<>();
-	private UI parentWindow;
 
-	public OptionDialog(UI parentWindow) {
-		this.parentWindow = parentWindow;
+	public OptionDialog() {
 		// msgLabel.setWidth("100%");
 		// buttons.setWidth("100%");
 		content = new VerticalLayout();
@@ -120,10 +118,6 @@ public class OptionDialog extends Window {
 		parentWindow.addWindow(this);
 	}
 
-	public void close() {
-		parentWindow.removeWindow(OptionDialog.this);
-	}
-
 	public boolean isModal() {
 		return this.modal;
 	}
@@ -169,7 +163,7 @@ public class OptionDialog extends Window {
 	public static void show(UI parentWindow, String caption,
 			String message, String[] options, int w, int h, Unit units,
 			OptionListener optionListener) {
-		OptionDialog optionDialog = new OptionDialog(parentWindow);
+		OptionDialog optionDialog = new OptionDialog();
 		if (w > 0 && h > 0) {
 			optionDialog.setWidth(w, units);
 			optionDialog.setHeight(h, units);

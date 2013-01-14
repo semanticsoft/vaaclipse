@@ -35,7 +35,9 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
+import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
+import com.vaadin.server.Resource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -112,7 +114,7 @@ public class ToolItemRenderer extends ItemRenderer
 			{
 				TwoStateToolbarButton button = (TwoStateToolbarButton) itemModel.getWidget();
 				Boolean newValue = (Boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
-				button.setState(newValue);
+				button.setCheckedState(newValue);
 			}
 		}
 	};
@@ -268,7 +270,7 @@ public class ToolItemRenderer extends ItemRenderer
 				{
 					if (item.getType() == ItemType.CHECK)
 					{
-						item.setSelected(((TwoStateToolbarButton)button).getState());
+						item.setSelected(((TwoStateToolbarButton)button).getCheckedState());
 					}
 					
 					processAction(item);
@@ -287,7 +289,7 @@ public class ToolItemRenderer extends ItemRenderer
 				{
 					if (item.getType() == ItemType.CHECK)
 					{
-						item.setSelected(((TwoStateToolbarButton)button).getState());
+						item.setSelected(((TwoStateToolbarButton)button).getCheckedState());
 					}
 					
 					processParametrizedAction(item);

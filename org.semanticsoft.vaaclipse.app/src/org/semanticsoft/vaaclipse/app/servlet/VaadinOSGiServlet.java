@@ -18,7 +18,7 @@ package org.semanticsoft.vaaclipse.app.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.semanticsoft.vaaclipse.app.webapp.VaadinWebApplication;
+import org.semanticsoft.vaaclipse.app.common.OSGiUIProvider;
 
 import com.vaadin.server.DeploymentConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -33,7 +33,6 @@ import com.vaadin.server.VaadinSession;
 public class VaadinOSGiServlet extends VaadinServlet {
 
 	private static final long serialVersionUID = 1L;
-	private VaadinWebApplication webApplication;
 
 	/**
 	 * Default constructor.
@@ -41,8 +40,8 @@ public class VaadinOSGiServlet extends VaadinServlet {
 	 * @param webApplication
 	 *            The vaadin web application.
 	 */
-	public VaadinOSGiServlet(VaadinWebApplication webApplication) {
-		this.webApplication = webApplication;
+	public VaadinOSGiServlet() {
+		
 	}
 
 	@Override
@@ -58,7 +57,7 @@ public class VaadinOSGiServlet extends VaadinServlet {
 							HttpServletRequest httpServletRequest) {
 						VaadinSession session = new VaadinSession(
 								request.getService());
-						session.addUIProvider(webApplication.getUiProvider());
+						session.addUIProvider(new OSGiUIProvider());
 						return session;
 					}
 				});

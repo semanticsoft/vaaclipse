@@ -26,7 +26,6 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
-import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
@@ -37,12 +36,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.Behaviour;
+import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
+import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout;
 
-import com.vaadin.event.LayoutEvents.LayoutClickEvent;
-import com.vaadin.event.LayoutEvents.LayoutClickListener;
-import com.vaadin.ui.AbstractLayout;
+import com.vaadin.event.MouseEvents.ClickEvent;
+import com.vaadin.event.MouseEvents.ClickListener;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 /**
  * @author rushan
@@ -52,7 +53,7 @@ public class SingleElementFastViewManager
 {
 
 	@Inject
-	Application vaadinApplication;
+	UI vaadinUI;
 	
 	@Inject
 	Behaviour behaviour;
@@ -65,13 +66,7 @@ public class SingleElementFastViewManager
 	MToolBar toolBar;
 	
 	private MWindow window;
-	
-	private MWindow getWindow()
-	{
-		if (window == null)
-			window = (MWindow) (trimBar.getParent() != null ? (MElementContainer<?>)trimBar.getParent() : ((EObject) trimBar).eContainer());
-		return window;
-	}
+	private Panel vaadinWindow;
 	
 	//--------------------------------------------
 	//--------------------------------------------
@@ -171,7 +166,7 @@ public class SingleElementFastViewManager
 				return;
 			
 			MPerspective currentPerspective = modelService.getPerspectiveFor(minimizedElement);
-			MPerspective activePerspective = modelService.getActivePerspective(getWindow());
+			MPerspective activePerspective = modelService.getActivePerspective(window);
 			
 			if (currentPerspective != activePerspective)
 				return;
@@ -220,21 +215,20 @@ public class SingleElementFastViewManager
 			// if our stack is going away, so should we
 			if (changedElement == minimizedElement && !minimizedElement.isToBeRendered()) {
 				if (hostPane != null)
-					vaadinApplication.getMainWindow().getContent().removeComponent(hostPane);
+					vaadinUI.removeWindow(hostPane);
 				hostPane = null;
 				return;
 			}
 		}
 	};
 
-	
-	/**
-	 * This is the old way to subscribe to UIEvents. You should consider using the new way as shown
-	 * by handleTransientDataEvents() and described in the article at
-	 * http://wiki.eclipse.org/Eclipse4/RCP/Event_Model
-	 */
 	@PostConstruct
-	void postConstruct() {	
+	void postConstruct() {
+		
+		if (window == null)
+			window = (MWindow) (trimBar.getParent() != null ? (MElementContainer<?>)trimBar.getParent() : ((EObject) trimBar).eContainer());
+		vaadinWindow = (Panel)window.getWidget();
+		
 		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toBeRenderedHandler);
 		eventBroker.subscribe(UIEvents.UILifeCycle.BRINGTOTOP, openHandler);
 		eventBroker.subscribe(UIEvents.UILifeCycle.ACTIVATE, closeHandler);
@@ -316,12 +310,14 @@ public class SingleElementFastViewManager
 //		}
 //	};
 	
-	LayoutClickListener layoutClickListener = new LayoutClickListener() {
-        public void layoutClick(LayoutClickEvent event) {
-        	if (isShowing)
+	ClickListener layoutClickListener = new ClickListener() {
+		
+		@Override
+		public void click(ClickEvent event) {
+			if (isShowing)
         		showStack(false);
-        		partService.requestActivation(); 
-        }
+        	partService.requestActivation();
+		}
     };
 
 	public synchronized void showStack(boolean show) {
@@ -333,21 +329,20 @@ public class SingleElementFastViewManager
 
 			ctf.setVisible(true);
 			//ctf.setSizeFull();
-			hostPane.getContent().addComponent(ctf);
+			hostPane.setContent(ctf);
 			
 			// Set the initial location
 			setPaneLocation(hostPane);
-			vaadinApplication.getMainWindow().addWindow(hostPane);
+			vaadinUI.addWindow(hostPane);
 //			vaadinApplication.getMainWindow().addListener(resizeListener);
-
-			((VerticalLayout)vaadinApplication.getMainWindow().getContent()).addListener(layoutClickListener);
+			vaadinWindow.addClickListener(layoutClickListener);
 			
 			isShowing = true;
 		} 
 		else if (!show && isShowing) 
 		{
 			if (hostPane != null) {
-				vaadinApplication.getMainWindow().removeWindow(hostPane);
+				vaadinUI.removeWindow(hostPane);
 				// capture the current shell's bounds
 				toolBar.getPersistedState().put(STATE_XSIZE, Float.toString(Float.valueOf(hostPane.getWidth())));
 				toolBar.getPersistedState().put(STATE_YSIZE, Float.toString(Float.valueOf(hostPane.getHeight())));
@@ -355,7 +350,7 @@ public class SingleElementFastViewManager
 			
 			fixToolItemSelection(null);
 			
-			((VerticalLayout)vaadinApplication.getMainWindow().getContent()).removeListener(layoutClickListener);
+			vaadinWindow.removeClickListener(layoutClickListener);
 			
 			partService.requestActivation();
 			
@@ -364,13 +359,10 @@ public class SingleElementFastViewManager
 	}
 
 	private void setPaneLocation(Window fastWindow) {
-		Window mainWindow = vaadinApplication.getMainWindow();
 		SideValue side = trimBar.getSide();
 		
-		MTrimmedWindow mWindow = (MTrimmedWindow) (trimBar.getParent() != null ? (MElementContainer<?>)trimBar.getParent() : ((EObject) trimBar).eContainer());
-		
-		WorkbenchWindow wWindow = (WorkbenchWindow) mWindow.getWidget();
-		BoundsinfoVerticalLayout clientArea = wWindow.getClientArea();
+		TrimmedWindowContent windowContent = (TrimmedWindowContent) vaadinWindow.getContent();
+		BoundsinfoVerticalLayout clientArea = windowContent.getClientArea();
 		
 		Bounds bounds = clientArea.getBounds();
 		
@@ -404,7 +396,6 @@ public class SingleElementFastViewManager
 			hostPane.setResizable(false);
 		//hostPane.setResizeLazy(true);
 		hostPane.setStyleName("loading-window");
-		((AbstractLayout)hostPane.getContent()).setMargin(false);
 		hostPane.getContent().setSizeFull();
 		float xSize = 600;
 		String xSizeStr = toolBar.getPersistedState().get(STATE_XSIZE);

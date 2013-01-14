@@ -43,12 +43,15 @@ import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
+import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.event.LayoutEvents;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -59,8 +62,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 /**
  * @author rushan
@@ -70,12 +73,14 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 {
 	private MPerspectiveStack perspectiveStackForSwitcher;
 	private HorizontalLayout perspectiveSwitcherPanel;
-	private ContextMenu menu;
-	private ContextMenuItem showTextItem;
+//	private ContextMenu menu;
+//	private ContextMenuItem showTextItem;
 	private Map<MPerspective, TwoStateToolbarButton> perspective_button = new HashMap<>();
 	
 	private MPerspective lastClickedPerspective;
 	private MPerspective activePerspective;
+	@Inject
+	private UI vaadinUI;
 
 	public HorizontalLayout getPerspectiveSwitcher()
 	{
@@ -97,9 +102,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	EPartService partService;
 	
 	@Inject
-	Application vaadinApp;
-	
-	@Inject
 	GenericPresentationEngine engine;
 	
 	static final String PERSPECTIVE_LABEL = "PerspectiveLabel";
@@ -108,10 +110,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	private final EventHandler tagListener = new EventHandler() {
 		@Override
 		public void handleEvent(Event event) {
-//			if (ignoreTagChanges) {
-//				return;
-//			}
-
 			Object changedObj = event.getProperty(EventTags.ELEMENT);
 			
 			if (!(changedObj instanceof MPerspectiveStack)) {
@@ -133,9 +131,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					clearButton(button);
 					setupStyleTextIcon(null, Commons.trim(perspective.getIconURI()), button);
 				}
-				menu.removeItem(showTextItem);
-				showTextItem = menu.addItem("Show Text");
-				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
+//				menu.removeItem(showTextItem);
+//				showTextItem = menu.addItem("Show Text");
+//				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 			} 
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType) && Tags.ICONS_ONLY.equals(oldVal)) {
 				for (Map.Entry<MPerspective, TwoStateToolbarButton> entry : perspective_button.entrySet())
@@ -145,9 +143,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					clearButton(button);
 					setupStyleTextIcon(Commons.trim(perspective.getLabel()), Commons.trim(perspective.getIconURI()), button);
 				}
-				menu.removeItem(showTextItem);
-				showTextItem = menu.addItem("Hide Text");
-				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
+//				menu.removeItem(showTextItem);
+//				showTextItem = menu.addItem("Hide Text");
+//				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 			}
 		}
 	};
@@ -178,12 +176,11 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			if (oldSel != null)
 			{
 				List<MUIElement> goingHidden = new ArrayList<MUIElement>();
-				// hideElementRecursive(oldSel, goingHidden);
 			}
 
 			if (oldSel != null)
 			{
-				perspective_button.get(oldSel).setState(false);
+				perspective_button.get(oldSel).setCheckedState(false);
 				perspective_button.get(oldSel).setSwitchStateByUserClickEnabled(true);
 				
 				hideElementRecursive(oldSel);
@@ -193,10 +190,9 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 			if (stack.getSelectedElement() != null)
 			{
-				// psr.showTab(stack.getSelectedElement());
 				showElementRecursive(stack.getSelectedElement());
 				((VerticalLayout) stack.getWidget()).addComponent((Component) stack.getSelectedElement().getWidget());
-				perspective_button.get(stack.getSelectedElement()).setState(true);
+				perspective_button.get(stack.getSelectedElement()).setCheckedState(true);
 				perspective_button.get(stack.getSelectedElement()).setSwitchStateByUserClickEnabled(false);
 			}
 			else if (oldSel instanceof MElementContainer<?>)
@@ -265,67 +261,65 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		perspectiveSwitcherPanel.setSizeUndefined();
 
 		// Context menu
-		menu = new ContextMenu();
-		perspectiveSwitcherPanel.addComponent(menu);
+//		menu = new ContextMenu();
+//		perspectiveSwitcherPanel.addComponent(menu);
 		
-		final ContextMenuItem closeItem = menu.addItem("Close");
-		closeItem.setSeparatorVisible(true);
-		if (iconsOnly)
-			showTextItem = menu.addItem("Show Text");
-		else
-			showTextItem = menu.addItem("Hide Text");
-		
-		showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
-		
-		 menu.addListener(new ContextMenu.ClickListener() {
-
-			@Override
-			public void contextItemClick(org.vaadin.peter.contextmenu.ContextMenu.ClickEvent event)
-			{
-				ContextMenuItem clickedItem = event.getClickedItem();
-				if (clickedItem == closeItem)
-				{
-					//vaadinApp.getMainWindow().showNotification("Close request for: " + lastClickedPerspective.getLabel());
-					if (lastClickedPerspective == activePerspective)
-					{
-						MPerspective prevRenderableAndVisiblePerspective = null, nextRenderableAndVisiblePerspective = null;
-						boolean startSearch = false;
-						for (MPerspective p : perspectiveStackForSwitcher.getChildren())
-						{
-							if (startSearch && p.isToBeRendered() && p.isVisible())
-							{
-								nextRenderableAndVisiblePerspective = p;
-								break;
-							}
-							
-							if (p == lastClickedPerspective)
-								startSearch = true;
-							
-							if (!startSearch && p.isToBeRendered() && p.isVisible())
-							{
-								prevRenderableAndVisiblePerspective = p;
-							}
-						}
-						
-						MPerspective newSelectedPerspective = nextRenderableAndVisiblePerspective != null ? nextRenderableAndVisiblePerspective 
-								: prevRenderableAndVisiblePerspective;
-						
-						if (newSelectedPerspective != null)
-							switchPerspective(newSelectedPerspective);	
-					}
-					
-					lastClickedPerspective.setToBeRendered(false);
-				}
-				else if (clickedItem == showTextItem)
-				{
-					//vaadinApp.getMainWindow().showNotification("Show text request for: " + lastClickedPerspective.getLabel());
-					if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
-						perspectiveStackForSwitcher.getTags().remove(Tags.ICONS_ONLY);
-					else
-						perspectiveStackForSwitcher.getTags().add(Tags.ICONS_ONLY);
-				}
-			}
-		 });
+//		final ContextMenuItem closeItem = menu.addItem("Close");
+//		closeItem.setSeparatorVisible(true);
+//		if (iconsOnly)
+//			showTextItem = menu.addItem("Show Text");
+//		else
+//			showTextItem = menu.addItem("Hide Text");
+//		
+//		showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
+//		
+//		 menu.addListener(new ContextMenu.ClickListener() {
+//
+//			@Override
+//			public void contextItemClick(org.vaadin.peter.contextmenu.ContextMenu.ClickEvent event)
+//			{
+//				ContextMenuItem clickedItem = event.getClickedItem();
+//				if (clickedItem == closeItem)
+//				{
+//					if (lastClickedPerspective == activePerspective)
+//					{
+//						MPerspective prevRenderableAndVisiblePerspective = null, nextRenderableAndVisiblePerspective = null;
+//						boolean startSearch = false;
+//						for (MPerspective p : perspectiveStackForSwitcher.getChildren())
+//						{
+//							if (startSearch && p.isToBeRendered() && p.isVisible())
+//							{
+//								nextRenderableAndVisiblePerspective = p;
+//								break;
+//							}
+//							
+//							if (p == lastClickedPerspective)
+//								startSearch = true;
+//							
+//							if (!startSearch && p.isToBeRendered() && p.isVisible())
+//							{
+//								prevRenderableAndVisiblePerspective = p;
+//							}
+//						}
+//						
+//						MPerspective newSelectedPerspective = nextRenderableAndVisiblePerspective != null ? nextRenderableAndVisiblePerspective 
+//								: prevRenderableAndVisiblePerspective;
+//						
+//						if (newSelectedPerspective != null)
+//							switchPerspective(newSelectedPerspective);	
+//					}
+//					
+//					lastClickedPerspective.setToBeRendered(false);
+//				}
+//				else if (clickedItem == showTextItem)
+//				{
+//					if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
+//						perspectiveStackForSwitcher.getTags().remove(Tags.ICONS_ONLY);
+//					else
+//						perspectiveStackForSwitcher.getTags().add(Tags.ICONS_ONLY);
+//				}
+//			}
+//		 });
 		 
 		 Button openPerspectiveButton = new Button("Open");
 			openPerspectiveButton.addStyleName("vaaclipsebutton");
@@ -407,7 +401,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				 if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
 				 {
 					 lastClickedPerspective = perspective;
-					 menu.show(event.getClientX(), event.getClientY());
+//					 menu.show(event.getClientX(), event.getClientY());
 				 }
 			 }
 		 });
@@ -532,9 +526,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		dlg.addOption(0, "OK");
 		dlg.addOption(1, "CANCEL");
 		
-		MWindow mWindow = modelService.getTopLevelWindowFor(perspectiveStackForSwitcher);
-		Window parentWindow = (Window) mWindow.getWidget();
-		parentWindow.addWindow(dlg);
+		vaadinUI.addWindow(dlg);
 		
 		dlg.setComponentProvider(new OptionDialog.ComponentProvider() {
 			
@@ -569,7 +561,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					list.setRowHeaderMode(Table.ROW_HEADER_MODE_ICON_ONLY);
 					list.setItemIconPropertyId(PERSPECTIVE_ICON);
 					list.setColumnExpandRatio(PERSPECTIVE_LABEL, 1);
-					panel.addComponent(list);
+					panel.setContent(list);
 				}
 				return panel;
 			}
@@ -705,39 +697,5 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				}
 			}
 		}
-	}
-	
-//	private void connectReferencedElementsToPerspectiveWidgets(MElementContainer<? extends MUIElement> container)
-//	{
-//		for (MUIElement e : container.getChildren())
-//		{
-//			if (e instanceof MPlaceholder)
-//			{
-//				MPlaceholder ph = (MPlaceholder) e;
-//				if (ph.isToBeRendered())
-//				{
-//					ComponentContainer phComponent = (ComponentContainer) ph.getWidget();
-//					Component refComponent = (Component) ph.getRef().getWidget();
-//					phComponent.addComponent(refComponent);
-//				}
-//
-//				ph.getRef().setCurSharedRef(ph);
-//
-//				MPartStack topLeftStack = HierarchyUtils.findTopLeftFolder(ph.getRef());
-//				if (topLeftStack != null)
-//				{
-//					if (ph.getTags().contains(IPresentationEngine.MAXIMIZED))
-//						((StackWidget) topLeftStack.getWidget()).setState(1);
-//					else if (ph.getTags().contains(IPresentationEngine.MINIMIZED))
-//						((StackWidget) topLeftStack.getWidget()).setState(-1);
-//					else
-//						((StackWidget) topLeftStack.getWidget()).setState(0);
-//				}
-//			}
-//
-//			if (e instanceof MElementContainer<?>)
-//				connectReferencedElementsToPerspectiveWidgets((MElementContainer<MUIElement>) e);
-//		}
-//	}
-	
+	}		
 }

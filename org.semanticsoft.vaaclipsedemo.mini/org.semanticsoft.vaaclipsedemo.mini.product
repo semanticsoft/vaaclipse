@@ -25,7 +25,13 @@
 
    <plugins>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.vaadin"/>
+      <plugin id="com.vaadin.cdi"/>
+      <plugin id="com.vaadin.client"/>
+      <plugin id="com.vaadin.client-compiled"/>
+      <plugin id="com.vaadin.server"/>
+      <plugin id="com.vaadin.shared"/>
+      <plugin id="com.vaadin.shared.deps"/>
+      <plugin id="com.vaadin.themes"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
@@ -78,7 +84,10 @@
       <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.servletbridge.extensionbundle"/>
+      <plugin id="org.eclipse.equinox.transforms.hook"/>
       <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.equinox.weaving.hook"/>
       <plugin id="org.eclipse.jetty.continuation"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>
@@ -88,6 +97,8 @@
       <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.jboss.weld.osgi.core.mandatory"/>
+      <plugin id="org.jsoup"/>
       <plugin id="org.semanticsoft.commons"/>
       <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
       <plugin id="org.semanticsoft.e4extension"/>
@@ -100,11 +111,10 @@
       <plugin id="org.semanticsoft.vaaclipse.publicapi"/>
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.theme"/>
-      <plugin id="org.semanticsoft.vaaclipse.util"/>
-      <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mini"/>
       <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
+      <plugin id="org.slf4j.api"/>
    </plugins>
 
    <configurations>

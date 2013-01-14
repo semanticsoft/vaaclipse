@@ -26,7 +26,7 @@ public class ShowViewHandler {
 	public static final String VIEWS_SHOW_VIEW_PARM_ID = "org.eclipse.ui.views.showView.viewId"; //$NON-NLS-1$
 
 	@Execute
-	public void execute(MWindow window, MApplication application,
+	public void execute(UI ui, MApplication application,
 			EPartService partService, IEclipseContext context,
 			@Optional @Named(VIEWS_SHOW_VIEW_PARM_ID) String viewId) {
 		if (viewId != null) {
@@ -34,7 +34,7 @@ public class ShowViewHandler {
 			return;
 		}
 
-		OptionDialog dlg = new OptionDialog(UI.getCurrent());
+		OptionDialog dlg = new OptionDialog();
 		dlg.setWidth("350px");
 		dlg.setHeight("500px");
 		dlg.setModal(true);
@@ -46,7 +46,6 @@ public class ShowViewHandler {
 		dlg.addOption(0, "OK");
 		dlg.addOption(1, "Cancel");
 
-		final Window vaadinWindow = (Window) window.getWidget();
-		vaadinWindow.addWindow(dlg);
+		ui.addWindow(dlg);
 	}
 }

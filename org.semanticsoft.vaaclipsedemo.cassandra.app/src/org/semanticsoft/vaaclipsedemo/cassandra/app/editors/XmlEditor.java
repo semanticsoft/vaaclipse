@@ -3,6 +3,8 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import org.apache.commons.io.IOUtils;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -18,17 +20,16 @@ import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
  */
 public class XmlEditor extends TextEditor
 {
-	Panel panel = new Panel();
+	Panel e = new Panel();
 	
 	@Inject
 	public XmlEditor(VerticalLayout container, MInputPart inputPart)
 	{
 		super(inputPart.getInputURI());
 		
-		panel.setSizeFull();
-		((VerticalLayout)panel.getContent()).setMargin(true);
-//		e.setScrollable(true);
-		container.addComponent(panel);
+		e.setSizeFull();
+		((VerticalLayout)e.getContent()).setMargin(true);
+		container.addComponent(e);
 	}
 	
 	@PostConstruct
@@ -36,35 +37,36 @@ public class XmlEditor extends TextEditor
 	{
 		String content = readContent();
 		String html = "";
-		if (content != null)
-		{
-			InputStream in = IOUtils.toInputStream(content);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			
-			try
-			{
-				try {
-					XhtmlRendererFactory.getRenderer("xml").highlight("Заголовок",
-							   in,
-							   baos,
-							   "UTF-8",
-							   true);
-					
-					html = new String(baos.toByteArray(), "UTF-8");
-				}
-				finally {
-					in.close();
-				}
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-				if (html.isEmpty()) //check the exception is not in finally
-					html = e.getMessage();
-			}
-		}
+//		if (content != null)
+//		{
+//			InputStream in = IOUtils.toInputStream(content);
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			
+//			try
+//			{
+//				try {
+//					XhtmlRendererFactory.getRenderer("xml").highlight("Заголовок",
+//							   in,
+//							   baos,
+//							   "UTF-8",
+//							   true);
+//					
+//					html = new String(baos.toByteArray(), "UTF-8");
+//				}
+//				finally {
+//					in.close();
+//				}
+//			}
+//			catch (Exception e)
+//			{
+//				e.printStackTrace();
+//				if (html.isEmpty()) //check the exception is not in finally
+//					html = e.getMessage();
+//			}
+//		}
 		
+		html = content;
 		text = new Label(html, Label.CONTENT_XHTML);
-		panel.setContent(text);
+		e.setContent(text);
 	}
 }

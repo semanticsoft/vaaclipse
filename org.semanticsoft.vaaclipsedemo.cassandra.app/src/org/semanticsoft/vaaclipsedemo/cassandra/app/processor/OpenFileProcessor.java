@@ -3,6 +3,8 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.processor;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;

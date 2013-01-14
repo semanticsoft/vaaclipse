@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -64,7 +65,6 @@ public class Outline
 		panel.setSizeFull();
 		tree = new Tree();
 		tree.setImmediate(true);
-		panel.setContent(tree);
 		
 		parent.addComponent(panel);
 		

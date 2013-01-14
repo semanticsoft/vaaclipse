@@ -43,13 +43,18 @@ import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.dnd.VaadinDropHandler;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
+import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 
+import com.vaadin.server.Resource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.CloseHandler;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.TabSheet.Tab;
+
+import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 
 
 @SuppressWarnings("restriction")

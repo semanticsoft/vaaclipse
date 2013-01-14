@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -29,69 +28,71 @@ import org.semanticsoft.vaaclipsedemo.cassandra.app.constants.CassandraConstants
 
 /**
  * @author rushan
- * 
+ *
  */
-public class Console {
+public class Console
+{
 	private Panel panel;
 	@Inject
 	private IEventBroker eventBroker;
 	private Label text = new Label();
 	private StringBuffer content = new StringBuffer();
 	private static final String ls = System.getProperty("line.separator");
-
+	
 	private EventHandler logEventHandler = new EventHandler() {
-
-		public void handleEvent(Event event) {
+		
+		public void handleEvent(Event event)
+		{
 			String msg = (String) event.getProperty(EventUtils.DATA);
 			println(msg);
 		}
 	};
 
 	@Inject
-	public void Console(VerticalLayout parent, IEclipseContext context) {
+	public void Console(VerticalLayout parent, IEclipseContext context)
+	{
 		panel = new Panel();
 		panel.setSizeFull();
-		// panel.setScrollable(true);
 		parent.addComponent(panel);
-
+		
 		text.setContentMode(Label.CONTENT_PREFORMATTED);
 		panel.setContent(text);
-
+		
 		println("Cassandra demo for vaaclipse - the vaadin renderer for e4");
 		println("You can find information about vaaclipse here: http://semanticsoft.github.com/vaaclipse/");
 		println("Java version: " + System.getProperty("java.version"));
-
-		Bundle vaadinBundle = Platform.getBundle("com.vaadin");
+		
+		Bundle vaadinBundle = Platform.getBundle("com.vaadin.server");
 		println("Vaadin version: " + vaadinBundle.getVersion().toString());
-
+		
 		println("Application bundles:");
-
-		Bundle appBundle = Platform
-				.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
-		println(appBundle.getSymbolicName() + ", " + "version:"
-				+ appBundle.getVersion().toString());
+		
+		Bundle appBundle = Platform.getBundle("org.semanticsoft.vaaclipsedemo.cassandra.app");
+		println(appBundle.getSymbolicName() + ", " + "version:" + appBundle.getVersion().toString());
 	}
-
+	
 	@PostConstruct
-	public void postConstruct() {
+	public void postConstruct()
+	{
 		eventBroker.subscribe(CassandraConstants.CONSOLE_LOG, logEventHandler);
 	}
-
+	
 	@PreDestroy
-	public void preDestroy() {
+	public void preDestroy()
+	{
 		eventBroker.unsubscribe(logEventHandler);
 	}
-
-	public void print(String msg) {
+	
+	public void print(String msg)
+	{
 		content.append(msg);
-		text.setPropertyDataSource(new ObjectProperty<String>(content
-				.toString(), String.class));
+		text.setValue(content.toString());
 	}
-
-	public void println(String msg) {
+	
+	public void println(String msg)
+	{
 		content.append(msg);
 		content.append(ls);
-		text.setPropertyDataSource(new ObjectProperty<String>(content
-				.toString(), String.class));
+		text.setValue(content.toString());
 	}
 }

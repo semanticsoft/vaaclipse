@@ -18,57 +18,64 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 /**
  * @author rushan
- * 
+ *
  */
-public class AddCategory extends AddMediaEntryBasic {
+public class AddCategory extends AddMediaEntryBasic
+{
 	@Inject
 	IEventBroker eventBroker;
-
+	
 	@Inject
 	EPartServiceExt partServiceExt;
-
+	
 	@Inject
 	MediaService mediaService;
-
+	
+	@Inject
+	UI ui;
+	
 	@CanExecute
-	public boolean canExecute(MediaLibrary medialib) {
+	public boolean canExecute(MediaLibrary medialib)
+	{
 		return medialib.getSelectedMediaEntry() != null;
 	}
-
+	
 	@Execute
-	public void addCategory(@Optional final String mediaUri,
-			MediaLibrary mediaLibrary, final MWindow window) {
+	public void addCategory(@Optional final String mediaUri, MediaLibrary mediaLibrary, final MWindow window)
+	{
 		init(mediaLibrary, window);
-		createAndShowDlg(window, "New category", "Category name:");
+		createAndShowDlg(ui, "New category", "Category name:");
 	}
-
+	
 	@Override
-	public void optionSelected(OptionDialog dlg, int optionId) {
-		if (optionId == 0) {
-			String newCategoryName = componentProvider.getTextField()
-					.getValue().toString();
+	public void optionSelected(OptionDialog dlg, int optionId)
+	{
+		if (optionId == 0)
+		{
+			String newCategoryName = componentProvider.getTextField().getValue().toString();
 			addMediaCategoryToLibrary(window, parentCategory, newCategoryName);
 		}
 		dlg.close();
 	}
-
-	private void addMediaCategoryToLibrary(MWindow window,
-			MediaCategory category, String newCategoryName) {
-		MediaCategory mediaCategory = mediaService.findChildCategory(category,
-				newCategoryName);
-		if (mediaCategory != null) {
-			Notification.show(String.format(
-					"Category with name \"%s\" exists in media library",
-					newCategoryName), Notification.Type.WARNING_MESSAGE);
+	
+	private void addMediaCategoryToLibrary(MWindow window, MediaCategory category, String newCategoryName)
+	{
+		MediaCategory mediaCategory = mediaService.findChildCategory(category, newCategoryName);
+		if (mediaCategory != null)
+		{
+			Notification.show(String.format("Category with name \"%s\" exists in media library", newCategoryName), Notification.Type.WARNING_MESSAGE);
 			return;
-		} else {
+		}
+		else
+		{
 			mediaCategory = new MediaCategory();
 			mediaCategory.setName(newCategoryName);
 			category.addCategory(mediaCategory);
-
+			
 			eventBroker.send(MediaConstants.mediaEntryAdded, mediaCategory);
 		}
 	}

@@ -32,6 +32,9 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
+import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.StackWidget;
+import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
