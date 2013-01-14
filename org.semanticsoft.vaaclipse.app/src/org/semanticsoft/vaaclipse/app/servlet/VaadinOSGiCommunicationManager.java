@@ -11,18 +11,35 @@
 
 package org.semanticsoft.vaaclipse.app.servlet;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 
+import com.vaadin.server.AbstractCommunicationManager;
+import com.vaadin.server.ClientConnector;
+import com.vaadin.server.ClientConnector.ConnectorErrorEvent;
 import com.vaadin.server.CommunicationManager;
+import com.vaadin.server.ErrorEvent;
+import com.vaadin.server.ErrorHandler;
+import com.vaadin.server.ServerRpcManager;
+import com.vaadin.server.ServerRpcManager.RpcInvocationException;
+import com.vaadin.server.ServerRpcMethodInvocation;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.VariableOwner;
+import com.vaadin.shared.Connector;
+import com.vaadin.shared.communication.LegacyChangeVariablesInvocation;
+import com.vaadin.shared.communication.MethodInvocation;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.ConnectorTracker;
+import com.vaadin.ui.UI;
 
 public class VaadinOSGiCommunicationManager extends CommunicationManager
 		implements VaadinExecutorService {
@@ -33,13 +50,6 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 
 	public VaadinOSGiCommunicationManager(VaadinSession session) {
 		super(session);
-	}
-
-	protected void changeVariables(Object source, final VariableOwner owner,
-            Map<String, Object> m) {
-		super.changeVariables(source, owner, m);
-
-		exec();
 	}
 
 	private synchronized void exec() {
@@ -94,4 +104,120 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 	public synchronized void removeAlwaysRunnable(Runnable runnable) {
 		this.runnables2.remove(runnable);
 	}
+	
+	@SuppressWarnings("unchecked")
+	private List<MethodInvocation> _parseInvocations(
+            ConnectorTracker connectorTracker, final String burst)
+            throws Exception
+    {
+		@SuppressWarnings("deprecation")
+		Method method = AbstractCommunicationManager.class.getDeclaredMethod("parseInvocations", ConnectorTracker.class, String.class);
+		method.setAccessible(true);
+		return (List<MethodInvocation>) method.invoke(this, connectorTracker, burst);
+    }
+	
+	private void handleConnectorRelatedException(ClientConnector connector,
+            Throwable throwable) {
+        ErrorEvent errorEvent = new ConnectorErrorEvent(connector, throwable);
+        ErrorHandler handler = ErrorEvent.findErrorHandler(connector);
+        handler.error(errorEvent);
+    }
+	
+	public boolean handleBurst(VaadinRequest source, UI uI, final String burst) {
+        boolean success = true;
+        try {
+            Set<Connector> enabledConnectors = new HashSet<Connector>();
+
+            List<MethodInvocation> invocations = _parseInvocations(
+                    uI.getConnectorTracker(), burst);
+            for (MethodInvocation invocation : invocations) {
+                final ClientConnector connector = getConnector(uI,
+                        invocation.getConnectorId());
+
+                if (connector != null && connector.isConnectorEnabled()) {
+                    enabledConnectors.add(connector);
+                }
+            }
+
+            for (int i = 0; i < invocations.size(); i++) {
+                MethodInvocation invocation = invocations.get(i);
+
+                final ClientConnector connector = getConnector(uI,
+                        invocation.getConnectorId());
+
+                if (!enabledConnectors.contains(connector)) {
+
+                    if (invocation instanceof LegacyChangeVariablesInvocation) {
+                        LegacyChangeVariablesInvocation legacyInvocation = (LegacyChangeVariablesInvocation) invocation;
+                        // TODO convert window close to a separate RPC call and
+                        // handle above - not a variable change
+
+                        // Handle special case where window-close is called
+                        // after the window has been removed from the
+                        // application or the application has closed
+                        Map<String, Object> changes = legacyInvocation
+                                .getVariableChanges();
+                        if (changes.size() == 1 && changes.containsKey("close")
+                                && Boolean.TRUE.equals(changes.get("close"))) {
+                            // Silently ignore this
+                            continue;
+                        }
+                    }
+
+                    // Connector is disabled, log a warning and move to the next
+                    String msg = "Ignoring RPC call for disabled connector "
+                            + connector.getClass().getName();
+                    if (connector instanceof Component) {
+                        String caption = ((Component) connector).getCaption();
+                        if (caption != null) {
+                            msg += ", caption=" + caption;
+                        }
+                    }
+                    //getLogger().warning(msg);
+                    continue;
+                }
+
+                if (invocation instanceof ServerRpcMethodInvocation) {
+                    try {
+                        ServerRpcManager.applyInvocation(connector,
+                                (ServerRpcMethodInvocation) invocation);
+                        exec();
+                    } catch (RpcInvocationException e) {
+                        handleConnectorRelatedException(connector, e);
+                    }
+                } else {
+
+                    // All code below is for legacy variable changes
+                    LegacyChangeVariablesInvocation legacyInvocation = (LegacyChangeVariablesInvocation) invocation;
+                    Map<String, Object> changes = legacyInvocation
+                            .getVariableChanges();
+                    try {
+                        if (connector instanceof VariableOwner) {
+                            changeVariables(source, (VariableOwner) connector,
+                                    changes);
+                            exec();
+                        } else {
+                            throw new IllegalStateException(
+                                    "Received legacy variable change for "
+                                            + connector.getClass().getName()
+                                            + " ("
+                                            + connector.getConnectorId()
+                                            + ") which is not a VariableOwner. The client-side connector sent these legacy varaibles: "
+                                            + changes.keySet());
+                        }
+                    } catch (Exception e) {
+                        handleConnectorRelatedException(connector, e);
+                    }
+                }
+            }
+        } catch (Exception e) {
+//            getLogger().warning(
+//                    "Unable to parse RPC call from the client: "
+//                            + e.getMessage());
+            // TODO or return success = false?
+            throw new RuntimeException(e);
+        }
+
+        return success;
+    }
 }
