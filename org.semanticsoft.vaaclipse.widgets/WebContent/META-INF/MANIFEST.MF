@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: org.semanticsoft.vaaclipse.widgets
-Implementation-Version: 1.0.0
-Vaadin-Package-Version: 1
-Vaadin-Widgetsets: org.semanticsoft.vaaclipse.widgets.Org_semanticsoft
- _vaaclipse_widgetsWidgetset
-Class-Path: 
-
