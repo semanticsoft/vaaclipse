@@ -35,7 +35,7 @@ public class VExtendedVerticalLayout extends VVerticalLayout
 		if (updateManager != null)
 			updateManager.update();
 		
-		super.recalculateLayoutHeight();
+		super.updateExpandedSizes();
 	}
 
 	public String getVariableValue(String varName)
