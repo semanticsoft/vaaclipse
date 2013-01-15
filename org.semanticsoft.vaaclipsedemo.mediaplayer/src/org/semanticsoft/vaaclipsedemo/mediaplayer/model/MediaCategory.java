@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class MediaCategory extends MediaEntry
 {
-	private List<MediaCategory> childCategories = new ArrayList<>();
-	private List<Media> mediaList = new ArrayList<>();
+	private List<MediaCategory> childCategories = new ArrayList<MediaCategory>();
+	private List<Media> mediaList = new ArrayList<Media>();
 		
 	public List<MediaCategory> getCategories()
 	{
@@ -25,7 +25,7 @@ public class MediaCategory extends MediaEntry
 	
 	public List<MediaEntry> getMediaEntries()
 	{
-		List<MediaEntry> entry = new ArrayList<>();
+		List<MediaEntry> entry = new ArrayList<MediaEntry>();
 		entry.addAll(this.childCategories);
 		entry.addAll(this.mediaList);
 		return entry;

@@ -44,16 +44,15 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 @SuppressWarnings("restriction")
-public class ToolItemRenderer extends ItemRenderer
-{
+public class ToolItemRenderer extends ItemRenderer {
 	@Inject
 	IContributionFactory contributionFactory;
-	
+
 	@Inject
 	EventBroker eventBroker;
-	
+
 	private static final String HCI_STATIC_CONTEXT = "HCI-staticContext";
-	
+
 	private EventHandler itemUpdater = new EventHandler() {
 		public void handleEvent(Event event) {
 			// Ensure that this event is for a MMenuItem
@@ -68,8 +67,10 @@ public class ToolItemRenderer extends ItemRenderer
 				return;
 			}
 
-			String attName = (String) event.getProperty(UIEvents.EventTags.ATTNAME);
-			String newValue = (String) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+			String attName = (String) event
+					.getProperty(UIEvents.EventTags.ATTNAME);
+			String newValue = (String) event
+					.getProperty(UIEvents.EventTags.NEW_VALUE);
 			if (UIEvents.UILabel.LABEL.equals(attName)) {
 				ici.setCaption(newValue);
 			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
@@ -80,7 +81,7 @@ public class ToolItemRenderer extends ItemRenderer
 			}
 		}
 	};
-	
+
 	private EventHandler toBeRenderedUpdater = new EventHandler() {
 		public void handleEvent(Event event) {
 			// Ensure that this event is for a MMenuItem
@@ -91,10 +92,10 @@ public class ToolItemRenderer extends ItemRenderer
 					.getProperty(UIEvents.EventTags.ELEMENT);
 			String attName = (String) event
 					.getProperty(UIEvents.EventTags.ATTNAME);
-			
+
 			if (UIEvents.UIElement.VISIBLE.equals(attName)) {
 				Button ici = (Button) itemModel.getWidget();
-				
+
 				if (ici == null) {
 					return;
 				}
@@ -109,11 +110,13 @@ public class ToolItemRenderer extends ItemRenderer
 			if (!(event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MToolBarElement))
 				return;
 
-			MToolBarElement itemModel = (MToolBarElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-			if (itemModel.getWidget() instanceof TwoStateToolbarButton)
-			{
-				TwoStateToolbarButton button = (TwoStateToolbarButton) itemModel.getWidget();
-				Boolean newValue = (Boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+			MToolBarElement itemModel = (MToolBarElement) event
+					.getProperty(UIEvents.EventTags.ELEMENT);
+			if (itemModel.getWidget() instanceof TwoStateToolbarButton) {
+				TwoStateToolbarButton button = (TwoStateToolbarButton) itemModel
+						.getWidget();
+				Boolean newValue = (Boolean) event
+						.getProperty(UIEvents.EventTags.NEW_VALUE);
 				button.setCheckedState(newValue);
 			}
 		}
@@ -128,7 +131,8 @@ public class ToolItemRenderer extends ItemRenderer
 			MToolBarElement itemModel = (MToolBarElement) event
 					.getProperty(UIEvents.EventTags.ELEMENT);
 			Button ici = (Button) itemModel.getWidget();
-			Boolean newValue = (Boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+			Boolean newValue = (Boolean) event
+					.getProperty(UIEvents.EventTags.NEW_VALUE);
 			ici.setEnabled(newValue);
 		}
 	};
@@ -138,7 +142,8 @@ public class ToolItemRenderer extends ItemRenderer
 		eventBroker.subscribe(UIEvents.UILabel.TOPIC_ALL, itemUpdater);
 		eventBroker.subscribe(UIEvents.Item.TOPIC_SELECTED, selectionUpdater);
 		eventBroker.subscribe(UIEvents.Item.TOPIC_ENABLED, enabledUpdater);
-		eventBroker.subscribe(UIEvents.UIElement.TOPIC_ALL, toBeRenderedUpdater);
+		eventBroker
+				.subscribe(UIEvents.UIElement.TOPIC_ALL, toBeRenderedUpdater);
 	}
 
 	@PreDestroy
@@ -150,80 +155,69 @@ public class ToolItemRenderer extends ItemRenderer
 	}
 
 	@Override
-	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent)
-	{
-		if (element instanceof MHandledToolItem || element instanceof MDirectToolItem)
-		{
+	public void createWidget(MUIElement element,
+			MElementContainer<MUIElement> parent) {
+		if (element instanceof MHandledToolItem
+				|| element instanceof MDirectToolItem) {
 			final MToolItem item = (MToolItem) element;
-			
+
 			Button button;
 			if (item.getType() == ItemType.CHECK)
 				button = new TwoStateToolbarButton();
-			else if (item.getType() == ItemType.PUSH)
-			{
+			else if (item.getType() == ItemType.PUSH) {
 				button = new Button();
 				button.addStyleName("vaaclipsebutton");
 				button.addListener(new ClickListener() {
-					
+
 					@Override
-					public void buttonClick(ClickEvent event)
-					{
+					public void buttonClick(ClickEvent event) {
 						Component parent = event.getButton().getParent();
-		                while (parent != null) {
-		                        if(parent instanceof Component.Focusable) {
-		                                ((Component.Focusable) parent).focus();
-		                                break;
-		                        } else {
-		                                parent = parent.getParent();
-		                        }
-		                }
+						while (parent != null) {
+							if (parent instanceof Component.Focusable) {
+								((Component.Focusable) parent).focus();
+								break;
+							} else {
+								parent = parent.getParent();
+							}
+						}
 					}
 				});
-			}
-			else
+			} else
 				throw new RuntimeException("this item type not implemented yet");
-			
+
 			button.setSizeUndefined();
 
 			String label = Commons.trim(item.getLabel());
 			String iconURI = Commons.trim(item.getIconURI());
-			
-			if (iconURI == null && label == null)
-			{
+
+			if (iconURI == null && label == null) {
 				button.setCaption("Blank");
 				button.addStyleName("textonly");
-			}
-			else
-			{
-				if (iconURI != null)
-				{
+			} else {
+				if (iconURI != null) {
 					Resource icon = ResourceHelper.createResource(iconURI);
 					button.setIcon(icon);
-				}
-				else
+				} else
 					button.addStyleName("textonly");
-				
-				if (label != null)
-				{
+
+				if (label != null) {
 					button.setCaption(label);
-				}
-				else
+				} else
 					button.addStyleName("icononly");
 			}
-			
-			if (item.getTooltip() != null)
-			{
+
+			if (item.getTooltip() != null) {
 				button.setDescription(item.getLocalizedTooltip());
 			}
-			
+
 			element.setWidget(button);
-			
+
 			updateItemEnablement(item);
 			button.setEnabled(item.isEnabled());
 			registerEnablementUpdaters(item);
 		}
 	}
-	
+
 	protected void updateItemEnablement(MItem item) {
 		if (!(item.getWidget() instanceof Button))
 			return;
@@ -231,12 +225,11 @@ public class ToolItemRenderer extends ItemRenderer
 		Button widget = (Button) item.getWidget();
 		if (widget == null)
 			return;
-		
+
 		item.setEnabled(canExecute(item));
 	}
-	
-	private boolean canExecute(MItem item)
-	{
+
+	private boolean canExecute(MItem item) {
 		if (item instanceof MHandledItem)
 			return canExecuteItem((MHandledItem) item);
 		else if (item instanceof MDirectToolItem)
@@ -247,67 +240,62 @@ public class ToolItemRenderer extends ItemRenderer
 
 	private boolean canExecuteItem(MDirectToolItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
-		if (eclipseContext == null) //item is not in hierarchy
+		if (eclipseContext == null) // item is not in hierarchy
 			return false;
 		eclipseContext.set(MItem.class, item);
 		setupContext(eclipseContext, item);
-		return (boolean) ContextInjectionFactory.invoke(item, CanExecute.class, eclipseContext, true);
+		return (Boolean) ContextInjectionFactory.invoke(item, CanExecute.class,
+				eclipseContext, true);
 	}
 
 	@Override
-	public void hookControllerLogic(MUIElement me)
-	{
-		if (me instanceof MDirectToolItem)
-		{
+	public void hookControllerLogic(MUIElement me) {
+		if (me instanceof MDirectToolItem) {
 			final MDirectToolItem item = (MDirectToolItem) me;
-			item.setObject(contributionFactory.create(item.getContributionURI(), getContext(item)));
+			item.setObject(contributionFactory.create(
+					item.getContributionURI(), getContext(item)));
 
 			final Button button = (Button) item.getWidget();
 			button.addListener(new ClickListener() {
 
 				@Override
-				public void buttonClick(ClickEvent event)
-				{
-					if (item.getType() == ItemType.CHECK)
-					{
-						item.setSelected(((TwoStateToolbarButton)button).getCheckedState());
+				public void buttonClick(ClickEvent event) {
+					if (item.getType() == ItemType.CHECK) {
+						item.setSelected(((TwoStateToolbarButton) button)
+								.getCheckedState());
 					}
-					
+
 					processAction(item);
 				}
 			});
-		}
-		else if (me instanceof MHandledToolItem)
-		{
+		} else if (me instanceof MHandledToolItem) {
 			final MHandledItem item = (MHandledToolItem) me;
 
 			final Button button = (Button) item.getWidget();
 			button.addListener(new ClickListener() {
 
 				@Override
-				public void buttonClick(ClickEvent event)
-				{
-					if (item.getType() == ItemType.CHECK)
-					{
-						item.setSelected(((TwoStateToolbarButton)button).getCheckedState());
+				public void buttonClick(ClickEvent event) {
+					if (item.getType() == ItemType.CHECK) {
+						item.setSelected(((TwoStateToolbarButton) button)
+								.getCheckedState());
 					}
-					
+
 					processParametrizedAction(item);
 				}
 			});
 		}
 	}
-	
+
 	@Override
-	protected void setupContext(IEclipseContext context, MItem item)
-	{
+	protected void setupContext(IEclipseContext context, MItem item) {
 		super.setupContext(context, item);
-		context.set(MToolItem.class, (MToolItem)item);
+		context.set(MToolItem.class, (MToolItem) item);
 		if (item instanceof MDirectToolItem)
-			context.set(MDirectToolItem.class, (MDirectToolItem)item);
+			context.set(MDirectToolItem.class, (MDirectToolItem) item);
 		else if (item instanceof MHandledToolItem)
-			context.set(MHandledToolItem.class, (MHandledToolItem)item);
+			context.set(MHandledToolItem.class, (MHandledToolItem) item);
 		else if (item instanceof MOpaqueToolItem)
-			context.set(MOpaqueToolItem.class, (MOpaqueToolItem)item);
+			context.set(MOpaqueToolItem.class, (MOpaqueToolItem) item);
 	}
 }

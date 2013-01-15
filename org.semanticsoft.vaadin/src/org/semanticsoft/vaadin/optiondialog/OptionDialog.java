@@ -61,7 +61,7 @@ public class OptionDialog extends Window {
 	private VerticalLayout content;
 	private HorizontalLayout buttons = new HorizontalLayout();
 	private Map<Button, Integer> button2option = new HashMap<Button, Integer>();
-	private Map<Integer, Button> option2button = new HashMap<>();
+	private Map<Integer, Button> option2button = new HashMap<Integer, Button>();
 
 	public OptionDialog() {
 		// msgLabel.setWidth("100%");

@@ -48,8 +48,8 @@ public class FastViewManager
 	private EModelService modelService;
 	
 	private Map<MUIElement, SingleElementFastViewManager> element2man = new HashMap<MUIElement, SingleElementFastViewManager>();
-	private Map<StackWidget, LayoutDragMode> layoutDragMode = new HashMap<>();
-	private Map<MUIElement, List<MPartStack>> areaStackWidgets = new HashMap<>();
+	private Map<StackWidget, LayoutDragMode> layoutDragMode = new HashMap<StackWidget, LayoutDragMode>();
+	private Map<MUIElement, List<MPartStack>> areaStackWidgets = new HashMap<MUIElement, List<MPartStack>>();
 	
 	private EventHandler minimizeHandler = new EventHandler() {
 		

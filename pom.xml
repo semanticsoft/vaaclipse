@@ -117,7 +117,8 @@
 				<module>org.semanticsoft.vaaclipse.p2</module>
 
 				<!-- P2 features -->
-				<module>org.semanticsoft.vaaclipse.feature.dependencies</module>
+				<module>org.semanticsoft.vaaclipse.feature.runtime.core</module>
+				<module>org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra</module>
 				<!-- end P2 features -->
 
 				<module>org.semanticsoft.vaaclipse.additions</module>
@@ -129,17 +130,11 @@
 				<module>org.semanticsoft.vaaclipse.presentation</module>
 				<module>org.semanticsoft.vaaclipse.publicapi</module>
 				<module>org.semanticsoft.vaaclipse.resources</module>
-				<module>org.semanticsoft.vaaclipse.targetdef</module>
 				<module>org.semanticsoft.vaaclipse.theme</module>
 				<module>org.semanticsoft.vaaclipse.util</module>
-				<module>org.semanticsoft.vaaclipse.vaadinaddons</module>
-				<module>org.semanticsoft.vaaclipse.widgets</module>
-				<module>org.semanticsoft.vaaclipse.wizards</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
-				<module>
-						org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons
-					</module>
 				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
 				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
 				<module>
@@ -152,10 +147,8 @@
 				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
 				<module>org.semanticsoft.e4extension</module>
 				<module>org.semanticsoft.e4modelextension</module>
-				<module>org.semanticsoft.e4tools.extension</module>
-				
+
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
-				<module>org.semanticsoft.vaaclipse.vaadin.addon.boundsinfo</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 			</modules>
 		</profile>
@@ -190,12 +183,10 @@
 			<modules>
 				<module>org.semanticsoft.vaaclipse.target.kepler</module>
 				<!-- P2 features -->
-				<module>org.semanticsoft.vaaclipse.feature.dependencies</module>
 				<!-- end P2 features -->
 
 				<!-- exclusive for P2 -->
 				<module>org.semanticsoft.vaaclipse.p2</module>
-
 				<module>org.semanticsoft.vaaclipse.publicapi</module>
 
 			</modules>

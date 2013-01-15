@@ -88,11 +88,11 @@ public class MinMaxAddon {
 	private final MApplication application;
 	
 	private Map<MToolBar, MPerspective> barPerspectiveInfo = new HashMap<MToolBar, MPerspective>();
-	private Set<MUIElement> minimizedElements = new HashSet<>();
+	private Set<MUIElement> minimizedElements = new HashSet<MUIElement>();
 	
 	//TODO: dispose elements of this map
-	public Map<MToolItem, MPart> item2Element = new HashMap<>();
-	public Map<MPart, MUIElement> part2element = new HashMap<>();
+	public Map<MToolItem, MPart> item2Element = new HashMap<MToolItem, MPart>();
+	public Map<MPart, MUIElement> part2element = new HashMap<MPart, MUIElement>();
 
 	@Inject
 	public MinMaxAddon(IEventBroker eventBroker, EModelService modelService,
@@ -296,7 +296,7 @@ public class MinMaxAddon {
 		partService.requestActivation();
 		
 		//send the minimize event
-		Map<String, Object> parameters = new HashMap<>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(Events.MinMaxEvents.PARAMETER_ELEMENT, element);
 		parameters.put(Events.MinMaxEvents.PARAMETER_TOOLBAR, toolBar);
 		parameters.put(Events.MinMaxEvents.PARAMETER_TRIMBAR, toolBar.getParent());
@@ -392,7 +392,7 @@ public class MinMaxAddon {
 			}
 		}
 		
-		Map<String, Object> parameters = new HashMap<>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(Events.MinMaxEvents.PARAMETER_ELEMENT, element);
 		eventBroker.send(Events.MinMaxEvents.EVENT_RESTORE_ELEMENT, parameters);
 	}

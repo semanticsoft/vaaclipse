@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Cassandra vaadin addons
 Bundle-SymbolicName: org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 0.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Rushan R. Gilmullin
 Export-Package: com.uwyn.jhighlight,
