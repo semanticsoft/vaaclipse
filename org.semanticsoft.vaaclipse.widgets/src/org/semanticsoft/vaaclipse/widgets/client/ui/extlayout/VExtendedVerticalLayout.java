@@ -30,7 +30,7 @@ public class VExtendedVerticalLayout extends VVerticalLayout
 	Boolean enableBoundsUpdate = false;
 	
 	@Override
-	public void recalculateLayoutHeight() 
+	public void updateExpandedSizes() 
 	{
 		if (updateManager != null)
 			updateManager.update();
