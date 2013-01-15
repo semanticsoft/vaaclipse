@@ -17,12 +17,14 @@ import org.semanticsoft.commons.geom.Bounds;
 
 /**
  * @author rushan
- *
+ * 
  */
-public interface WidgetInfo
-{
+public interface WidgetInfo {
 	Bounds getBounds(MWindow window);
+
 	Bounds getBounds(MWindow window, MUIElement element);
+
 	void invalidateBounds(MWindow window);
+
 	Object getParent(Object widget);
 }

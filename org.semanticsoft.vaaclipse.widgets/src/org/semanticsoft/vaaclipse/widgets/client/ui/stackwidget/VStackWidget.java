@@ -13,8 +13,6 @@ package org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget;
 
 import java.util.Map;
 
-import org.semanticsoft.commons.geom.GeomUtils.Side;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -36,7 +34,7 @@ public class VStackWidget extends VDDTabSheet
 	public static final String CLASSNAME = "v-stackwidget";
 
 	public static final String CLICK_EVENT_IDENTIFIER = "click";
-	
+	 
 	ApplicationConnection client;
 	String id;
 	
@@ -56,7 +54,6 @@ public class VStackWidget extends VDDTabSheet
     
     final String E4_ELEMENT_TYPE = "e4ElementType";
     
-    Side dockSide;
 	Element maximizeButton;
 	Element minimizeButton;
 	int state;

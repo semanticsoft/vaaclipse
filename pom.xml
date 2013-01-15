@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<tychoExtrasVersion>0.16.0</tychoExtrasVersion>
-		<vaadin-version>7.0.0.beta11</vaadin-version>
+		<vaadin-version>7.0-SNAPSHOT</vaadin-version>
 		<shiro-version>1.2.1</shiro-version>
 		<vaadin-icepush-version>0.5.4</vaadin-icepush-version>
 		<icepush-version>3.0.1</icepush-version>
@@ -121,17 +121,21 @@
 				<module>org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra</module>
 				<!-- end P2 features -->
 
+				<module>org.semanticsoft.vaadin</module>
+				<module>org.semanticsoft.vaadin.osgi.staticres</module>
+				<module>org.semanticsoft.commons</module>
 				<module>org.semanticsoft.vaaclipse.additions</module>
+				<module>org.semanticsoft.vaaclipse.behaviour</module>
 				<module>org.semanticsoft.vaaclipse.api</module>
 				<module>org.semanticsoft.vaaclipse.app</module>
-				<module>org.semanticsoft.vaaclipse.behaviour</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
 				<module>org.semanticsoft.vaaclipse.contributions</module>
-				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
 				<module>org.semanticsoft.vaaclipse.presentation</module>
 				<module>org.semanticsoft.vaaclipse.publicapi</module>
 				<module>org.semanticsoft.vaaclipse.resources</module>
 				<module>org.semanticsoft.vaaclipse.theme</module>
 				<module>org.semanticsoft.vaaclipse.util</module>
+				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
@@ -141,9 +145,7 @@
 						org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons
 					</module>
 				<module>org.semanticsoft.vaaclipsedemo.mini</module>
-				<module>org.semanticsoft.vaadin</module>
-				<module>org.semanticsoft.vaadin.osgi.staticres</module>
-				<module>org.semanticsoft.commons</module>
+
 				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
 				<module>org.semanticsoft.e4extension</module>
 				<module>org.semanticsoft.e4modelextension</module>
@@ -151,46 +153,6 @@
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 			</modules>
-		</profile>
-
-		<profile>
-			<id>deps-kepler</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>verify</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<!-- <resolver>p2</resolver> -->
-							<!-- <pomDependencies>consider</pomDependencies> -->
-							<ignoreTychoRepositories>true</ignoreTychoRepositories>
-							<target>
-								<artifact>
-									<groupId>org.semanticsoft</groupId>
-									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
-									<version>${project.version}</version>
-								</artifact>
-							</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-			<modules>
-				<module>org.semanticsoft.vaaclipse.target.kepler</module>
-				<!-- P2 features -->
-				<!-- end P2 features -->
-
-				<!-- exclusive for P2 -->
-				<module>org.semanticsoft.vaaclipse.p2</module>
-				<module>org.semanticsoft.vaaclipse.publicapi</module>
-
-			</modules>
-
 		</profile>
 
 		<profile>
@@ -222,7 +184,45 @@
 			</build>
 			<modules>
 				<module>org.semanticsoft.vaaclipse.target.kepler</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>client-widgets</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.kepler</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 			</modules>
 		</profile>
 

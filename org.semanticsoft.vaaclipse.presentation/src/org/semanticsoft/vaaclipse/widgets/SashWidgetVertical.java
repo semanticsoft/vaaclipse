@@ -11,8 +11,6 @@
 
 package org.semanticsoft.vaaclipse.widgets;
 
-import java.util.Map;
-
 import com.vaadin.ui.VerticalSplitPanel;
 
 /**

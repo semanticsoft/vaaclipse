@@ -10,6 +10,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.semanticsoft</groupId>
+			<artifactId>org.semanticsoft.vaaclipse.widgets</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.vaadin.peter</groupId>
 			<artifactId>contextmenu</artifactId>
 			<version>4.1.1</version>

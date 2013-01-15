@@ -144,4 +144,18 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.semanticsoft.vaaclipse.widgets"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.semanticsoft.e4.injector.objectsuppliers"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

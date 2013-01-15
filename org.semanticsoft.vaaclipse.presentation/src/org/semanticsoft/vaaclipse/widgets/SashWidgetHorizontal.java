@@ -11,10 +11,6 @@
 
 package org.semanticsoft.vaaclipse.widgets;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.vaadin.ui.HorizontalSplitPanel;
 
 /**
