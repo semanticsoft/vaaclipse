@@ -32,7 +32,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
-import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 
@@ -165,7 +165,7 @@ public class AreaRenderer extends VaadinRenderer
 			areaComp = new HorizontalLayout();
 		else
 		{
-			BoundsinfoVerticalLayout bi = new BoundsinfoVerticalLayout();
+			ExtendedVerticalLayout bi = new ExtendedVerticalLayout();
 			bi.setEnableBoundsUpdate(false);
 			bi.setVariableValue("e4ElementType", "area");
 			areaComp = bi;

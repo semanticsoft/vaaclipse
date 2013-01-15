@@ -111,6 +111,8 @@
       <plugin id="org.semanticsoft.vaaclipse.publicapi"/>
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.theme"/>
+      <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.dndlayout"/>
+      <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mini"/>
       <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>

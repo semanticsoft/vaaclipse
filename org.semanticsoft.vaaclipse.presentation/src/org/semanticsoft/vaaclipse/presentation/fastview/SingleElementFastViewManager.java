@@ -37,7 +37,7 @@ import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.Behaviour;
 import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
-import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.event.MouseEvents.ClickListener;
@@ -362,7 +362,7 @@ public class SingleElementFastViewManager
 		SideValue side = trimBar.getSide();
 		
 		TrimmedWindowContent windowContent = (TrimmedWindowContent) vaadinWindow.getContent();
-		BoundsinfoVerticalLayout clientArea = windowContent.getClientArea();
+		ExtendedVerticalLayout clientArea = windowContent.getClientArea();
 		
 		Bounds bounds = clientArea.getBounds();
 		

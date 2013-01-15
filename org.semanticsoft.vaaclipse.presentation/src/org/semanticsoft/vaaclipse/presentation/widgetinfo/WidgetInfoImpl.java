@@ -18,7 +18,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.WidgetInfo;
 import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
-import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.vaadin.ui.Component;
@@ -71,9 +71,9 @@ public class WidgetInfoImpl implements WidgetInfo
 			Window w = (Window) widget;
 			return new Bounds((int)w.getPositionX(), (int)w.getPositionY(), (int)w.getWidth(), (int)w.getHeight());
 		}
-		else if (widget instanceof BoundsinfoVerticalLayout)
+		else if (widget instanceof ExtendedVerticalLayout)
 		{
-			return ((BoundsinfoVerticalLayout) widget).getBounds();
+			return ((ExtendedVerticalLayout) widget).getBounds();
 		}
 		else if (widget instanceof StackWidget)
 		{

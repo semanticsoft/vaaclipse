@@ -14,8 +14,8 @@ package org.semanticsoft.vaaclipse.presentation.widgets;
 import java.util.Iterator;
 
 import org.semanticsoft.commons.geom.Bounds;
-import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout;
-import org.semanticsoft.vaaclipse.widgets.BoundsinfoVerticalLayout.BoundsUpdateListener;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout.BoundsUpdateListener;
 import org.semanticsoft.vaaclipse.widgets.SashWidget;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
@@ -37,7 +37,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 public class TrimmedWindowContent extends VerticalLayout
 {
 	private VerticalLayout windowBody;
-	private BoundsinfoVerticalLayout windowCenterArea;
+	private ExtendedVerticalLayout windowCenterArea;
 	private HorizontalLayout helperLayout;
 	private GridLayout topContainerPanel;
 	
@@ -74,12 +74,12 @@ public class TrimmedWindowContent extends VerticalLayout
 		this.addComponent(windowBody);
 		this.setExpandRatio(windowBody, 100);
 		
-		windowCenterArea = new BoundsinfoVerticalLayout();
+		windowCenterArea = new ExtendedVerticalLayout();
 		windowCenterArea.setEnableBoundsUpdate(true); //enable bounds update
 		windowCenterArea.setSizeFull();
 		windowCenterArea.addBoundsUpdateListener(new BoundsUpdateListener() {
 			
-			public void processEvent(BoundsinfoVerticalLayout layout) {
+			public void processEvent(ExtendedVerticalLayout layout) {
 				invalidateBounds();
 			}
 		});
@@ -109,7 +109,7 @@ public class TrimmedWindowContent extends VerticalLayout
 		//-------------------------------------------------------------------
 	}
 	
-	public BoundsinfoVerticalLayout getClientArea()
+	public ExtendedVerticalLayout getClientArea()
 	{
 		return windowCenterArea;
 	}
@@ -233,9 +233,9 @@ public class TrimmedWindowContent extends VerticalLayout
 	
 	private void updateBounds(ComponentContainer container, Bounds currentBounds)
 	{
-		if (container instanceof BoundsinfoVerticalLayout)
+		if (container instanceof ExtendedVerticalLayout)
 		{
-			BoundsinfoVerticalLayout bvl = (BoundsinfoVerticalLayout) container;
+			ExtendedVerticalLayout bvl = (ExtendedVerticalLayout) container;
 			bvl.setBounds(currentBounds);
 		}
 		else if (container instanceof StackWidget)
