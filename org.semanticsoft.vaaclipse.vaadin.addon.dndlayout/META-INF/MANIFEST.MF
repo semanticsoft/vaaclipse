@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Contextmenu addon
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadin.addon.dndlayout
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: dragdroplayouts-development.jar,

@@ -43,10 +43,10 @@ import com.vaadin.ui.UI;
 
 public class VaadinOSGiCommunicationManager extends CommunicationManager
 		implements VaadinExecutorService {
-	private Queue<Runnable> runnables = new LinkedList<>();
-	private Set<Object> keys = new HashSet<>();
+	private Queue<Runnable> runnables = new LinkedList<Runnable>();
+	private Set<Object> keys = new HashSet<Object>();
 	private Map<Runnable, Object> runnable2Key = new HashMap<Runnable, Object>();
-	private Queue<Runnable> runnables2 = new LinkedList<>();
+	private Queue<Runnable> runnables2 = new LinkedList<Runnable>();
 
 	public VaadinOSGiCommunicationManager(VaadinSession session) {
 		super(session);

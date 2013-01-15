@@ -31,7 +31,7 @@ public class PlayPlaylist
 		Media selectedInPlaylist = playlist.getSelectedMedia();
 		if (selectedInPlaylist != null)
 		{
-			Map<String, Object> params = new HashMap<>();
+			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(IEventBroker.DATA, selectedInPlaylist);
 			params.put(MediaConstants.autoPlay, true);
 			eventBroker.send(MediaConstants.mediaEntrySelected, params);	

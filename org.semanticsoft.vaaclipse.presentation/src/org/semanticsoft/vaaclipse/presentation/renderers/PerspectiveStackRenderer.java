@@ -75,7 +75,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	private HorizontalLayout perspectiveSwitcherPanel;
 //	private ContextMenu menu;
 //	private ContextMenuItem showTextItem;
-	private Map<MPerspective, TwoStateToolbarButton> perspective_button = new HashMap<>();
+	private Map<MPerspective, TwoStateToolbarButton> perspective_button = new HashMap<MPerspective, TwoStateToolbarButton>();
 	
 	private MPerspective lastClickedPerspective;
 	private MPerspective activePerspective;

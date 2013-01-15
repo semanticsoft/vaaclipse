@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Behaviour
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.behaviour;singleton:=true
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 0.0.1.qualifier
 Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.e4.core.commands;bundle-version="0.10.1",
@@ -12,10 +12,10 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.eclipse.e4.core.services;bundle-version="1.0.0",
  org.eclipse.e4.core.contexts;bundle-version="1.1.0",
  org.eclipse.osgi.services;bundle-version="3.3.100",
- org.semanticsoft.vaaclipse.presentation;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.api;bundle-version="1.0.0",
- org.semanticsoft.commons;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.app;bundle-version="1.0.0"
+ org.semanticsoft.vaaclipse.presentation;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.api;bundle-version="0.0.1",
+ org.semanticsoft.commons;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.app;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.vaaclipse.behaviour,
  org.semanticsoft.vaaclipse.behaviour.cleanup

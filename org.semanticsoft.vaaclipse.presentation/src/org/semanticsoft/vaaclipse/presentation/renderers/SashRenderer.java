@@ -178,8 +178,8 @@ public class SashRenderer extends VaadinRenderer {
 		if (renderableAndVisible.size() < 2)
 			return;
 		
-		Map<MPartSashContainerElement, Double> weights = new HashMap<>();
-		Map<Component, MPartSashContainerElement> map = new HashMap<>();
+		Map<MPartSashContainerElement, Double> weights = new HashMap<MPartSashContainerElement, Double>();
+		Map<Component, MPartSashContainerElement> map = new HashMap<Component, MPartSashContainerElement>();
 		double total_weight = 0;
 		for (MPartSashContainerElement children : renderableAndVisible)
 		{
@@ -262,7 +262,7 @@ public class SashRenderer extends VaadinRenderer {
 							List<MPartSashContainerElement> renderableAndVisible = (List<MPartSashContainerElement>) filterRenderableAndVisibleElements(sash);
 							MPartSashContainerElement firstChild = null;
 							double rest_weight = 0;
-							List<MPartSashContainerElement> restChilds = new LinkedList<>();
+							List<MPartSashContainerElement> restChilds = new LinkedList<MPartSashContainerElement>();
 							for (int i = 0; i < renderableAndVisible.size(); i++)
 							{
 								MPartSashContainerElement child = renderableAndVisible.get(i);

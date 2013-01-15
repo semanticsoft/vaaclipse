@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.semanticsoft.vaaclipse.feature.dependencies_0.0.1.qualifier.jar" id="org.semanticsoft.vaaclipse.feature.dependencies" version="0.0.1.qualifier">
-      <category name="external_dependencies"/>
+   <feature url="features/org.semanticsoft.vaaclipse.feature.runtime.core_0.0.1.qualifier.jar" id="org.semanticsoft.vaaclipse.feature.runtime.core" version="0.0.1.qualifier">
+      <category name="vaaclipse_core"/>
    </feature>
-   <category-def name="external_dependencies" label="External dependencies"/>
+   <feature url="features/org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra_0.0.1.qualifier.jar" id="org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra" version="0.0.1.qualifier">
+      <category name="vaaclipse_demo"/>
+   </feature>
+   <category-def name="vaaclipse_core" label="Vaaclipse Core features"/>
+   <category-def name="vaaclipse_demo" label="Vaaclipse demos"/>
 </site>

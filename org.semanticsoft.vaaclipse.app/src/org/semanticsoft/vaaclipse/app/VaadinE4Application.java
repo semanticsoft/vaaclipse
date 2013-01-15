@@ -116,7 +116,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		logger.debug("VaadinE4Application.start()");
 		context.applicationRunning();
 
-		queue = new ArrayBlockingQueue<>(10);
+		queue = new ArrayBlockingQueue<String>(10);
 
 		startVaadinWebApplication();
 

@@ -75,7 +75,7 @@ public class VaadinRenderer implements GenericRenderer {
 	
 	protected List<? extends MUIElement> filterRenderableAndVisibleElements(MElementContainer<?> sash)
 	{
-		List<MUIElement> renderableAndVisible = new ArrayList<>();
+		List<MUIElement> renderableAndVisible = new ArrayList<MUIElement>();
 		for (MUIElement e : sash.getChildren())
 		{
 			if (e.isToBeRendered() && e.isVisible() 

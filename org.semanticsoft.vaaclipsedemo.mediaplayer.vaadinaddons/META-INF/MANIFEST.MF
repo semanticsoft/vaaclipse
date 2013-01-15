@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Vaadinaddons
 Bundle-SymbolicName: org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons
-Bundle-Version: 1.0.0
+Bundle-Version: 0.0.1.qualifier
 Export-Package: org.vaadin.overlay,
  org.vaadin.overlay.client.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
