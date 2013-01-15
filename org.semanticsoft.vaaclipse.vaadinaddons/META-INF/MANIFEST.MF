@@ -25,4 +25,4 @@ Require-Bundle: org.semanticsoft.commons;bundle-version="0.0.1",
  com.vaadin.server;bundle-version="7.0.0",
  com.vaadin.shared;bundle-version="7.0.0",
  com.vaadin.shared.deps;bundle-version="1.0.2",
- org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="1.0.0"
+ org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="0.0.1"
