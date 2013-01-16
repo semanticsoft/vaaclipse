@@ -14,8 +14,8 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.semanticsoft.commons.geom.Side;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
+import org.semanticsoft.vaaclipse.widgets.common.Side;
 
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;

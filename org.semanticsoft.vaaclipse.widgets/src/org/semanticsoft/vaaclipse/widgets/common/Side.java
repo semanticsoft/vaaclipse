@@ -1,4 +1,4 @@
-package org.semanticsoft.commons.geom;
+package org.semanticsoft.vaaclipse.widgets.common;
 
 /**
  * Side values from eclipse model's SideValue for using in client and server

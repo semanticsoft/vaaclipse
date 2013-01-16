@@ -34,9 +34,9 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.commons.geom.Side;
 import org.semanticsoft.vaaclipse.api.Behaviour;
 import org.semanticsoft.vaaclipse.widgets.FastView;
+import org.semanticsoft.vaaclipse.widgets.common.Side;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.event.MouseEvents.ClickListener;

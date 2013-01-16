@@ -13,10 +13,10 @@ package org.semanticsoft.vaaclipse.widgets.client.ui.fastview;
 
 import java.util.Set;
 
-import org.semanticsoft.commons.geom.Side;
 import org.semanticsoft.vaaclipse.widgets.Constants;
 import org.semanticsoft.vaaclipse.widgets.FastView;
 import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.VExtendedVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.common.Side;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
