@@ -34,17 +34,15 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.commons.geom.Bounds;
+import org.semanticsoft.commons.geom.Side;
 import org.semanticsoft.vaaclipse.api.Behaviour;
-import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
-import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.FastView;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.event.MouseEvents.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Window;
 /**
  * @author rushan
  *
@@ -76,7 +74,7 @@ public class SingleElementFastViewManager
 	private static final String STATE_YSIZE = "YSize"; //$NON-NLS-1$
 
 	private boolean isShowing = false;
-	private Window hostPane;
+	private FastView hostPane;
 
 	@Inject
 	EModelService modelService;
@@ -331,8 +329,6 @@ public class SingleElementFastViewManager
 			//ctf.setSizeFull();
 			hostPane.setContent(ctf);
 			
-			// Set the initial location
-			setPaneLocation(hostPane);
 			vaadinUI.addWindow(hostPane);
 //			vaadinApplication.getMainWindow().addListener(resizeListener);
 			vaadinWindow.addClickListener(layoutClickListener);
@@ -358,38 +354,13 @@ public class SingleElementFastViewManager
 		}
 	}
 
-	private void setPaneLocation(Window fastWindow) {
-		SideValue side = trimBar.getSide();
-		
-		TrimmedWindowContent windowContent = (TrimmedWindowContent) vaadinWindow.getContent();
-		ExtendedVerticalLayout clientArea = windowContent.getClientArea();
-		
-		Bounds bounds = clientArea.getBounds();
-		
-		int x, y;
-		if (side == SideValue.LEFT)
-		{
-			x = bounds.x;
-			y = bounds.y;
-		}
-		else if (side == SideValue.RIGHT)
-		{
-			x = bounds.x + bounds.w - (int)fastWindow.getWidth();
-			y = bounds.y;
-		}
-		else
-			return;
-		
-		hostPane.setPositionX(x);
-		hostPane.setPositionY(y);
-	}
-
-	private Window getHostPane() {
+	private FastView getHostPane() {
 		if (hostPane != null)
 			return hostPane;
 
 		// Create one
-		hostPane = new Window();
+		hostPane = new FastView();
+		hostPane.setSide(trimBar.getSide() == SideValue.RIGHT ? Side.RIGHT: Side.LEFT);
 		hostPane.setClosable(false);
 		hostPane.setDraggable(false);
 		if (trimBar.getSide() == SideValue.RIGHT)
@@ -397,16 +368,6 @@ public class SingleElementFastViewManager
 		//hostPane.setResizeLazy(true);
 		hostPane.setStyleName("loading-window");
 		hostPane.getContent().setSizeFull();
-		float xSize = 600;
-		String xSizeStr = toolBar.getPersistedState().get(STATE_XSIZE);
-		if (xSizeStr != null)
-			xSize = Float.parseFloat(xSizeStr);
-		float ySize = 400;
-		String ySizeStr = toolBar.getPersistedState().get(STATE_YSIZE);
-		if (ySizeStr != null)
-			ySize = Float.parseFloat(ySizeStr);
-		hostPane.setWidth(xSize, Component.UNITS_PIXELS);
-		hostPane.setHeight(ySize, Component.UNITS_PIXELS);
 		
 		//TODO: implement closing by esc
 //		hostPane.addListener(SWT.Traverse, new Listener() {

@@ -17,6 +17,7 @@ Export-Package: com.vaadin.incubator.dashlayout.client.ui,
  org.semanticsoft.vaaclipse.widgets,
  org.semanticsoft.vaaclipse.widgets.client.ui,
  org.semanticsoft.vaaclipse.widgets.client.ui.extlayout,
+ org.semanticsoft.vaaclipse.widgets.client.ui.fastview,
  org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget,
  org.vaadin.peter.contextmenu,
  org.vaadin.peter.contextmenu.client.ui

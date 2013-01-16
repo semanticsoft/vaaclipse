@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.semanticsoft.commons.geom.Bounds;
-import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.BoundsParser;
 import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.VExtendedVerticalLayout;
 
 import com.vaadin.server.PaintException;
@@ -49,7 +48,6 @@ public class ExtendedVerticalLayout extends VerticalLayout implements LegacyComp
 	@Override
 	public void paintContent(PaintTarget target) throws PaintException
 	{
-		target.addAttribute(VExtendedVerticalLayout.ENABLE_BOUNDS_UPDATE, enableBoundsUpdate);
 		target.addAttribute(VExtendedVerticalLayout.VARIABLES, variables);
 	}
 
@@ -61,23 +59,6 @@ public class ExtendedVerticalLayout extends VerticalLayout implements LegacyComp
 	@Override
 	public void changeVariables(Object source, Map<String, Object> variables)
 	{
-		if (variables.containsKey("bounds"))
-		{
-			System.out.println("update bounds of BoundsInfoVerticalLayout");
-			String boundsStr = (String) variables.get("bounds");
-
-			int[] bounds = BoundsParser.fromString(boundsStr);
-			absoluteLeft = bounds[0];
-			absoluteTop = bounds[1];
-			offsetWidth = bounds[2];
-			offsetHeight = bounds[3];
-			
-			for (BoundsUpdateListener l : this.boundsUpdateListeners)
-			{
-				l.processEvent(this);
-			}
-		}
-		
 		if (variables.containsKey("absolute_top"))
 		{
 			absoluteTop = (Integer) variables.get("absolute_top");	

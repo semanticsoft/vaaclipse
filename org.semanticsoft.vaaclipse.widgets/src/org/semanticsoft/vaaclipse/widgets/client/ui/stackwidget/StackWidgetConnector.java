@@ -13,6 +13,8 @@ package org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget;
 
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.UIDL;
 import com.vaadin.client.VConsole;
@@ -27,6 +29,12 @@ import fi.jasoft.dragdroplayouts.client.ui.tabsheet.DDTabsheetConnector;
 @Connect(StackWidget.class)
 public class StackWidgetConnector extends DDTabsheetConnector
 {
+	@Override
+	protected Widget createWidget() 
+	{
+		return GWT.create(VStackWidget.class);
+	}
+	
 	@Override
     public VStackWidget getWidget() 
 	{

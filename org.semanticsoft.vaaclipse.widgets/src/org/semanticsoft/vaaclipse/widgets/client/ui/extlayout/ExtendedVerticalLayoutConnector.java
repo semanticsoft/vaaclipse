@@ -50,9 +50,5 @@ public class ExtendedVerticalLayoutConnector extends VerticalLayoutConnector
     			layout.variables.put(index, vmap.getString(index));
     		}
     	}
-		
-		layout.enableBoundsUpdate = uidl.getBooleanAttribute(VExtendedVerticalLayout.ENABLE_BOUNDS_UPDATE);
-		if (layout.enableBoundsUpdate)
-			layout.updateManager = new BoundsUpdateManager(layout, uidl.getId(), client);
 	}
 }

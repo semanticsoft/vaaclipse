@@ -96,6 +96,8 @@ public class VStackWidget extends VDDTabSheet
         	DOM.setStyleAttribute(child, "float", "left");
         }
         
+        VConsole.log("VStackWidget: start adding button panel");
+        
         buttonPanel = DOM.createDiv();
         setStyleName(buttonPanel, "vaadock-tabsheet-button-panel");
         DOM.appendChild(tabs, buttonPanel);
@@ -109,6 +111,8 @@ public class VStackWidget extends VDDTabSheet
         DOM.sinkEvents(minimizeButton, Event.ONCLICK);
         setStyleName(minimizeButton, "v-vaadock-tabsheet-minimize-button");
         DOM.appendChild(buttonPanel, minimizeButton);
+        
+        VConsole.log("VStackWidget: end adding button panel");
         
 //        if (VDragAndDropManager.get().getDragHandlerFinder() == null)
 //        {

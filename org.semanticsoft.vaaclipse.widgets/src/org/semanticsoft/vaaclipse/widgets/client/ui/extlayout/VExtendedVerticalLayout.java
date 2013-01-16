@@ -19,25 +19,12 @@ import com.vaadin.client.ui.VVerticalLayout;
 public class VExtendedVerticalLayout extends VVerticalLayout
 {	
 	public static final String VARIABLES = "_variables_";
-	public static final String ENABLE_BOUNDS_UPDATE = "enable_bounds_update";
 
 	/** The client side widget identifier */
 	String paintableId;
 	
-	BoundsUpdateManager updateManager;
-	
 	Map<String, String> variables = new HashMap<String, String>();
-	Boolean enableBoundsUpdate = false;
 	
-	@Override
-	public void updateExpandedSizes() 
-	{
-		if (updateManager != null)
-			updateManager.update();
-		
-		super.updateExpandedSizes();
-	}
-
 	public String getVariableValue(String varName)
 	{
 		return this.variables.get(varName);
