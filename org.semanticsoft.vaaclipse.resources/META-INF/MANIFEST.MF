@@ -4,5 +4,5 @@ Bundle-Name: Resources
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.resources
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
-Fragment-Host: com.vaadin.themes;bundle-version="7.0.0.nightly-ddcd8d06f154c73136ab3f19477abb5c6fce73fd-338"
+Fragment-Host: com.vaadin.themes;bundle-version="7.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
