@@ -360,7 +360,7 @@ public class SingleElementFastViewManager
 
 		// Create one
 		hostPane = new FastView();
-		hostPane.setSide(trimBar.getSide() == SideValue.RIGHT ? Side.RIGHT: Side.LEFT);
+		hostPane.setSide(trimBar.getSide().getValue());
 		hostPane.setClosable(false);
 		hostPane.setDraggable(false);
 		if (trimBar.getSide() == SideValue.RIGHT)

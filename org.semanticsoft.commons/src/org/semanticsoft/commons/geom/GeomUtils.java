@@ -17,7 +17,7 @@ package org.semanticsoft.commons.geom;
  */
 public class GeomUtils {
 	
-	public static Side findDockSide(int x0, int y0, int dx, int dy, double docX, double docY, Vector mousePos) 
+	public static Integer findDockSide(int x0, int y0, int dx, int dy, double docX, double docY, Vector mousePos) 
 	{
 		if (GeometryHelper.containsInRectangle(Vector.valueOf(x0 + docX, y0 + docY), Vector.valueOf(dx - 2*docX, dy - 2*docY), mousePos))
 			return Side.CENTER;

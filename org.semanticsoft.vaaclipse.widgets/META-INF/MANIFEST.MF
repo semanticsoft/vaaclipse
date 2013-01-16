@@ -8,7 +8,6 @@ Require-Bundle: com.vaadin.client;bundle-version="7.0.0",
  com.vaadin.shared;bundle-version="7.0.0",
  com.vaadin.shared.deps;bundle-version="1.0.2",
  com.vaadin.themes;bundle-version="7.0.0",
- org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="0.0.1",
- org.semanticsoft.commons;bundle-version="0.0.1"
+ org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.vaaclipse.widgets

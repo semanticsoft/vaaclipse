@@ -620,12 +620,12 @@ public class MinMaxAddon {
 		SideValue side = SideValue.LEFT;
 //		SideValue side = getCachedBar(element);
 //		if (side == null) {
-			Bounds winBounds = widgetInfo.getBounds(window);
-			int winCenterX = winBounds.w / 2;
-			widgetInfo.invalidateBounds(window);
-			Bounds stackBounds = widgetInfo.getBounds(window, element);
-			int stackCenterX = stackBounds.x + (stackBounds.w / 2);
-			side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;
+//			Bounds winBounds = widgetInfo.getBounds(window);
+//			int winCenterX = winBounds.w / 2;
+//			widgetInfo.invalidateBounds(window);
+//			Bounds stackBounds = widgetInfo.getBounds(window, element);
+//			int stackCenterX = stackBounds.x + (stackBounds.w / 2);
+//			side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;
 //		}
 		MTrimBar bar = modelService.getTrim(window, side);
 

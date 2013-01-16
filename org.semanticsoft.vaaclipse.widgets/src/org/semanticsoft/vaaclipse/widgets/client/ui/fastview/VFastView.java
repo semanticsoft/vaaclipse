@@ -11,11 +11,9 @@
 
 package org.semanticsoft.vaaclipse.widgets.client.ui.fastview;
 
-import org.semanticsoft.commons.geom.Side;
-
 import com.vaadin.client.ui.VWindow;
 
 public class VFastView extends VWindow 
 {
-	Side side;
+	Integer side;
 }

@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipse.widgets;
 
-import org.semanticsoft.commons.geom.Side;
 import org.semanticsoft.vaaclipse.widgets.client.ui.fastview.FastViewState;
 
 import com.vaadin.ui.Window;
@@ -28,7 +27,7 @@ public class FastView extends Window
 		return (FastViewState) super.getState();
 	}
 	
-	public void setSide(Side side)
+	public void setSide(Integer side)
 	{
 		this.getState().side = side;
 	}

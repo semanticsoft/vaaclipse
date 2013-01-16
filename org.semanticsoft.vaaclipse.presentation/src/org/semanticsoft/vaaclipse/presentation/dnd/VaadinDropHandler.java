@@ -219,17 +219,17 @@ public class VaadinDropHandler implements DropHandler
 		
 	}
 	
-	private int convert(Side side)
-	{
-		if (side == Side.LEFT)
-			return EModelService.LEFT_OF;
-		else if (side == Side.RIGHT)
-			return EModelService.RIGHT_OF;
-		else if (side == Side.BOTTOM)
-			return EModelService.BELOW;
-		else if (side == Side.TOP)
-			return EModelService.ABOVE;
-		else
-			throw new IllegalArgumentException();
-	}
+//	private int convert(Side side)
+//	{
+//		if (side == Side.LEFT)
+//			return EModelService.LEFT_OF;
+//		else if (side == Side.RIGHT)
+//			return EModelService.RIGHT_OF;
+//		else if (side == Side.BOTTOM)
+//			return EModelService.BELOW;
+//		else if (side == Side.TOP)
+//			return EModelService.ABOVE;
+//		else
+//			throw new IllegalArgumentException();
+//	}
 }

@@ -54,7 +54,6 @@ public class PlaceholderRenderer extends VaadinRenderer
 		
 		//VerticalLayout phComp = new VerticalLayout();
 		ExtendedVerticalLayout phComp = new ExtendedVerticalLayout();
-		phComp.setEnableBoundsUpdate(false);
 		phComp.setSizeFull();
 		phComp.setMargin(false);
 		ph.setWidget(phComp);

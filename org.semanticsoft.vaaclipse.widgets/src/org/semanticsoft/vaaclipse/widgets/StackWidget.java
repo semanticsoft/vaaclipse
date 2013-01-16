@@ -16,8 +16,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.semanticsoft.commons.geom.Bounds;
-
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
 
@@ -38,7 +36,6 @@ public class StackWidget extends DDTabSheet
 	public transient boolean minimizeEnabled = true;
 	private int state = 0;
 	private List<StateListener> stateListeners = new ArrayList<StateListener>();
-	private Bounds bounds;
 	
 	public StackWidget()
 	{
@@ -124,20 +121,5 @@ public class StackWidget extends DDTabSheet
 		{
 			stateListener.stateChanged(newState, oldState);
 		}
-	}
-	
-	public boolean hasBoundsInfo()
-	{
-		return this.bounds != null;
-	}
-	
-	public Bounds getBounds()
-	{
-		return this.bounds;
-	}
-	
-	public void setBounds(Bounds bounds)
-	{
-		this.bounds = bounds;
 	}
 }

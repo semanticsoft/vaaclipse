@@ -166,7 +166,6 @@ public class AreaRenderer extends VaadinRenderer
 		else
 		{
 			ExtendedVerticalLayout bi = new ExtendedVerticalLayout();
-			bi.setEnableBoundsUpdate(false);
 			bi.setVariableValue("e4ElementType", "area");
 			areaComp = bi;
 		}
