@@ -139,6 +139,9 @@
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+				
+				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
+				
 				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
 				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
 				<module>
@@ -188,6 +191,7 @@
 				<module>org.semanticsoft.commons</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
 			</modules>
 		</profile>
 

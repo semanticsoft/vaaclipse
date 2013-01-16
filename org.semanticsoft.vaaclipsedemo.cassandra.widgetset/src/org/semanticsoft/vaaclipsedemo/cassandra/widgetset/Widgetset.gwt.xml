@@ -8,8 +8,4 @@
 	<inherits
 		name="org.semanticsoft.vaaclipse.widgets.Org_semanticsoft_vaaclipse_widgetsWidgetset" />
 
-	<replace-with class="com.vaadin.client.ui.dd.VDragAndDropManager2">
-		<when-type-is class="com.vaadin.client.ui.dd.VDragAndDropManager" />
-	</replace-with>
-
 </module>

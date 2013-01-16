@@ -1,7 +1,5 @@
 bin/
 .*.jar
-**/xtend-gen
-**/src-gen
 .DS_Store
 target
 .classpath
@@ -11,5 +9,9 @@ xtend-gen/
 plugin.xml_gen
 .project
 *.tmp
-**/resources/VAADIN/widgetsets
-**/resources/VAADIN/gwt-unitCache
+**/xtend-gen
+**/src-gen
+**/widgetsets
+**/gwt-unitCache
+**/resources
+**/WEB-INF
