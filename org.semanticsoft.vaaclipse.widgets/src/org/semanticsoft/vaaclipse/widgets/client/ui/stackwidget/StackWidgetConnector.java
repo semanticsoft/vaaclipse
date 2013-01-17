@@ -51,8 +51,6 @@ public class StackWidgetConnector extends DDTabsheetConnector
 		stackWidget.id = uidl.getId();
 		stackWidget.client = client;
 		
-		super.updateFromUIDL(uidl, client);
-		
         if (uidl.getIntAttribute("svoi") == 5)
         {
         	int state = uidl.getIntAttribute("vaadock_tabsheet_state");
@@ -66,5 +64,20 @@ public class StackWidgetConnector extends DDTabsheetConnector
             if (!stackWidget.minimizeEnabled)
             	stackWidget.minimizeButton.setAttribute("style", "display: none;");
         }
+        
+        if (isRealUpdate(uidl) && !uidl.hasAttribute("hidden")) {
+            UIDL acceptCrit = uidl.getChildByTagName("-ac");
+            if (acceptCrit == null) {
+                getWidget().setDropHandler(null);
+            } else {
+                if (getWidget().getDropHandler() == null) {
+                    getWidget().setDropHandler(new VStackWidgetDropHandler(getWidget(), client));
+                    VConsole.log("updateFromUIDL: VStackWidgetDropHandler installed");
+                }
+                getWidget().getDropHandler().updateAcceptRules(acceptCrit);
+            }
+        }
+        
+		super.updateFromUIDL(uidl, client);
 	}
 }

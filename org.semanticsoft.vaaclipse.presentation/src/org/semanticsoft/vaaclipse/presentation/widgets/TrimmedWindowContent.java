@@ -12,7 +12,6 @@
 package org.semanticsoft.vaaclipse.presentation.widgets;
 
 import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
-import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
 import org.semanticsoft.vaaclipse.widgets.common.Constants;
 
 import com.vaadin.ui.Component;

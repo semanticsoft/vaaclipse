@@ -13,13 +13,28 @@ package org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget;
 
 import java.util.Map;
 
+import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.VExtendedVerticalLayout;
+import org.semanticsoft.vaaclipse.widgets.common.GeomUtils;
+import org.semanticsoft.vaaclipse.widgets.common.Side;
+import org.semanticsoft.vaaclipse.widgets.common.Vector;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
+import com.vaadin.client.MouseEventDetailsBuilder;
+import com.vaadin.client.Util;
 import com.vaadin.client.VConsole;
+import com.vaadin.client.ui.dd.VDragEvent;
+import com.vaadin.shared.MouseEventDetails;
+import com.vaadin.shared.ui.dd.HorizontalDropLocation;
 
+import fi.jasoft.dragdroplayouts.client.ui.Constants;
+import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.tabsheet.VDDTabSheet;
 
 /**
@@ -39,18 +54,21 @@ public class VStackWidget extends VDDTabSheet
 	String id;
 	
 	//Minmax button support
-	private Element tabs;
-	private Element scroller;
-	private Element buttonPanel;
+	Element tabs;
+	Element scroller;
+	Element buttonPanel;
 	
 	//Docking support
+	ComplexPanel tabBar;
+	
+	Integer dockSide;
+	
+    Element dockZone1;
+    Element dockZone2;
+    Element dockZone3;
+    Element dockZone4;
     
-    private Element dockZone1;
-    private Element dockZone2;
-    private Element dockZone3;
-    private Element dockZone4;
-    
-    private Element dockZoneContainer;
+    Element dockZoneContainer;
     
     final String E4_ELEMENT_TYPE = "e4ElementType";
     
@@ -83,6 +101,9 @@ public class VStackWidget extends VDDTabSheet
 		
 		this.baseURL = GWT.getHostPageBaseURL();
 		
+		// Get the tabBar
+        tabBar = (ComplexPanel) getChildren().get(0);
+		
 		tabs = (Element) getElement().getChild(0);
         
         scroller = DOM.getChild(tabs, 1);
@@ -95,8 +116,6 @@ public class VStackWidget extends VDDTabSheet
         	Element child = DOM.getChild(scroller, i);
         	DOM.setStyleAttribute(child, "float", "left");
         }
-        
-        VConsole.log("VStackWidget: start adding button panel");
         
         buttonPanel = DOM.createDiv();
         setStyleName(buttonPanel, "vaadock-tabsheet-button-panel");
@@ -112,7 +131,6 @@ public class VStackWidget extends VDDTabSheet
         setStyleName(minimizeButton, "v-vaadock-tabsheet-minimize-button");
         DOM.appendChild(buttonPanel, minimizeButton);
         
-        VConsole.log("VStackWidget: end adding button panel");
         
 //        if (VDragAndDropManager.get().getDragHandlerFinder() == null)
 //        {
@@ -233,6 +251,37 @@ public class VStackWidget extends VDDTabSheet
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//Drag-and-drop support
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    @Override
+    public void deEmphasis() 
+    {
+    	super.deEmphasis();
+    }
+    
+    @Override
+    public void emphasis(Element element, VDragEvent event) 
+    {
+    	super.emphasis(element, event);
+    }
+    
+    @Override
+    public boolean postDropHook(VDragEvent drag) 
+    {
+    	return super.postDropHook(drag);
+    }
+    
+    @Override
+    protected void postOverHook(VDragEvent drag) 
+    {
+    	super.postOverHook(drag);
+    }
+    
+    @Override
+    public void postLeaveHook(VDragEvent drag) 
+    {
+    	super.postLeaveHook(drag);
+    }
+    
 //  public VDropHandler findDragTarget(com.google.gwt.dom.client.Element element) {
 //		
 //      try {
@@ -274,408 +323,301 @@ public class VStackWidget extends VDDTabSheet
 //      }
 //
 //  }
-//    
-//    @Override
-//    protected void updateDropHandler(UIDL childUidl) {
-//        if (dropHandler == null) {
-//            dropHandler = new VAbstractDropHandler() {
-//
-//                /*
-//                 * (non-Javadoc)
-//                 * 
-//                 * @see com.vaadin.terminal.gwt.client.ui.dd.VDropHandler#
-//                 * getApplicationConnection()
-//                 */
-//                public ApplicationConnection getApplicationConnection() {
-//                    return client;
-//                }
-//
-//                /*
-//                 * (non-Javadoc)
-//                 * 
-//                 * @see
-//                 * com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler
-//                 * #getPaintable()
-//                 */
-//                @Override
-//                public Paintable getPaintable() {
-//                    return VStackWidget.this;
-//                }
-//
-//                /*
-//                 * (non-Javadoc)
-//                 * 
-//                 * @see
-//                 * com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler
-//                 * #dragAccepted
-//                 * (com.vaadin.terminal.gwt.client.ui.dd.VDragEvent)
-//                 */
-//                @Override
-//                protected void dragAccepted(VDragEvent drag) {
-//                    dragOver(drag);
-//                    
-//                    //prepare inner drophandler owners
-////                    if (!innerDropProcessed)
-////                    {
-////                    	processInnerHandlerOwners(VDDTabSheet.this, innerDropOwners);
-////                    	innerDropProcessed = true;
-////                    }
-//                }
-//
-//                /*
-//                 * (non-Javadoc)
-//                 * 
-//                 * @see
-//                 * com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler
-//                 * #drop(com.vaadin.terminal.gwt.client.ui.dd.VDragEvent)
-//                 */
-//                @Override
-//                public boolean drop(VDragEvent drag) {
-//
-//                    deEmphasis();
-//
-//                    // Update the details
-//                    updateDropDetails(drag);
-//                    
-//                    if (dockZone1 != null && dockZoneContainer != null)
-//                    {
-//                    	removeDockZone();
-//                    }
-//                    
-//                    return postDropHook(drag) && super.drop(drag); 
-//                };
-//
-//                /*
-//                 * (non-Javadoc)
-//                 * 
-//                 * @see
-//                 * com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler
-//                 * #dragOver(com.vaadin.terminal.gwt.client.ui.dd.VDragEvent)
-//                 */
-//                @Override
-//                public void dragOver(VDragEvent drag) {
-//                	
-//                	//VConsole.log("drag over");
-//                	
-//                    if (drag.getElementOver() == newTab) {
-//                        return;
-//                    }
-//
-//                    deEmphasis();
-//
-//                    updateDropDetails(drag);
-//
-//                    postOverHook(drag);
-//
-//                    // Check if we are dropping on our self
-//                    if (VStackWidget.this.equals(drag.getTransferable().getData(
-//                            Constants.TRANSFERABLE_DETAIL_COMPONENT))) {
-//                        return;
-//                    }
-//
-//                    // Validate the drop
-//                    validate(new VAcceptCallback() {
-//                        public void accepted(VDragEvent event) {
-//                            emphasis(event.getElementOver(), event);
-//                        }
-//                    }, drag);
-//                };
-//
-//                /*
-//                 * (non-Javadoc)
-//                 * 
-//                 * @see
-//                 * com.vaadin.terminal.gwt.client.ui.dd.VAbstractDropHandler
-//                 * #dragLeave(com.vaadin.terminal.gwt.client.ui.dd.VDragEvent)
-//                 */
-//                @Override
-//                public void dragLeave(VDragEvent drag) {
-//                    deEmphasis();
-//                    updateDropDetails(drag);
-//                    postLeaveHook(drag);
-//                    
-//                    if (dockZone1 != null && dockZoneContainer != null)
-//                    {
-//                    	removeDockZone();
-//                    }
-//                };
-//            };
-//        }
-//
-//        // Update the rules
-//        dropHandler.updateAcceptRules(childUidl);
-//    }
-//    
-//    protected boolean isDockZoneExists()
-//    {
-//    	return dockZone1 != null && dockZoneContainer != null;
-//    }
-//    
-//    protected void removeDockZone()
-//	{
-//    	if (isDockZoneExists())
-//        {
-//    		dockSide = null;
-//    		DOM.removeChild(dockZoneContainer, dockZone1);
-//    		DOM.removeChild(dockZoneContainer, dockZone2);
-//    		DOM.removeChild(dockZoneContainer, dockZone3);
-//    		DOM.removeChild(dockZoneContainer, dockZone4);
-//    		                    	dockZone1 = null;
-//    		                    	dockZone2 = null;
-//    		                    	dockZone3 = null;
-//    		                    	dockZone4 = null;
-//    		                    	dockZoneContainer = null;
-//        }
-//	}
-//	
-//	/**
-//     * Updates the drop details while dragging. This is needed to ensure client
-//     * side criterias can validate the drop location.
-//     * 
-//     * @param widget
-//     *            The container which we are hovering over
-//     * @param event
-//     *            The drag event
-//     */
-//	@Override
-//    protected void updateDropDetails(VDragEvent event) 
-//    {
-//        Element element = event.getElementOver();
-//        Widget targetWidget = Util.findWidget(element, null);
-//        
-//        if (targetWidget == null)
-//        {
-//        	return;
-//        }
-//        
-//    	if (targetWidget != this)
-//    	{
-//    		Widget parent = targetWidget.getParent();
-//    		while (parent != null && parent != this)
-//    		{
-//    			parent = parent.getParent();
-//    		}
-//    		
-//    		if (parent == null)
-//    		{
-//    			return;
-//    		}
-//    		targetWidget = parent;
-//    	}
-//    	
-//    	MouseEventDetails details1 = new MouseEventDetails(
-//                event.getCurrentGwtEvent(), getElement());
-//    	
-//    	int mouseX = details1.getClientX();
-//		int mouseY = details1.getClientY();
-//		
-//        
-//        int barLeft = tabBar.getAbsoluteLeft();
-//        int barTop = tabBar.getAbsoluteTop();
-//        int barWidth = tabBar.getOffsetWidth();
-//        int barHeight = tabBar.getOffsetHeight();
-//        
-//        boolean overBar = mouseX > barLeft && mouseX < barLeft + barWidth && mouseY > barTop && mouseY < barTop + barHeight;
-//    	
-//    	if (overBar)
-//    	{
-//    		removeDockZone();
-//    		
-//    		event.getDropDetails().put("targetWidgetClassName", targetWidget.getClass().getName());
-//			event.getDropDetails().put("dropType", "DropToTabsheetBar");
-//    		event.getDropDetails().put("targetWidgetAbsoluteLeft", targetWidget.getAbsoluteLeft());
-//    		event.getDropDetails().put("targetWidgetAbsoluteTop", targetWidget.getAbsoluteTop());
-//    		event.getDropDetails().put("targetWidgetOffsetWidth", targetWidget.getOffsetWidth());
-//    		event.getDropDetails().put("targetWidgetOffsetHeight", targetWidget.getOffsetHeight());
-//    	}
-//    	else
-//    	{
-//			Widget sourceWidget = (Widget) event.getTransferable().getDragSource();
-//			if (!(sourceWidget instanceof VDDTabSheet))
-//				return;
-//			VDDTabSheet sourceTabSheet = (VDDTabSheet) sourceWidget;
-//			VDDTabSheet targetTabSheet = this;
-//			
-//			VBoundsinfoVerticalLayout outerArea = findOuterArea(targetTabSheet);
-//				
-//			Widget boundingWidget = null;
-//			
-//			if (outerArea != null)
-//			{
-//				if ("area".equals(outerArea.getVariableValue(E4_ELEMENT_TYPE)))
-//    				boundingWidget = outerArea;	
-//			}
-//			else
-//				boundingWidget = targetTabSheet;
-//				
-//			if (boundingWidget == null)
-//				return;
-//        	
-//        	event.getDropDetails().put("targetWidgetClassName", boundingWidget.getClass().getName());
-//        	event.getDropDetails().put("dropType", "DropToTabsheetBody");
-//    		event.getDropDetails().put("targetWidgetAbsoluteLeft", boundingWidget.getAbsoluteLeft());
-//    		event.getDropDetails().put("targetWidgetAbsoluteTop", boundingWidget.getAbsoluteTop());
-//    		event.getDropDetails().put("targetWidgetOffsetWidth", boundingWidget.getOffsetWidth());
-//    		event.getDropDetails().put("targetWidgetOffsetHeight", boundingWidget.getOffsetHeight());
-//    		
-//			
-//			int x0 = boundingWidget.getAbsoluteLeft();
-//			int y0 = boundingWidget.getAbsoluteTop();
-//			int dx = boundingWidget.getOffsetWidth();
-//			int dy = boundingWidget.getOffsetHeight();
-//			
-//			int docPrcnt = 30;
-//			double docX = dx * docPrcnt / 100;
-//			double docY = dy * docPrcnt / 100;
-//			double d = 1;
-//			
-//			Vector mousePos = Vector.valueOf(mouseX, mouseY);
-//			
-//			Side side = GeomUtils.findDockSide(x0, y0, dx, dy, docX, docY, mousePos);
-//			//VConsole.log("dock side: " + side);
-//			if (side != null)
-//			{
-//				double _x = 0, _y = 0, _w = 0, _h = 0;
-//				
-//				if (side == Side.LEFT)
-//				{
-//					_x = d;
-//					_y = d;
-//					_w = docX - d;
-//					_h = dy - 2*d;
-//				}
-//				else if (side == Side.TOP)
-//				{
-//					_x = d;
-//					_y = d;
-//					_w = dx - 2*d;
-//					_h = docY - d;
-//				}
-//				else if (side == Side.RIGHT)
-//				{
-//					_x = dx - docX;
-//					_y = d;
-//					_w = docX - d;
-//					_h = dy - 2*d;
-//				}
-//				else if (side == Side.BOTTOM)
-//				{
-//					_x = d;
-//					_y = dy - docY;
-//					_w = dx - 2*d;
-//					_h = docY - d;
-//				}
-//				else if (side == Side.CENTER)
-//				{
-//					_x = d;
-//					_y = d;
-//					_w = dx - 2*d;
-//					_h = dy - 2*d;
-//				}
-//				else
-//					return;
-//				
-//				_x = x0 + _x;
-//				_y = y0 + _y;
-//				
-//				if (dockZone1 == null)
-//				{
-//					dockZone1 = DOM.createDiv();
-//					dockZone2 = DOM.createDiv();
-//					dockZone3 = DOM.createDiv();
-//					dockZone4 = DOM.createDiv();
-//				}
-//				
-//				//VConsole.log("x=" + _x + "; y=" + _y + "; w=" + _w + "; h=" + _h);
-//				
-//				if (side != dockSide)
-//	    		{
-//	    			int l = 3;
-//	    			String style1 = "position: absolute; left: " + _x + "px; top: " + _y + 
-//	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
-//					dockZone1.setAttribute("style", style1);
-//					
-//					String style2 = "position: absolute; left: " + _x + "px; top: " + (_y + _h - l) + 
-//	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
-//					dockZone2.setAttribute("style", style2);
-//					
-//					String style3 = "position: absolute; left: " + _x + "px; top: " + _y + 
-//	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
-//					dockZone3.setAttribute("style", style3);
-//					
-//					String style4 = "position: absolute; left: " + (_x + _w - l) + "px; top: " + _y + 
-//	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
-//					dockZone4.setAttribute("style", style4);
-//					
-//	    	        //setStyleName(dockZone, "v-etot-sukin-syn");
-//	    	        //dockZoneContainer = boundingWidget.getElement();
-//					dockZoneContainer = RootPanel.get().getElement();
-//	    	        DOM.appendChild(dockZoneContainer, dockZone1);
-//	    	        DOM.appendChild(dockZoneContainer, dockZone2);
-//	    	        DOM.appendChild(dockZoneContainer, dockZone3);
-//	    	        DOM.appendChild(dockZoneContainer, dockZone4);
-//	    	        
-//	    	        dockSide = side;
-//	    		}
-//			}
-//    	}
-//		
-//		//--
-//		
-//		if (tabBar.getElement().isOrHasChild(element)) {
-//
-//            if (targetWidget == tabBar) {
-//                // Ove3r the spacer
-//
-//                // Add index
-//                event.getDropDetails().put(Constants.DROP_DETAIL_TO,
-//                        tabBar.getWidgetCount() - 1);
-//
-//                // Add drop location
-//                event.getDropDetails().put(
-//                        Constants.DROP_DETAIL_HORIZONTAL_DROP_LOCATION,
-//                        HorizontalDropLocation.RIGHT);
-//
-//            } else {
-//
-//                // Add index
-//                event.getDropDetails().put(Constants.DROP_DETAIL_TO,
-//                        getTabPosition(targetWidget));
-//
-//                // Add drop location
-//                HorizontalDropLocation location = VDragDropUtil
-//                        .getHorizontalDropLocation(element, Util
-//                                .getTouchOrMouseClientX(event
-//                                        .getCurrentGwtEvent()),
-//                                tabLeftRightDropRatio);
-//                event.getDropDetails().put(
-//                        Constants.DROP_DETAIL_HORIZONTAL_DROP_LOCATION,
-//                        location);
-//            }
-//        }
-//		
-//		// Add mouse event details
-//        MouseEventDetails details = new MouseEventDetails(
-//                event.getCurrentGwtEvent(), getElement());
-//        event.getDropDetails().put(Constants.DROP_DETAIL_MOUSE_EVENT,
-//                details.serialize());
-//    }
-//		
-//	private VBoundsinfoVerticalLayout findOuterArea(Widget w)
-//    {
-//    	if (w instanceof VBoundsinfoVerticalLayout)
-//    	{
-//    		VBoundsinfoVerticalLayout bl = (VBoundsinfoVerticalLayout) w;
-//			final String type = bl.getVariableValue(E4_ELEMENT_TYPE);
-//			if (type != null && ("area".equals(type) || "perspective".equals(type) || "window".equals(type)))
-//				return bl;
-//    	}
-//    	
-//    	if (w.getParent() != null)
-//			return findOuterArea(w.getParent());
-//		else
-//			return null;
-//    }
+    
+    protected boolean isDockZoneExists()
+    {
+    	return dockZone1 != null && dockZoneContainer != null;
+    }
+    
+    protected void removeDockZone()
+	{
+    	if (isDockZoneExists())
+        {
+    		dockSide = null;
+    		DOM.removeChild(dockZoneContainer, dockZone1);
+    		DOM.removeChild(dockZoneContainer, dockZone2);
+    		DOM.removeChild(dockZoneContainer, dockZone3);
+    		DOM.removeChild(dockZoneContainer, dockZone4);
+        	dockZone1 = null;
+        	dockZone2 = null;
+        	dockZone3 = null;
+        	dockZone4 = null;
+        	dockZoneContainer = null;
+    		                    	
+        	VConsole.log("removeDockZone: dock zone removed");
+        }
+	}
+	
+	/**
+     * Updates the drop details while dragging. This is needed to ensure client
+     * side criterias can validate the drop location.
+     * 
+     * @param widget
+     *            The container which we are hovering over
+     * @param event
+     *            The drag event
+     */
+	@Override
+    public void updateDropDetails(VDragEvent event) 
+    {
+		VConsole.log("updateDropDetails: start");
+		
+        Element element = event.getElementOver();
+        Widget targetWidget = Util.findWidget(element, null);
+        
+        if (targetWidget == null)
+        {
+        	VConsole.log("updateDropDetails: targetWidget is null. return.");
+        	return;
+        }
+        
+    	if (targetWidget != this)
+    	{
+    		VConsole.log("updateDropDetails: targetWidget != this");
+    		Widget parent = targetWidget.getParent();
+    		while (parent != null && parent != this)
+    		{
+    			parent = parent.getParent();
+    		}
+    		
+    		if (parent == null)
+    		{
+    			VConsole.log("updateDropDetails: parent not finded");
+    			return;
+    		}
+    		targetWidget = parent;
+    		VConsole.log("updateDropDetails: parent finded");
+    	}
+    	
+    	MouseEventDetails details1 = MouseEventDetailsBuilder
+                .buildMouseEventDetails(event.getCurrentGwtEvent(),
+                        getElement());
+    	
+    	int mouseX = details1.getClientX();
+		int mouseY = details1.getClientY();
+        
+        int barLeft = tabBar.getAbsoluteLeft();
+        int barTop = tabBar.getAbsoluteTop();
+        int barWidth = tabBar.getOffsetWidth();
+        int barHeight = tabBar.getOffsetHeight();
+        
+        boolean overBar = mouseX > barLeft && mouseX < barLeft + barWidth && mouseY > barTop && mouseY < barTop + barHeight;
+    	
+    	if (overBar)
+    	{
+    		VConsole.log("updateDropDetails: over bar");
+    		removeDockZone();
+    		
+    		event.getDropDetails().put("targetWidgetClassName", targetWidget.getClass().getName());
+			event.getDropDetails().put("dropType", "DropToTabsheetBar");
+    		event.getDropDetails().put("targetWidgetAbsoluteLeft", targetWidget.getAbsoluteLeft());
+    		event.getDropDetails().put("targetWidgetAbsoluteTop", targetWidget.getAbsoluteTop());
+    		event.getDropDetails().put("targetWidgetOffsetWidth", targetWidget.getOffsetWidth());
+    		event.getDropDetails().put("targetWidgetOffsetHeight", targetWidget.getOffsetHeight());
+    	}
+    	else
+    	{
+    		VConsole.log("updateDropDetails: not over bar");
+			Widget sourceWidget = (Widget) event.getTransferable().getDragSource();
+			if (!(sourceWidget instanceof VStackWidget))
+				return;
+			
+			VConsole.log("updateDropDetails: sourceWidget is VStackWidget");
+			
+			VStackWidget targetTabSheet = this;
+			
+			VExtendedVerticalLayout outerArea = findOuterArea(targetTabSheet);
+				
+			Widget boundingWidget = null;
+			
+			if (outerArea != null)
+			{
+				VConsole.log("updateDropDetails: outer area is finded");
+				if ("area".equals(outerArea.getVariableValue(E4_ELEMENT_TYPE)))
+    				boundingWidget = outerArea;	
+			}
+			else
+			{
+				boundingWidget = targetTabSheet;
+				VConsole.log("updateDropDetails: outer area not finded, boundingWidget = targetTabSheet");
+			}
+				
+			if (boundingWidget == null)
+				return;
+        	
+        	event.getDropDetails().put("targetWidgetClassName", boundingWidget.getClass().getName());
+        	event.getDropDetails().put("dropType", "DropToTabsheetBody");
+    		event.getDropDetails().put("targetWidgetAbsoluteLeft", boundingWidget.getAbsoluteLeft());
+    		event.getDropDetails().put("targetWidgetAbsoluteTop", boundingWidget.getAbsoluteTop());
+    		event.getDropDetails().put("targetWidgetOffsetWidth", boundingWidget.getOffsetWidth());
+    		event.getDropDetails().put("targetWidgetOffsetHeight", boundingWidget.getOffsetHeight());
+    		
+			
+			int x0 = boundingWidget.getAbsoluteLeft();
+			int y0 = boundingWidget.getAbsoluteTop();
+			int dx = boundingWidget.getOffsetWidth();
+			int dy = boundingWidget.getOffsetHeight();
+			
+			int docPrcnt = 30;
+			double docX = dx * docPrcnt / 100;
+			double docY = dy * docPrcnt / 100;
+			double d = 1;
+			
+			Vector mousePos = Vector.valueOf(mouseX, mouseY);
+			
+			Integer side = GeomUtils.findDockSide(x0, y0, dx, dy, docX, docY, mousePos);
+			//VConsole.log("dock side: " + side);
+			if (side != null)
+			{
+				double _x = 0, _y = 0, _w = 0, _h = 0;
+				
+				if (side == Side.LEFT)
+				{
+					_x = d;
+					_y = d;
+					_w = docX - d;
+					_h = dy - 2*d;
+				}
+				else if (side == Side.TOP)
+				{
+					_x = d;
+					_y = d;
+					_w = dx - 2*d;
+					_h = docY - d;
+				}
+				else if (side == Side.RIGHT)
+				{
+					_x = dx - docX;
+					_y = d;
+					_w = docX - d;
+					_h = dy - 2*d;
+				}
+				else if (side == Side.BOTTOM)
+				{
+					_x = d;
+					_y = dy - docY;
+					_w = dx - 2*d;
+					_h = docY - d;
+				}
+				else if (side == Side.CENTER)
+				{
+					_x = d;
+					_y = d;
+					_w = dx - 2*d;
+					_h = dy - 2*d;
+				}
+				else
+					return;
+				
+				_x = x0 + _x;
+				_y = y0 + _y;
+				
+				if (dockZone1 == null)
+				{
+					dockZone1 = DOM.createDiv();
+					dockZone2 = DOM.createDiv();
+					dockZone3 = DOM.createDiv();
+					dockZone4 = DOM.createDiv();
+				}
+				
+				VConsole.log("updateDropDetails: x=" + _x + "; y=" + _y + "; w=" + _w + "; h=" + _h);
+				
+				if (side != dockSide)
+	    		{
+	    			int l = 3;
+	    			String style1 = "position: absolute; left: " + _x + "px; top: " + _y + 
+	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+					dockZone1.setAttribute("style", style1);
+					
+					String style2 = "position: absolute; left: " + _x + "px; top: " + (_y + _h - l) + 
+	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+					dockZone2.setAttribute("style", style2);
+					
+					String style3 = "position: absolute; left: " + _x + "px; top: " + _y + 
+	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+					dockZone3.setAttribute("style", style3);
+					
+					String style4 = "position: absolute; left: " + (_x + _w - l) + "px; top: " + _y + 
+	    					"px; width: " + l + "px; height: " + _h + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
+					dockZone4.setAttribute("style", style4);
+					
+	    	        //setStyleName(dockZone, "v-etot-sukin-syn");
+	    	        //dockZoneContainer = boundingWidget.getElement();
+					dockZoneContainer = RootPanel.get().getElement();
+	    	        DOM.appendChild(dockZoneContainer, dockZone1);
+	    	        DOM.appendChild(dockZoneContainer, dockZone2);
+	    	        DOM.appendChild(dockZoneContainer, dockZone3);
+	    	        DOM.appendChild(dockZoneContainer, dockZone4);
+	    	        
+	    	        dockSide = side;
+	    		}
+			}
+			else
+			{
+				VConsole.log("updateDropDetails: dockSide not finded");
+			}
+    	}
+		
+		//--
+		if (tabBar.getElement().isOrHasChild(element)) {
+
+            if (targetWidget == tabBar) {
+                // Ove3r the spacer
+
+                // Add index
+                event.getDropDetails().put(Constants.DROP_DETAIL_TO,
+                        tabBar.getWidgetCount() - 1);
+
+                // Add drop location
+                event.getDropDetails().put(
+                        Constants.DROP_DETAIL_HORIZONTAL_DROP_LOCATION,
+                        HorizontalDropLocation.RIGHT);
+
+            } else {
+
+                // Add index
+                event.getDropDetails().put(Constants.DROP_DETAIL_TO,
+                        getTabPosition(targetWidget));
+
+                // Add drop location
+                HorizontalDropLocation location = VDragDropUtil
+                        .getHorizontalDropLocation(element, Util
+                                .getTouchOrMouseClientX(event
+                                        .getCurrentGwtEvent()),
+                                        getTabLeftRightDropRatio());
+                event.getDropDetails().put(
+                        Constants.DROP_DETAIL_HORIZONTAL_DROP_LOCATION,
+                        location);
+            }
+        }
+		
+		// Add mouse event details
+        MouseEventDetails details = MouseEventDetailsBuilder
+                .buildMouseEventDetails(event.getCurrentGwtEvent(),
+                        getElement());
+        event.getDropDetails().put(Constants.DROP_DETAIL_MOUSE_EVENT,
+                details.serialize());
+    }
+		
+	private VExtendedVerticalLayout findOuterArea(Widget w)
+    {
+    	if (w instanceof VExtendedVerticalLayout)
+    	{
+    		VConsole.log("VExtendedVerticalLayout finded in parent hierarchy");
+    		VExtendedVerticalLayout bl = (VExtendedVerticalLayout) w;
+			final String type = bl.getVariableValue(E4_ELEMENT_TYPE);
+			if (type != null && ("area".equals(type) || "perspective".equals(type) || "window".equals(type)))
+			{
+				VConsole.log("VExtendedVerticalLayout finded in parent hierarchy with type = " + type);
+				return bl;
+			}
+    	}
+    	
+    	if (w.getParent() != null)
+			return findOuterArea(w.getParent());
+		else
+			return null;
+    }
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//Part toolbar relocate support

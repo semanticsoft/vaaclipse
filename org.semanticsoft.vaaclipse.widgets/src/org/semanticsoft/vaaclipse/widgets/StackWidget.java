@@ -41,7 +41,6 @@ public class StackWidget extends DDTabSheet
 	{
 		this.addStyleName("stackwidget");
 		this.setDragMode(LayoutDragMode.CLONE);
-//		this.setDropHandler(new VaadinDropHandler(workbench, this));
 	}
 	
 	@Override
@@ -59,7 +58,7 @@ public class StackWidget extends DDTabSheet
 	public void setState(int state)
 	{
 		this.state = state;
-		this.requestRepaint();
+		this.markAsDirty();
 	}
 	
 	@Override

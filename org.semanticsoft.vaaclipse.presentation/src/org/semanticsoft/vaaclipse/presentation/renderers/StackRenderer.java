@@ -112,19 +112,9 @@ public class StackRenderer extends VaadinRenderer {
 			MPartStack stack = (MPartStack) element;
 			if (stack.getRenderer() != StackRenderer.this)
 				return;
-
-			// Gather up the elements that are being 'hidden' by this change
-			MUIElement oldSel = (MUIElement) event
-					.getProperty(UIEvents.EventTags.OLD_VALUE);
-//			if (oldSel != null) {
-//				List<MUIElement> goingHidden = new ArrayList<MUIElement>();
-//				hideElementRecursive(oldSel, goingHidden);
-//			}
-
+			
 			if (stack.getSelectedElement() != null)
 			{
-				//lsr.showTab(stack.getSelectedElement());
-				
 				if (stack.getSelectedElement().getWidget() == null)
 				{
 					IPresentationEngine engine = (IPresentationEngine) context.get(IPresentationEngine.class.getName());

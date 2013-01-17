@@ -25,7 +25,8 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
  com.vaadin.shared.deps;bundle-version="1.0.2",
  org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="0.0.1",
  org.semanticsoft.vaaclipse.widgets;bundle-version="0.0.1",
- org.semanticsoft.commons;bundle-version="0.0.1"
+ org.semanticsoft.commons;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.widgetset.default;bundle-version="0.0.1"
 Export-Package: org.semanticsoft.vaaclipse.presentation.engine,
  org.semanticsoft.vaaclipse.presentation.renderers
 Service-Component: OSGI-INF/org.semanticsoft.vaaclipse.presentation.widgetinfo.xml
