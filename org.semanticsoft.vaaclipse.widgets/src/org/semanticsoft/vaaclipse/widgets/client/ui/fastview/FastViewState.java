@@ -3,6 +3,7 @@
  */
 package org.semanticsoft.vaaclipse.widgets.client.ui.fastview;
 
+import com.vaadin.shared.Connector;
 import com.vaadin.shared.ui.window.WindowState;
 
 /**
@@ -12,4 +13,5 @@ import com.vaadin.shared.ui.window.WindowState;
 public class FastViewState extends WindowState 
 {
 	public Integer side;
+	public Connector trimmedWindowClientArea;
 }

@@ -11,9 +11,9 @@
 
 package org.semanticsoft.vaaclipse.presentation.widgets;
 
-import org.semanticsoft.vaaclipse.widgets.Constants;
 import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
+import org.semanticsoft.vaaclipse.widgets.common.Constants;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
@@ -137,9 +137,6 @@ public class TrimmedWindowContent extends VerticalLayout
 			return;
 		}
 		
-		bar.setWidth(-1, Unit.PIXELS);
-		bar.setHeight("100%");
-		
 		leftBarContainer.removeAllComponents();
 		leftBarContainer.addComponent(bar);
 	}
@@ -152,9 +149,6 @@ public class TrimmedWindowContent extends VerticalLayout
 			return;
 		}
 		
-		bar.setWidth(-1, Unit.PIXELS);
-		bar.setHeight("100%");
-		
 		rightBarContainer.removeAllComponents();
 		rightBarContainer.addComponent(bar);
 	}
@@ -166,9 +160,6 @@ public class TrimmedWindowContent extends VerticalLayout
 			bottomBarContainer.removeAllComponents();
 			return;
 		}
-		
-		bar.setWidth("100%");
-		bar.setHeight(-1, Unit.PIXELS);
 		
 		bottomBarContainer.removeAllComponents();
 		bottomBarContainer.addComponent(bar);

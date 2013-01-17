@@ -35,8 +35,9 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.Behaviour;
+import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.FastView;
-import org.semanticsoft.vaaclipse.widgets.common.Side;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.event.MouseEvents.ClickListener;
@@ -298,16 +299,6 @@ public class SingleElementFastViewManager
 //		});
 //	}
 	
-//	Window.ResizeListener resizeListener = new Window.ResizeListener() {
-//		
-//		@Override
-//		public void windowResized(ResizeEvent e)
-//		{
-//			if (hostPane != null)
-//				setPaneLocation(hostPane);
-//		}
-//	};
-	
 	ClickListener layoutClickListener = new ClickListener() {
 		
 		@Override
@@ -326,11 +317,14 @@ public class SingleElementFastViewManager
 			hostPane = getHostPane();
 
 			ctf.setVisible(true);
-			//ctf.setSizeFull();
+			
+			TrimmedWindowContent windowContent = (TrimmedWindowContent) vaadinWindow.getContent();
+			ExtendedVerticalLayout clientArea = windowContent.getClientArea();
+			
+			hostPane.setTrimmedWindowClientArea(clientArea);
 			hostPane.setContent(ctf);
 			
 			vaadinUI.addWindow(hostPane);
-//			vaadinApplication.getMainWindow().addListener(resizeListener);
 			vaadinWindow.addClickListener(layoutClickListener);
 			
 			isShowing = true;
@@ -367,7 +361,6 @@ public class SingleElementFastViewManager
 			hostPane.setResizable(false);
 		//hostPane.setResizeLazy(true);
 		hostPane.setStyleName("loading-window");
-		hostPane.getContent().setSizeFull();
 		
 		//TODO: implement closing by esc
 //		hostPane.addListener(SWT.Traverse, new Listener() {
@@ -381,106 +374,5 @@ public class SingleElementFastViewManager
 		
 		return hostPane;
 	}
-			
-//	public void _showFastView(MTrimBar trimBar, MUIElement element)
-//	{
-//		MTrimmedWindow mWindow = (MTrimmedWindow) (trimBar.getParent() != null ? (MElementContainer<?>)trimBar.getParent() : ((EObject) trimBar).eContainer());
-//		
-//		MTrimBar topBar = null, leftBar = null, rightBar = null, bottomBar = null;
-//		for (MTrimBar tB : mWindow.getTrimBars())
-//		{
-//			if (tB.getSide() == SideValue.TOP)
-//				topBar = tB;
-//			else if (tB.getSide() == SideValue.LEFT)
-//				leftBar = tB;
-//			else if (tB.getSide() == SideValue.BOTTOM)
-//				bottomBar = tB;
-//			else if (tB.getSide() == SideValue.RIGHT)
-//				rightBar = tB;
-//		}
-//		
-//		int bottomHeight = bottomBar != null && bottomBar.getWidget() != null && ((Component)bottomBar.getWidget()).isVisible() ? (int)((Component)bottomBar.getWidget()).getHeight() : 0;
-//		int topHeight = topBar != null && topBar.getWidget() != null && ((Component)topBar.getWidget()).isVisible() ? (int)((Component)topBar.getWidget()).getHeight() : 0;
-//		int leftWidth = leftBar != null && leftBar.getWidget() != null && ((Component)leftBar.getWidget()).isVisible() ? (int)((Component)leftBar.getWidget()).getWidth() : 0;
-//		int rightWidth = rightBar != null && rightBar.getWidget() != null && ((Component)rightBar.getWidget()).isVisible() ? (int)((Component)rightBar.getWidget()).getWidth() : 0;
-//		
-//		SideValue side = trimBar.getSide();
-//		
-//		Window parentWindow = vaadinApplication.getMainWindow();
-//		
-//		if (fastWindow == null)
-//			fastWindow = new Window("Fast view");
-//
-//		// Compute and set the window size and position
-//		int parentW = (int) parentWindow.getWidth();
-//		int parentH = (int) parentWindow.getHeight();
-//
-//		int x, y, w, h;
-//		if (side == SideValue.LEFT)
-//		{
-//			x = leftWidth;
-//			//hardcore for menu, becouse the height of menu is unknown (vaadin doesnt send to server the component size)
-//			y = topHeight + 20;
-//			
-//			w = parentW / 3;
-//			h = parentH - y - bottomHeight;
-//		}
-//		else if (side == SideValue.RIGHT)
-//		{
-//			x = (2/3)*parentW - rightWidth;
-//			//hardcore for menu, becouse the height of menu is unknown (vaadin doesnt send to server the component size)
-//			y = topHeight + 20;
-//			
-//			w = parentW / 3;
-//			h = parentH - y - bottomHeight;
-//		}
-//		else if (side == SideValue.BOTTOM) //there are not minimized elements in bottom, but...
-//		{
-//			w = parentW;
-//			h = parentH / 3;
-//			x = 0;
-//			y = parentH - h - bottomHeight;
-//		}
-//		else
-//			return;
-//		
-//		fastWindow.setWidth(w + "px");
-//		fastWindow.setHeight(h + "px");
-//		fastWindow.setPositionX(x);
-//		fastWindow.setPositionY(y);
-//		
-//		//Set the content of fast view
-//		fastWindow.getContent().removeAllComponents();
-//		Component component = null;
-//		if ((MElementContainer<?>)element.getParent() instanceof MPartStack)
-//		{
-//			component = (Component) element.getParent().getWidget();
-//			((StackWidget)component).setSelectedTab((Component)element.getWidget());
-//		}
-//		else if (element instanceof MPlaceholder)
-//		{
-//			MPlaceholder ph = (MPlaceholder) element;
-//			
-//			component = (Component) element.getWidget();
-//		}
-//		else
-//			return;
-//		
-//		fastWindow.getContent().addComponent(component);
-//		
-//		fastWindow.addListener(new FieldEvents.FocusListener() {
-//
-//			public void focus(FocusEvent event)
-//			{
-//				System.out.println("fslkjflsajfl");
-//				(fastWindow.getParent()).removeWindow(fastWindow);
-//			}
-//		});
-//		
-//		if (fastWindow.getParent() == null)
-//		{
-//			parentWindow.addWindow(fastWindow);
-//		}
-//	}
 
 }

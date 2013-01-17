@@ -445,29 +445,24 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 
 	private void setupStyleTextIcon(String label, String iconURI, final TwoStateToolbarButton button)
 	{
-		if (iconURI == null && label == null)
+		if (iconURI != null)
 		{
-			iconURI = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png";
 			Resource icon = BundleResource.valueOf(iconURI);
 			button.setIcon(icon);
+		}
+		
+		if (label != null)
+		{
+			button.setCaption(label);
+		}
+		
+		if (iconURI != null && label == null)
+		{
 			button.addStyleName("icononly");
 		}
-		else
+		else if (iconURI == null && label != null)
 		{
-			if (iconURI != null)
-			{
-				Resource icon = BundleResource.valueOf(iconURI);
-				button.setIcon(icon);
-			}
-			else
-				button.addStyleName("textonly");
-
-			if (label != null)
-			{
-				button.setCaption(label);
-			}
-			else
-				button.addStyleName("icononly");
+			button.addStyleName("textonly");
 		}
 	}
 
@@ -550,8 +545,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					}
 					
 					panel = new Panel();
-					panel.getContent().setSizeFull();
 					list = new Table();
+					panel.setContent(list);
 					list.setSizeFull();
 					list.setSelectable(true);
 					list.setMultiSelect(false);

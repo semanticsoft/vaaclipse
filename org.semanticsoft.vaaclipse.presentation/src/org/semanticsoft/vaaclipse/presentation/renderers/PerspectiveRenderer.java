@@ -34,6 +34,13 @@ public class PerspectiveRenderer extends VaadinRenderer
 		VerticalLayout perspectivePanel = new VerticalLayout();
 		perspectivePanel.setSizeFull();
 		element.setWidget(perspectivePanel);
+		
+		MPerspective p = (MPerspective) element;
+		
+		if (p.getIconURI() == null && p.getLabel() == null)
+		{
+			p.setIconURI("platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/blank_perspective.png");
+		}
 	}
 	
 	@Override

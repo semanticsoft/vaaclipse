@@ -132,24 +132,6 @@ public class FastViewManager
 			}
 	};
 	
-//	private void gatherStacksWidgets(ComponentContainer container, List<StackWidget> stackWidgets)
-//	{
-//		Iterator<Component> it = container.getComponentIterator();
-//		while (it.hasNext())
-//		{
-//			Component child = it.next();
-//			if (child instanceof StackWidget)
-//			{
-//				stackWidgets.add((StackWidget) child);
-//			}
-//			
-//			if (child instanceof ComponentContainer)
-//			{
-//				gatherStacksWidgets((ComponentContainer) child, stackWidgets);
-//			}
-//		}
-//	}
-	
 	private void disableDrag(MPartStack stack)
 	{
 		StackWidget sw = (StackWidget) stack.getWidget();

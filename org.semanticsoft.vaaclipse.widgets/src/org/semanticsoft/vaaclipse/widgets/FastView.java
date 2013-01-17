@@ -13,6 +13,7 @@ package org.semanticsoft.vaaclipse.widgets;
 
 import org.semanticsoft.vaaclipse.widgets.client.ui.fastview.FastViewState;
 
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Window;
 
 /**
@@ -30,5 +31,10 @@ public class FastView extends Window
 	public void setSide(Integer side)
 	{
 		this.getState().side = side;
+	}
+	
+	public void setTrimmedWindowClientArea(Component component)
+	{
+		this.getState().trimmedWindowClientArea = component;
 	}
 }

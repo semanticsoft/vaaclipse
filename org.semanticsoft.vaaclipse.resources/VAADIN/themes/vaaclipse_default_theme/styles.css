@@ -1,7 +1,7 @@
 /*
  * Perspective panel
  */
-.perspectivepanel {
+.v-app .perspectivepanel {
 	position: relative;
 	float: right;
 	padding-left:    10px;
@@ -12,7 +12,7 @@
 	background-color: transparent;
 }
 
-.toptrimbar {
+.v-app .toptrimbar {
 	float: left;
 }
 
@@ -20,56 +20,56 @@
  * toptrimbarborder border
  */
  
- .toptrimbar_11 {
+ .v-app .toptrimbar_11 {
 	background-color: #d2d2d2;
 	padding-top:    1px;
  	padding-bottom: 1px;
 }
 
-.toptrimbar_00 {
+.v-app .toptrimbar_00 {
 	background-image: url('img/toptrimbar_00.png');
 	width: 8px;
 	height: 8px;
 }
 
-.toptrimbar_01 {
+.v-app .toptrimbar_01 {
 	background-image: url('img/toptrimbar_01.png');
 	height: 8px;
 	background-repeat: repeat-x;
 }
 
-.toptrimbar_02 {
+.v-app .toptrimbar_02 {
 	background-image: url('img/toptrimbar_02.png');
 	width: 6px;
 	height: 8px;
 }
 
-.toptrimbar_10 {
+.v-app .toptrimbar_10 {
 	background-image: url('img/toptrimbar_10.png');
 	width: 8px;
 	min-width: 8px;
 	background-repeat: repeat-y;
 }
 
-.toptrimbar_12 {
+.v-app .toptrimbar_12 {
 	background-image: url('img/toptrimbar_12.png');
 	width: 6px;
 	background-repeat: repeat-y;
 }
 
-.toptrimbar_20 {
+.v-app .toptrimbar_20 {
 	background-image: url('img/toptrimbar_20.png');
 	width: 7px;
 	height: 6px;
 }
 
-.toptrimbar_21 {
+.v-app .toptrimbar_21 {
 	background-image: url('img/toptrimbar_21.png');
 	height: 6px;
 	background-repeat: repeat-x;
 }
 
-.toptrimbar_22 {
+.v-app .toptrimbar_22 {
 	background-image: url('img/toptrimbar_22.png');
 	width: 6px;
 	height: 6px;
@@ -78,21 +78,20 @@
 /*
 *	trimbar
 */
-.horizontaltrimbar {
+.v-app .horizontaltrimbar {
 	padding-left:   5px;
 	padding-top:    6px;
  	padding-bottom: 6px;
 }
 
-.verticaltrimbar {
+.v-app .verticaltrimbar {
 	padding-left:   4px;
 	padding-right:  4px;
 	padding-top:    5px;
 }
 
-.verticaltrimelement {
+.v-app .verticaltrimelement {
 	position: relative;
-	float: top;
 	padding: 0px;
 	margin-top: 3px;
 	margin-bottom: 3px;
@@ -100,7 +99,7 @@
 	margin-right: 0px;
 }
 
-.horizontaltrimelement {
+.v-app .horizontaltrimelement {
 	position: relative;
 	float: left;
 	padding: 0px;
@@ -110,7 +109,7 @@
 	margin-right: 3px;
 }
 
-.horizontalseparator {
+.v-app .horizontalseparator {
 	position: relative;
 	float: left;
 	margin-top: 0px;
@@ -123,7 +122,7 @@
 	background-repeat: repeat;
 }
 
-.verticalseparator {
+.v-app .verticalseparator {
 	position: relative;
 	float: top;
 	margin-top: 4px;
@@ -137,11 +136,11 @@
 /**
  * toolbar
  */
-.toolbar {
+.v-app .toolbar {
 	background-color: transparent;
 }
 
-.verticaltoolbarlement {
+.v-app .verticaltoolbarlement {
 	padding: 0px;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -149,7 +148,7 @@
 	margin-right: 0px;
 }
 
-.horizontaltoolbarlement {
+.v-app .horizontaltoolbarlement {
 	padding: 0px;
 	margin-top: 0px;
 	margin-bottom: 0px;
@@ -263,112 +262,36 @@
 }
 
 /*
-	vaadock-toolbar-button horizontal
-*/
-.vaadock-toolbar-button {
-	background-color: transparent;
-	border: none;
-	margin: 0px;
-	padding: 0;
-}
-
-.v-ie .vaadock-toolbar-button {
-	background-color: transparent;
-	width: 0;
-	overflow: visible;
-}
-
-.v-gecko .vaadock-toolbar-button .v-icon {
-	margin-left: -2px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-.vaadock-toolbar-button .v-icon {
-	margin-left: 0px;
-	margin-top: 0px;
-	padding: 3px;
-}
-
-.v-ie .vaadock-toolbar-button .v-icon {
-	margin-left: -12px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-.vaadock-toolbar-button:hover {
-	background-color: transparent;
-	background: url('img/toolbar_button_background_hover_23x20.png') no-repeat 0 0;
-}
-
-.vaadock-toolbar-button:active {
-	background-color: transparent;
-	background: url('img/toolbar_button_background_active_23x20.png') no-repeat 0 0;
-}
-
-.vaadock-toolbar-button_selected {
-	border: none;
-	margin: 0px;
-	padding: 0px;
-	background:
-		url('img/toolbar_button_background_active_23x20.png')
-		no-repeat 0 0;
-}
-
-.v-gecko .vaadock-toolbar-button_selected .v-icon {
-	margin-left: -2px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-.v-ie .vaadock-toolbar-button_selected {
-	width: 0;
-	overflow: visible;
-}
-
-.vaadock-toolbar-button_selected .v-icon {
-	margin-left: 0px;
-	margin-top: 0px;
-	padding: 3px;
-}
-
-.v-ie .vaadock-toolbar-button_selected .v-icon {
-	margin-left: -12px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-/*
  * sash widget
  */
-.v-splitpanel-hsplitter-invisible-locked {
+.v-app .v-splitpanel-hsplitter-invisible-locked {
 width: 0px;
 }
 
-.v-splitpanel-vsplitter-invisible-locked {
+.v-app .v-splitpanel-vsplitter-invisible-locked {
 width: 0px;
 }
 
-.area {
+.v-app .area {
 	background-color: transparent;
 }
 
 /*
  * window no header
  */
- .v-window-loading-window .v-window-outerheader {
+ .v-app .v-window-loading-window .v-window-outerheader {
     height: 0;
     margin-left: 0;
     padding: 0;
 }
 
-.mparttoolbararea {
+.v-app .mparttoolbararea {
 	padding-right: 4px;
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
 
-.mparttoolbar {
+.v-app .mparttoolbar {
 	float: right;
 }
 

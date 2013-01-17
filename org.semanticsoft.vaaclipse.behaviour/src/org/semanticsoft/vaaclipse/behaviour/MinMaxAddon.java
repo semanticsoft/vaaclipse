@@ -52,7 +52,6 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.Events;
 import org.semanticsoft.vaaclipse.api.WidgetInfo;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
@@ -85,8 +84,6 @@ public class MinMaxAddon {
 	@Inject
 	private WidgetInfo widgetInfo;
 
-	private final MApplication application;
-	
 	private Map<MToolBar, MPerspective> barPerspectiveInfo = new HashMap<MToolBar, MPerspective>();
 	private Set<MUIElement> minimizedElements = new HashSet<MUIElement>();
 	
@@ -97,7 +94,6 @@ public class MinMaxAddon {
 	@Inject
 	public MinMaxAddon(IEventBroker eventBroker, EModelService modelService,
 			MApplication application) {
-		this.application = application;
 		this.eventBroker = eventBroker;
 		this.modelService = modelService;
 	}
@@ -269,21 +265,7 @@ public class MinMaxAddon {
 			}
 		}
 	};
-
-	private void setState(MUIElement element, String state) {
-		element.getTags().remove(MINIMIZED_BY_ZOOM);
-		if (MINIMIZED.equals(state)) {
-			element.getTags().remove(MAXIMIZED);
-			element.getTags().add(MINIMIZED);
-		} else if (MAXIMIZED.equals(state)) {
-			element.getTags().remove(MINIMIZED);
-			element.getTags().add(MAXIMIZED);
-		} else {
-			element.getTags().remove(MINIMIZED);
-			element.getTags().remove(MAXIMIZED);
-		}
-	}
-
+	
 	protected void minimize(MUIElement element) {
 		if (!element.isToBeRendered()) {
 			return;
@@ -345,7 +327,6 @@ public class MinMaxAddon {
 		}
 		ignoreTagChanges = false;
 
-		PresentationEngine presentationEngine = (PresentationEngine) context.get(IPresentationEngine.class);
 		if (window instanceof MTrimmedWindow) {
 			MTrimmedWindow trimmedWindow = (MTrimmedWindow) window;
 			List<MTrimBar> trimBars = trimmedWindow.getTrimBars();
@@ -374,9 +355,6 @@ public class MinMaxAddon {
 		element.getTags().remove(MINIMIZED);
 		element.setVisible(true);
 		minimizedElements.remove(element);
-		
-		//remove the trimbar
-		PresentationEngine presentationEngine = (PresentationEngine) application.getContext().get(IPresentationEngine.class);
 		
 		MTrimBar trimBar = getTrimBarForMinimizedElement(element);
 		MToolBar toolBar = getToolBarForMinimizedElement(element);
