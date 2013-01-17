@@ -28,7 +28,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
-import com.vaadin.client.VConsole;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.HorizontalDropLocation;
@@ -167,7 +166,7 @@ public class VStackWidget extends VDDTabSheet
     		return;
     	
     	this.state = state;
-    	VConsole.log("VStackWidget: state = " + this.state);
+    	//VConsole.log("VStackWidget: state = " + this.state);
     	
     	if (this.state == NORMAL)
     	{
@@ -267,6 +266,7 @@ public class VStackWidget extends VDDTabSheet
     @Override
     public boolean postDropHook(VDragEvent drag) 
     {
+    	removeDockZone();
     	return super.postDropHook(drag);
     }
     
@@ -344,7 +344,7 @@ public class VStackWidget extends VDDTabSheet
         	dockZone4 = null;
         	dockZoneContainer = null;
     		                    	
-        	VConsole.log("removeDockZone: dock zone removed");
+        	//VConsole.log("removeDockZone: dock zone removed");
         }
 	}
 	
@@ -360,20 +360,20 @@ public class VStackWidget extends VDDTabSheet
 	@Override
     public void updateDropDetails(VDragEvent event) 
     {
-		VConsole.log("updateDropDetails: start");
+		//VConsole.log("updateDropDetails: start");
 		
         Element element = event.getElementOver();
         Widget targetWidget = Util.findWidget(element, null);
         
         if (targetWidget == null)
         {
-        	VConsole.log("updateDropDetails: targetWidget is null. return.");
+        	//VConsole.log("updateDropDetails: targetWidget is null. return.");
         	return;
         }
         
     	if (targetWidget != this)
     	{
-    		VConsole.log("updateDropDetails: targetWidget != this");
+    		//VConsole.log("updateDropDetails: targetWidget != this");
     		Widget parent = targetWidget.getParent();
     		while (parent != null && parent != this)
     		{
@@ -382,11 +382,11 @@ public class VStackWidget extends VDDTabSheet
     		
     		if (parent == null)
     		{
-    			VConsole.log("updateDropDetails: parent not finded");
+    			//VConsole.log("updateDropDetails: parent not finded");
     			return;
     		}
     		targetWidget = parent;
-    		VConsole.log("updateDropDetails: parent finded");
+    		//VConsole.log("updateDropDetails: parent finded");
     	}
     	
     	MouseEventDetails details1 = MouseEventDetailsBuilder
@@ -405,7 +405,7 @@ public class VStackWidget extends VDDTabSheet
     	
     	if (overBar)
     	{
-    		VConsole.log("updateDropDetails: over bar");
+    		//VConsole.log("updateDropDetails: over bar");
     		removeDockZone();
     		
     		event.getDropDetails().put("targetWidgetClassName", targetWidget.getClass().getName());
@@ -417,14 +417,26 @@ public class VStackWidget extends VDDTabSheet
     	}
     	else
     	{
-    		VConsole.log("updateDropDetails: not over bar");
-			Widget sourceWidget = (Widget) event.getTransferable().getDragSource();
-			if (!(sourceWidget instanceof VStackWidget))
+    		//VConsole.log("updateDropDetails: not over bar");
+			Object sourceWidget = event.getTransferable().getDragSource();
+			if (!(sourceWidget instanceof VStackWidget) && !(sourceWidget instanceof StackWidgetConnector))
+			{
+				//VConsole.log("updateDropDetails: return, because the sourceWidget is " + sourceWidget.getClass().getName());
 				return;
+			}
 			
-			VConsole.log("updateDropDetails: sourceWidget is VStackWidget");
+			if (sourceWidget instanceof StackWidgetConnector)
+				sourceWidget = ((StackWidgetConnector) sourceWidget).getWidget();
+			
+			//VConsole.log("updateDropDetails: sourceWidget is VStackWidget or StackWidgetConnector");
 			
 			VStackWidget targetTabSheet = this;
+			
+			if (targetTabSheet == sourceWidget && targetTabSheet.getTabCount() <= 1)
+			{
+				//VConsole.log("updateDropDetails: return, because target is match to source and has only one (current draggable) tab");
+				return;
+			}
 			
 			VExtendedVerticalLayout outerArea = findOuterArea(targetTabSheet);
 				
@@ -432,18 +444,21 @@ public class VStackWidget extends VDDTabSheet
 			
 			if (outerArea != null)
 			{
-				VConsole.log("updateDropDetails: outer area is finded");
+				//VConsole.log("updateDropDetails: outer area is finded");
 				if ("area".equals(outerArea.getVariableValue(E4_ELEMENT_TYPE)))
     				boundingWidget = outerArea;	
 			}
 			else
 			{
 				boundingWidget = targetTabSheet;
-				VConsole.log("updateDropDetails: outer area not finded, boundingWidget = targetTabSheet");
+				//VConsole.log("updateDropDetails: outer area not finded, boundingWidget = targetTabSheet");
 			}
-				
+			
 			if (boundingWidget == null)
+			{
+				//VConsole.log("updateDropDetails: return, because boundingWidget not founded");
 				return;
+			}
         	
         	event.getDropDetails().put("targetWidgetClassName", boundingWidget.getClass().getName());
         	event.getDropDetails().put("dropType", "DropToTabsheetBody");
@@ -466,7 +481,7 @@ public class VStackWidget extends VDDTabSheet
 			Vector mousePos = Vector.valueOf(mouseX, mouseY);
 			
 			Integer side = GeomUtils.findDockSide(x0, y0, dx, dy, docX, docY, mousePos);
-			//VConsole.log("dock side: " + side);
+			//VConsole.log("updateDropDetails: finded dock side = " + side + ", old dock side = " + dockSide);
 			if (side != null)
 			{
 				double _x = 0, _y = 0, _w = 0, _h = 0;
@@ -520,10 +535,11 @@ public class VStackWidget extends VDDTabSheet
 					dockZone4 = DOM.createDiv();
 				}
 				
-				VConsole.log("updateDropDetails: x=" + _x + "; y=" + _y + "; w=" + _w + "; h=" + _h);
+				//VConsole.log("updateDropDetails: x=" + _x + "; y=" + _y + "; w=" + _w + "; h=" + _h);
 				
 				if (side != dockSide)
 	    		{
+					//VConsole.log("updateDropDetails: dock side will be updated");
 	    			int l = 3;
 	    			String style1 = "position: absolute; left: " + _x + "px; top: " + _y + 
 	    					"px; width: " + _w + "px; height: " + l + "px; background-image: url(" + baseURL + "VAADIN/themes/dragdrop/vaadock/img/dockzone.png); z-index: 20000;";
@@ -551,10 +567,6 @@ public class VStackWidget extends VDDTabSheet
 	    	        
 	    	        dockSide = side;
 	    		}
-			}
-			else
-			{
-				VConsole.log("updateDropDetails: dockSide not finded");
 			}
     	}
 		
@@ -603,12 +615,12 @@ public class VStackWidget extends VDDTabSheet
     {
     	if (w instanceof VExtendedVerticalLayout)
     	{
-    		VConsole.log("VExtendedVerticalLayout finded in parent hierarchy");
+    		//VConsole.log("VExtendedVerticalLayout finded in parent hierarchy");
     		VExtendedVerticalLayout bl = (VExtendedVerticalLayout) w;
 			final String type = bl.getVariableValue(E4_ELEMENT_TYPE);
 			if (type != null && ("area".equals(type) || "perspective".equals(type) || "window".equals(type)))
 			{
-				VConsole.log("VExtendedVerticalLayout finded in parent hierarchy with type = " + type);
+				//VConsole.log("VExtendedVerticalLayout finded in parent hierarchy with type = " + type);
 				return bl;
 			}
     	}
