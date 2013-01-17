@@ -51,4 +51,12 @@ public class VStackWidgetDropHandler extends VDDTabsheetDropHandler {
 
 		stackWidget.removeDockZone();
 	};
+	
+	@Override
+	public boolean drop(VDragEvent event) 
+	{
+		if (!stackWidget.updateRegion(event))
+			return false;
+		return super.drop(event);
+	}
 }

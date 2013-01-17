@@ -347,28 +347,17 @@ public class VStackWidget extends VDDTabSheet
         	//VConsole.log("removeDockZone: dock zone removed");
         }
 	}
-	
-	/**
-     * Updates the drop details while dragging. This is needed to ensure client
-     * side criterias can validate the drop location.
-     * 
-     * @param widget
-     *            The container which we are hovering over
-     * @param event
-     *            The drag event
-     */
-	@Override
-    public void updateDropDetails(VDragEvent event) 
+    
+    public boolean updateRegion(VDragEvent event)
     {
-		//VConsole.log("updateDropDetails: start");
-		
+    	//VConsole.log("updateDropDetails: start");
         Element element = event.getElementOver();
         Widget targetWidget = Util.findWidget(element, null);
         
         if (targetWidget == null)
         {
         	//VConsole.log("updateDropDetails: targetWidget is null. return.");
-        	return;
+        	return false;
         }
         
     	if (targetWidget != this)
@@ -383,7 +372,7 @@ public class VStackWidget extends VDDTabSheet
     		if (parent == null)
     		{
     			//VConsole.log("updateDropDetails: parent not finded");
-    			return;
+    			return false;
     		}
     		targetWidget = parent;
     		//VConsole.log("updateDropDetails: parent finded");
@@ -422,7 +411,7 @@ public class VStackWidget extends VDDTabSheet
 			if (!(sourceWidget instanceof VStackWidget) && !(sourceWidget instanceof StackWidgetConnector))
 			{
 				//VConsole.log("updateDropDetails: return, because the sourceWidget is " + sourceWidget.getClass().getName());
-				return;
+				return false;
 			}
 			
 			if (sourceWidget instanceof StackWidgetConnector)
@@ -435,7 +424,7 @@ public class VStackWidget extends VDDTabSheet
 			if (targetTabSheet == sourceWidget && targetTabSheet.getTabCount() <= 1)
 			{
 				//VConsole.log("updateDropDetails: return, because target is match to source and has only one (current draggable) tab");
-				return;
+				return false;
 			}
 			
 			VExtendedVerticalLayout outerArea = findOuterArea(targetTabSheet);
@@ -457,7 +446,7 @@ public class VStackWidget extends VDDTabSheet
 			if (boundingWidget == null)
 			{
 				//VConsole.log("updateDropDetails: return, because boundingWidget not founded");
-				return;
+				return false;
 			}
         	
         	event.getDropDetails().put("targetWidgetClassName", boundingWidget.getClass().getName());
@@ -522,7 +511,7 @@ public class VStackWidget extends VDDTabSheet
 					_h = dy - 2*d;
 				}
 				else
-					return;
+					return false;
 				
 				_x = x0 + _x;
 				_y = y0 + _y;
@@ -569,6 +558,27 @@ public class VStackWidget extends VDDTabSheet
 	    		}
 			}
     	}
+    	
+    	return true;
+    }
+	
+	/**
+     * Updates the drop details while dragging. This is needed to ensure client
+     * side criterias can validate the drop location.
+     * 
+     * @param widget
+     *            The container which we are hovering over
+     * @param event
+     *            The drag event
+     */
+	@Override
+    public void updateDropDetails(VDragEvent event) 
+    {
+		if (!updateRegion(event))
+			return;
+		
+		Element element = event.getElementOver();
+		Widget targetWidget = Util.findWidget(element, null);
 		
 		//--
 		if (tabBar.getElement().isOrHasChild(element)) {
