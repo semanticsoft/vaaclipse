@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.semanticsoft.vaaclipse.presentation.widgets;
 
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
@@ -19,85 +18,99 @@ import com.vaadin.ui.Label;
 
 /**
  * @author rushan
- *
+ * 
  */
+public class TopbarComponent extends CustomComponent {
+	private GridLayout rootLayout;
 
-public class TopbarComponent extends CustomComponent
-{
-	GridLayout layout = new GridLayout(3, 3);
-	
-	Label label00 = new Label();
-	Label label01 = new Label();
-	Label label02 = new Label();
-	
-	Label label10 = new Label();
-	Label label11 = new Label();
-	Label label12 = new Label();
-	
-	Label label20 = new Label();
-	Label label21 = new Label();
-	Label label22 = new Label();
+	private Label edge_top_left = new Label();
+	private Label edge_top_middle = new Label();
+	private Label edge_top_right = new Label();
+
+	private Label edge_center_left = new Label();
+	private Label edge_center_right = new Label();
+
+	private Label edge_bottom_left = new Label();
+	private Label edge_bottom_middle = new Label();
+	private Label edge_bottom_right = new Label();
 
 	private Component content;
 
-	public TopbarComponent()
-	{
+	public TopbarComponent() {
+		addStyleName("trimbar");
+		rootLayout = new GridLayout(3, 3);
+		rootLayout.setSizeFull();
+
+		setSizeUndefined();
+		setWidth("100%");
+		setHeight("42px");
+
+		// create the elements
+		//
+		rootLayout.addComponent(edge_top_left, 0, 0);
+		rootLayout.addComponent(edge_top_middle, 1, 0);
+		rootLayout.addComponent(edge_top_right, 2, 0);
+		rootLayout.addComponent(edge_center_left, 0, 1);
 		setContent(new CssLayout());
-		
-		this.setSizeUndefined();
-		this.setWidth("100%");
-		
-		layout.setSizeUndefined();
-		layout.setWidth("100%");
-		
-		layout.addComponent(label00, 0, 0);
-		layout.addComponent(label10, 0, 1);
-		layout.addComponent(label20, 0, 2);
-		
-		layout.addComponent(label01, 1, 0);
-		layout.addComponent(label21, 1, 2);
-		
-		layout.addComponent(label02, 2, 0);
-		layout.addComponent(label12, 2, 1);
-		layout.addComponent(label22, 2, 2);
-		
-		label00.setIcon(new ThemeResource("../vaaclipse_default_theme/img/toptrimbar_00.png"));
-		label02.setIcon(new ThemeResource("../vaaclipse_default_theme/img/toptrimbar_02.png"));
-		label20.setIcon(new ThemeResource("../vaaclipse_default_theme/img/toptrimbar_20.png"));
-		label22.setIcon(new ThemeResource("../vaaclipse_default_theme/img/toptrimbar_22.png"));
-		
-		label01.addStyleName("toptrimbar_01");
-		label21.addStyleName("toptrimbar_21");
-		label10.addStyleName("toptrimbar_10");
-		label12.addStyleName("toptrimbar_12");
-		
-		label01.setWidth("100%");
-		label21.setWidth("100%");
-		
-		label10.setHeight("100%");
-		label10.setWidth(-1, Unit.PIXELS);
-		label12.setHeight("100%");
-		label12.setWidth(-1, Unit.PIXELS);
-		
-		layout.setColumnExpandRatio(0, 0);
-		layout.setColumnExpandRatio(1, 10);
-		layout.setColumnExpandRatio(2, 0);
-		
-		this.setCompositionRoot(layout);
+		rootLayout.addComponent(edge_center_right, 2, 1);
+		rootLayout.addComponent(edge_bottom_left, 0, 2);
+		rootLayout.addComponent(edge_bottom_middle, 1, 2);
+		rootLayout.addComponent(edge_bottom_right, 2, 2);
+
+		// style the elements
+		//
+		edge_top_left.addStyleName("edge_top_left");
+		// edge_top_left.setWidth("8px");
+		// edge_top_left.setHeight("8px");
+
+		edge_top_middle.addStyleName("edge_top_middle");
+		// edge_top_middle.setWidth("100%");
+		// edge_top_middle.setHeight("8px");
+
+		edge_top_right.addStyleName("edge_top_right");
+		// edge_top_right.setWidth("6px");
+		// edge_top_right.setHeight("8px");
+
+		edge_center_left.addStyleName("edge_center_left");
+		// edge_center_left.setHeight("100%");
+		// edge_center_left.setWidth("8px");
+
+		edge_center_right.addStyleName("edge_center_right");
+		// edge_center_right.setHeight("100%");
+		// edge_center_right.setWidth("8px");
+		edge_bottom_left.addStyleName("edge_bottom_left");
+		edge_bottom_middle.addStyleName("edge_bottom_middle");
+		edge_bottom_right.addStyleName("edge_bottom_right");
+
+		// set the width of at least one side element for proper layouting
+		edge_bottom_left.setWidth("8px");
+		edge_bottom_right.setWidth("6px");
+
+		// expand the center column to its maximum
+		// left and right column will gain their set size
+		rootLayout.setColumnExpandRatio(1, 1.0f);
+
+		setCompositionRoot(rootLayout);
+
 	}
-	
-	public Component getContent()
-	{
+
+	public Component getContent() {
 		return content;
 	}
-	
-	public void setContent(Component content)
-	{
-		layout.removeComponent(this.content);
-		layout.addComponent(content, 1, 1);
-		
+
+	/**
+	 * Sets the content of the top bar.
+	 * 
+	 * @param content
+	 */
+	public void setContent(Component content) {
+		if (this.content != null) {
+			rootLayout.removeComponent(this.content);
+		}
+		rootLayout.addComponent(content, 1, 1);
+
 		this.content = content;
-		content.setSizeUndefined();
-		content.setWidth("100%");
+//		 content.setSizeFull();
+		content.addStyleName("content");
 	}
 }

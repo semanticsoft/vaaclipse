@@ -4,90 +4,84 @@
 .v-app .perspectivepanel {
 	position: relative;
 	float: right;
-	padding-left:    10px;
-	padding-top:    6px;
- 	padding-bottom: 6px;
- 	margin-right: 4px;
+	padding-left: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-right: 4px;
 	border: none;
 	background-color: transparent;
 }
 
 .v-app .toptrimbar {
 	float: left;
+	padding-left: 8px;
 }
 
-/*
- * toptrimbarborder border
- */
- 
- .v-app .toptrimbar_11 {
+.v-app .trimbar .content {
 	background-color: #d2d2d2;
-	padding-top:    1px;
- 	padding-bottom: 1px;
+	size: 100%;
 }
 
-.v-app .toptrimbar_00 {
-	background-image: url('img/toptrimbar_00.png');
-	width: 8px;
+.v-app .trimbar .edge_top_left {
+	background-image: url('img/toptrimbar_edge_top_left.png');
 	height: 8px;
 }
 
-.v-app .toptrimbar_01 {
-	background-image: url('img/toptrimbar_01.png');
-	height: 8px;
+.v-app .trimbar .edge_top_middle {
+	background-image: url('img/toptrimbar_edge_top_middle.png');
 	background-repeat: repeat-x;
-}
-
-.v-app .toptrimbar_02 {
-	background-image: url('img/toptrimbar_02.png');
-	width: 6px;
 	height: 8px;
 }
 
-.v-app .toptrimbar_10 {
-	background-image: url('img/toptrimbar_10.png');
+.v-app .trimbar .edge_top_right {
+	background-image: url('img/toptrimbar_edge_top_right.png');
+	height: 8px;
+}
+
+.v-app .trimbar .edge_center_left {
+	background-image: url('img/toptrimbar_edge_center_left.png');
+	background-repeat: repeat-y;
+	height: 26px;
 	width: 8px;
 	min-width: 8px;
-	background-repeat: repeat-y;
 }
 
-.v-app .toptrimbar_12 {
-	background-image: url('img/toptrimbar_12.png');
-	width: 6px;
+.v-app .trimbar .edge_center_right {
+	background-image: url('img/toptrimbar_edge_center_right.png');
 	background-repeat: repeat-y;
+	height: 26px;
 }
 
-.v-app .toptrimbar_20 {
-	background-image: url('img/toptrimbar_20.png');
-	width: 7px;
+.v-app .trimbar .edge_bottom_left {
+	background-image: url('img/toptrimbar_edge_bottom_left.png');
 	height: 6px;
 }
 
-.v-app .toptrimbar_21 {
-	background-image: url('img/toptrimbar_21.png');
-	height: 6px;
+.v-app .trimbar .edge_bottom_middle {
+	background-image: url('img/toptrimbar_edge_bottom_middle.png');
 	background-repeat: repeat-x;
+	height: 8px;
 }
 
-.v-app .toptrimbar_22 {
-	background-image: url('img/toptrimbar_22.png');
+.v-app .trimbar .edge_bottom_right {
+	background-image: url('img/toptrimbar_edge_bottom_right.png');
 	width: 6px;
 	height: 6px;
 }
- 
+
 /*
 *	trimbar
 */
 .v-app .horizontaltrimbar {
-	padding-left:   5px;
-	padding-top:    6px;
- 	padding-bottom: 6px;
+	padding-left: 5px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
 .v-app .verticaltrimbar {
-	padding-left:   4px;
-	padding-right:  4px;
-	padding-top:    5px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 5px;
 }
 
 .v-app .verticaltrimelement {
@@ -159,8 +153,8 @@
 /*
 *toolbar button
 */
-.v-app .v-button-vaaclipsebutton,
-.v-app .v-disabled.v-button-vaaclipsebutton {
+.v-app .v-button-vaaclipsebutton,.v-app .v-disabled.v-button-vaaclipsebutton
+	{
 	background: transparent;
 	border: none;
 	padding: 0px;
@@ -172,13 +166,13 @@
 	-moz-box-shadow: none;
 }
 
-.v-app .v-button-vaaclipsebutton .v-button-wrap,
-.v-app .v-disabled.v-button-vaaclipsebutton .v-button-wrap {
+.v-app .v-button-vaaclipsebutton .v-button-wrap,.v-app .v-disabled.v-button-vaaclipsebutton .v-button-wrap
+	{
 	background: transparent;
 	border: none;
 	padding: 0px;
 }
-	
+
 .v-app .v-button-vaaclipsebutton .v-icon {
 	margin-left: 0px;
 	margin-top: 0px;
@@ -215,10 +209,8 @@
 	color: #000000;
 }
 
-.v-app .v-button-vaaclipsebutton:active, .v-button-vaaclipsebutton:focus,
-.v-app .v-ie7 .v-pressed.v-button,
-.v-app .v-ie8 .v-pressed.v-button,
-.v-app div.v-button-pushed {
+.v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus,.v-app .v-ie7 .v-pressed.v-button,.v-app .v-ie8 .v-pressed.v-button,.v-app div.v-button-pushed
+	{
 	background-image: url(img/toolbar_button_pushed_gradient.png);
 	background-repeat: repeat-x;
 	background-color: #dfe3ec;
@@ -226,14 +218,10 @@
 	border: solid 1px #000000;
 	height: auto;
 	width: auto;
-	}
+}
 
-.v-app .v-button-vaaclipsebutton:active .v-button-wrap,
-.v-app .v-button-vaaclipsebutton:focus .v-button-wrap,
-.v-app .v-ie7 .v-pressed.v-button .v-button-wrap,
-.v-app .v-ie8 .v-pressed.v-button .v-button-wrap,
-.v-app .v-button-pushed .v-button-wrap {
-	/*background-image: url(../chameleon/img/grad-dark-top2.png);*/
+.v-app .v-button-vaaclipsebutton:active .v-button-wrap,.v-app .v-button-vaaclipsebutton:focus .v-button-wrap,.v-app .v-ie7 .v-pressed.v-button .v-button-wrap,.v-app .v-ie8 .v-pressed.v-button .v-button-wrap,.v-app .v-button-pushed .v-button-wrap
+	{ /*background-image: url(../chameleon/img/grad-dark-top2.png);*/
 	background: transparent;
 	background-image: none;
 	display: inline;
@@ -242,7 +230,6 @@
 	border: none;
 	color: #000000;
 }
-
 
 .v-app .v-button-icononly .v-button-caption {
 	display: none;
@@ -265,11 +252,11 @@
  * sash widget
  */
 .v-app .v-splitpanel-hsplitter-invisible-locked {
-width: 0px;
+	width: 0px;
 }
 
 .v-app .v-splitpanel-vsplitter-invisible-locked {
-width: 0px;
+	width: 0px;
 }
 
 .v-app .area {
@@ -279,10 +266,10 @@ width: 0px;
 /*
  * window no header
  */
- .v-app .v-window-loading-window .v-window-outerheader {
-    height: 0;
-    margin-left: 0;
-    padding: 0;
+.v-app .v-window-loading-window .v-window-outerheader {
+	height: 0;
+	margin-left: 0;
+	padding: 0;
 }
 
 .v-app .mparttoolbararea {
@@ -305,38 +292,65 @@ bugfixing style for context menu addon
 
 /************* jhighlight styles**************************/
 .xml_plain {
-color: rgb(0,0,0);
+	color: rgb(0, 0, 0);
 }
+
 .xml_tag_name {
-color: rgb(0,55,255);
+	color: rgb(0, 55, 255);
 }
+
 .xml_comment {
-color: rgb(147,147,147); background-color: rgb(247,247,247);
+	color: rgb(147, 147, 147);
+	background-color: rgb(247, 247, 247);
 }
+
 .xml_tag_symbols {
-color: rgb(0,59,255);
+	color: rgb(0, 59, 255);
 }
+
 .xml_rife_tag {
-color: rgb(0,0,0); background-color: rgb(228,230,160);
+	color: rgb(0, 0, 0);
+	background-color: rgb(228, 230, 160);
 }
+
 .xml_attribute_value {
-color: rgb(193,0,0);
+	color: rgb(193, 0, 0);
 }
+
 .xml_attribute_name {
-color: rgb(0,0,0); font-weight: bold;
+	color: rgb(0, 0, 0);
+	font-weight: bold;
 }
+
 .xml_char_data {
-color: rgb(0,0,0);
+	color: rgb(0, 0, 0);
 }
+
 code {
-color: rgb(0,0,0); font-family: monospace; font-size: 12px; white-space: nowrap;
+	color: rgb(0, 0, 0);
+	font-family: monospace;
+	font-size: 12px;
+	white-space: nowrap;
 }
+
 .xml_rife_name {
-color: rgb(0,0,196); background-color: rgb(228,230,160);
+	color: rgb(0, 0, 196);
+	background-color: rgb(228, 230, 160);
 }
+
 h1 {
-font-family: sans-serif; font-size: 16pt; font-weight: bold; color: rgb(0,0,0); background: rgb(210,210,210); border: solid 1px black; padding: 5px; text-align: center;
+	font-family: sans-serif;
+	font-size: 16pt;
+	font-weight: bold;
+	color: rgb(0, 0, 0);
+	background: rgb(210, 210, 210);
+	border: solid 1px black;
+	padding: 5px;
+	text-align: center;
 }
+
 .xml_processing_instruction {
-color: rgb(0,0,0); font-weight: bold; font-style: italic;
+	color: rgb(0, 0, 0);
+	font-weight: bold;
+	font-style: italic;
 }
