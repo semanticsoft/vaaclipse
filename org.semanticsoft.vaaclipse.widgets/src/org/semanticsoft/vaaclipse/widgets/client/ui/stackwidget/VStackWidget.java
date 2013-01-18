@@ -130,7 +130,6 @@ public class VStackWidget extends VDDTabSheet
         setStyleName(minimizeButton, "v-vaadock-tabsheet-minimize-button");
         DOM.appendChild(buttonPanel, minimizeButton);
         
-        
 //        if (VDragAndDropManager.get().getDragHandlerFinder() == null)
 //        {
 //        	VDragAndDropManager.get().setDragHandlerFinder(this);
@@ -250,7 +249,6 @@ public class VStackWidget extends VDDTabSheet
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//Drag-and-drop support
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
     @Override
     public void deEmphasis() 
     {
