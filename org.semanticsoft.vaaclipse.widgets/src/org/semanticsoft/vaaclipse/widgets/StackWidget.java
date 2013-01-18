@@ -13,11 +13,14 @@ package org.semanticsoft.vaaclipse.widgets;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
+import com.vaadin.shared.Connector;
+import com.vaadin.ui.Component;
 
 import fi.jasoft.dragdroplayouts.DDTabSheet;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
@@ -42,6 +45,21 @@ public class StackWidget extends DDTabSheet
 		this.addStyleName("stackwidget");
 		this.setDragMode(LayoutDragMode.CLONE);
 	}
+	
+	/**
+	 * The hack that allow avoid bug in DDTabSheet when sometimes draggable tabs become non draggable
+	 */
+//	@Override
+//	public void beforeClientResponse(boolean initial) {
+//		super.beforeClientResponse(initial);
+//		
+//		Iterator<Component> componentIterator = getComponentIterator();
+//        getState().draggable = new ArrayList<Connector>();
+//        while (componentIterator.hasNext()) {
+//            Component c = componentIterator.next();
+//            getState().draggable.add(c);
+//        }
+//	}
 	
 	@Override
 	public void changeVariables(Object source, Map<String, Object> variables) {
