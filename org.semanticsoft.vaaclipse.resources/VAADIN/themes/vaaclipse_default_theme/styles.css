@@ -198,6 +198,8 @@
 	background-color: #e4e7ef;
 	/*background-image: none;*/
 	border: solid 1px #000000;
+	margin-right: -2px;
+	margin-bottom: -1px;
 }
 
 .v-app .v-button-vaaclipsebutton:hover .v-button-wrap {
