@@ -28,7 +28,6 @@ public class XmlEditor extends TextEditor
 		super(inputPart.getInputURI());
 		
 		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
 		container.addComponent(e);
 	}
 	

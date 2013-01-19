@@ -22,8 +22,6 @@ public class HtmlEditor extends TextEditor
 		
 		Panel e = new Panel();
 		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
-//		e.setScrollable(true);
 		text = new Label(readContent(), Label.CONTENT_XHTML);
 		e.setContent(text);
 		container.addComponent(e);

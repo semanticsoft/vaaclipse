@@ -32,6 +32,7 @@ import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan
@@ -52,8 +53,8 @@ public class PlaceholderRenderer extends VaadinRenderer
 		final MUIElement ref = ph.getRef();
 		ref.setCurSharedRef(ph);
 		
-		//VerticalLayout phComp = new VerticalLayout();
-		ExtendedVerticalLayout phComp = new ExtendedVerticalLayout();
+		VerticalLayout phComp = new VerticalLayout();
+		//ExtendedVerticalLayout phComp = new ExtendedVerticalLayout();
 		phComp.setSizeFull();
 		phComp.setMargin(false);
 		ph.setWidget(phComp);

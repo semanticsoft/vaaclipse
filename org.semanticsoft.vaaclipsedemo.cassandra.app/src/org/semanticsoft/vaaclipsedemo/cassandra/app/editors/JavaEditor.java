@@ -31,7 +31,6 @@ public class JavaEditor extends TextEditor
 		
 		Panel e = new Panel();
 		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
 		//text = new CodeLabel(readContent());
 		text = new Label(readContent());
 		e.setContent(text);
