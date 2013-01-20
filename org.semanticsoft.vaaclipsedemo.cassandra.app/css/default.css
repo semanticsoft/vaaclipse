@@ -1,18 +1,18 @@
-.part {
+.v-app .part {
 	background-color: white;
 }
 
-.editstatus {
+.v-app .editstatus {
 	margin-right: 35px;
 	float: right;
 }
 
-.editmode {
+.v-app .editmode {
 	margin-right: 35px;
 	float: right;
 }
 
-.codeline {
+.v-app .codeline {
 	margin-right: 300px;
 	float: right;
 }

@@ -1,13 +1,13 @@
-.exititemlayout {
+.v-app .exititemlayout {
 	float: right;
 }
 
-.add-to-lib-item-layout {
+.v-app .add-to-lib-item-layout {
 	/* margin-right: 30px; */
 	float: right;
 }
 
-.emptyplaylist .v-table-body {
+.v-app .emptyplaylist .v-table-body {
     background: url("dragmedia.png");
     background-repeat:no-repeat;
 	background-position:center center;
