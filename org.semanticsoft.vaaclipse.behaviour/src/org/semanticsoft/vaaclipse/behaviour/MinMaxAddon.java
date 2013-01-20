@@ -36,6 +36,8 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
@@ -52,6 +54,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.commons.geom.Bounds;
 import org.semanticsoft.vaaclipse.api.Events;
 import org.semanticsoft.vaaclipse.api.WidgetInfo;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
@@ -596,17 +599,21 @@ public class MinMaxAddon {
 
 	private MTrimBar getBarForElement(MUIElement element, MTrimmedWindow window) {
 		SideValue side = SideValue.LEFT;
+		
 //		SideValue side = getCachedBar(element);
 //		if (side == null) {
-//			Bounds winBounds = widgetInfo.getBounds(window);
-//			int winCenterX = winBounds.w / 2;
-//			widgetInfo.invalidateBounds(window);
-//			Bounds stackBounds = widgetInfo.getBounds(window, element);
-//			int stackCenterX = stackBounds.x + (stackBounds.w / 2);
-//			side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;
+			
+			Bounds winBounds = new Bounds(0, 0, 1000, 1000);
+			double winCenterX = winBounds.w / 2;
+			Bounds stackBounds = calculateBounds(element, window, winBounds);
+			if (stackBounds != null)
+			{
+				double stackCenterX = stackBounds.x + (stackBounds.w / 2);
+				side = stackCenterX < winCenterX ? SideValue.LEFT : SideValue.RIGHT;	
+			}
 //		}
+		
 		MTrimBar bar = modelService.getTrim(window, side);
-
 		return bar;
 	}
 
@@ -639,4 +646,96 @@ public class MinMaxAddon {
 	{
 		return part2element.get(part);
 	}
+	
+	private double parseContainerData(String containerData)
+	{
+		if (containerData == null)
+			return 0.0d;
+		
+		containerData = containerData.trim();
+		
+		try
+		{
+			return Double.parseDouble(containerData);
+		}
+		catch (NumberFormatException e) 
+		{
+			return 0.0d;
+		}
+	}
+	
+	private Bounds calculateBounds(MUIElement element, MUIElement container, Bounds currentBounds)
+	{
+		if (container == element)
+		{
+			return currentBounds;
+		}
+		else if (container instanceof MPartSashContainer)
+		{
+			MPartSashContainer sash = (MPartSashContainer) container;
+			
+			Map<MPartSashContainerElement, Double> weights = new HashMap<MPartSashContainerElement, Double>();
+			double total_weight = 0;
+			for (MPartSashContainerElement children : sash.getChildren())
+			{
+				if (children.isToBeRendered() && children.isVisible() 
+						&& children.getWidget() != null /*element can be renderable but has no widget when removeGui called for element*/ )
+				{
+					String data = children.getContainerData();
+					double weight = parseContainerData(data);
+					
+					weights.put(children, weight);
+					total_weight += weight;
+				}
+			}
+			
+			if (total_weight == 0.0) //all child elements has zero weight
+				total_weight = 1.0;
+			
+			double sumWeightPrcnt = 0;
+			for (MPartSashContainerElement children : sash.getChildren())
+			{
+				Double w = weights.get(children);
+				if (w != null)
+				{
+					double wPrcnt = w/total_weight;
+					Bounds newBounds;
+					if (sash.isHorizontal())
+					{
+						newBounds = new Bounds(
+								currentBounds.x + currentBounds.w*sumWeightPrcnt, 
+								currentBounds.y, 
+								currentBounds.w*wPrcnt, 
+								currentBounds.h);
+					}
+					else
+					{
+						newBounds = new Bounds(
+								currentBounds.x, 
+								currentBounds.y + currentBounds.h*sumWeightPrcnt, 
+								currentBounds.w,
+								currentBounds.h*wPrcnt);
+					}
+					sumWeightPrcnt += wPrcnt;
+					
+					Bounds bounds = calculateBounds(element, children, newBounds);
+					if (bounds != null)
+						return bounds;
+				}
+			}
+		}
+		else if (container instanceof MElementContainer<?>)
+		{
+			MElementContainer<MUIElement> _container = (MElementContainer<MUIElement>) container;
+			for (MUIElement child : _container.getChildren())
+			{
+				Bounds bounds = calculateBounds(element, child, currentBounds);
+				if (bounds != null)
+					return bounds;
+			}
+		}
+		
+		return null;
+	}
+
 }
