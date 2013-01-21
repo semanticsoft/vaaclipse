@@ -17,20 +17,20 @@
          </property>
          <property
                name="cssTheme"
-               value="chameleon">
+               value="chameleon-legacy">
          </property>
-         <property
+         <!--property
                name="applicationWidgetset"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/widgetset/mediaplayer.MediaplayerApplicationWidgetset">
-         </property>
+         </property-->
          <property
                name="applicationHeaderIcon"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/vaaclipse.png">
          </property>
-         <property
+         <!--property
                name="applicationAuthenticationProvider"
                value="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.login.LoginProvider">
-         </property>
+         </property-->
       </product>
    </extension>
    <extension id="processor"
@@ -71,7 +71,7 @@
             id="org.semanticsoft.vaaclipsedemo.mediaplayer.chameleoncolor"
             insertPosition="after=MAIN_CSS">
          <themeid
-               refid="chameleon">
+               refid="chameleon-legacy">
          </themeid>
          <resourceLocationUri
                uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/chameleon">
@@ -103,7 +103,7 @@
                uri="platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/">
          </resourceLocationUri>
          <themeid
-               refid="chameleon">
+               refid="chameleon-legacy">
          </themeid>
          <themeid
                refid="reindeer">
@@ -126,7 +126,7 @@
                uri="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons">
          </resourceLocationUri>
          <themeid
-               refid="chameleon">
+               refid="chameleon-legacy">
          </themeid>
          <themeid
                refid="reindeer">

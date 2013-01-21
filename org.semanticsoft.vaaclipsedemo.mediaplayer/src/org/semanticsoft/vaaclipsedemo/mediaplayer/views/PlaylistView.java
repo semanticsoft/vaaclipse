@@ -86,7 +86,6 @@ public class PlaylistView
 	{
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.getContent().setSizeFull();
 		parent.addComponent(panel);
 	}
 
