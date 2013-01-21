@@ -46,6 +46,9 @@ import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
+import org.vaadin.peter.contextmenu.ContextMenu;
+import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
+import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItemClickEvent;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
@@ -73,11 +76,10 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 {
 	private MPerspectiveStack perspectiveStackForSwitcher;
 	private HorizontalLayout perspectiveSwitcherPanel;
-//	private ContextMenu menu;
-//	private ContextMenuItem showTextItem;
 	private Map<MPerspective, TwoStateToolbarButton> perspective_button = new HashMap<MPerspective, TwoStateToolbarButton>();
+	private Map<Component, ContextMenu> button2ContextMenu = new HashMap<Component, ContextMenu>();
+	private Map<ContextMenu, Component> contextMenu2Button = new HashMap<ContextMenu, Component>();
 	
-	private MPerspective lastClickedPerspective;
 	private MPerspective activePerspective;
 	@Inject
 	private UI vaadinUI;
@@ -121,7 +123,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			String eventType = (String) event.getProperty(UIEvents.EventTags.TYPE);
 			String tag = (String) event.getProperty(UIEvents.EventTags.NEW_VALUE);
 			String oldVal = (String) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-
+			
 			if (UIEvents.EventTypes.ADD.equals(eventType) && Tags.ICONS_ONLY.equals(tag)) 
 			{
 				for (Map.Entry<MPerspective, TwoStateToolbarButton> entry : perspective_button.entrySet())
@@ -130,10 +132,12 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					TwoStateToolbarButton button = entry.getValue();
 					clearButton(button);
 					setupStyleTextIcon(null, Commons.trim(perspective.getIconURI()), button);
+					
+					ContextMenu menu = button2ContextMenu.get(button);
+//					menu.removeItem(showTextItem);
+//					showTextItem = menu.addItem("Show Text");
+//					showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 				}
-//				menu.removeItem(showTextItem);
-//				showTextItem = menu.addItem("Show Text");
-//				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 			} 
 			else if (UIEvents.EventTypes.REMOVE.equals(eventType) && Tags.ICONS_ONLY.equals(oldVal)) {
 				for (Map.Entry<MPerspective, TwoStateToolbarButton> entry : perspective_button.entrySet())
@@ -142,10 +146,12 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					TwoStateToolbarButton button = entry.getValue();
 					clearButton(button);
 					setupStyleTextIcon(Commons.trim(perspective.getLabel()), Commons.trim(perspective.getIconURI()), button);
+					
+					ContextMenu menu = button2ContextMenu.get(button);
+//					menu.removeItem(showTextItem);
+//					showTextItem = menu.addItem("Hide Text");
+//					showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 				}
-//				menu.removeItem(showTextItem);
-//				showTextItem = menu.addItem("Hide Text");
-//				showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
 			}
 		}
 	};
@@ -259,67 +265,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		perspectiveSwitcherPanel = new HorizontalLayout();
 		perspectiveSwitcherPanel.setStyleName("perspectivepanel");
 		perspectiveSwitcherPanel.setSizeUndefined();
-
-		// Context menu
-//		menu = new ContextMenu();
-//		perspectiveSwitcherPanel.addComponent(menu);
-		
-//		final ContextMenuItem closeItem = menu.addItem("Close");
-//		closeItem.setSeparatorVisible(true);
-//		if (iconsOnly)
-//			showTextItem = menu.addItem("Show Text");
-//		else
-//			showTextItem = menu.addItem("Hide Text");
-//		
-//		showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
-//		
-//		 menu.addListener(new ContextMenu.ClickListener() {
-//
-//			@Override
-//			public void contextItemClick(org.vaadin.peter.contextmenu.ContextMenu.ClickEvent event)
-//			{
-//				ContextMenuItem clickedItem = event.getClickedItem();
-//				if (clickedItem == closeItem)
-//				{
-//					if (lastClickedPerspective == activePerspective)
-//					{
-//						MPerspective prevRenderableAndVisiblePerspective = null, nextRenderableAndVisiblePerspective = null;
-//						boolean startSearch = false;
-//						for (MPerspective p : perspectiveStackForSwitcher.getChildren())
-//						{
-//							if (startSearch && p.isToBeRendered() && p.isVisible())
-//							{
-//								nextRenderableAndVisiblePerspective = p;
-//								break;
-//							}
-//							
-//							if (p == lastClickedPerspective)
-//								startSearch = true;
-//							
-//							if (!startSearch && p.isToBeRendered() && p.isVisible())
-//							{
-//								prevRenderableAndVisiblePerspective = p;
-//							}
-//						}
-//						
-//						MPerspective newSelectedPerspective = nextRenderableAndVisiblePerspective != null ? nextRenderableAndVisiblePerspective 
-//								: prevRenderableAndVisiblePerspective;
-//						
-//						if (newSelectedPerspective != null)
-//							switchPerspective(newSelectedPerspective);	
-//					}
-//					
-//					lastClickedPerspective.setToBeRendered(false);
-//				}
-//				else if (clickedItem == showTextItem)
-//				{
-//					if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
-//						perspectiveStackForSwitcher.getTags().remove(Tags.ICONS_ONLY);
-//					else
-//						perspectiveStackForSwitcher.getTags().add(Tags.ICONS_ONLY);
-//				}
-//			}
-//		 });
 		 
 		 Button openPerspectiveButton = new Button("Open");
 			openPerspectiveButton.addStyleName("vaaclipsebutton");
@@ -390,24 +335,94 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		 });
 		 
 		 //TODO: replace VerticalLayout on more thin layout (for example SimpleLayout addon which consist of just one div)
-		 VerticalLayout wrapperLayout = new VerticalLayout();
-		 wrapperLayout.setSizeUndefined();
-		 wrapperLayout.addComponent(button);
-		 wrapperLayout.addListener(new LayoutEvents.LayoutClickListener() {
-
-			 @Override
-			 public void layoutClick(LayoutClickEvent event)
-			 {
-				 if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
-				 {
-					 lastClickedPerspective = perspective;
-//					 menu.show(event.getClientX(), event.getClientY());
-				 }
-			 }
-		 });
+//		 VerticalLayout wrapperLayout = new VerticalLayout();
+//		 wrapperLayout.setSizeUndefined();
+//		 wrapperLayout.addComponent(button);
+//		 wrapperLayout.addListener(new LayoutEvents.LayoutClickListener() {
+//
+//			 @Override
+//			 public void layoutClick(LayoutClickEvent event)
+//			 {
+//				 if (LayoutClickEvent.BUTTON_RIGHT == event.getButton())
+//				 {
+//					 lastClickedPerspective = perspective;
+////					 menu.open(event.getClientX(), event.getClientY());
+//				 }
+//			 }
+//		 });
+		 
+		 //Create context menu
+		// Context menu
+			ContextMenu menu = new ContextMenu();
+			contextMenu2Button.put(menu, button);
+			button2ContextMenu.put(button, menu);
+			
+			final ContextMenuItem showTextItem;
+			
+			final ContextMenuItem closeItem = menu.addItem("Close");
+			//closeItem.setSeparatorVisible(true);
+			
+			if (iconsOnly)
+				showTextItem = menu.addItem("Show Text");
+			else
+				showTextItem = menu.addItem("Hide Text");
+			
+			//showTextItem.addStyleName("close-perspective-item"); //bugfixing style for ie9 (context menu addon has bug for ie9)
+			
+			 menu.addItemClickListener(new ContextMenu.ContextMenuItemClickListener() {
+				 
+				 @Override
+				public void contextMenuItemClicked(ContextMenuItemClickEvent event)
+				{
+					 ContextMenuItem clickedItem = (ContextMenuItem) event.getSource();
+					 
+					 if (clickedItem == closeItem)
+						{
+							if (perspective == activePerspective)
+							{
+								MPerspective prevRenderableAndVisiblePerspective = null, nextRenderableAndVisiblePerspective = null;
+								boolean startSearch = false;
+								for (MPerspective p : perspectiveStackForSwitcher.getChildren())
+								{
+									if (startSearch && p.isToBeRendered() && p.isVisible())
+									{
+										nextRenderableAndVisiblePerspective = p;
+										break;
+									}
+									
+									if (p == perspective)
+										startSearch = true;
+									
+									if (!startSearch && p.isToBeRendered() && p.isVisible())
+									{
+										prevRenderableAndVisiblePerspective = p;
+									}
+								}
+								
+								MPerspective newSelectedPerspective = nextRenderableAndVisiblePerspective != null ? nextRenderableAndVisiblePerspective 
+										: prevRenderableAndVisiblePerspective;
+								
+								if (newSelectedPerspective != null)
+									switchPerspective(newSelectedPerspective);	
+							}
+							
+							perspective.setToBeRendered(false);
+						}
+						else if (clickedItem == showTextItem)
+						{
+							if (perspectiveStackForSwitcher.getTags().contains(Tags.ICONS_ONLY))
+								perspectiveStackForSwitcher.getTags().remove(Tags.ICONS_ONLY);
+							else
+								perspectiveStackForSwitcher.getTags().add(Tags.ICONS_ONLY);
+						}
+				}
+			 });
+		 
+		 menu.setAsContextMenuOf(button);
 		
 		 perspective_button.put(perspective, button);
-		 return wrapperLayout;
+		 //return wrapperLayout;
+		 return button;
 	}
 
 	@Override
@@ -491,8 +506,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		MPerspective p = (MPerspective) child;
 		
 		Component button = createPerspectiveButton(p);
-		//shift on 3 - the first child is context menu, the second child - open perspective button, the third child - is separator
-		int index = indexOf(child, element) + 3;
+		//shift on 2 - the first child - open perspective button, the second child - is separator
+		int index = indexOf(child, element) + 2;
 		perspectiveSwitcherPanel.addComponent(button, index);
 		
 		refreshPerspectiveStackVisibility(stack);
@@ -505,8 +520,10 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		MPerspective p = (MPerspective) child;
 		
 		Button button = perspective_button.get(p);
-		Component wrapperLayout = button.getParent();
-		perspectiveSwitcherPanel.removeComponent(wrapperLayout);
+		perspectiveSwitcherPanel.removeComponent(button);
+		
+		ContextMenu menu = button2ContextMenu.remove(button);
+		contextMenu2Button.remove(menu);
 		
 		refreshPerspectiveStackVisibility(stack);
 	}
