@@ -33,7 +33,6 @@ import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.ComponentConnector;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
-import com.vaadin.client.VConsole;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.HorizontalDropLocation;
@@ -652,20 +651,20 @@ public class VStackWidget extends VDDTabSheet
 	{
 		if (toolbarRelocated)
 		{
-			VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is relocated");
+			//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is relocated");
 			if (!hasSpace(toolbarElement))
 			{
-				VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
 				restoreLocationOfPartToolbar();
 			}
 		}
 		else
 		{
-			VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is not relocated");
+			//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is not relocated");
 			ComponentConnector selectedTab = getTab(activeTabIndex);
 			if (selectedTab == null)
 			{
-				VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: selected tab is null");
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: selected tab is null");
 				return;
 			}
 			
@@ -674,13 +673,13 @@ public class VStackWidget extends VDDTabSheet
 			Element _toolbarElement = findToolbarElement(selectedWidget.getElement());
 			if (_toolbarElement == null)
 			{
-				VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar element is null");
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar element is null");
 				return;
 			}
 			
 			if (hasSpace(_toolbarElement))
 			{
-				VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
 				changeLocationOfPartToolbar(selectedWidget, _toolbarElement);	
 			}
 		}
@@ -707,7 +706,7 @@ public class VStackWidget extends VDDTabSheet
 		
 		if (pathToParent == null || pathToParent.isEmpty())
 		{
-			VConsole.log(this.hashCode() + ".Path to parent is null or empty");
+			//VConsole.log(this.hashCode() + ".Path to parent is null or empty");
 		}
 		
 		for (Node node: pathToParent)
@@ -737,7 +736,7 @@ public class VStackWidget extends VDDTabSheet
 		DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");
 		DOM.setStyleAttribute(toolbarElement, "marginTop", marginTop + "px");
 		
-		VConsole.log(this.hashCode() + ".updateGeometry: marginRight: " + marginRight + ", marginTop: " + marginTop);
+		//VConsole.log(this.hashCode() + ".updateGeometry: marginRight: " + marginRight + ", marginTop: " + marginTop);
 	}
 	
 	void restoreLocationOfPartToolbar()
