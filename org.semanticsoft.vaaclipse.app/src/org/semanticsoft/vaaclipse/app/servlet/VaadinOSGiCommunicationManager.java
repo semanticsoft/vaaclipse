@@ -226,4 +226,12 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 	{
 		runnables2.clear();
 	}
+
+	@Override
+	public void removeAllInvokeLater()
+	{
+		this.runnables.clear();
+		this.keys.clear();
+		this.runnable2Key.clear();
+	}
 }
