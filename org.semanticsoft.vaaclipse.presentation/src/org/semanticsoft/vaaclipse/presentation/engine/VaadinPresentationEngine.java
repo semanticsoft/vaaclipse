@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipse.presentation.engine;
 
+import java.net.URI;
+
 import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -18,9 +20,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.fastview.FastViewManager;
 
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("restriction")
 public class VaadinPresentationEngine extends GenericPresentationEngine {
@@ -59,7 +63,14 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 	@Override
 	public void stop() {
 		super.stop();
+		
+		VaadinExecutorService executor = theApp.getContext().get(VaadinExecutorService.class);
+		executor.removeAllAlwaysRunnables();
+		
 		UI ui = theApp.getContext().get(UI.class);
+		ui.setContent(new VerticalLayout());
+		URI appUri = ui.getPage().getLocation();
 		ui.close();
+		ui.getPage().setLocation(appUri);
 	}
 }

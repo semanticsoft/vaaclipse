@@ -14,4 +14,5 @@ public interface VaadinExecutorService
 	boolean containsKey(Object key);
 	void invokeLaterAlways(Runnable runnable);
 	void removeAlwaysRunnable(Runnable runnable);
+	void removeAllAlwaysRunnables();
 }

@@ -220,4 +220,10 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 
         return success;
     }
+
+	@Override
+	public void removeAllAlwaysRunnables()
+	{
+		runnables2.clear();
+	}
 }
