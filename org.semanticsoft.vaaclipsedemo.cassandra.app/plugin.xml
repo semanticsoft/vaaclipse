@@ -41,7 +41,7 @@
          </property-->
          <property
                name="applicationHeaderIcon"
-               value="/img/vaaclipse.png">
+               value="org.semanticsoft.vaaclipsedemo.cassandra.app/img/vaaclipse.png">
          </property>
       </product>
    </extension>
