@@ -11,35 +11,26 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
-import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+
+import com.vaadin.ui.VerticalLayout;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 
 /**
  * @author rushan
  *
  */
-public class JavaEditor extends TextEditor
+public class JavaEditor extends JHighlightEditor
 {
 	@Inject
 	public JavaEditor(VerticalLayout container, MInputPart inputPart)
 	{
-		super(inputPart.getInputURI());
-		
-		Panel e = new Panel();
-		e.setSizeFull();
-		//text = new CodeLabel(readContent());
-		text = new Label(readContent());
-		e.setContent(text);
-		container.addComponent(e);
+		super(container, inputPart);
 	}
-	
-	@PreDestroy
-	public void preDestory()
+
+	@Override
+	String getJHighlighTypeName()
 	{
-		System.out.println("predestroy");
+		return "java";
 	}
 }

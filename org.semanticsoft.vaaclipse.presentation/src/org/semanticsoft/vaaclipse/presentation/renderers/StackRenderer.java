@@ -301,7 +301,10 @@ public class StackRenderer extends VaadinRenderer {
 			closable = ((MPart) mLabel).isCloseable();
 		
 		Resource icon = mLabel.getIconURI() != null ? ResourceHelper.createResource(mLabel.getIconURI()) : null;
-		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
+		//Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
+		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), pos);
+		tab.setCaption(mLabel.getLocalizedLabel());
+		tab.setIcon(icon);
 		tab.setClosable(closable);
 		tab.setDescription(mLabel.getLocalizedTooltip());
 		
