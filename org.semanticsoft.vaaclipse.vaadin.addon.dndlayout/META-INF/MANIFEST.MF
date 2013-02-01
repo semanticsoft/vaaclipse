@@ -5,8 +5,8 @@ Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadin.addon.dndlayout
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ClassPath: dragdroplayouts-development.jar,
- .
+Bundle-ClassPath: .,
+ dragdroplayouts-1.0.0.alpha2.jar
 Export-Package: fi.jasoft.dragdroplayouts,
  fi.jasoft.dragdroplayouts.client,
  fi.jasoft.dragdroplayouts.client.ui,

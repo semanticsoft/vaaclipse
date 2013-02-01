@@ -119,7 +119,7 @@
 				<!-- P2 features -->
 				<module>org.semanticsoft.vaaclipse.feature.runtime.core</module>
 				<module>org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra</module>
-<!-- 				<module>org.semanticsoft.vaaclipse.feature.ide</module> -->
+				<!-- <module>org.semanticsoft.vaaclipse.feature.ide</module> -->
 				<!-- end P2 features -->
 
 				<module>org.semanticsoft.vaadin</module>
@@ -140,9 +140,9 @@
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
-				
+
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
-				
+
 				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
 				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
 				<module>
