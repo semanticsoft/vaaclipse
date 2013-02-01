@@ -17,9 +17,9 @@ package org.semanticsoft.commons.geom;
  */
 public class Bounds
 {
-	public int x, y, w, h;
+	public double x, y, w, h;
 	
-	public Bounds(int x, int y, int w, int h)
+	public Bounds(double x, double y, double w, double h)
 	{
 		this.x = x;
 		this.y = y;

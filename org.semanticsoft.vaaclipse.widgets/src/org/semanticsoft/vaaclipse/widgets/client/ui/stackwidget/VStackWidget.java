@@ -11,6 +11,9 @@
 
 package org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.VExtendedVerticalLayout;
@@ -19,6 +22,7 @@ import org.semanticsoft.vaaclipse.widgets.common.Side;
 import org.semanticsoft.vaaclipse.widgets.common.Vector;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -26,6 +30,7 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
+import com.vaadin.client.ComponentConnector;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
 import com.vaadin.client.ui.dd.VDragEvent;
@@ -143,7 +148,7 @@ public class VStackWidget extends VDDTabSheet
 		super.iLayout();
 		
 		updateLocationOfButtonPanel();
-//		updateLocationOfPartToolbar();
+		updateLocationOfPartToolbar();
 	}
 	
 	private void updateLocationOfButtonPanel()
@@ -642,133 +647,150 @@ public class VStackWidget extends VDDTabSheet
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//Part toolbar relocate support
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
-//	private void updateLocationOfPartToolbar()
-//	{
-//		if (toolbarRelocated)
-//		{
-//			if (!hasSpace(toolbarElement))
-//			{
-//				restoreLocationOfPartToolbar();
-//			}
-//		}
-//		else
-//		{
-//			Paintable selectedTab = getTab(activeTabIndex);
-//			if (selectedTab == null || !(selectedTab instanceof Widget))
-//				return;
-//			
-//			Widget selectedWidget = (Widget) selectedTab;
-//			
-//			Element _toolbarElement = findToolbarElement(selectedWidget.getElement());
-//			if (_toolbarElement == null)
-//				return;
-//			
-//			if (hasSpace(_toolbarElement))
-//			{
-//				changeLocationOfPartToolbar(selectedWidget, _toolbarElement);	
-//			}
-//		}
-//	}
-//	
-//	private boolean hasSpace(Element toolbarElement)
-//	{
-//		Element tb = (Element) tabs.getChild(0);
-//		Element spacertd = (Element) tb.getChild(0).getChild(0).getLastChild();
-//		
-//		return tb.getOffsetWidth() - DOM.getElementPropertyInt((Element) spacertd.cast(), "offsetWidth") < getOffsetWidth()
-//                - buttonPanel.getOffsetWidth() - toolbarElement.getOffsetWidth() - 10;
-//	}
-//	
-//	private void changeLocationOfPartToolbar(Widget selectedWidget, Element _toolbarElement)
-//	{
-//		if (toolbarRelocated || activeTabIndex < 0 || this.getParent() == null)
-//			return;
-//		
-//		toolbarElement = _toolbarElement;
-//		overflowRewritedElements = new HashMap<Element, String>();
-//		
-//		List<Node> pathToParent = findPathToParent(toolbarElement, selectedWidget.getParent().getElement());
-//		
-//		for (Node node: pathToParent)
-//		{
-//			if (node instanceof Element)
-//			{
-//				Element element = (Element) node;
-//				String overflow = DOM.getElementProperty((Element) element, "overflow");
-//				if (!"".equals(overflow) && !"visible".equals(overflow) && !"".equals("inherit"))
-//				{
-//					DOM.setStyleAttribute(element, "overflow", "visible");
-//					overflowRewritedElements.put(element, overflow);
-//				}
-//			}
-//		}
-//		
-//		toolbarRelocated = true;
-//				
-//		updateGeometry();
-//	}
-//
-//	private void updateGeometry()
-//	{
-//		int marginRight = buttonPanel.getOffsetWidth() + 5;
-//		int marginTop = tabs.getAbsoluteTop() - toolbarElement.getAbsoluteTop();
-//		
-//		DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");
-//		DOM.setStyleAttribute(toolbarElement, "marginTop", marginTop + "px");
-//	}
-//	
-//	private void restoreLocationOfPartToolbar()
-//	{
-//		if (!toolbarRelocated)
-//			return;
-//		
-//		DOM.setStyleAttribute(toolbarElement, "marginRight", "");
-//		DOM.setStyleAttribute(toolbarElement, "marginTop", "");
-//		
-//		toolbarElement = null;
-//		overflowRewritedElements = null;
-//		oldTabbarOffsetHeight = null;
-//		toolbarElementHeight = null;
-//		toolbarRelocated = false;
-//	}
-//	
-//	private Element findToolbarElement(Element parent)
-//	{
-//		for (int i = 0; i < parent.getChildCount(); i++)
-//		{
-//			Node node = parent.getChild(i);
-//			if (node instanceof Element)
-//			{
-//				Element childElement = (Element) node;
-//				String className = childElement.getClassName();
-//				if (className != null && !className.contains("mparttoolbararea") && className.contains("mparttoolbar"))
-//				{
-//					return childElement;
-//				}
-//				else
-//				{
-//					Element toolbarElement = findToolbarElement(childElement);
-//					if (toolbarElement != null)
-//						return toolbarElement;
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	private List<Node> findPathToParent(Element element, Element parentElement)
-//	{
-//		List<Node> pathToParent = new ArrayList<Node>();
-//		Node parent = element.getParentElement();
-//		while (parent != null && parent != parentElement)
-//		{
-//			pathToParent.add(parent);
-//			parent = parent.getParentElement();
-//		}
-//		if (parent != null)
-//			pathToParent.add(parent);
-//		else
-//			pathToParent.clear();
-//		return pathToParent;
-//	}
+	private void updateLocationOfPartToolbar()
+	{
+		if (toolbarRelocated)
+		{
+			//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is relocated");
+			if (!hasSpace(toolbarElement))
+			{
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
+				restoreLocationOfPartToolbar();
+			}
+		}
+		else
+		{
+			//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is not relocated");
+			ComponentConnector selectedTab = getTab(activeTabIndex);
+			if (selectedTab == null)
+			{
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: selected tab is null");
+				return;
+			}
+			
+			Widget selectedWidget = (Widget) selectedTab.getWidget();
+			
+			Element _toolbarElement = findToolbarElement(selectedWidget.getElement());
+			if (_toolbarElement == null)
+			{
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar element is null");
+				return;
+			}
+			
+			if (hasSpace(_toolbarElement))
+			{
+				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
+				changeLocationOfPartToolbar(selectedWidget, _toolbarElement);	
+			}
+		}
+	}
+	
+	private boolean hasSpace(Element toolbarElement)
+	{
+		Element tb = (Element) tabs.getChild(0);
+		Element spacertd = (Element) tb.getChild(0).getChild(0).getLastChild();
+		
+		return tb.getOffsetWidth() - DOM.getElementPropertyInt((Element) spacertd.cast(), "offsetWidth") < getOffsetWidth()
+                - buttonPanel.getOffsetWidth() - toolbarElement.getOffsetWidth() - 10;
+	}
+	
+	private void changeLocationOfPartToolbar(Widget selectedWidget, Element _toolbarElement)
+	{
+		if (toolbarRelocated || activeTabIndex < 0 || this.getParent() == null)
+			return;
+		
+		toolbarElement = _toolbarElement;
+		overflowRewritedElements = new HashMap<Element, String>();
+		
+		List<Node> pathToParent = findPathToParent(toolbarElement, selectedWidget.getParent().getElement());
+		
+		if (pathToParent == null || pathToParent.isEmpty())
+		{
+			//VConsole.log(this.hashCode() + ".Path to parent is null or empty");
+		}
+		
+		for (Node node: pathToParent)
+		{
+			if (node instanceof Element)
+			{
+				Element element = (Element) node;
+				String overflow = DOM.getElementProperty((Element) element, "overflow");
+				if (!"".equals(overflow) && !"visible".equals(overflow) && !"".equals("inherit"))
+				{
+					DOM.setStyleAttribute(element, "overflow", "visible");
+					overflowRewritedElements.put(element, overflow);
+				}
+			}
+		}
+		
+		toolbarRelocated = true;
+		
+		updateGeometry();
+	}
+
+	private void updateGeometry()
+	{
+		int marginRight = buttonPanel.getOffsetWidth() + 5;
+		int marginTop = tabs.getAbsoluteTop() - toolbarElement.getAbsoluteTop();
+		
+		DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");
+		DOM.setStyleAttribute(toolbarElement, "marginTop", marginTop + "px");
+		
+		//VConsole.log(this.hashCode() + ".updateGeometry: marginRight: " + marginRight + ", marginTop: " + marginTop);
+	}
+	
+	void restoreLocationOfPartToolbar()
+	{
+		if (!toolbarRelocated)
+			return;
+		
+		DOM.setStyleAttribute(toolbarElement, "marginRight", "");
+		DOM.setStyleAttribute(toolbarElement, "marginTop", "");
+		
+		toolbarElement = null;
+		overflowRewritedElements = null;
+		oldTabbarOffsetHeight = null;
+		toolbarElementHeight = null;
+		toolbarRelocated = false;
+	}
+	
+	private Element findToolbarElement(Element parent)
+	{
+		for (int i = 0; i < parent.getChildCount(); i++)
+		{
+			Node node = parent.getChild(i);
+			if (node instanceof Element)
+			{
+				Element childElement = (Element) node;
+				String className = childElement.getClassName();
+				if (className != null && !className.contains("mparttoolbararea") && className.contains("mparttoolbar"))
+				{
+					return childElement;
+				}
+				else
+				{
+					Element toolbarElement = findToolbarElement(childElement);
+					if (toolbarElement != null)
+						return toolbarElement;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private List<Node> findPathToParent(Element element, Element parentElement)
+	{
+		List<Node> pathToParent = new ArrayList<Node>();
+		Node parent = element.getParentElement();
+		while (parent != null && parent != parentElement)
+		{
+			pathToParent.add(parent);
+			parent = parent.getParentElement();
+		}
+		if (parent != null)
+			pathToParent.add(parent);
+		else
+			pathToParent.clear();
+		return pathToParent;
+	}
 }

@@ -23,6 +23,15 @@
          </resourceLocationUri>
       </theme>
       <theme
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/chameleon/legacy-styles.css"
+            description="Vaadin Chameleon Legacy theme"
+            id="chameleon-legacy"
+            label="Chameleon Legacy">
+         <resourceLocationUri
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/chameleon/">
+         </resourceLocationUri>
+      </theme>
+      <theme
             cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/runo/styles.css"
             description="Vaadin Runo theme"
             id="runo"

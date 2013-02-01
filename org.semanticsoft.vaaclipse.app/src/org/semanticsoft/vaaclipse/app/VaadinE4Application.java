@@ -34,6 +34,7 @@ import javax.swing.JOptionPane;
 
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.internal.workbench.WorkbenchLogger;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
@@ -141,6 +142,19 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 				.registerService(ResourceInfoProvider.class.getName(), this,
 						null);
 	}
+	
+	private String readPathProperty(String propName)
+	{
+		String propValue = appContext.getBrandingProperty(propName);
+		if (propValue == null)
+			return propValue;
+		propValue = propValue.trim();
+		if (!propValue.startsWith("platform:/plugin/"))
+		{
+			propValue = "platform:/plugin/" + propValue;
+		}
+		return propValue;
+	}
 
 	private void startVaadinWebApplication() throws Exception {
 		String port = System.getProperty("org.osgi.service.http.port");
@@ -158,10 +172,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		if (cssTheme == null)
 			cssTheme = Reindeer.THEME_NAME;
 
-		appWidgetset = appContext.getBrandingProperty("applicationWidgetset");
+		appWidgetset = readPathProperty("applicationWidgetset");
 		if (appWidgetset == null || appWidgetset.trim().isEmpty()) {
-			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
-			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
+			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
+			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
 		} else
 			appWidgetset = appWidgetset.trim();
 
@@ -180,14 +194,12 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 
 		String appWidgetsetName = appWidgetset.substring(index + 1);
 
-		String appHeaderIcon = appContext
-				.getBrandingProperty("applicationHeaderIcon");
+		String appHeaderIcon = readPathProperty("applicationHeaderIcon");
 
 		if (appHeaderIcon == null || appHeaderIcon.trim().isEmpty())
 			appHeaderIcon = "platform:/plugin/com.vaadin.themes/VAADIN/themes/reindeer/favicon.ico";
 
-		appAuthProvider = appContext
-				.getBrandingProperty("applicationAuthenticationProvider");
+		appAuthProvider = readPathProperty("applicationAuthenticationProvider");
 
 		String productionMode = appContext
 				.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");

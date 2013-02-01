@@ -35,13 +35,13 @@
                name="cssTheme"
                value="reindeer">
          </property>
-         <property
+         <!--property
                name="applicationWidgetset"
                value="cassandra.widgetset.CassandraWidgetset">
-         </property>
+         </property-->
          <property
                name="applicationHeaderIcon"
-               value="/img/vaaclipse.png">
+               value="org.semanticsoft.vaaclipsedemo.cassandra.app/img/vaaclipse.png">
          </property>
       </product>
    </extension>

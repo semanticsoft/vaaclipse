@@ -38,5 +38,7 @@ Bundle-Activator: org.semanticsoft.vaaclipsedemo.cassandra.app.CassandraActivato
 Bundle-Localization: plugin
 Export-Package: css,
  img
+Bundle-ClassPath: lib/jhighlight-1.0.jar,
+ .
 
 

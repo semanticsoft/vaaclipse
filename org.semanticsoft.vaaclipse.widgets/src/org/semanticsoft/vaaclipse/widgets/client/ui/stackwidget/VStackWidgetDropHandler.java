@@ -57,6 +57,15 @@ public class VStackWidgetDropHandler extends VDDTabsheetDropHandler {
 	{
 		if (!stackWidget.updateRegion(event))
 			return false;
+		
+		Object sourceWidget = event.getTransferable().getDragSource();
+		if (sourceWidget instanceof StackWidgetConnector)
+		{
+			sourceWidget = ((StackWidgetConnector) sourceWidget).getWidget();
+			VStackWidget stackWidget = (VStackWidget) sourceWidget;
+			stackWidget.restoreLocationOfPartToolbar();
+		}
+		
 		return super.drop(event);
 	}
 }

@@ -43,7 +43,6 @@ public class TextEditor extends FileView
 		
 		Panel e = new Panel();
 		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
 		text = new Label(readContent(), Label.CONTENT_PREFORMATTED);
 		e.setContent(text);
 		container.addComponent(e);

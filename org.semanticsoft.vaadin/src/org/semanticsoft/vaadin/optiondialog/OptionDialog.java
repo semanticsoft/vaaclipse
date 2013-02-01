@@ -177,6 +177,8 @@ public class OptionDialog extends Window {
 		for (int i = 0; i < options.length; i++) {
 			optionDialog.addOption(i, options[i]);
 		}
+		
+		parentWindow.addWindow(optionDialog);
 	}
 
 	public static void show(UI parentWindow, String caption,
