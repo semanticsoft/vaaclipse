@@ -13,10 +13,10 @@
 
 	<properties>
 		<next-release>0.0.2-SNAPSHOT</next-release>
-		<tycho-version>0.16.0</tycho-version>
+		<tycho-version>0.17.0-SNAPSHOT</tycho-version>
+		<tychoExtrasVersion>0.17.0-SNAPSHOT</tychoExtrasVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<tychoExtrasVersion>0.16.0</tychoExtrasVersion>
 		<vaadin-version>7.0-SNAPSHOT</vaadin-version>
 		<shiro-version>1.2.1</shiro-version>
 		<vaadin-icepush-version>0.5.4</vaadin-icepush-version>
@@ -42,6 +42,10 @@
 	</repositories>
 
 	<pluginRepositories>
+		<pluginRepository>
+			<id>tycho-snapshots</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</pluginRepository>
 		<pluginRepository>
 			<id>vaadin-snapshots</id>
 			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
