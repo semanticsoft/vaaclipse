@@ -56,6 +56,11 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
+		<pluginRepository>
+			<!-- used to find XMLTask jar -->
+			<id>atlassian</id>
+			<url>http://repository.atlassian.com/maven2/</url>
+		</pluginRepository>
 	</pluginRepositories>
 
 	<profiles>
