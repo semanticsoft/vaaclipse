@@ -102,6 +102,11 @@ public class VaadinUI extends UI {
 
 	public VaadinUI() {
 	}
+	
+	public IEclipseContext getRootContext()
+	{
+		return appContext;
+	}
 
 	private void setThemeInternal(String themeId) {
 		throw new RuntimeException("The changing theme in runtime is not supported by Vaadin 7");

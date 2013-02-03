@@ -21,6 +21,8 @@ import java.util.Queue;
 import java.util.Set;
 
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
+import org.semanticsoft.vaaclipse.app.webapp.VaadinUI;
+import org.semanticsoft.vaaclipse.publicapi.app.ThreadLocals;
 
 import com.vaadin.server.AbstractCommunicationManager;
 import com.vaadin.server.ClientConnector;
@@ -50,6 +52,19 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 
 	public VaadinOSGiCommunicationManager(VaadinSession session) {
 		super(session);
+	}
+	
+	private void updateThreadLocals()
+	{
+		for (UI ui : getSession().getUIs())
+		{
+			if (ui instanceof VaadinUI)
+			{
+				VaadinUI vaaUI = (VaadinUI) ui;
+				ThreadLocals.setRootContext(vaaUI.getRootContext());
+				break;
+			}
+		}
 	}
 
 	private synchronized void exec() {
@@ -124,6 +139,9 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
     }
 	
 	public boolean handleBurst(VaadinRequest source, UI uI, final String burst) {
+		
+		updateThreadLocals();
+		
         boolean success = true;
         try {
             Set<Connector> enabledConnectors = new HashSet<Connector>();
