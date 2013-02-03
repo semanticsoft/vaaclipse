@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="org.semanticsoft.vaaclipse.target.juno" sequenceNumber="8">
+<?pde version="3.8"?>
+
+<target name="org.semanticsoft.vaaclipse.target.juno" sequenceNumber="24">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.sdk.ide" version="4.2.1.M20120914-1800"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.2"/>
+<unit id="org.lunifera.dependencies.feature.vaadin.feature.group" version="7.0.0.201302011731"/>
+<unit id="org.lunifera.dependencies.feature.security.shiro.feature.group" version="1.2.1"/>
+<repository location="http://lunifera.github.com/p2/kepler/latest"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.lunifera.dependencies.feature.vaadin.feature.group" version="7.0.0.201301161532"/>
-<unit id="org.lunifera.dependencies.feature.security.shiro.feature.group" version="1.2.1"/>
-<repository location="http://lunifera.github.com/p2/kepler"/>
+<unit id="org.eclipse.sdk.ide" version="4.2.1.M20120914-1800"/>
+<unit id="org.eclipse.platform.sdk" version="4.2.1.M20120914-1800"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.8.1.v20120917-0436"/>
+<repository location="http://download.eclipse.org/releases/juno"/>
 </location>
 </locations>
 </target>
