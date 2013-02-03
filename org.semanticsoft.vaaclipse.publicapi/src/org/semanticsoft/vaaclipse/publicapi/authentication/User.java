@@ -7,40 +7,11 @@ package org.semanticsoft.vaaclipse.publicapi.authentication;
  * @author rushan
  *
  */
-public class User
+public interface User
 {
-	private String name;
-	private String persistid;
+	String getName();
+	void setName(String name);
 	
-	public User()
-	{
-		setName("guest");
-	}
-	
-	public User(String name)
-	{
-		setName(name);
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	
-	public String getPersistid()
-	{
-		if (this.persistid == null)
-			return this.name;
-		return persistid;
-	}
-	
-	public void setPersistid(String persistid)
-	{
-		this.persistid = persistid;
-	}
+	String getPersistid();
+	void setPersistid(String persistid);
 }

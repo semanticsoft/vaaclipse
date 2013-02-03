@@ -154,8 +154,6 @@ public class VaadinUI extends UI {
 								org.osgi.service.event.Event event) {
 							Object data = event.getProperty(EventUtils.DATA);
 							if (data instanceof User) {
-								// login user:
-								user = (User) data;
 								// TODO: Now we can load persistent model of
 								// this user (not implemented yet, just load
 								// initial model)
@@ -229,6 +227,10 @@ public class VaadinUI extends UI {
 		fixNullElementIds(appModel);
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
+		
+		user = new UserImpl();
+		appContext.set(User.class, user);
+		
 		// ContextInjectionFactory.setDefault(appContext);
 		if (lcManager != null) {
 			ContextInjectionFactory.invoke(lcManager, ProcessAdditions.class,

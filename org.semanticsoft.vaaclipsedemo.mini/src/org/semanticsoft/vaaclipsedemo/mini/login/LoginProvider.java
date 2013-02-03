@@ -28,6 +28,9 @@ public class LoginProvider
 	@Inject
 	UI ui;
 	
+	@Inject
+	User user;
+	
 	@PostConstruct
 	public void init(VerticalLayout parent)
 	{
@@ -61,7 +64,7 @@ public class LoginProvider
 				//send message AuthenticationConstants.Events.Authentication with User object:
 				if (check(username, password))
 				{
-					User user = new User(username);
+					user.setName(username);
 					eventBroker.send(AuthenticationConstants.Events.Authentication, user);
 				}
 				else

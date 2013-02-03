@@ -33,6 +33,9 @@ public class LoginProvider
 	@Inject
 	UI ui;
 	
+	@Inject
+	User user;
+	
 	@PostConstruct
 	public void postConstruct(VerticalLayout parent)
 	{
@@ -68,7 +71,7 @@ public class LoginProvider
 				if (check(username, password))
 				{
 					MediaplayerActivator.getInstance().getUserCounter().increment();
-					User user = new User(username);
+					user.setName(username);
 					eventBroker.send(AuthenticationConstants.Events.Authentication, user);
 				}
 				else
