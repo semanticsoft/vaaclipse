@@ -14,4 +14,7 @@ public interface User
 	
 	String getPersistid();
 	void setPersistid(String persistid);
+	
+	Object getObject();
+	<T> void setObject(T object, Class<? super T> service);
 }

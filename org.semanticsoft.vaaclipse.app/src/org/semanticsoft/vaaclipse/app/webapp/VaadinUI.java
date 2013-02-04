@@ -228,9 +228,6 @@ public class VaadinUI extends UI {
 		appModel.setContext(appContext);
 		appContext.set(MApplication.class.getName(), appModel);
 		
-		user = new UserImpl();
-		appContext.set(User.class, user);
-		
 		// ContextInjectionFactory.setDefault(appContext);
 		if (lcManager != null) {
 			ContextInjectionFactory.invoke(lcManager, ProcessAdditions.class,
@@ -385,6 +382,9 @@ public class VaadinUI extends UI {
 		}
 		eclipseContext.set(E4Workbench.PRESENTATION_URI_ARG, presentationURI);
 		eclipseContext.set(UI.class, this);
+		
+		user = ContextInjectionFactory.make(UserImpl.class, eclipseContext);
+		eclipseContext.set(User.class, user);
 
 		// eclipseContext.set(EModelService.class, new
 		// ModelServiceImpl(eclipseContext));
