@@ -252,9 +252,16 @@ public class ToolItemRenderer extends ItemRenderer {
 		final IEclipseContext eclipseContext = getContext(item);
 		if (eclipseContext == null) // item is not in hierarchy
 			return false;
+		
+		if (item.getObject() == null)
+		{
+			item.setObject(contributionFactory.create(
+					item.getContributionURI(), getContext(item)));
+		}
+		
 		eclipseContext.set(MItem.class, item);
 		setupContext(eclipseContext, item);
-		return (Boolean) ContextInjectionFactory.invoke(item, CanExecute.class,
+		return (Boolean) ContextInjectionFactory.invoke(item.getObject(), CanExecute.class,
 				eclipseContext, true);
 	}
 
@@ -262,8 +269,6 @@ public class ToolItemRenderer extends ItemRenderer {
 	public void hookControllerLogic(MUIElement me) {
 		if (me instanceof MDirectToolItem) {
 			final MDirectToolItem item = (MDirectToolItem) me;
-			item.setObject(contributionFactory.create(
-					item.getContributionURI(), getContext(item)));
 
 			final Button button = (Button) item.getWidget();
 			button.addClickListener(new ClickListener() {
