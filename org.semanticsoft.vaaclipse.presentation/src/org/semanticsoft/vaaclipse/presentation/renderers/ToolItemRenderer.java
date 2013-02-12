@@ -163,7 +163,10 @@ public class ToolItemRenderer extends ItemRenderer {
 
 			Button button;
 			if (item.getType() == ItemType.CHECK)
+			{
 				button = new TwoStateToolbarButton();
+				((TwoStateToolbarButton)button).setCheckedState(item.isSelected());
+			}
 			else if (item.getType() == ItemType.PUSH) {
 				button = new Button();
 				button.addStyleName("vaaclipsebutton");
@@ -182,7 +185,14 @@ public class ToolItemRenderer extends ItemRenderer {
 						}
 					}
 				});
-			} else
+			}
+			else if (item.getType() == ItemType.RADIO)
+			{
+				button = new TwoStateToolbarButton();
+				((TwoStateToolbarButton)button).setCheckedState(item.isSelected());
+				((TwoStateToolbarButton)button).setSwitchStateByUserClickEnabled(false);
+			}
+			else
 				throw new RuntimeException("this item type not implemented yet");
 
 			button.setSizeUndefined();
@@ -256,13 +266,25 @@ public class ToolItemRenderer extends ItemRenderer {
 					item.getContributionURI(), getContext(item)));
 
 			final Button button = (Button) item.getWidget();
-			button.addListener(new ClickListener() {
+			button.addClickListener(new ClickListener() {
 
+				@SuppressWarnings("unchecked")
 				@Override
 				public void buttonClick(ClickEvent event) {
 					if (item.getType() == ItemType.CHECK) {
 						item.setSelected(((TwoStateToolbarButton) button)
 								.getCheckedState());
+					}
+					else if (item.getType() == ItemType.RADIO)
+					{
+						MElementContainer<? extends MToolItem> parent = (MElementContainer<? extends MToolItem>) item.getParent();
+						for (MToolItem toolItem : parent.getChildren())
+						{
+							if (toolItem.getType() == ItemType.RADIO)
+							{
+								toolItem.setSelected(toolItem != item);
+							}
+						}
 					}
 
 					processAction(item);
@@ -272,13 +294,24 @@ public class ToolItemRenderer extends ItemRenderer {
 			final MHandledItem item = (MHandledToolItem) me;
 
 			final Button button = (Button) item.getWidget();
-			button.addListener(new ClickListener() {
+			button.addClickListener(new ClickListener() {
 
 				@Override
 				public void buttonClick(ClickEvent event) {
 					if (item.getType() == ItemType.CHECK) {
 						item.setSelected(((TwoStateToolbarButton) button)
 								.getCheckedState());
+					}
+					else if (item.getType() == ItemType.RADIO)
+					{
+						MElementContainer<? extends MToolItem> parent = (MElementContainer<? extends MToolItem>) item.getParent();
+						for (MToolItem toolItem : parent.getChildren())
+						{
+							if (toolItem.getType() == ItemType.RADIO)
+							{
+								toolItem.setSelected(toolItem != item);
+							}
+						}
 					}
 
 					processParametrizedAction(item);
