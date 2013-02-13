@@ -59,7 +59,6 @@ import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.app.VaadinE4Application;
 import org.semanticsoft.vaaclipse.app.servlet.VaadinOSGiCommunicationManager;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
-import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
 
@@ -97,8 +96,9 @@ public class VaadinUI extends UI {
 
 	private IContributionFactory factory;
 
-	@SuppressWarnings("unused")
-	private User user;
+	private Object user;
+	private Class<Object> userClass;
+	private static Map<String, Object[]> tempUserStore = new HashMap<String, Object[]>();
 
 	public VaadinUI() {
 	}
@@ -116,7 +116,15 @@ public class VaadinUI extends UI {
 	public void init(VaadinRequest request) {
 		context = VaadinE4Application.getInstance().getAppContext();
 		logger = VaadinE4Application.getInstance().getLogger();
-
+		
+		String sessionId = getSession().getSession().getId();
+		Object[] prevUser = tempUserStore.remove(sessionId);
+		if (prevUser != null)
+		{
+			this.user = prevUser[0];
+			this.userClass = (Class<Object>) prevUser[1];
+		}
+		
 		// -------------------------------------
 		prepareEnvironment(context);
 
@@ -137,7 +145,7 @@ public class VaadinUI extends UI {
 						}
 					}
 				});
-
+		
 		String authProvider = VaadinE4Application.getInstance()
 				.getApplicationAuthenticationProvider();
 
@@ -146,23 +154,7 @@ public class VaadinUI extends UI {
 			e4Workbench = createE4Workbench(context);
 			e4Workbench.createAndRunUI(e4Workbench.getApplication());
 		} else {
-			eventBroker.subscribe(
-					AuthenticationConstants.Events.Authentication,
-					new EventHandler() {
-						@Override
-						public void handleEvent(
-								org.osgi.service.event.Event event) {
-							Object data = event.getProperty(EventUtils.DATA);
-							if (data instanceof User) {
-								// TODO: Now we can load persistent model of
-								// this user (not implemented yet, just load
-								// initial model)
-								e4Workbench = createE4Workbench(context);
-								e4Workbench.createAndRunUI(e4Workbench
-										.getApplication());
-							}
-						}
-					});
+			
 
 			IContributionFactory contributionFactory = (IContributionFactory) appContext
 					.get(IContributionFactory.class.getName());
@@ -178,6 +170,33 @@ public class VaadinUI extends UI {
 					authConext);
 			System.out.println(authProvider);
 		}
+		
+		eventBroker.subscribe(
+				AuthenticationConstants.Events.Authentication.name,
+				new EventHandler() {
+					@SuppressWarnings("unchecked")
+					@Override
+					public void handleEvent(
+							org.osgi.service.event.Event event) {
+						
+						user = event.getProperty(EventUtils.DATA);
+						userClass = (Class<Object>) event.getProperty(AuthenticationConstants.Events.Authentication.userClass);
+						
+						if (e4Workbench != null)
+						{
+							String sessionId = getSession().getSession().getId();
+							tempUserStore.put(sessionId, new Object[] {user, userClass});
+							e4Workbench.close();
+						}
+						else
+						{
+							e4Workbench = createE4Workbench(context);
+							e4Workbench.createAndRunUI(e4Workbench
+									.getApplication());	
+						}
+						
+					}
+				});
 	}
 
 	@SuppressWarnings("deprecation")
@@ -383,8 +402,12 @@ public class VaadinUI extends UI {
 		eclipseContext.set(E4Workbench.PRESENTATION_URI_ARG, presentationURI);
 		eclipseContext.set(UI.class, this);
 		
-		user = ContextInjectionFactory.make(UserImpl.class, eclipseContext);
-		eclipseContext.set(User.class, user);
+		if (user != null)
+		{
+			if (userClass == null)
+				userClass = (Class<Object>) user.getClass();
+			eclipseContext.set(userClass, user);	
+		}
 
 		// eclipseContext.set(EModelService.class, new
 		// ModelServiceImpl(eclipseContext));

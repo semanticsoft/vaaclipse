@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
-import org.semanticsoft.vaaclipse.publicapi.authentication.User;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.MediaplayerActivator;
 
 import com.vaadin.ui.Alignment;
@@ -19,7 +18,6 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 /**
  * @author rushan
@@ -33,8 +31,6 @@ public class LoginProvider
 	@Inject
 	UI ui;
 	
-	@Inject
-	User user;
 	
 	@PostConstruct
 	public void postConstruct(VerticalLayout parent)
@@ -71,8 +67,10 @@ public class LoginProvider
 				if (check(username, password))
 				{
 					MediaplayerActivator.getInstance().getUserCounter().increment();
+					User user = new User();
 					user.setName(username);
-					eventBroker.send(AuthenticationConstants.Events.Authentication, user);
+					
+					eventBroker.send(AuthenticationConstants.Events.Authentication.name, user);
 				}
 				else
 				{
