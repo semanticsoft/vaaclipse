@@ -252,6 +252,9 @@
 
 .v-app .v-button-general {
 	margin: 2px;
+}
+
+.v-app .v-button-general .v-button-wrap .v-button-caption {
 	font-weight: bold;
 }
 
