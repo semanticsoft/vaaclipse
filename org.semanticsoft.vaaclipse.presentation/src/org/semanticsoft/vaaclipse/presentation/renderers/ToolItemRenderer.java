@@ -169,8 +169,15 @@ public class ToolItemRenderer extends ItemRenderer {
 			}
 			else if (item.getType() == ItemType.PUSH) {
 				button = new Button();
-				button.addStyleName("vaaclipsebutton");
-				button.addListener(new ClickListener() {
+				
+				if (item.getTags().contains("link"))
+				{
+					button.addStyleName("link");
+					button.addStyleName("general");
+				}
+				else
+					button.addStyleName("vaaclipsebutton");
+				button.addClickListener(new ClickListener() {
 
 					@Override
 					public void buttonClick(ClickEvent event) {

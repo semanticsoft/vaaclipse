@@ -250,6 +250,11 @@
 	padding-right: 3px;
 }
 
+.v-app .v-button-general {
+	margin: 2px;
+	font-weight: bold;
+}
+
 /*
  * sash widget
  */
