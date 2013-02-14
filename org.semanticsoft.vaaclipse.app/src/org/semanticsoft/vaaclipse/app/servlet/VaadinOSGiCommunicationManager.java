@@ -67,7 +67,7 @@ public class VaadinOSGiCommunicationManager extends CommunicationManager
 		}
 	}
 
-	private synchronized void exec() {
+	public synchronized void exec() {
 		Runnable runnable;
 		while ((runnable = runnables.poll()) != null) {
 			try {

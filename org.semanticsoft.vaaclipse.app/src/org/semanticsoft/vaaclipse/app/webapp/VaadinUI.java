@@ -197,6 +197,9 @@ public class VaadinUI extends UI {
 						
 					}
 				});
+		
+		VaadinOSGiCommunicationManager man = (VaadinOSGiCommunicationManager) appContext.get(VaadinExecutorService.class);
+		man.exec();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -406,7 +409,8 @@ public class VaadinUI extends UI {
 		{
 			if (userClass == null)
 				userClass = (Class<Object>) user.getClass();
-			eclipseContext.set(userClass, user);	
+			eclipseContext.set(userClass, user);
+			eclipseContext.set("user", user);
 		}
 
 		// eclipseContext.set(EModelService.class, new
