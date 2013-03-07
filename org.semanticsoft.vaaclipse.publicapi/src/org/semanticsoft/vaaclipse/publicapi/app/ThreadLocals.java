@@ -11,7 +11,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
  */
 public class ThreadLocals
 {
-	private static final ThreadLocal<IEclipseContext> eclipseContext = new ThreadLocal<>();
+	private static final ThreadLocal<IEclipseContext> eclipseContext = new ThreadLocal<IEclipseContext>();
 	
 	public static IEclipseContext getRootContext()
 	{
