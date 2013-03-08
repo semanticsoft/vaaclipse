@@ -3,6 +3,7 @@
 
 <product name="Cassandra" uid="org.semanticsoft.vaaclipsedemo.cassandra.app.product" id="org.semanticsoft.vaaclipsedemo.cassandra.app.product" application="org.semanticsoft.vaaclipse.app.application" version="1.0.0.M1" useFeatures="false" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -24,8 +25,10 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="com.ibm.icu"/>
@@ -49,7 +52,6 @@
       <plugin id="org.eclipse.core.databinding.property"/>
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.filesystem"/>
-      <plugin id="org.eclipse.core.filesystem.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.runtime"/>
@@ -89,6 +91,7 @@
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.jsoup"/>
+      <plugin id="org.lunifera.dependencies.bundle.vaadin.addon.icepush"/>
       <plugin id="org.lunifera.dependencies.fragment.jdk" fragment="true"/>
       <plugin id="org.semanticsoft.commons"/>
       <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
