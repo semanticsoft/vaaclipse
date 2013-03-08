@@ -24,10 +24,15 @@ Require-Bundle: org.eclipse.core.runtime,
  com.vaadin.server;bundle-version="7.0.0",
  com.vaadin.shared;bundle-version="7.0.0",
  com.vaadin.shared.deps;bundle-version="1.0.2",
- org.semanticsoft.vaaclipse.widgetset.default;bundle-version="0.0.1"
+ org.semanticsoft.vaaclipse.widgetset.default;bundle-version="0.0.1",
+ org.lunifera.dependencies.bundle.vaadin.addon.icepush;bundle-version="0.5.5"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Export-Package: org.semanticsoft.vaaclipse.app
+Export-Package: org.semanticsoft.vaaclipse.app;x-internal:=true,
+ org.semanticsoft.vaaclipse.app.common,
+ org.semanticsoft.vaaclipse.app.servlet;x-internal:=true,
+ org.semanticsoft.vaaclipse.app.webapp;x-internal:=true,
+ org.semanticsoft.vaaclipse.eventbroker;x-internal:=true
 Import-Package: javax.annotation,
  javax.servlet;version="2.6.0",
  javax.servlet.http;version="2.6.0",

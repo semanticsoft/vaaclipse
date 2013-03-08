@@ -34,7 +34,6 @@ import javax.swing.JOptionPane;
 
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.internal.workbench.WorkbenchLogger;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
@@ -47,11 +46,11 @@ import org.semanticsoft.vaaclipse.app.webapp.VaadinWebApplication;
 import com.vaadin.ui.themes.Reindeer;
 
 @SuppressWarnings("restriction")
-public class VaadinE4Application implements IApplication, ResourceInfoProvider {
+public class VaadinE4Application implements IApplication, ResourceInfoProvider
+{
 
 	private ArrayBlockingQueue<String> queue;
-	private Logger logger = new WorkbenchLogger(
-			"org.semanticsoft.vaaclipse.app");
+	private Logger logger = new WorkbenchLogger("org.semanticsoft.vaaclipse.app");
 
 	private IApplicationContext appContext;
 
@@ -67,48 +66,58 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 
 	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
 
-	public static VaadinE4Application getInstance() {
+	public static VaadinE4Application getInstance()
+	{
 		return instance;
 	}
 
 	@Override
-	public String getCssTheme() {
+	public String getCssTheme()
+	{
 		return webApplication.getThemeId();
 	}
 
 	@Override
-	public String getApplicationtWidgetset() {
+	public String getApplicationtWidgetset()
+	{
 		return appWidgetset;
 	}
 
 	@Override
-	public String getApplicationtWidgetsetName() {
+	public String getApplicationtWidgetsetName()
+	{
 		return webApplication.getWidgetsetName();
 	}
 
 	@Override
-	public String getApplicationHeaderIcon() {
+	public String getApplicationHeaderIcon()
+	{
 		return webApplication.getHeaderIconURI();
 	}
 
-	public String getApplicationAuthenticationProvider() {
+	public String getApplicationAuthenticationProvider()
+	{
 		return appAuthProvider;
 	}
 
-	public Location getInstanceLocation() {
+	public Location getInstanceLocation()
+	{
 		return Activator.getDefault().getInstanceLocation();
 	}
 
-	public IApplicationContext getAppContext() {
+	public IApplicationContext getAppContext()
+	{
 		return appContext;
 	}
 
-	public Logger getLogger() {
+	public Logger getLogger()
+	{
 		return logger;
 	}
 
 	@Override
-	public Object start(IApplicationContext context) throws Exception {
+	public Object start(IApplicationContext context) throws Exception
+	{
 		instance = this;
 		appContext = context;
 
@@ -124,7 +133,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		// showFrame();
 
 		String msg;
-		while (!(msg = queue.take()).equals(EXIT)) {
+		while (!(msg = queue.take()).equals(EXIT))
+		{
 			System.out.println(msg);
 		}
 
@@ -134,15 +144,11 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		return EXIT_OK;
 	}
 
-	private void registerServices() {
-		Activator
-				.getDefault()
-				.getBundle()
-				.getBundleContext()
-				.registerService(ResourceInfoProvider.class.getName(), this,
-						null);
+	private void registerServices()
+	{
+		Activator.getDefault().getBundle().getBundleContext().registerService(ResourceInfoProvider.class.getName(), this, null);
 	}
-	
+
 	private String readPathProperty(String propName)
 	{
 		String propValue = appContext.getBrandingProperty(propName);
@@ -156,13 +162,13 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		return propValue;
 	}
 
-	private void startVaadinWebApplication() throws Exception {
+	private void startVaadinWebApplication() throws Exception
+	{
 		String port = System.getProperty("org.osgi.service.http.port");
 		if (port == null)
 			port = "8080";
 
-		contextPath = System
-				.getProperty("org.eclipse.equinox.http.jetty.context.path");
+		contextPath = System.getProperty("org.eclipse.equinox.http.jetty.context.path");
 
 		if (contextPath == null)
 			contextPath = "/";
@@ -173,23 +179,25 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 			cssTheme = Reindeer.THEME_NAME;
 
 		appWidgetset = readPathProperty("applicationWidgetset");
-		if (appWidgetset == null || appWidgetset.trim().isEmpty()) {
-			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
+		if (appWidgetset == null || appWidgetset.trim().isEmpty())
+		{
+			// appWidgetset =
+			// "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
 			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
-		} else
+		}
+		else
 			appWidgetset = appWidgetset.trim();
 
 		int index = appWidgetset.lastIndexOf("/");
 		if (index < 0)
-			throw new IllegalStateException(
-					"applicationWidgetset property has wrong value");
+			throw new IllegalStateException("applicationWidgetset property has wrong value");
 
-		if (index == appWidgetset.length() - 1) {
+		if (index == appWidgetset.length() - 1)
+		{
 			appWidgetset = appWidgetset.substring(0, appWidgetset.length() - 1);
 			index = appWidgetset.lastIndexOf("/");
 			if (index < 0)
-				throw new IllegalStateException(
-						"applicationWidgetset property has wrong value");
+				throw new IllegalStateException("applicationWidgetset property has wrong value");
 		}
 
 		String appWidgetsetName = appWidgetset.substring(index + 1);
@@ -201,16 +209,13 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 
 		appAuthProvider = readPathProperty("applicationAuthenticationProvider");
 
-		String productionMode = appContext
-				.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
+		String productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
 
-		final BundleContext bundleContext = Activator.getDefault().getBundle()
-				.getBundleContext();
-		ServiceReference<?> httpServiceRef = bundleContext
-				.getServiceReference(HttpService.class.getName());
-		if (httpServiceRef == null) {
-			JOptionPane
-					.showMessageDialog(null, "HttpService is not accessible");
+		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
+		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference(HttpService.class.getName());
+		if (httpServiceRef == null)
+		{
+			JOptionPane.showMessageDialog(null, "HttpService is not accessible");
 			throw new Exception();
 		}
 
@@ -225,13 +230,15 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		//
 		Dictionary<String, String> initParams = new Hashtable<String, String>();
 		initParams.put("widgetset", webApplication.getWidgetsetName());
-		if (productionMode != null) {
+		if (productionMode != null)
+		{
 			initParams.put("productionMode", productionMode);
 		}
 		webApplication.activate();
 	}
 
-	private void showFrame() {
+	private void showFrame()
+	{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setSize(500, 105);
@@ -241,23 +248,23 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
 		String host;
-		try {
+		try
+		{
 			InetAddress thisIp = InetAddress.getLocalHost();
 			host = thisIp.getHostAddress().toString();
-		} catch (UnknownHostException e1) {
+		}
+		catch (UnknownHostException e1)
+		{
 			host = "localhost";
 		}
 
-		final JLabel label = new JLabel(String.format(
-				"Vaaclipse server started at http://%s:%s%s", host,
-				webApplication.getPort(), contextPath));
+		final JLabel label = new JLabel(String.format("Vaaclipse server started at http://%s:%s%s", host, webApplication.getPort(), contextPath));
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(label);
 
 		contentPane.add(Box.createVerticalStrut(5));
 
-		final JLabel productionModeLabel = new JLabel("ProductionMode: "
-				+ webApplication.isProductionMode());
+		final JLabel productionModeLabel = new JLabel("ProductionMode: " + webApplication.isProductionMode());
 		productionModeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(productionModeLabel);
 
@@ -268,7 +275,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		exitButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0)
+			{
 				shutdown(true);
 				return;
 			}
@@ -277,7 +285,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e)
+			{
 				super.windowClosing(e);
 
 				shutdown(true);
@@ -296,19 +305,23 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		frame.setVisible(true);
 	}
 
-	private boolean shutdown(boolean confirm) {
+	private boolean shutdown(boolean confirm)
+	{
 		boolean exit = true;
-		if (confirm) {
-			exit = JOptionPane.OK_OPTION == JOptionPane.showOptionDialog(frame,
-					"Are you really want shutdown server?", "Warning",
-					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-					null, null, JOptionPane.CANCEL_OPTION);
+		if (confirm)
+		{
+			exit = JOptionPane.OK_OPTION == JOptionPane.showOptionDialog(frame, "Are you really want shutdown server?", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					null, JOptionPane.CANCEL_OPTION);
 		}
 
-		if (exit) {
-			try {
+		if (exit)
+		{
+			try
+			{
 				queue.put(EXIT);
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 		}
@@ -316,7 +329,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	}
 
 	@Override
-	public void stop() {
+	public void stop()
+	{
 		// will never be invoked
 		webApplication.deactivate();
 	}
