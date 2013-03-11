@@ -132,6 +132,7 @@
 				<!-- P2 features -->
 				<module>org.semanticsoft.vaaclipse.feature.runtime.core</module>
 				<module>org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra</module>
+				<module>org.semanticsoft.vaaclipse.feature.ide.model.extensions</module>
 				<!-- <module>org.semanticsoft.vaaclipse.feature.ide</module> -->
 				<!-- end P2 features -->
 
