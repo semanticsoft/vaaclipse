@@ -239,9 +239,9 @@
 			</build>
 			<modules>
 				<module>org.semanticsoft.vaaclipse.target.kepler</module>
-<!-- 				<module>org.semanticsoft.vaaclipse.widgets</module> -->
-<!-- 				<module>org.semanticsoft.commons</module> -->
-<!-- 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module> -->
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
 			</modules>
 		</profile>
