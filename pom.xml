@@ -211,6 +211,42 @@
 		</profile>
 
 		<profile>
+			<id>build-cassandra-widgetsets</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.kepler</module>
+<!-- 				<module>org.semanticsoft.vaaclipse.widgets</module> -->
+<!-- 				<module>org.semanticsoft.commons</module> -->
+<!-- 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module> -->
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+			</modules>
+		</profile>
+
+		<profile>
 			<id>client-widgets</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
