@@ -49,6 +49,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private ArrayBlockingQueue<String> queue;
 	private Logger logger = new WorkbenchLogger("org.semanticsoft.vaaclipse.app");
 	
+	private static String OS = System.getProperty("os.name").toLowerCase();
+	
 	private IApplicationContext appContext;
 	
 	private static VaadinE4Application instance;
@@ -135,7 +137,9 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		
 		startHttpService();
 		
-		showFrame();
+		if (!isMac()) {
+			showFrame();
+		}
 		
 		String msg;
 		while (!(msg = queue.take()).equals(EXIT)) 
@@ -313,6 +317,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		return exit;
 	}
 
+    private static boolean isMac() {
+        return (OS.indexOf("mac") >= 0);
+    }
+	
 	@Override
 	public void stop() {
 		// will never be invoked
