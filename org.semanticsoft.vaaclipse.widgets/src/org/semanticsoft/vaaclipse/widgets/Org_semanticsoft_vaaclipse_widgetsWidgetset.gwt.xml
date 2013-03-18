@@ -16,10 +16,16 @@
 
 	<source path="client" />
 	<source path="common" />
+	<source path="../../../../" />
 
 	<!-- replace-with class="org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget.VStackWidgetDragDropMouseHandler">
 		<when-type-is class="fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler" />
 	</replace-with-->
-
+	
+	<replace-with
+        class="com.vaadin.client.ui.dd.VaaclipseDragAndDropManager">
+        <when-type-is
+            class="com.vaadin.client.ui.dd.VDragAndDropManager" />
+    </replace-with>
 
 </module>

@@ -181,8 +181,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 		appWidgetset = readPathProperty("applicationWidgetset");
 		if (appWidgetset == null || appWidgetset.trim().isEmpty())
 		{
-			// appWidgetset =
-			// "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
+			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
 			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
 		}
 		else

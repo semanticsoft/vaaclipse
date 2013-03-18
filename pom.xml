@@ -192,7 +192,7 @@
 							<target>
 								<artifact>
 									<groupId>org.semanticsoft</groupId>
-									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
+									<artifactId>org.semanticsoft.vaaclipse.target.juno</artifactId>
 									<version>${project.version}</version>
 								</artifact>
 							</target>
@@ -201,7 +201,7 @@
 				</plugins>
 			</build>
 			<modules>
-				<module>org.semanticsoft.vaaclipse.target.kepler</module>
+				<module>org.semanticsoft.vaaclipse.target.juno</module>
 				<module>org.semanticsoft.vaaclipse.widgets</module>
 				<module>org.semanticsoft.commons</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
@@ -229,7 +229,7 @@
 							<target>
 								<artifact>
 									<groupId>org.semanticsoft</groupId>
-									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
+									<artifactId>org.semanticsoft.vaaclipse.target.juno</artifactId>
 									<version>${project.version}</version>
 								</artifact>
 							</target>
@@ -238,7 +238,7 @@
 				</plugins>
 			</build>
 			<modules>
-				<module>org.semanticsoft.vaaclipse.target.kepler</module>
+				<module>org.semanticsoft.vaaclipse.target.juno</module>
 				<module>org.semanticsoft.vaaclipse.widgets</module>
 				<module>org.semanticsoft.commons</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
