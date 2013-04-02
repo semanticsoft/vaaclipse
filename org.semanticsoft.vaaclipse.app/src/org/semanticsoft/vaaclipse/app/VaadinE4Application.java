@@ -49,7 +49,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 	private ArrayBlockingQueue<String> queue;
 	private Logger logger = new WorkbenchLogger("org.semanticsoft.vaaclipse.app");
 	
-	private static String OS = System.getProperty("os.name").toLowerCase();
+	private String OS = System.getProperty("os.name").toLowerCase();
 	
 	private IApplicationContext appContext;
 	
@@ -317,7 +317,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		return exit;
 	}
 
-    private static boolean isMac() {
+    private boolean isMac() {
         return (OS.indexOf("mac") >= 0);
     }
 	
