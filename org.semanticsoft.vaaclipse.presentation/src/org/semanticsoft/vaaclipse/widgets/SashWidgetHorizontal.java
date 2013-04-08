@@ -11,6 +11,10 @@
 
 package org.semanticsoft.vaaclipse.widgets;
 
+import java.util.EventObject;
+
+import com.vaadin.shared.communication.ServerRpc;
+import com.vaadin.shared.ui.splitpanel.AbstractSplitPanelState;
 import com.vaadin.ui.HorizontalSplitPanel;
 
 /**
@@ -29,6 +33,22 @@ public class SashWidgetHorizontal extends HorizontalSplitPanel implements SashWi
 	public SashWidgetHorizontal()
 	{
 		this.setImmediate(true);
+	}
+	
+	@Override
+	public void fireEvent(EventObject event) {
+		super.fireEvent(event);
+	}
+	
+	@Override
+	public AbstractSplitPanelState getState() {
+		return super.getState();
+	}
+	
+	@Override
+	public <T extends ServerRpc> void registerRpc(T implementation,
+			Class<T> rpcInterfaceType) {
+		super.registerRpc(implementation, rpcInterfaceType);
 	}
 	
 //	@Override
