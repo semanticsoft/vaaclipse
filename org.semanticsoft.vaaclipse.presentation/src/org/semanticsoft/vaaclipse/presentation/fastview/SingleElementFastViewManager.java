@@ -44,6 +44,7 @@ import com.vaadin.event.MouseEvents.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 /**
  * @author rushan
  *
@@ -315,6 +316,9 @@ public class SingleElementFastViewManager
 		if (show && !isShowing) 
 		{
 			hostPane = getHostPane();
+			VerticalLayout vl = new VerticalLayout();
+			vl.setSizeFull();
+			hostPane.setContent(vl);
 
 			ctf.setVisible(true);
 			
@@ -322,7 +326,8 @@ public class SingleElementFastViewManager
 			ExtendedVerticalLayout clientArea = windowContent.getClientArea();
 			
 			hostPane.setTrimmedWindowClientArea(clientArea);
-			hostPane.setContent(ctf);
+			//hostPane.setContent(ctf);
+			vl.addComponent(ctf);
 			
 			vaadinUI.addWindow(hostPane);
 			vaadinWindow.addClickListener(layoutClickListener);
