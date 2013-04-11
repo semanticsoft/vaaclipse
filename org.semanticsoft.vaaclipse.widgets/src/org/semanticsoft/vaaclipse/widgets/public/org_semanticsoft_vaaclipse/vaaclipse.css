@@ -1,50 +1,50 @@
-.stackwidget .v-tabsheet-tabitemcell,
+.v-app .stackwidget .v-tabsheet-tabitemcell,
 .stackwidget .v-tabsheet-spacertd {
 	height: 32px;
 }
 
-.stackwidget .v-tabsheet-tabitemcell {
+.v-app .stackwidget .v-tabsheet-tabitemcell {
 	padding-left: 0px;
 }
 
-.stackwidget .v-tabsheet-tabitemcell-first {
+.v-app .stackwidget .v-tabsheet-tabitemcell-first {
 	padding-left: 0px;
 }
 
-.stackwidget .v-tabsheet-tabitem,
-.stackwidget .v-tabsheet-spacertd div {
+.v-app .stackwidget .v-tabsheet-tabitem,
+.v-app .stackwidget .v-tabsheet-spacertd div {
 	height: 32px;
 	padding: 0;
 }
 
-.stackwidget .v-tabsheet-tabitem .v-caption {
+.v-app .stackwidget .v-tabsheet-tabitem .v-caption {
 	height: 23px;
 	padding: 9px 8px 0 6px;
 }
 
-.stackwidget .v-tabsheet-tabitem .v-caption-closable {
+.v-app .stackwidget .v-tabsheet-tabitem .v-caption-closable {
 	padding-right: 0;
 	padding-left: 17px;
 }
-.stackwidget .v-tabsheet-tabitem .v-captiontext {
+.v-app .stackwidget .v-tabsheet-tabitem .v-captiontext {
 	height: 16px;
 }
 
-.stackwidget .v-caption .v-icon,
-.stackwidget .v-caption-closable .v-icon {
+.v-app .stackwidget .v-caption .v-icon,
+.v-app .stackwidget .v-caption-closable .v-icon {
 	float: left;
 	margin: 0px;
 	padding: 0px;
 }
 
-.stackwidget .v-caption .v-captiontext,
-.stackwidget .v-caption-closable .v-captiontext {
+.v-app .stackwidget .v-caption .v-captiontext,
+.v-app .stackwidget .v-caption-closable .v-captiontext {
 	float: left;
 	margin: 0px;
 	padding: 0px;
 }
 
-.stackwidget .v-tabsheet-caption-close {
+.v-app .stackwidget .v-tabsheet-caption-close {
 	float: right;
 	width: 19px;
 	height: 18px;
@@ -56,13 +56,13 @@
 	float: none;
 }
 
-.stackwidget .v-tabsheet-spacertd div {
+.v-app .stackwidget .v-tabsheet-spacertd div {
 	margin-right: 0px;
 }
 
 /*
 */
-.vaadock-tabsheet-button-panel {
+.v-app .vaadock-tabsheet-button-panel {
 	background-color: transparent;
     float: right;
     position: relative;
@@ -70,7 +70,7 @@
     width: 44px;
 }
 
-.v-vaadock-tabsheet-maximize-button {
+.v-app .v-vaadock-tabsheet-maximize-button {
 	width: 18px;
     height: 18px;
 	position: relative;
@@ -80,15 +80,15 @@
     background: url(img/vaadock_sprites.png) no-repeat 0 0;
 }
 
-.v-vaadock-tabsheet-maximize-button:hover { 
+.v-app .v-vaadock-tabsheet-maximize-button:hover { 
 	background-position: 0 -18px;
 }
 
-.v-vaadock-tabsheet-maximize-button:active { 
+.v-app .v-vaadock-tabsheet-maximize-button:active { 
 	background-position: 0 -36px;
 }
 
-.v-vaadock-tabsheet-minimize-button {
+.v-app .v-vaadock-tabsheet-minimize-button {
 	width: 18px;
     height: 18px;
 	position: relative;
@@ -100,15 +100,15 @@
     background-position: 0 -54px;
 }
 
-.v-vaadock-tabsheet-minimize-button:hover { 
+.v-app .v-vaadock-tabsheet-minimize-button:hover { 
 	background-position: 0 -72px;
 }
 
-.v-vaadock-tabsheet-minimize-button:active { 
+.v-app .v-vaadock-tabsheet-minimize-button:active { 
 	background-position: 0 -90px;
 }
 
-.v-vaadock-tabsheet-restore-button {
+.v-app .v-vaadock-tabsheet-restore-button {
 	width: 18px;
     height: 18px;
 	position: relative;
@@ -119,10 +119,10 @@
     background-position: 0 -108px;
 }
 
-.v-vaadock-tabsheet-restore-button:hover { 
+.v-app .v-vaadock-tabsheet-restore-button:hover { 
 	background-position: 0 -126px;
 }
 
-.v-vaadock-tabsheet-restore-button:active { 
+.v-app .v-vaadock-tabsheet-restore-button:active { 
 	background-position: 0 -144px;
 }

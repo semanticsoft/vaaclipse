@@ -5,7 +5,7 @@ package org.semanticsoft.vaaclipse.publicapi.resources;
 
 import org.eclipse.emf.common.util.URI;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 /**
  * @author rushan

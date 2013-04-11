@@ -11,8 +11,7 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.FileResource;
+import com.vaadin.server.FileResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.VerticalLayout;
@@ -24,14 +23,14 @@ public class ImageView extends FileView
 	private Embedded embedded;
 
 	@Inject
-	public ImageView(VerticalLayout container, MInputPart inputPart, Application app)
+	public ImageView(VerticalLayout container, MInputPart inputPart)
 	{
 		super(inputPart.getInputURI());
 		embedded = new Embedded();
 		container.addComponent(embedded);
 		container.setComponentAlignment(embedded, Alignment.MIDDLE_CENTER);
 		
-		embedded.setSource(new FileResource(getFile(), app));
+		embedded.setSource(new FileResource(getFile()));
 	}
 
 }

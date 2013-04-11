@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?>
-
-<target name="vaaclipse" sequenceNumber="2">
+<?pde version="3.8"?><target name="vaaclipse" sequenceNumber="3">
 <locations>
 <location path="${project_loc}/bundles" type="Directory"/>
+<location path="${eclipse_home}" type="Profile"/>
 </locations>
 </target>

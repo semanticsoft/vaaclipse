@@ -2,15 +2,16 @@
  */
 package e4modelextension.impl;
 
-import e4modelextension.*;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import e4modelextension.E4modelextensionFactory;
+import e4modelextension.E4modelextensionPackage;
+import e4modelextension.EditorPartDescriptor;
+import e4modelextension.VaaclipseApplication;
 
 /**
  * <!-- begin-user-doc -->

@@ -1,0 +1,421 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.semanticsoft</groupId>
+	<artifactId>org.semanticsoft.vaaclipse</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Vaaclipse :: Parent POM</name>
+
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
+	<properties>
+		<next-release>0.0.2-SNAPSHOT</next-release>
+		<tycho-version>0.17.0-SNAPSHOT</tycho-version>
+		<tychoExtrasVersion>0.17.0-SNAPSHOT</tychoExtrasVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<vaadin-version>7.0-SNAPSHOT</vaadin-version>
+		<shiro-version>1.2.1</shiro-version>
+		<vaadin-icepush-version>0.5.4</vaadin-icepush-version>
+		<icepush-version>3.0.1</icepush-version>
+		<icepush-gwt-version>1.0.0</icepush-gwt-version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>lunifera</id>
+			<url>http://maven.lunifera.org:8086/nexus/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+		<repository>
+			<id>vaadin-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tycho-snapshots</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>vaadin-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<!-- used to find XMLTask jar -->
+			<id>atlassian</id>
+			<url>http://repository.atlassian.com/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<profiles>
+		<profile>
+			<id>prepare-for-next-release</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>org.eclipse.tycho:tycho-versions-plugin:set-version</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-versions-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>change-next-release</id>
+								<goals>
+									<goal>set-version</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<newVersion>${next-release}</newVersion>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>p2-juno</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.juno</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.juno</module>
+
+				<!-- exclusive for P2 -->
+				<module>org.semanticsoft.vaaclipse.p2</module>
+
+				<!-- P2 features -->
+				<module>org.semanticsoft.vaaclipse.feature.runtime.core</module>
+				<module>org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra</module>
+				<module>org.semanticsoft.vaaclipse.feature.ide.model.extensions</module>
+				<!-- <module>org.semanticsoft.vaaclipse.feature.ide</module> -->
+				<!-- end P2 features -->
+
+				<module>org.semanticsoft.vaadin</module>
+				<module>org.semanticsoft.vaadin.osgi.staticres</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.additions</module>
+				<module>org.semanticsoft.vaaclipse.behaviour</module>
+				<module>org.semanticsoft.vaaclipse.api</module>
+				<module>org.semanticsoft.vaaclipse.app</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.vaaclipse.contributions</module>
+				<module>org.semanticsoft.vaaclipse.presentation</module>
+				<module>org.semanticsoft.vaaclipse.publicapi</module>
+				<module>org.semanticsoft.vaaclipse.resources</module>
+				<module>org.semanticsoft.vaaclipse.theme</module>
+				<module>org.semanticsoft.vaaclipse.util</module>
+				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+
+				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
+
+				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
+				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
+				<module>
+						org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons
+					</module>
+				<module>org.semanticsoft.vaaclipsedemo.mini</module>
+
+				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
+				<module>org.semanticsoft.e4extension</module>
+				<module>org.semanticsoft.e4modelextension</module>
+
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>build-widgetsets</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.juno</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.juno</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>build-cassandra-widgetsets</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.juno</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.juno</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>client-widgets</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<defaultGoal>verify</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- <resolver>p2</resolver> -->
+							<!-- <pomDependencies>consider</pomDependencies> -->
+							<ignoreTychoRepositories>true</ignoreTychoRepositories>
+							<target>
+								<artifact>
+									<groupId>org.semanticsoft</groupId>
+									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
+									<version>${project.version}</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<modules>
+				<module>org.semanticsoft.vaaclipse.target.kepler</module>
+				<module>org.semanticsoft.vaaclipse.widgets</module>
+				<module>org.semanticsoft.commons</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
+			</modules>
+		</profile>
+
+		<!-- This profile is used to gather code coverage for Sonar -->
+		<profile>
+			<id>codeCoverage</id>
+			<properties>
+				<!-- Properties to enable jacoco code coverage analysis -->
+				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+				<sonar.jacoco.reportPath>../org.demo.camp.nantes.parent/target/jacoco.exec</sonar.jacoco.reportPath>
+			</properties>
+
+			<build>
+				<plugins>
+					<!-- Enabling use of jacoco -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.5.8.201207111220</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<!-- Where to put jacoco coverage report -->
+									<destFile>${sonar.jacoco.reportPath}</destFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!-- enable tycho build -->
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-maven-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<extensions>true</extensions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<compilerVersion>1.6</compilerVersion>
+						<encoding>UTF-8</encoding>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.5</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-source-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<executions>
+						<execution>
+							<id>plugin-source</id>
+							<goals>
+								<goal>plugin-source</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<includes>
+							<include>**/*Tests.java</include>
+						</includes>
+						<showEclipseLog>true</showEclipseLog>
+						<useUIHarness>false</useUIHarness>
+						<useUIThread>false</useUIThread>
+						<failIfNoTests>false</failIfNoTests>
+						<!-- <appArgLine>-Dfile.encoding=UTF-8</appArgLine> -->
+						<argLine>-Dfile.encoding=UTF-8</argLine>
+						<!-- Kill test JVM if tests take more than 10 minutes (600 seconds) 
+							to finish -->
+						<forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

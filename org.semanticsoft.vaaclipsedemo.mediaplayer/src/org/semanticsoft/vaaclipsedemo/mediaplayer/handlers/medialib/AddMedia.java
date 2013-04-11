@@ -18,8 +18,8 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.Notification;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 /**
  * @author rushan
@@ -36,6 +36,9 @@ public class AddMedia extends AddMediaEntryBasic
 	@Inject
 	MediaService mediaService;
 	
+	@Inject
+	UI ui;
+	
 	@Execute
 	public void addMedia(@Optional final String mediaUri, MediaLibrary mediaLibrary, final MWindow window)
 	{
@@ -43,12 +46,12 @@ public class AddMedia extends AddMediaEntryBasic
 		
 		if (mediaUri != null)
 		{
-			addMediaToLibrary(window, parentCategory, mediaUri);
+			addMediaToLibrary(parentCategory, mediaUri);
 		}
 		else
 		{
 			//----
-			createAndShowDlg(window, "New media", "Media url:");
+			createAndShowDlg(ui, "New media", "Media url:");
 		}
 	}
 	
@@ -58,17 +61,17 @@ public class AddMedia extends AddMediaEntryBasic
 		if (optionId == 0)
 		{
 			String uri = componentProvider.getTextField().getValue().toString();
-			addMediaToLibrary(window, parentCategory, uri);
+			addMediaToLibrary(parentCategory, uri);
 		}
 		dlg.close();
 	}
 	
-	private void addMediaToLibrary(MWindow window, MediaCategory category, String uri)
+	private void addMediaToLibrary(MediaCategory category, String uri)
 	{
 		Media media = mediaService.findMedia(uri);
 		if (media != null)
 		{
-			((Window)window.getWidget()).showNotification("Media with this uri exists in media library", Notification.TYPE_WARNING_MESSAGE);
+			Notification.show("Media with this uri exists in media library", Notification.Type.WARNING_MESSAGE);
 			return;
 		}
 		else

@@ -3,10 +3,8 @@
  */
 package org.semanticsoft.vaaclipse.additions.view;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -25,7 +23,7 @@ import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.ItemClickEvent;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
@@ -113,7 +111,7 @@ class ShowViewDialogContent implements ComponentProvider
 		tree.setDragMode(TreeDragMode.NODE);
 		tree.setSizeFull();
 		tree.setImmediate(true);
-		panel.addComponent(tree);
+		panel.setContent(tree);
 
 		container = createDataSource();
 		tree.setContainerDataSource(container);

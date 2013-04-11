@@ -32,7 +32,7 @@ public class ThemeEngineImpl implements ThemeEngine
 		IExtensionRegistry registry = RegistryFactory.getRegistry();
 		IExtensionPoint extPoint = registry.getExtensionPoint("org.semanticsoft.vaaclipse.theme");
 		
-		Map<Theme, List<String>> inherited = new HashMap<>();
+		Map<Theme, List<String>> inherited = new HashMap<Theme, List<String>>();
 		//add themes
 		for (IExtension e : extPoint.getExtensions()) {
 			for (IConfigurationElement ce : e.getConfigurationElements()) {
@@ -47,7 +47,7 @@ public class ThemeEngineImpl implements ThemeEngine
 						ThemeImpl theme = new ThemeImpl(themeId, label);
 						setupThemeEntry(theme, ce);
 						
-						List<String> inheritedList = new ArrayList<>();
+						List<String> inheritedList = new ArrayList<String>();
 						for (IConfigurationElement inheritedThemeEl : ce.getChildren("inheritedTheme")) {
 							String refid = inheritedThemeEl.getAttribute("refid");
 							if (refid != null) {

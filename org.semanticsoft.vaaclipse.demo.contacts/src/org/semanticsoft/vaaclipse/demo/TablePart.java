@@ -1,8 +1,8 @@
  
 package org.semanticsoft.vaaclipse.demo;
 
-import javax.inject.Inject;
 import javax.annotation.PostConstruct;
+
 import org.eclipse.e4.ui.di.Focus;
 
 import com.vaadin.ui.TextArea;

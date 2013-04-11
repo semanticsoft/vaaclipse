@@ -19,9 +19,7 @@ package org.vaadin.osgi.staticres;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -37,7 +35,6 @@ import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeContribution;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeEngine;
-import org.semanticsoft.vaaclipse.util.Utils;
 
 /**
  * This class runs as an OSGi component and serves the themes and widgetsets
@@ -65,8 +62,6 @@ public class StaticResources extends HttpServlet {
 
 	private String alias;
 
-	private Bundle vaadin;
-
 	public void bind(HttpService httpService) {
 		this.httpService = httpService;
 	}
@@ -83,13 +78,6 @@ public class StaticResources extends HttpServlet {
 
 	public void start(BundleContext ctx, Map<String, String> properties)
 			throws Exception {
-		// find the vaadin bundle:
-		for (Bundle bundle : ctx.getBundles()) {
-			if ("com.vaadin".equals(bundle.getSymbolicName())) {
-				vaadin = bundle;
-				break;
-			}
-		}
 		alias = properties.get("http.alias");
 		httpService.registerServlet(alias, this, null, null);
 	}
@@ -114,7 +102,7 @@ public class StaticResources extends HttpServlet {
 		
 		String resourcePath = alias + path;
 		
-		String themeId = (String) req.getSession().getAttribute(ThemeConstants.Attrubutes.themeid);
+		String themeId = resourceInfoProvider.getCssTheme();
 		InputStream in = getInputStream(resourcePath, 
 				themeEngine.getTheme(themeId),
 				resourceInfoProvider.getApplicationtWidgetset(), 
@@ -188,7 +176,7 @@ public class StaticResources extends HttpServlet {
 				}
 				else
 				{
-					path = "platform:/plugin/com.vaadin" + url;
+					path = "platform:/plugin/com.vaadin.client-compiled" + url;
 				}
 			}
 			else if (segments[1].equals("themes"))
@@ -251,11 +239,15 @@ public class StaticResources extends HttpServlet {
 						path = inheritedTheme.getCssUri();
 					}
 					else
-						path = "platform:/plugin/com.vaadin" + url;
+						path = "platform:/plugin/com.vaadin.themes" + url;
 				}
 			}
+			else if ("vaadinBootstrap.js".equals(segments[1])) 
+			{
+				path = "platform:/plugin/com.vaadin.server" + url;
+			}
 			else
-				throw new IllegalArgumentException("хз что такое");	
+				return null;
 		}
 		
 		try {

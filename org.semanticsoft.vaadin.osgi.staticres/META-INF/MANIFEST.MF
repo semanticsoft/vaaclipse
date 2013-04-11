@@ -2,19 +2,19 @@ Manifest-Version: 1.0
 Service-Component: OSGI-INF/org.vaadin.osgi.staticres.StaticResources.
  xml
 Private-Package: org.vaadin.osgi.staticres
-Bundle-Version: 1.0.0.M2
+Bundle-Version: 0.0.1.qualifier
 Tool: Bnd-0.0.401
 Bnd-LastModified: 1280258096925
 Bundle-Name: org.semanticsoft.vaadin.osgi.staticres
 Bundle-ManifestVersion: 2
 Created-By: 1.6.0_20 (Apple Inc.)
 Import-Package: javax.annotation,
- javax.servlet;version="2.5",
- javax.servlet.http;version="2.5",
+ javax.servlet;version="2.6.0",
+ javax.servlet.http;version="2.6.0",
  org.osgi.framework;version="1.5",
  org.osgi.service.http;version="1.2"
 Bundle-SymbolicName: org.semanticsoft.vaadin.osgi.staticres
-Require-Bundle: org.semanticsoft.vaaclipse.util;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.api;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0"
+Require-Bundle: org.semanticsoft.vaaclipse.api;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.publicapi;bundle-version="0.0.1",
+ com.vaadin.server;bundle-version="7.0.0"
 

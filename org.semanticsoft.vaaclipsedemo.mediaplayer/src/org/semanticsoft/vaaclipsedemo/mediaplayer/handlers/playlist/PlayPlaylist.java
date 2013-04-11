@@ -6,8 +6,6 @@ package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.playlist;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -33,7 +31,7 @@ public class PlayPlaylist
 		Media selectedInPlaylist = playlist.getSelectedMedia();
 		if (selectedInPlaylist != null)
 		{
-			Map<String, Object> params = new HashMap<>();
+			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(IEventBroker.DATA, selectedInPlaylist);
 			params.put(MediaConstants.autoPlay, true);
 			eventBroker.send(MediaConstants.mediaEntrySelected, params);	

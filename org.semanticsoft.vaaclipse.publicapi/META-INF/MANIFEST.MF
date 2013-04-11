@@ -2,13 +2,17 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Publicapi
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.publicapi
-Bundle-Version: 1.0.0.M2
+Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.semanticsoft.vaaclipse.publicapi.authentication,
+Export-Package: org.semanticsoft.vaaclipse.publicapi.app,
+ org.semanticsoft.vaaclipse.publicapi.authentication,
  org.semanticsoft.vaaclipse.publicapi.editor,
  org.semanticsoft.vaaclipse.publicapi.model,
  org.semanticsoft.vaaclipse.publicapi.resources,
  org.semanticsoft.vaaclipse.publicapi.theme
-Require-Bundle: com.vaadin;bundle-version="6.8.1",
- org.eclipse.emf.common;bundle-version="2.8.0"
+Require-Bundle: org.eclipse.emf.common;bundle-version="2.8.0",
+ com.vaadin.server;bundle-version="7.0.0",
+ com.vaadin.shared;bundle-version="7.0.0",
+ com.vaadin.shared.deps;bundle-version="1.0.2",
+ org.eclipse.e4.core.contexts;bundle-version="1.1.0"

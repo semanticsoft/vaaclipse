@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.semanticsoft</groupId>
+		<artifactId>org.semanticsoft.vaaclipse</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.semanticsoft.vaaclipse.p2</artifactId>
+	<packaging>eclipse-repository</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<configuration>
+							<tasks>
+								<taskdef resource="net/sf/antcontrib/antlib.xml" />
+								<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" />
+								<if>
+									<isset property="vaaclipse.p2.target.folder" />
+									<then>
+										<echo>------------------------------------------------</echo>
+										<echo>Copying repository to ${vaaclipse.p2.target.folder}</echo>
+										<echo>------------------------------------------------</echo>
+										<if>
+											<available file="${vaaclipse.p2.target.folder}" type="dir" />
+											<then>
+												<delete includeEmptyDirs="true">
+													<fileset dir="${vaaclipse.p2.target.folder}" includes="**/*" />
+												</delete>
+											</then>
+										</if>
+										<copy todir="${vaaclipse.p2.target.folder}">
+											<fileset dir="${project.basedir}/target/repository" />
+										</copy>
+									</then>
+									<else>
+										<echo>------------------------------------------------</echo>
+										<echo>No copying repository! -Dvaaclipse.p2.target.folder not present</echo>
+										<echo>------------------------------------------------</echo>
+									</else>
+								</if>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant</artifactId>
+						<version>1.8.4</version>
+					</dependency>
+					<dependency>
+						<groupId>ant-contrib</groupId>
+						<artifactId>ant-contrib</artifactId>
+						<version>1.0b3</version>
+						<exclusions>
+							<exclusion>
+								<groupId>ant</groupId>
+								<artifactId>ant</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>net.sf.saxon</groupId>
+						<artifactId>Saxon-HE</artifactId>
+						<version>9.4</version>
+					</dependency>
+					<dependency>
+						<groupId>com.oopsconsultancy</groupId>
+						<artifactId>xmltask</artifactId>
+						<version>1.16</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

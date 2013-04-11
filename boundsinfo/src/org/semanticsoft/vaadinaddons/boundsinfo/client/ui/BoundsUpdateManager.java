@@ -11,8 +11,8 @@
 package org.semanticsoft.vaadinaddons.boundsinfo.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.vaadin.terminal.gwt.client.ApplicationConnection;
-import com.vaadin.terminal.gwt.client.VConsole;
+import com.vaadin.client.ApplicationConnection;
+import com.vaadin.client.VConsole;
 
 /**
  * @author rushan

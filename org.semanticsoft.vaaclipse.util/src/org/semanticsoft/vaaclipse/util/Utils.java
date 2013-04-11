@@ -11,10 +11,6 @@
 
 package org.semanticsoft.vaaclipse.util;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.eclipse.emf.common.util.URI;
 
 public class Utils {
 		

@@ -13,11 +13,10 @@ package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
 import org.apache.commons.io.IOUtils;
 
-import java.io.FileInputStream;
-
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import java.io.FileInputStream;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -44,11 +43,8 @@ public class TextEditor extends FileView
 		
 		Panel e = new Panel();
 		e.setSizeFull();
-		((VerticalLayout)e.getContent()).setMargin(true);
-		//e.setMargin(true);
-		e.setScrollable(true);
 		text = new Label(readContent(), Label.CONTENT_PREFORMATTED);
-		e.addComponent(text);
+		e.setContent(text);
 		container.addComponent(e);
 	}
 

@@ -16,7 +16,7 @@ public class ThemeEntryImpl
 	protected String id;
 	protected String webId;
 	protected String cssUri;
-	protected List<String> resourceUri = new ArrayList<>();
+	protected List<String> resourceUri = new ArrayList<String>();
 	
 	public ThemeEntryImpl(String id)
 	{

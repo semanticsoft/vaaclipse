@@ -11,28 +11,23 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import java.util.Collections;
-
-import java.util.ArrayList;
-
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-
-import com.vaadin.Application;
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
 import com.vaadin.event.ItemClickEvent;
-import com.vaadin.service.FileTypeResolver;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.util.FileTypeResolver;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -63,8 +58,6 @@ public class PackageExplorer
 	
 	@Inject
 	private IEclipseContext context;
-	@Inject
-	private Application app;
 	
 	@Inject
 	private MApplication application;
@@ -171,7 +164,7 @@ public class PackageExplorer
 		tree = new Tree();
 		tree.setSizeFull();
 		tree.setImmediate(true);
-		panel.addComponent(tree);
+		panel.setContent(tree);
 		
 		FilesystemContainer fsc = new FilesystemContainer(demoRoot, true);
 		FileTypeResolver.addExtension("java", "java");

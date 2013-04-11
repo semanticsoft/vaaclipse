@@ -31,10 +31,9 @@ import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueMenuItem;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 
-import com.vaadin.terminal.Resource;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
@@ -43,10 +42,10 @@ public class MenuItemRenderer extends ItemRenderer {
 
 	@Inject
 	IContributionFactory contributionFactory;
-	
+
 	@Inject
 	IEventBroker eventBroker;
-	
+
 	private EventHandler itemUpdater = new EventHandler() {
 		public void handleEvent(Event event) {
 			// Ensure that this event is for a MMenuItem
@@ -61,8 +60,10 @@ public class MenuItemRenderer extends ItemRenderer {
 				return;
 			}
 
-			String attName = (String) event.getProperty(UIEvents.EventTags.ATTNAME);
-			String newValue = (String) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+			String attName = (String) event
+					.getProperty(UIEvents.EventTags.ATTNAME);
+			String newValue = (String) event
+					.getProperty(UIEvents.EventTags.NEW_VALUE);
 			if (UIEvents.UILabel.LABEL.equals(attName)) {
 				ici.setText(newValue);
 			} else if (UIEvents.UILabel.ICONURI.equals(attName)) {
@@ -73,7 +74,7 @@ public class MenuItemRenderer extends ItemRenderer {
 			}
 		}
 	};
-	
+
 	private EventHandler enabledUpdater = new EventHandler() {
 		public void handleEvent(Event event) {
 			// Ensure that this event is for a MMenuItem
@@ -84,72 +85,78 @@ public class MenuItemRenderer extends ItemRenderer {
 					.getProperty(UIEvents.EventTags.ELEMENT);
 			MenuItem ici = (MenuItem) itemModel.getWidget();
 			if (ici != null) {
-				Boolean newValue = (Boolean) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+				Boolean newValue = (Boolean) event
+						.getProperty(UIEvents.EventTags.NEW_VALUE);
 				ici.setEnabled(newValue);
 			}
 		}
 	};
-	
+
 	@PostConstruct
-	public void postConstruct()
-	{
+	public void postConstruct() {
 		eventBroker.subscribe(UIEvents.UILabel.TOPIC_ALL, itemUpdater);
 		eventBroker.subscribe(UIEvents.Item.TOPIC_ENABLED, enabledUpdater);
 	}
-	
+
 	@PreDestroy
-	public void preDestroy()
-	{
+	public void preDestroy() {
 		eventBroker.unsubscribe(itemUpdater);
 		eventBroker.unsubscribe(enabledUpdater);
 	}
 
 	@Override
-	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
-		
+	public void createWidget(MUIElement element,
+			MElementContainer<MUIElement> parent) {
+
 		if (!element.isToBeRendered())
 			return;
-		
+
 		if (element instanceof MMenuItem) {
 			MMenuItem model = (MMenuItem) element;
-			
-			//--------------------
-			//Prepare the text
+
+			// --------------------
+			// Prepare the text
 			String text = prepareText(model);
 			text = text.replaceAll("&", "");
-			
-			//Prepare the icon
-			Resource icon = model.getIconURI() != null ? ResourceHelper.createResource(model.getIconURI()) : null;
-			
-			//Prepare the command
+
+			// Prepare the icon
+			Resource icon = model.getIconURI() != null ? ResourceHelper
+					.createResource(model.getIconURI()) : null;
+
+			// Prepare the command
 			Command command = null;
 			if (model instanceof MDirectMenuItem) {
 				final MDirectMenuItem item = (MDirectMenuItem) model;
-				item.setObject(contributionFactory.create(item.getContributionURI(), getContext(item)));
-				
+				item.setObject(contributionFactory.create(
+						item.getContributionURI(), getContext(item)));
+
 				command = createEventHandler(item);
 			} else if (model instanceof MHandledMenuItem) {
 				final MHandledMenuItem item = (MHandledMenuItem) model;
 				command = createParametrizedCommandEventHandler(item);
 			}
-			
-			MUIElement nextRenderableAndVisible = findNextRendarableAndVisible(element, parent);
+
+			MUIElement nextRenderableAndVisible = findNextRendarableAndVisible(
+					element, parent);
 			MenuItem item = null;
 			if (nextRenderableAndVisible == null)
-				item = ((MenuItem)parent.getWidget()).addItem(text, icon, command);
+				item = ((MenuItem) parent.getWidget()).addItem(text, icon,
+						command);
 			else
-				item = ((MenuItem)parent.getWidget()).addItemBefore(text, icon, command, (MenuItem)nextRenderableAndVisible.getWidget());
-			//-----------------
+				item = ((MenuItem) parent.getWidget()).addItemBefore(text,
+						icon, command,
+						(MenuItem) nextRenderableAndVisible.getWidget());
+			// -----------------
 
 			element.setWidget(item);
-			
+
 			updateItemEnablement(model);
 			item.setEnabled(model.isEnabled());
-			
+
 			registerEnablementUpdaters(model);
 		}
 	}
-	
+
 	protected void updateItemEnablement(MItem item) {
 		if (!(item.getWidget() instanceof MenuItem))
 			return;
@@ -157,12 +164,11 @@ public class MenuItemRenderer extends ItemRenderer {
 		MenuItem widget = (MenuItem) item.getWidget();
 		if (widget == null)
 			return;
-		
+
 		item.setEnabled(canExecute(item));
 	}
 
-	private boolean canExecute(MItem item)
-	{
+	private boolean canExecute(MItem item) {
 		if (item instanceof MHandledItem)
 			return canExecuteItem((MHandledItem) item);
 		else if (item instanceof MDirectMenuItem)
@@ -170,35 +176,34 @@ public class MenuItemRenderer extends ItemRenderer {
 		else
 			return false;
 	}
-	
+
 	private boolean canExecuteItem(MDirectMenuItem item) {
 		final IEclipseContext eclipseContext = getContext(item);
 		eclipseContext.set(MItem.class, item);
 		setupContext(eclipseContext, item);
-		return (boolean) ContextInjectionFactory.invoke(item, CanExecute.class, eclipseContext, true);
+		return (Boolean) ContextInjectionFactory.invoke(item, CanExecute.class,
+				eclipseContext, true);
 	}
 
 	@Override
 	public void hookControllerLogic(MUIElement me) {
-		//the listener already attached (when created - vaadin API issue)
+		// the listener already attached (when created - vaadin API issue)
 	}
 
 	@Override
-	protected void setupContext(IEclipseContext context, MItem item)
-	{
-		context.set(MMenuItem.class, (MMenuItem)item);
-		
+	protected void setupContext(IEclipseContext context, MItem item) {
+		context.set(MMenuItem.class, (MMenuItem) item);
+
 		if (item instanceof MDirectMenuItem)
-			context.set(MDirectMenuItem.class, (MDirectMenuItem)item);
+			context.set(MDirectMenuItem.class, (MDirectMenuItem) item);
 		else if (item instanceof MHandledMenuItem)
-			context.set(MHandledMenuItem.class, (MHandledMenuItem)item);
+			context.set(MHandledMenuItem.class, (MHandledMenuItem) item);
 		else if (item instanceof MOpaqueMenuItem)
-			context.set(MOpaqueMenuItem.class, (MOpaqueMenuItem)item);
+			context.set(MOpaqueMenuItem.class, (MOpaqueMenuItem) item);
 	}
-	
+
 	@Override
-	public void setVisible(MUIElement changedElement, boolean visible)
-	{
-		((MenuItem)changedElement.getWidget()).setVisible(visible);
+	public void setVisible(MUIElement changedElement, boolean visible) {
+		((MenuItem) changedElement.getWidget()).setVisible(visible);
 	}
 }

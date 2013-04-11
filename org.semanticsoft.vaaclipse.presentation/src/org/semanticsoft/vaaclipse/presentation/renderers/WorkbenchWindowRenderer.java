@@ -38,17 +38,17 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.commons.general.Condition;
 import org.semanticsoft.vaaclipse.presentation.engine.PresentationEngine;
-import org.semanticsoft.vaaclipse.presentation.engine.VaadinPresentationEngine;
+import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
 import org.semanticsoft.vaaclipse.publicapi.editor.SavePromptSetup;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
-import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.ExternalResource;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.ResizeEvent;
 
@@ -63,7 +63,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 	MApplication app;
 
 	@Inject
-	Application vaadinapp;
+	UI vaadinUI;
 
 	@Inject
 	EventBroker eventBroker;
@@ -84,7 +84,8 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 				return;
 
 			MTrimmedWindow window = (MTrimmedWindow) event.getProperty(UIEvents.EventTags.ELEMENT);
-			WorkbenchWindow vWindow = (WorkbenchWindow) window.getWidget();
+			Panel _vWindow = (Panel) window.getWidget();
+			TrimmedWindowContent vWindow = (TrimmedWindowContent) _vWindow.getContent();
 			PresentationEngine engine = (PresentationEngine) context.get(IPresentationEngine.class.getName());
 			Object attType = event.getProperty(UIEvents.EventTags.TYPE);
 
@@ -138,46 +139,36 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 		if (element instanceof MWindow)
 		{
 			final MWindow mWindow = (MWindow) element;
-			Window currentMainWindow = vaadinapp.getMainWindow();
+			Component currentMainWindow = vaadinUI.getContent();
 			if (element.getTags().contains(Tags.MAIN_WINDOW))
 			{
-
-				WorkbenchWindow window = new WorkbenchWindow();
-				window.setPositionX(mWindow.getX());
-				window.setPositionY(mWindow.getY());
-				window.setWidth(mWindow.getWidth());
-				window.setHeight(mWindow.getHeight());
-				window.setCaption(mWindow.getLocalizedLabel());
+				Panel window = new Panel();
+				window.setContent(new TrimmedWindowContent());
+				vaadinUI.getPage().setTitle(mWindow.getLocalizedLabel());
 				element.setWidget(window);
-				((MWindow) element).getContext().set(Window.class, window);
+				((MWindow) element).getContext().set(Panel.class, window);
 				window.setSizeFull();
 
-				vaadinapp.setMainWindow(window);
-				if (currentMainWindow != null)
-				{
-					currentMainWindow.open(new ExternalResource(vaadinapp.getURL()));
-				}
+				vaadinUI.setContent(window);
 
 				app.setSelectedElement(mWindow);
 				mWindow.getContext().activate();
-
-				eclipseContext.set(Window.class, window);
 			}
-			// case child windows
 			else
-			{
+			{// case child windows
 				if (currentMainWindow != null)
 				{
-					WorkbenchWindow window = new WorkbenchWindow();
+					Window window = new Window();
+					window.setContent(new TrimmedWindowContent());
 					window.setImmediate(true);
 					window.setPositionX(mWindow.getX());
 					window.setPositionY(mWindow.getY());
-					window.setWidth(mWindow.getWidth());
-					window.setHeight(mWindow.getHeight());
+					window.setWidth(mWindow.getWidth(), Unit.PIXELS);
+					window.setHeight(mWindow.getHeight(), Unit.PIXELS);
 					window.setCaption(mWindow.getLocalizedLabel());
 					element.setWidget(window);
-					eclipseContext.set(Window.class, window);
-					currentMainWindow.addWindow(window);
+					((MWindow) element).getContext().set(Panel.class, window);
+					vaadinUI.addWindow(window);
 				}
 				else
 				{
@@ -206,7 +197,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 						String msg = setup.getMessage() != null ? setup.getMessage() :
 							String.format("%s has been modified. Save changes?", saveCandidate instanceof MInputPart ? ((MInputPart)saveCandidate).getInputURI() : "Data");
 						
-						OptionDialog.show((Window) mWindow.getWidget(), caption,
+						OptionDialog.show(vaadinUI, caption,
 								msg, 
 								new String[] {"Yes", "No", "Cancel"},
 								400, 80, Component.UNITS_PIXELS,
@@ -304,7 +295,8 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 		if ((MUIElement) element instanceof MWindow)
 		{
 			MWindow window = (MWindow) ((MUIElement) element);
-			WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+			Panel _vWindow = (Panel) element.getWidget();
+			TrimmedWindowContent vWindow = (TrimmedWindowContent) _vWindow.getContent();
 			PresentationEngine engine = (PresentationEngine) context.get(IPresentationEngine.class.getName());
 
 			for (MUIElement e : element.getChildren())
@@ -365,7 +357,8 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 		if (!(child instanceof MWindowElement))
 			return;
 
-		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+		Panel _vWindow = (Panel) element.getWidget();
+		TrimmedWindowContent vWindow = (TrimmedWindowContent) _vWindow.getContent();
 
 		if (child instanceof MPerspectiveStack)
 		{
@@ -397,7 +390,8 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 		if (!(child instanceof MWindowElement))
 			return;
 
-		WorkbenchWindow vWindow = (WorkbenchWindow) element.getWidget();
+		Panel _vWindow = (Panel) element.getWidget();
+		TrimmedWindowContent vWindow = (TrimmedWindowContent) _vWindow.getContent();
 
 		if (child instanceof MPerspectiveStack)
 		{

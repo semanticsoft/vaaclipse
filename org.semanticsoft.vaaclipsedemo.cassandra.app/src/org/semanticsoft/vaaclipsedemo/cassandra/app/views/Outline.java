@@ -12,7 +12,7 @@
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
 import com.vaadin.data.Item;
-import com.vaadin.terminal.Resource;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -65,7 +65,6 @@ public class Outline
 		panel.setSizeFull();
 		tree = new Tree();
 		tree.setImmediate(true);
-		panel.addComponent(tree);
 		
 		parent.addComponent(panel);
 		

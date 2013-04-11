@@ -2,11 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Presentation
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.presentation;singleton:=true
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: com.vaadin;bundle-version="6.8.1",
- org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
+Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
  org.eclipse.e4.core.contexts;bundle-version="1.1.0",
  javax.inject;bundle-version="1.0.0",
  org.eclipse.e4.ui.workbench;bundle-version="0.10.2",
@@ -17,13 +16,18 @@ Require-Bundle: com.vaadin;bundle-version="6.8.1",
  org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.osgi.services;bundle-version="3.3.100",
  org.eclipse.e4.ui.services;bundle-version="0.10.1",
- org.semanticsoft.vaaclipse.vaadinaddons;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.api;bundle-version="1.0.0",
+ org.semanticsoft.vaaclipse.api;bundle-version="0.0.1",
  org.eclipse.e4.ui.di;bundle-version="0.10.1",
- org.semanticsoft.commons;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.util;bundle-version="1.0.0",
- org.semanticsoft.vaadin;bundle-version="1.0.0",
- org.semanticsoft.vaaclipse.publicapi;bundle-version="1.0.0"
+ org.semanticsoft.vaadin;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.publicapi;bundle-version="0.0.1",
+ com.vaadin.server;bundle-version="7.0.0",
+ com.vaadin.shared;bundle-version="7.0.0",
+ com.vaadin.shared.deps;bundle-version="1.0.2",
+ org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.widgets;bundle-version="0.0.1",
+ org.semanticsoft.commons;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.widgetset.default;bundle-version="0.0.1",
+ org.semanticsoft.vaaclipse.vaadin.addon.contextmenu;bundle-version="0.0.1"
 Export-Package: org.semanticsoft.vaaclipse.presentation.engine,
  org.semanticsoft.vaaclipse.presentation.renderers
 Service-Component: OSGI-INF/org.semanticsoft.vaaclipse.presentation.widgetinfo.xml

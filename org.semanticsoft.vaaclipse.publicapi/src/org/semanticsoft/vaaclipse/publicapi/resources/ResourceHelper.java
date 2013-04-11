@@ -3,7 +3,7 @@
  */
 package org.semanticsoft.vaaclipse.publicapi.resources;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 /**
  * @author rushan

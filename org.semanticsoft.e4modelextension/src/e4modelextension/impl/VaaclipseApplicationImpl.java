@@ -2,23 +2,19 @@
  */
 package e4modelextension.impl;
 
-import e4modelextension.E4modelextensionPackage;
-import e4modelextension.EditorPartDescriptor;
-import e4modelextension.VaaclipseApplication;
-
 import java.util.Collection;
 
 import org.eclipse.e4.ui.model.application.impl.ApplicationImpl;
-
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import e4modelextension.E4modelextensionPackage;
+import e4modelextension.EditorPartDescriptor;
+import e4modelextension.VaaclipseApplication;
 
 /**
  * <!-- begin-user-doc -->

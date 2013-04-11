@@ -2,16 +2,13 @@
  */
 package e4modelextension.impl;
 
+import org.eclipse.e4.ui.model.application.descriptor.basic.impl.PartDescriptorImpl;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import e4modelextension.E4modelextensionPackage;
 import e4modelextension.EditorPartDescriptor;
-
-import org.eclipse.e4.ui.model.application.descriptor.basic.impl.PartDescriptorImpl;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->

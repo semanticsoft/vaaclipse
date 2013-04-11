@@ -2,8 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.semanticsoft.vaadin
 Bundle-SymbolicName: org.semanticsoft.vaadin
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: com.vaadin;bundle-version="6.8.1"
+Require-Bundle: com.vaadin.server;bundle-version="7.0.0",
+ com.vaadin.shared;bundle-version="7.0.0",
+ com.vaadin.shared.deps;bundle-version="1.0.2"
 Export-Package: org.semanticsoft.vaadin.optiondialog

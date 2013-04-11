@@ -46,7 +46,7 @@ import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 
-import com.vaadin.terminal.Resource;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.CloseHandler;
@@ -112,19 +112,9 @@ public class StackRenderer extends VaadinRenderer {
 			MPartStack stack = (MPartStack) element;
 			if (stack.getRenderer() != StackRenderer.this)
 				return;
-
-			// Gather up the elements that are being 'hidden' by this change
-			MUIElement oldSel = (MUIElement) event
-					.getProperty(UIEvents.EventTags.OLD_VALUE);
-//			if (oldSel != null) {
-//				List<MUIElement> goingHidden = new ArrayList<MUIElement>();
-//				hideElementRecursive(oldSel, goingHidden);
-//			}
-
+			
 			if (stack.getSelectedElement() != null)
 			{
-				//lsr.showTab(stack.getSelectedElement());
-				
 				if (stack.getSelectedElement().getWidget() == null)
 				{
 					IPresentationEngine engine = (IPresentationEngine) context.get(IPresentationEngine.class.getName());
@@ -311,7 +301,10 @@ public class StackRenderer extends VaadinRenderer {
 			closable = ((MPart) mLabel).isCloseable();
 		
 		Resource icon = mLabel.getIconURI() != null ? ResourceHelper.createResource(mLabel.getIconURI()) : null;
-		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
+		//Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), mLabel.getLocalizedLabel(), icon, pos);
+		Tab tab = parentPane.addTab((com.vaadin.ui.Component) element.getWidget(), pos);
+		tab.setCaption(mLabel.getLocalizedLabel());
+		tab.setIcon(icon);
 		tab.setClosable(closable);
 		tab.setDescription(mLabel.getLocalizedTooltip());
 		

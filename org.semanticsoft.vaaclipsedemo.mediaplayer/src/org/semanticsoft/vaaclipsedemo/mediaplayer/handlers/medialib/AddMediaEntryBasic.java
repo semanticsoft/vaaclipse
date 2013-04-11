@@ -14,6 +14,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 /**
@@ -87,7 +88,7 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 			parentCategory = mediaLibrary;
 	}
 	
-	protected void createAndShowDlg(final MWindow window, String caption, String label)
+	protected void createAndShowDlg(UI ui, String caption, String label)
 	{
 		OptionDialog dlg = new OptionDialog();
 		dlg.setModal(true);
@@ -98,8 +99,7 @@ public abstract class AddMediaEntryBasic implements OptionDialog.OptionListener
 		dlg.addOption(0, "Create");
 		dlg.addOption(1, "Cancel");
 		
-		final Window vaadinWindow = (Window) window.getWidget();
-		vaadinWindow.addWindow(dlg);
+		ui.addWindow(dlg);
 		
 		dlg.setOptionListener(this);
 	}

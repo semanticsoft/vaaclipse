@@ -37,11 +37,11 @@
          </property>
          <property
                name="applicationWidgetset"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/widgetset/cassandra.widgetset.CassandraWidgetset">
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.widgetset/resources/org.semanticsoft.vaaclipsedemo.cassandra.widgetset.Widgetset">
          </property>
          <property
                name="applicationHeaderIcon"
-               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/vaaclipse.png">
+               value="org.semanticsoft.vaaclipsedemo.cassandra.app/img/vaaclipse.png">
          </property>
       </product>
    </extension>
