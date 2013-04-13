@@ -117,18 +117,19 @@ public class VaadinDropHandler implements DropHandler
 					
 					targetPartStack.getChildren().remove(draggingElement);
 					
-					if (location == HorizontalDropLocation.LEFT) {
-						if (modelOldPos > modelNewPos)
-							targetPartStack.getChildren().add(modelNewPos, draggingElement);
-						else
-							targetPartStack.getChildren().add(modelNewPos - 1, draggingElement);
-
-					} else if (location == HorizontalDropLocation.RIGHT) {
+					if (location == HorizontalDropLocation.RIGHT) {
 
 						if (modelOldPos > modelNewPos)
 							targetPartStack.getChildren().add(modelNewPos + 1, draggingElement);
 						else
 							targetPartStack.getChildren().add(modelNewPos, draggingElement);
+					}
+					else {//LEFT OR CENTER - processed as LEFT
+						if (modelOldPos > modelNewPos)
+							targetPartStack.getChildren().add(modelNewPos, draggingElement);
+						else
+							targetPartStack.getChildren().add(modelNewPos - 1, draggingElement);
+
 					}
 				}
 				else
@@ -144,11 +145,12 @@ public class VaadinDropHandler implements DropHandler
 						int modelNewPos = targetPartStack.getChildren().indexOf(elementInNewPos);
 						
 						int newPos = -1;
-						if (location == HorizontalDropLocation.LEFT) {
-							targetFolder.getChildren().add(modelNewPos, draggingElement);
-						} else if (location == HorizontalDropLocation.RIGHT) {
+						if (location == HorizontalDropLocation.RIGHT) {
 							targetFolder.getChildren().add(modelNewPos + 1, draggingElement);
 						}	
+						else {//LEFT or CENTER - processed both as LEFT
+							targetFolder.getChildren().add(modelNewPos, draggingElement);
+						}
 					}
 				}
 				targetFolder.setSelectedElement(draggingElement);
