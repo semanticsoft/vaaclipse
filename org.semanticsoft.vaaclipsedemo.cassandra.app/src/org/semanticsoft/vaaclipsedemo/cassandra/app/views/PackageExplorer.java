@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import com.vaadin.shared.MouseEventDetails.MouseButton;
+
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
@@ -183,44 +185,32 @@ public class PackageExplorer
 
 		tree.setContainerDataSource(fsc);
 
-		tree.addListener(new ItemClickEvent.ItemClickListener() {
+		tree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 
-			long lastTime = 0;
-			File lastFile;
-			
 			public void itemClick(final ItemClickEvent event)
 			{
-				if (event.getButton() == ItemClickEvent.BUTTON_LEFT)
+				if (event.getButton() == MouseButton.LEFT && event.isDoubleClick())
 				{
-					long time = System.currentTimeMillis();
-					if (lastTime > 0 && time - lastTime < 300)
+					tree.select(event.getItemId());
+					
+					FileItem fileItem = (FileItem) event.getItem();
+					try
 					{
-						tree.select(event.getItemId());
-						
-						FileItem fileItem = (FileItem) event.getItem();
-						try
+						for (Field f : FileItem.class.getDeclaredFields())
 						{
-							for (Field f : FileItem.class.getDeclaredFields())
+							if (f.getName().equals("file"))
 							{
-								if (f.getName().equals("file"))
-								{
-									f.setAccessible(true);
-									final File file = (File) f.get(fileItem);
-									if (!file.equals(lastFile))
-									{
-										eventBroker.send(CassandraConstants.OPEN_FILE, file);
-										lastFile = file;
-									}
-									break;
-								}
+								f.setAccessible(true);
+								final File file = (File) f.get(fileItem);
+								eventBroker.send(CassandraConstants.OPEN_FILE, file);
+								break;
 							}
 						}
-						catch (Exception e)
-						{
-							e.printStackTrace();
-						}
 					}
-					lastTime = time;
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
 			}
 		});

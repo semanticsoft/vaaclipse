@@ -60,10 +60,12 @@ public class Outline
 	
 	@Inject
 	public Outline(VerticalLayout parent, IEclipseContext context, MApplication app)
-	{Class<?> o = Outline. class;
+	{
+		Class<?> o = Outline. class;
 		panel = new Panel();
 		panel.setSizeFull();
 		tree = new Tree();
+		panel.setContent(tree);
 		tree.setImmediate(true);
 		
 		parent.addComponent(panel);
