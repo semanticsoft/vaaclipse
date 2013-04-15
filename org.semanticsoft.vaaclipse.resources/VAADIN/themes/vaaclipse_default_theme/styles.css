@@ -153,8 +153,7 @@
 /*
 *toolbar button
 */
-.v-app .v-button-vaaclipsebutton,.v-app .v-disabled.v-button-vaaclipsebutton
-	{
+.v-app .v-button-vaaclipsebutton,.v-app .v-disabled.v-button-vaaclipsebutton {
 	background: transparent;
 	border: none;
 	padding: 0px;
@@ -166,8 +165,7 @@
 	-moz-box-shadow: none;
 }
 
-.v-app .v-button-vaaclipsebutton .v-button-wrap,.v-app .v-disabled.v-button-vaaclipsebutton .v-button-wrap
-	{
+.v-app .v-button-vaaclipsebutton .v-button-wrap,.v-app .v-disabled.v-button-vaaclipsebutton .v-button-wrap {
 	background: transparent;
 	border: none;
 	padding: 0px;
@@ -176,7 +174,10 @@
 .v-app .v-button-vaaclipsebutton .v-icon {
 	margin-left: 0px;
 	margin-top: 0px;
-	padding: 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
 }
 
 .v-app .v-button-vaaclipsebutton:focus .v-icon {
@@ -193,44 +194,25 @@
 }
 
 .v-app .v-button-vaaclipsebutton:hover {
-	background-image: url(img/toolbar_button_hover_gradient.png);
-	background-repeat: repeat-x;
-	background-color: #e4e7ef;
-	/*background-image: none;*/
-	border: solid 1px #000000;
-	margin-right: -2px;
-	margin-bottom: 0px;
+	/*background-color: #e4e7ef;*/
+	background-color: #D3D3D3;
+	display: block; 
+  	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3) inset, 
+    -1px -1px 1px 1px rgba(255, 255, 255, .2) inset;
 }
 
-.v-app .v-button-vaaclipsebutton:hover .v-button-wrap {
-	background: transparent;
-	background-image: none;
-	display: inline;
-	padding: 0px;
-	margin: 0px;
-	color: #000000;
-}
-
-.v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus,.v-app .v-ie7 .v-pressed.v-button,.v-app .v-ie8 .v-pressed.v-button,.v-app div.v-button-pushed
-	{
-	background-image: url(img/toolbar_button_pushed_gradient.png);
-	background-repeat: repeat-x;
-	background-color: #dfe3ec;
-	/*background-image: none;*/
-	border: solid 1px #000000;
-	height: auto;
-	width: auto;
+.v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus,.v-app .v-ie7 .v-pressed.v-button,.v-app .v-ie8 .v-pressed.v-button,.v-app div.v-button-pushed {
+	background-color: #D3D3D3;
+	display: block; 
+  	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3) inset, 
+    -1px -1px 1px 1px rgba(255, 255, 255, .2) inset;
 }
 
 .v-app .v-button-vaaclipsebutton:active .v-button-wrap,.v-app .v-button-vaaclipsebutton:focus .v-button-wrap,.v-app .v-ie7 .v-pressed.v-button .v-button-wrap,.v-app .v-ie8 .v-pressed.v-button .v-button-wrap,.v-app .v-button-pushed .v-button-wrap
-	{ /*background-image: url(../chameleon/img/grad-dark-top2.png);*/
-	background: transparent;
-	background-image: none;
-	display: inline;
+{
+	background-image: none !important;
 	padding: 0px;
 	margin: 0px;
-	border: none;
-	color: #000000;
 }
 
 .v-app .v-button-icononly .v-button-caption {
