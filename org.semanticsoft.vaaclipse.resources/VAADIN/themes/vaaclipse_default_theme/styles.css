@@ -194,23 +194,30 @@
 }
 
 .v-app .v-button-vaaclipsebutton:hover {
-	/*background-color: #e4e7ef;*/
+	background-image: none;
 	background-color: #D3D3D3;
 	display: block; 
   	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3) inset, 
     -1px -1px 1px 1px rgba(255, 255, 255, .2) inset;
 }
 
-.v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus,.v-app .v-ie7 .v-pressed.v-button,.v-app .v-ie8 .v-pressed.v-button,.v-app div.v-button-pushed {
+.v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus {
 	background-color: #D3D3D3;
+	background-image: none;
 	display: block; 
   	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3) inset, 
     -1px -1px 1px 1px rgba(255, 255, 255, .2) inset;
 }
 
-.v-app .v-button-vaaclipsebutton:active .v-button-wrap,.v-app .v-button-vaaclipsebutton:focus .v-button-wrap,.v-app .v-ie7 .v-pressed.v-button .v-button-wrap,.v-app .v-ie8 .v-pressed.v-button .v-button-wrap,.v-app .v-button-pushed .v-button-wrap
-{
-	background-image: none !important;
+.v-app .v-disabled:hover, .v-app .v-disabled:active,.v-disabled:focus {
+	background-image: none;
+	background-color: transparent;
+	display: block;
+  	box-shadow: none;
+}
+
+.v-app .v-button-vaaclipsebutton:active .v-button-wrap,.v-app .v-button-vaaclipsebutton:focus .v-button-wrap,.v-app .v-button-pushed .v-button-wrap {
+	background-image: none;
 	padding: 0px;
 	margin: 0px;
 }
