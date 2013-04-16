@@ -183,6 +183,13 @@
 .v-app .v-button-vaaclipsebutton:focus .v-icon {
 	margin-left: 1px;
 	margin-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 2px;
+}
+
+.v-app .v-disabled:focus .v-icon {
+	margin-left: 0px;
+	margin-top: 0px;
 }
 
 .v-app .toptrimbar_11 .v-button-vaaclipsebutton .v-button-caption {
@@ -218,8 +225,6 @@
 
 .v-app .v-button-vaaclipsebutton:active .v-button-wrap,.v-app .v-button-vaaclipsebutton:focus .v-button-wrap,.v-app .v-button-pushed .v-button-wrap {
 	background-image: none;
-	padding: 0px;
-	margin: 0px;
 }
 
 .v-app .v-button-icononly .v-button-caption {
