@@ -201,11 +201,12 @@
 }
 
 .v-app .v-button-pushed, .v-app .v-button-vaaclipsebutton:hover, .v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus {
-	background-color: #D3D3D3;
 	background-image: none;
 	display: block; 
-  	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3) inset, 
-    -1px -1px 1px 1px rgba(255, 255, 255, .2) inset;
+  	box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, .2) inset, 
+    -1px -1px 1px 1px rgba(0, 0, 0, .3) inset;
+    /*background: -moz-linear-gradient(top, #d2dfed 50%, #b8d0e7 50%);*/
+    background: -moz-linear-gradient(top, #f3f3f3 0%, #d3d3d3 100%);
 }
 
 .v-app .v-disabled:hover, .v-app .v-disabled:active,.v-disabled:focus {

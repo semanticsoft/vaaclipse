@@ -35,6 +35,9 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
+import org.semanticsoft.vaaclipse.widgets.ToolbarButton;
+import org.semanticsoft.vaaclipse.widgets.ToolbarButtonBase;
+import org.semanticsoft.vaaclipse.widgets.ToolbarButton.Type;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 
 import com.vaadin.server.Resource;
@@ -161,37 +164,11 @@ public class ToolItemRenderer extends ItemRenderer {
 				|| element instanceof MDirectToolItem) {
 			final MToolItem item = (MToolItem) element;
 
-			Button button;
+			ToolbarButtonBase button;
 			if (item.getType() == ItemType.CHECK)
 			{
 				button = new TwoStateToolbarButton();
 				((TwoStateToolbarButton)button).setCheckedState(item.isSelected());
-			}
-			else if (item.getType() == ItemType.PUSH) {
-				button = new Button();
-				
-				if (item.getTags().contains("link"))
-				{
-					button.addStyleName("link");
-					button.addStyleName("general");
-				}
-				else
-					button.addStyleName("vaaclipsebutton");
-				button.addClickListener(new ClickListener() {
-
-					@Override
-					public void buttonClick(ClickEvent event) {
-						Component parent = event.getButton().getParent();
-						while (parent != null) {
-							if (parent instanceof Component.Focusable) {
-								((Component.Focusable) parent).focus();
-								break;
-							} else {
-								parent = parent.getParent();
-							}
-						}
-					}
-				});
 			}
 			else if (item.getType() == ItemType.RADIO)
 			{
@@ -199,33 +176,22 @@ public class ToolItemRenderer extends ItemRenderer {
 				((TwoStateToolbarButton)button).setCheckedState(item.isSelected());
 				((TwoStateToolbarButton)button).setSwitchStateByUserClickEnabled(false);
 			}
-			else
-				throw new RuntimeException("this item type not implemented yet");
-
-			button.setSizeUndefined();
-
-			String label = Commons.trim(item.getLabel());
-			String iconURI = Commons.trim(item.getIconURI());
-
-			if (iconURI == null && label == null) {
-				button.setCaption("Blank");
-				button.addStyleName("textonly");
-			} else {
-				if (iconURI != null) {
-					Resource icon = ResourceHelper.createResource(iconURI);
-					button.setIcon(icon);
-				} else
-					button.addStyleName("textonly");
-
-				if (label != null) {
-					button.setCaption(label);
-				} else
-					button.addStyleName("icononly");
+			else { //By default - ItemType.PUSH
+				ToolbarButton toolbarButton = new ToolbarButton();
+				button = toolbarButton;
+				
+				if (item.getTags().contains("link"))
+				{
+					toolbarButton.setType(Type.Link);
+				}
 			}
 
-			if (item.getTooltip() != null) {
+			//label and icon
+			button.setLabelAndIcon(Commons.trim(item.getLabel()), Commons.trim(item.getIconURI()));
+			
+			//tooltip
+			if (item.getTooltip() != null)
 				button.setDescription(item.getLocalizedTooltip());
-			}
 
 			element.setWidget(button);
 

@@ -14,14 +14,11 @@ package org.semanticsoft.vaaclipse.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-
 /**
  * @author rushan
  *
  */
-public class TwoStateToolbarButton extends Button
+public class TwoStateToolbarButton extends ToolbarButtonBase
 {
 	private String primaryStyle;
 	private String selectedStyle;
@@ -31,12 +28,19 @@ public class TwoStateToolbarButton extends Button
 	private List<ClickListener> userListeners = new ArrayList<ClickListener>();
 	
 	public TwoStateToolbarButton() {
-		setCheckedState(false);
+		this("Blank", null);
+	}
+	
+	public TwoStateToolbarButton(String label, String iconURI) {
+		
+		super(label, iconURI);
 		
 		setPrimaryStyle("vaaclipsebutton");
 		setSelectedStyle("pushed");
 		
-		super.addListener(new ClickListener() {
+		setCheckedState(false);
+		
+		super.addClickListener(new ClickListener() {
 					
 			public void buttonClick(ClickEvent event) {
 				if (switchStateByUserClickEnabled)
@@ -48,17 +52,6 @@ public class TwoStateToolbarButton extends Button
 						l.buttonClick(event);
 					}
 				}
-				
-				//change focus
-				Component parent = event.getButton().getParent();
-                while (parent != null) {
-                        if(parent instanceof Component.Focusable) {
-                                ((Component.Focusable) parent).focus();
-                                break;
-                        } else {
-                                parent = parent.getParent();
-                        }
-                }
 			}
 		});
 	}
