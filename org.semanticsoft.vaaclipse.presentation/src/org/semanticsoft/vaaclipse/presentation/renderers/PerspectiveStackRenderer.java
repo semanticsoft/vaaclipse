@@ -41,7 +41,6 @@ import org.semanticsoft.vaaclipse.presentation.engine.GenericPresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
-import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
@@ -52,8 +51,6 @@ import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItemClickEvent;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.event.LayoutEvents;
-import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
@@ -130,8 +127,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				{
 					MPerspective perspective = entry.getKey();
 					TwoStateToolbarButton button = entry.getValue();
-					clearButton(button);
-					setupStyleTextIcon(null, Commons.trim(perspective.getIconURI()), button);
+					
+					button.setLabelAndIcon(null, Commons.trim(perspective.getIconURI()));
 					
 					ContextMenu menu = button2ContextMenu.get(button);
 //					menu.removeItem(showTextItem);
@@ -144,8 +141,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 				{
 					MPerspective perspective = entry.getKey();
 					TwoStateToolbarButton button = entry.getValue();
-					clearButton(button);
-					setupStyleTextIcon(Commons.trim(perspective.getLabel()), Commons.trim(perspective.getIconURI()), button);
+					button.setLabelAndIcon(Commons.trim(perspective.getLabel()), Commons.trim(perspective.getIconURI()));
 					
 					ContextMenu menu = button2ContextMenu.get(button);
 //					menu.removeItem(showTextItem);
@@ -156,14 +152,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		}
 	};
 	
-	private void clearButton(Button button)
-	{
-		button.setCaption(null);
-		button.setIcon(null);
-		button.removeStyleName("icononly");
-		button.removeStyleName("textonly");
-	}
-
 	private EventHandler selectPerspectiveHandler = new EventHandler() {
 		public void handleEvent(Event event)
 		{
@@ -316,10 +304,8 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		String label = iconsOnly ? null : Commons.trim(perspective.getLabel());
 		 String iconURI = Commons.trim(perspective.getIconURI());
 		 
-		 final TwoStateToolbarButton button = new TwoStateToolbarButton();
-
-		 setupStyleTextIcon(label, iconURI, button);
-
+		 final TwoStateToolbarButton button = new TwoStateToolbarButton(label, iconURI);
+		 
 		 if (perspective.getTooltip() != null)
 		 {
 			 button.setDescription(perspective.getLocalizedTooltip());
@@ -456,29 +442,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		}
 
 		refreshPerspectiveStackVisibility(perspectiveStack);
-	}
-
-	private void setupStyleTextIcon(String label, String iconURI, final TwoStateToolbarButton button)
-	{
-		if (iconURI != null)
-		{
-			Resource icon = BundleResource.valueOf(iconURI);
-			button.setIcon(icon);
-		}
-		
-		if (label != null)
-		{
-			button.setCaption(label);
-		}
-		
-		if (iconURI != null && label == null)
-		{
-			button.addStyleName("icononly");
-		}
-		else if (iconURI == null && label != null)
-		{
-			button.addStyleName("textonly");
-		}
 	}
 
 	private void switchPerspective(MPerspective perspective)
