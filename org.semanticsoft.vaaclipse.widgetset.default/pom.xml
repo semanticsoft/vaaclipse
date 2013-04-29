@@ -25,6 +25,21 @@
 			<version>1.0.0.alpha2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>icepush</artifactId>
+			<version>${vaadin-icepush-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.icefaces</groupId>
+			<artifactId>icepush</artifactId>
+			<version>${icepush-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.icefaces</groupId>
+			<artifactId>icepush.gwt</artifactId>
+			<version>${icepush-gwt-version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-server</artifactId>
 			<scope>provided</scope>

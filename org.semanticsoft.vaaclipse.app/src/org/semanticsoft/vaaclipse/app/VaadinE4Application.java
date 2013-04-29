@@ -161,6 +161,20 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 		}
 		return propValue;
 	}
+	
+	private String readClassProperty(String propName)
+	{
+		String propValue = appContext.getBrandingProperty(propName);
+		if (propValue == null)
+			return propValue;
+		propValue = propValue.trim();
+		String pathStart = "bundleclass://";
+		if (!propValue.startsWith(pathStart))
+		{
+			propValue = pathStart + propValue;
+		}
+		return propValue;
+	}
 
 	private void startVaadinWebApplication() throws Exception
 	{
@@ -181,8 +195,8 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 		appWidgetset = readPathProperty("applicationWidgetset");
 		if (appWidgetset == null || appWidgetset.trim().isEmpty())
 		{
-			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
-			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
+			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
+			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
 		}
 		else
 			appWidgetset = appWidgetset.trim();
@@ -206,7 +220,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 		if (appHeaderIcon == null || appHeaderIcon.trim().isEmpty())
 			appHeaderIcon = "platform:/plugin/com.vaadin.themes/VAADIN/themes/reindeer/favicon.ico";
 
-		appAuthProvider = readPathProperty("applicationAuthenticationProvider");
+		appAuthProvider = readClassProperty("applicationAuthenticationProvider");
 
 		String productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
 
