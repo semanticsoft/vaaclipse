@@ -12,8 +12,6 @@
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

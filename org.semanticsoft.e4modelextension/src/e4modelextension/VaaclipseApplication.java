@@ -3,9 +3,7 @@
 package e4modelextension;
 
 import org.eclipse.e4.ui.model.application.MApplication;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

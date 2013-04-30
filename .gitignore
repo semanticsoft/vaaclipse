@@ -1,0 +1,17 @@
+bin/
+.*.jar
+.DS_Store
+target
+.classpath
+.settings
+src-gen/
+xtend-gen/
+plugin.xml_gen
+.project
+*.tmp
+**/xtend-gen
+**/src-gen
+**/widgetsets
+**/gwt-unitCache
+**/resources
+**/WEB-INF

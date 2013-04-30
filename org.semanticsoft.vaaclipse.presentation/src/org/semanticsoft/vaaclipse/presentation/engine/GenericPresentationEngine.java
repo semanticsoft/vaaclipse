@@ -16,7 +16,6 @@ package org.semanticsoft.vaaclipse.presentation.engine;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
@@ -24,7 +23,6 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.di.PersistState;
-import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.model.application.MContribution;
@@ -276,7 +274,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 					eclipseContext.set(key, props.get(key));
 				}
 
-				E4Workbench.processHierarchy(element);
+//				E4Workbench.processHierarchy(element);
 				//eclipseContext.activate();
 			}
 		}

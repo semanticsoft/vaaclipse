@@ -49,7 +49,7 @@ public abstract class ItemRenderer extends VaadinRenderer {
 	@Inject
 	protected VaadinExecutorService executorService;
 	
-	protected Map<MItem, Runnable> enabledUpdaters = new HashMap<>();
+	protected Map<MItem, Runnable> enabledUpdaters = new HashMap<MItem, Runnable>();
 	
 	protected void registerEnablementUpdaters(final MItem item)
 	{

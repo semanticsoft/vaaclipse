@@ -16,8 +16,8 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 	
 	private String label;
 	private String description;
-	private List<ThemeContribution> contributions = new ArrayList<>();
-	private List<Theme> inheritedThemes = new ArrayList<>();
+	private List<ThemeContribution> contributions = new ArrayList<ThemeContribution>();
+	private List<Theme> inheritedThemes = new ArrayList<Theme>();
 	
 	private List<String> cssCashList;
 	private List<String> resourcesCashList;
@@ -86,7 +86,7 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 	{
 		if (cssCashList == null)
 		{
-			cssCashList = new ArrayList<>();
+			cssCashList = new ArrayList<String>();
 			cssCashList.add(getCssUri());
 			
 			for (Theme theme : this.getInheritedThemes())
@@ -108,7 +108,7 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 	{
 		if (resourcesCashList == null)
 		{
-			resourcesCashList = new ArrayList<>();
+			resourcesCashList = new ArrayList<String>();
 			resourcesCashList.addAll(getResourceLocationURIs());
 			
 			for (Theme theme : this.getInheritedThemes())
@@ -156,11 +156,11 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 			inheritedBuffer.append(String.format("@import \"../%s/styles.css\";", inherited.getWebId()));
 		}
 		
-		List<ThemeContributionImpl> afterMainCss = new ArrayList<>();
-		List<ThemeContributionImpl> afterInheritedImports = new ArrayList<>();
-		List<ThemeContributionImpl> beforeInheritedImports = new ArrayList<>();
-		Map<String, List<ThemeContributionImpl>> bindedContributionsBefore = new HashMap<>();
-		Map<String, List<ThemeContributionImpl>> bindedContributionsAfter = new HashMap<>();
+		List<ThemeContributionImpl> afterMainCss = new ArrayList<ThemeContributionImpl>();
+		List<ThemeContributionImpl> afterInheritedImports = new ArrayList<ThemeContributionImpl>();
+		List<ThemeContributionImpl> beforeInheritedImports = new ArrayList<ThemeContributionImpl>();
+		Map<String, List<ThemeContributionImpl>> bindedContributionsBefore = new HashMap<String, List<ThemeContributionImpl>>();
+		Map<String, List<ThemeContributionImpl>> bindedContributionsAfter = new HashMap<String, List<ThemeContributionImpl>>();
 		
 		for (ThemeContribution c : this.contributions)
 		{
@@ -244,9 +244,9 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 	private List<ThemeContributionImpl> buildList(List<ThemeContributionImpl> list,
 			Map<String, List<ThemeContributionImpl>> bindedContributionsBefore, Map<String, List<ThemeContributionImpl>> bindedContributionsAfter)
 	{
-		bindedContributionsBefore = new HashMap<>(bindedContributionsBefore);
-		bindedContributionsAfter = new HashMap<>(bindedContributionsAfter);
-		List<ThemeContributionImpl> accumulator = new ArrayList<>();
+		bindedContributionsBefore = new HashMap<String, List<ThemeContributionImpl>>(bindedContributionsBefore);
+		bindedContributionsAfter = new HashMap<String, List<ThemeContributionImpl>>(bindedContributionsAfter);
+		List<ThemeContributionImpl> accumulator = new ArrayList<ThemeContributionImpl>();
 		
 		int restBefore, restAfter;
 		do
@@ -267,7 +267,7 @@ public class ThemeImpl extends ThemeEntryImpl implements Theme {
 			}
 			restAfter = bindedContributionsBefore.size() + bindedContributionsAfter.size();
 			list = accumulator;
-			accumulator = new ArrayList<>();
+			accumulator = new ArrayList<ThemeContributionImpl>();
 		}
 		while (restBefore != restAfter);
 		

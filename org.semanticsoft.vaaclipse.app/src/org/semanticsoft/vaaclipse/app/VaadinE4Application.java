@@ -25,7 +25,6 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import javax.servlet.http.HttpServlet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -42,114 +41,106 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 import org.semanticsoft.vaaclipse.api.ResourceInfoProvider;
+import org.semanticsoft.vaaclipse.app.webapp.VaadinWebApplication;
+
+import com.vaadin.ui.themes.Reindeer;
 
 @SuppressWarnings("restriction")
-public class VaadinE4Application implements IApplication, ResourceInfoProvider {
-	
+public class VaadinE4Application implements IApplication, ResourceInfoProvider
+{
+
 	private ArrayBlockingQueue<String> queue;
 	private Logger logger = new WorkbenchLogger("org.semanticsoft.vaaclipse.app");
 	
-	private String OS = System.getProperty("os.name").toLowerCase();
-	
 	private IApplicationContext appContext;
-	
+
 	private static VaadinE4Application instance;
-	
+	private VaadinWebApplication webApplication;
+
 	public static final String EXIT = "EXIT";
-	
+
 	JFrame frame;
 	private String contextPath = "/";
-	private String port = "80";
-	private String productionMode;
-	private String cssTheme;
 	private String appWidgetset;
-	private String appWidgetsetName;
-	private String appHeaderIcon;
 	private String appAuthProvider;
-	
+
 	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
-	
+
 	public static VaadinE4Application getInstance()
 	{
 		return instance;
 	}
-	
+
 	@Override
 	public String getCssTheme()
 	{
-		return cssTheme;
+		return webApplication.getThemeId();
 	}
-	
-	public void setCssTheme(String cssTheme)
-	{
-		this.cssTheme = cssTheme;
-	}
-	
+
 	@Override
 	public String getApplicationtWidgetset()
 	{
 		return appWidgetset;
 	}
-	
+
 	@Override
 	public String getApplicationtWidgetsetName()
 	{
-		return this.appWidgetsetName;
+		return webApplication.getWidgetsetName();
 	}
-	
+
 	@Override
-	public String getApplicationHeaderIcon() 
+	public String getApplicationHeaderIcon()
 	{
-		return this.appHeaderIcon;
+		return webApplication.getHeaderIconURI();
 	}
-	
+
 	public String getApplicationAuthenticationProvider()
 	{
 		return appAuthProvider;
 	}
-	
+
 	public Location getInstanceLocation()
 	{
-		 return Activator.getDefault().getInstanceLocation();
+		return Activator.getDefault().getInstanceLocation();
 	}
-	
+
 	public IApplicationContext getAppContext()
 	{
 		return appContext;
 	}
-	
+
 	public Logger getLogger()
 	{
 		return logger;
 	}
 
 	@Override
-	public Object start(IApplicationContext context) throws Exception {
+	public Object start(IApplicationContext context) throws Exception
+	{
 		instance = this;
 		appContext = context;
-		
+
 		registerServices();
-		
+
 		logger.debug("VaadinE4Application.start()");
 		context.applicationRunning();
-		
-		queue = new ArrayBlockingQueue<>(10);
-		
-		startHttpService();
-		
-		if (!isMac()) {
-			showFrame();
-		}
-		
+
+		queue = new ArrayBlockingQueue<String>(10);
+
+		startVaadinWebApplication();
+
+		// showFrame();
+
 		String msg;
-		while (!(msg = queue.take()).equals(EXIT)) 
+		while (!(msg = queue.take()).equals(EXIT))
 		{
-	        System.out.println(msg);
+			System.out.println(msg);
 		}
-		
+
 		frame.setVisible(false);
 		frame.dispose();
-		
+
 		return EXIT_OK;
 	}
 
@@ -158,33 +149,62 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		Activator.getDefault().getBundle().getBundleContext().registerService(ResourceInfoProvider.class.getName(), this, null);
 	}
 
-	private void startHttpService() throws Exception
+	private String readPathProperty(String propName)
 	{
-		port = System.getProperty("org.osgi.service.http.port");
-		
+		String propValue = appContext.getBrandingProperty(propName);
+		if (propValue == null)
+			return propValue;
+		propValue = propValue.trim();
+		if (!propValue.startsWith("platform:/plugin/"))
+		{
+			propValue = "platform:/plugin/" + propValue;
+		}
+		return propValue;
+	}
+	
+	private String readClassProperty(String propName)
+	{
+		String propValue = appContext.getBrandingProperty(propName);
+		if (propValue == null)
+			return propValue;
+		propValue = propValue.trim();
+		String pathStart = "bundleclass://";
+		if (!propValue.startsWith(pathStart))
+		{
+			propValue = pathStart + propValue;
+		}
+		return propValue;
+	}
+
+	private void startVaadinWebApplication() throws Exception
+	{
+		String port = System.getProperty("org.osgi.service.http.port");
 		if (port == null)
 			port = "8080";
-		
+
 		contextPath = System.getProperty("org.eclipse.equinox.http.jetty.context.path");
-		
+
 		if (contextPath == null)
 			contextPath = "/";
-		
-		cssTheme = appContext.getBrandingProperty("cssTheme");
-		
+
+		String cssTheme = appContext.getBrandingProperty("cssTheme");
+
 		if (cssTheme == null)
-			cssTheme = "reindeer";
-		
-		appWidgetset = appContext.getBrandingProperty("applicationWidgetset");
+			cssTheme = Reindeer.THEME_NAME;
+
+		appWidgetset = readPathProperty("applicationWidgetset");
 		if (appWidgetset == null || appWidgetset.trim().isEmpty())
-			appWidgetset = "platform:/plugin/com.vaadin/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
+		{
+			appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.widgetset.default/resources/org.semanticsoft.vaaclipse.widgetset.DefaultWidgetset";
+			//appWidgetset = "platform:/plugin/org.semanticsoft.vaaclipse.resources/VAADIN/widgetsets/vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset";
+		}
 		else
 			appWidgetset = appWidgetset.trim();
-		
+
 		int index = appWidgetset.lastIndexOf("/");
 		if (index < 0)
 			throw new IllegalStateException("applicationWidgetset property has wrong value");
-		
+
 		if (index == appWidgetset.length() - 1)
 		{
 			appWidgetset = appWidgetset.substring(0, appWidgetset.length() - 1);
@@ -192,18 +212,18 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 			if (index < 0)
 				throw new IllegalStateException("applicationWidgetset property has wrong value");
 		}
-		
-		appWidgetsetName = appWidgetset.substring(index + 1);
-		
-		appHeaderIcon = appContext.getBrandingProperty("applicationHeaderIcon");
-		
+
+		String appWidgetsetName = appWidgetset.substring(index + 1);
+
+		String appHeaderIcon = readPathProperty("applicationHeaderIcon");
+
 		if (appHeaderIcon == null || appHeaderIcon.trim().isEmpty())
-			appHeaderIcon = "platform:/plugin/com.vaadin/VAADIN/themes/reindeer/favicon.ico";
-		
-		appAuthProvider = appContext.getBrandingProperty("applicationAuthenticationProvider");
-				
-		productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
-		
+			appHeaderIcon = "platform:/plugin/com.vaadin.themes/VAADIN/themes/reindeer/favicon.ico";
+
+		appAuthProvider = readClassProperty("applicationAuthenticationProvider");
+
+		String productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
+
 		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
 		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference(HttpService.class.getName());
 		if (httpServiceRef == null)
@@ -211,19 +231,23 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 			JOptionPane.showMessageDialog(null, "HttpService is not accessible");
 			throw new Exception();
 		}
-		
-		HttpService httpService = (HttpService) bundleContext.getService(httpServiceRef);
-		Dictionary<String, String> initParams = new Hashtable<String, String>();
-		//initParams.put("widgetset", "vaaclipse_widgetset.widgetset.Vaaclipse_widgetsetWidgetset");
-		//initParams.put("widgetset", "mediaplayer.MediaplayerApplicationWidgetset");
-		initParams.put("widgetset", appWidgetsetName);
-		
-		if (productionMode != null)
-			initParams.put("productionMode", productionMode);
-		
-		final HttpServlet servlet = new VaadinOSGiServlet();
 
-		httpService.registerServlet("/", servlet, initParams, null);
+		webApplication = new VaadinWebApplication(bundleContext.getBundle());
+		webApplication.setWidgetsetName(appWidgetsetName);
+		webApplication.setProductionMode(Boolean.valueOf(productionMode));
+		webApplication.setPort(Integer.valueOf(port));
+		webApplication.setHeaderIconURI(appHeaderIcon);
+		webApplication.setThemeId(cssTheme);
+
+		// start the vaadin application
+		//
+		Dictionary<String, String> initParams = new Hashtable<String, String>();
+		initParams.put("widgetset", webApplication.getWidgetsetName());
+		if (productionMode != null)
+		{
+			initParams.put("productionMode", productionMode);
+		}
+		webApplication.activate();
 	}
 
 	private void showFrame()
@@ -235,7 +259,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		frame.setTitle("Vaaclipse server");
 		final Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		
+
 		String host;
 		try
 		{
@@ -246,23 +270,23 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		{
 			host = "localhost";
 		}
-	       
-		final JLabel label = new JLabel(String.format("Vaaclipse server started at http://%s:%s%s", host, port, contextPath));
+
+		final JLabel label = new JLabel(String.format("Vaaclipse server started at http://%s:%s%s", host, webApplication.getPort(), contextPath));
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(label);
-		
+
 		contentPane.add(Box.createVerticalStrut(5));
-		
-		final JLabel productionModeLabel = new JLabel("ProductionMode: " + productionMode != null ? productionMode : "false");
+
+		final JLabel productionModeLabel = new JLabel("ProductionMode: " + webApplication.isProductionMode());
 		productionModeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(productionModeLabel);
-		
+
 		contentPane.add(Box.createVerticalStrut(20));
-		
+
 		JButton exitButton = new JButton("Shutdown");
 		exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		exitButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -271,38 +295,38 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 			}
 		});
 		contentPane.add(exitButton);
-		
+
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
 				super.windowClosing(e);
-				
+
 				shutdown(true);
 				return;
 			}
 		});
-		
-		//centering frame
+
+		// centering frame
 		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (screenDimension.width - frame.getSize().width)/2;
-		int y = (screenDimension.height - frame.getSize().height)/2;
-		 
+		int x = (screenDimension.width - frame.getSize().width) / 2;
+		int y = (screenDimension.height - frame.getSize().height) / 2;
+
 		// Move the window
 		frame.setLocation(x, y);
-		
+
 		frame.setVisible(true);
 	}
-	
+
 	private boolean shutdown(boolean confirm)
 	{
 		boolean exit = true;
 		if (confirm)
 		{
-			exit = JOptionPane.OK_OPTION == JOptionPane.showOptionDialog(frame, 
-						"Are you really want shutdown server?", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.CANCEL_OPTION);
+			exit = JOptionPane.OK_OPTION == JOptionPane.showOptionDialog(frame, "Are you really want shutdown server?", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					null, JOptionPane.CANCEL_OPTION);
 		}
-		
+
 		if (exit)
 		{
 			try
@@ -317,13 +341,11 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider {
 		return exit;
 	}
 
-    private boolean isMac() {
-        return (OS.indexOf("mac") >= 0);
-    }
-	
 	@Override
-	public void stop() {
+	public void stop()
+	{
 		// will never be invoked
+		webApplication.deactivate();
 	}
 
 }

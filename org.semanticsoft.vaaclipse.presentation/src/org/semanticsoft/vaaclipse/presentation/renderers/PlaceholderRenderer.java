@@ -28,10 +28,11 @@ import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
+import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
-import org.semanticsoft.vaadinaddons.boundsinfo.BoundsinfoVerticalLayout;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan
@@ -52,9 +53,8 @@ public class PlaceholderRenderer extends VaadinRenderer
 		final MUIElement ref = ph.getRef();
 		ref.setCurSharedRef(ph);
 		
-		//VerticalLayout phComp = new VerticalLayout();
-		BoundsinfoVerticalLayout phComp = new BoundsinfoVerticalLayout();
-		phComp.setEnableBoundsUpdate(false);
+		VerticalLayout phComp = new VerticalLayout();
+		//ExtendedVerticalLayout phComp = new ExtendedVerticalLayout();
 		phComp.setSizeFull();
 		phComp.setMargin(false);
 		ph.setWidget(phComp);

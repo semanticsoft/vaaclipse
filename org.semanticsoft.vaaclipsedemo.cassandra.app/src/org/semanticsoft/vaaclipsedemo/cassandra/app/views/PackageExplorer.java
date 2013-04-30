@@ -11,28 +11,25 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import java.util.Collections;
+import com.vaadin.shared.MouseEventDetails.MouseButton;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-
-import com.vaadin.Application;
 import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.data.util.FilesystemContainer.FileItem;
 import com.vaadin.event.Action;
 import com.vaadin.event.ItemClickEvent;
-import com.vaadin.service.FileTypeResolver;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.util.FileTypeResolver;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.EventUtils;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -63,8 +60,6 @@ public class PackageExplorer
 	
 	@Inject
 	private IEclipseContext context;
-	@Inject
-	private Application app;
 	
 	@Inject
 	private MApplication application;
@@ -117,7 +112,6 @@ public class PackageExplorer
 	{
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.getContent().setSizeFull();
 		parent.addComponent(panel);
 		
 		createProjectTree();
@@ -171,7 +165,7 @@ public class PackageExplorer
 		tree = new Tree();
 		tree.setSizeFull();
 		tree.setImmediate(true);
-		panel.addComponent(tree);
+		panel.setContent(tree);
 		
 		FilesystemContainer fsc = new FilesystemContainer(demoRoot, true);
 		FileTypeResolver.addExtension("java", "java");
@@ -191,44 +185,32 @@ public class PackageExplorer
 
 		tree.setContainerDataSource(fsc);
 
-		tree.addListener(new ItemClickEvent.ItemClickListener() {
+		tree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 
-			long lastTime = 0;
-			File lastFile;
-			
 			public void itemClick(final ItemClickEvent event)
 			{
-				if (event.getButton() == ItemClickEvent.BUTTON_LEFT)
+				if (event.getButton() == MouseButton.LEFT && event.isDoubleClick())
 				{
-					long time = System.currentTimeMillis();
-					if (lastTime > 0 && time - lastTime < 300)
+					tree.select(event.getItemId());
+					
+					FileItem fileItem = (FileItem) event.getItem();
+					try
 					{
-						tree.select(event.getItemId());
-						
-						FileItem fileItem = (FileItem) event.getItem();
-						try
+						for (Field f : FileItem.class.getDeclaredFields())
 						{
-							for (Field f : FileItem.class.getDeclaredFields())
+							if (f.getName().equals("file"))
 							{
-								if (f.getName().equals("file"))
-								{
-									f.setAccessible(true);
-									final File file = (File) f.get(fileItem);
-									if (!file.equals(lastFile))
-									{
-										eventBroker.send(CassandraConstants.OPEN_FILE, file);
-										lastFile = file;
-									}
-									break;
-								}
+								f.setAccessible(true);
+								final File file = (File) f.get(fileItem);
+								eventBroker.send(CassandraConstants.OPEN_FILE, file);
+								break;
 							}
 						}
-						catch (Exception e)
-						{
-							e.printStackTrace();
-						}
 					}
-					lastTime = time;
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
 			}
 		});

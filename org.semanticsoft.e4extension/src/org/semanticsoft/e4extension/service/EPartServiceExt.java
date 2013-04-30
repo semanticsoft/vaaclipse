@@ -11,10 +11,8 @@
 
 package org.semanticsoft.e4extension.service;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
-import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
@@ -43,14 +41,23 @@ public interface EPartServiceExt
 	
 	MPartDescriptor findDescriptor(String id);
 	
+	EditorPartDescriptor findEditorPartDescriptorUsingId(String id);
+	
 	EditorPartDescriptor findEditorPartDescriptor(String inputUri);
 	
 	/**
-	 * Open the give uri in area with id = org.eclipse.ui.editorss (eclipse conditions)
+	 * Open the given uri in area with id = org.eclipse.ui.editorss (eclipse conditions)
 	 * @param inputUri given uri
 	 * @return part that was opened or finded with this uri
 	 */
 	MInputPart openUri(String inputUri);
+	
+	/**
+	 * Open the given uri in area with id = org.eclipse.ui.editorss (eclipse conditions) in editor with given descriptor
+	 */
+	MInputPart openUri(String inputUri, EditorPartDescriptor descriptor);
+	
+	MInputPart openUri(String inputUri, String editorDescriptorId);
 	
 	/**
 	 * Open given uri in given are
@@ -60,7 +67,12 @@ public interface EPartServiceExt
 	 */
 	MInputPart openUri(MElementContainer<?> area, String inputUri);
 	
+	MInputPart openUri(String inputUri, EditorPartDescriptor editorPartDescriptor, MElementContainer<?> area);
+	
 	void closeUri(String inputUri, boolean saveBeforeClose);
+	
+	MInputPart openNewEditor(EditorPartDescriptor descriptor);
+	MInputPart openNewEditor(String descriptorId);
 	
 	/**
 	 * Fixed method EPartService.showPart. Current method search any opened shared part and if allowMultiples == false (default) it

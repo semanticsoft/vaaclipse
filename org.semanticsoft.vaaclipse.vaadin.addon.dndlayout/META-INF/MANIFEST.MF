@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Contextmenu addon
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadin.addon.dndlayout
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: Rushan R. Gilmullin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .,
+ dragdroplayouts-development.jar
+Export-Package: fi.jasoft.dragdroplayouts,
+ fi.jasoft.dragdroplayouts.client,
+ fi.jasoft.dragdroplayouts.client.ui,
+ fi.jasoft.dragdroplayouts.client.ui.absolutelayout,
+ fi.jasoft.dragdroplayouts.client.ui.accordion,
+ fi.jasoft.dragdroplayouts.client.ui.csslayout,
+ fi.jasoft.dragdroplayouts.client.ui.formlayout,
+ fi.jasoft.dragdroplayouts.client.ui.gridlayout,
+ fi.jasoft.dragdroplayouts.client.ui.horizontallayout,
+ fi.jasoft.dragdroplayouts.client.ui.horizontalsplitpanel,
+ fi.jasoft.dragdroplayouts.client.ui.interfaces,
+ fi.jasoft.dragdroplayouts.client.ui.tabsheet,
+ fi.jasoft.dragdroplayouts.client.ui.util,
+ fi.jasoft.dragdroplayouts.client.ui.verticallayout,
+ fi.jasoft.dragdroplayouts.client.ui.verticalsplitpanel,
+ fi.jasoft.dragdroplayouts.details,
+ fi.jasoft.dragdroplayouts.drophandlers,
+ fi.jasoft.dragdroplayouts.events,
+ fi.jasoft.dragdroplayouts.interfaces
+Require-Bundle: com.vaadin.server;bundle-version="7.0.0",
+ com.vaadin.shared;bundle-version="7.0.0",
+ com.vaadin.shared.deps;bundle-version="1.0.2"

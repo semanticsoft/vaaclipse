@@ -11,7 +11,6 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
-import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -54,17 +53,16 @@ public class Console
 	{
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.setScrollable(true);
 		parent.addComponent(panel);
 		
 		text.setContentMode(Label.CONTENT_PREFORMATTED);
-		panel.addComponent(text);
+		panel.setContent(text);
 		
 		println("Cassandra demo for vaaclipse - the vaadin renderer for e4");
 		println("You can find information about vaaclipse here: http://semanticsoft.github.com/vaaclipse/");
 		println("Java version: " + System.getProperty("java.version"));
 		
-		Bundle vaadinBundle = Platform.getBundle("com.vaadin");
+		Bundle vaadinBundle = Platform.getBundle("com.vaadin.server");
 		println("Vaadin version: " + vaadinBundle.getVersion().toString());
 		
 		println("Application bundles:");
@@ -88,13 +86,13 @@ public class Console
 	public void print(String msg)
 	{
 		content.append(msg);
-		text.setPropertyDataSource(new ObjectProperty<String>(content, String.class));
+		text.setValue(content.toString());
 	}
 	
 	public void println(String msg)
 	{
 		content.append(msg);
 		content.append(ls);
-		text.setPropertyDataSource(new ObjectProperty<String>(content, String.class));
+		text.setValue(content.toString());
 	}
 }

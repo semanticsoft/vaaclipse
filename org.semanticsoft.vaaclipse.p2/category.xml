@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.semanticsoft.vaaclipse.feature.runtime.core" version="0.0.0">
+      <category name="vaaclipse_core"/>
+   </feature>
+   <feature id="org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra" version="0.0.0">
+      <category name="vaaclipse_demo"/>
+   </feature>
+   <feature id="org.semanticsoft.vaaclipse.feature.runtime.core.source" version="0.0.0">
+      <category name="vaaclipse_core"/>
+   </feature>
+   <feature id="org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra.source" version="0.0.0">
+      <category name="vaaclipse_demo"/>
+   </feature>
+   <feature id="org.semanticsoft.vaaclipse.feature.ide.model.extensions" version="0.0.0">
+      <category name="vaaclipse_ide"/>
+   </feature>
+   <feature id="org.semanticsoft.vaaclipse.feature.ide.model.extensions.source" version="0.0.0">
+      <category name="vaaclipse_ide"/>
+   </feature>
+   <category-def name="vaaclipse_core" label="Vaaclipse Core features"/>
+   <category-def name="vaaclipse_demo" label="Vaaclipse demos"/>
+   <category-def name="vaaclipse_ide" label="Vaaclipse IDE features"/>
+</site>

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Playlist
 {
-	private List<Media> mediaList = new ArrayList<>();
+	private List<Media> mediaList = new ArrayList<Media>();
 	private Media selectedMedia;
 	
 	public List<Media> getMediaList()

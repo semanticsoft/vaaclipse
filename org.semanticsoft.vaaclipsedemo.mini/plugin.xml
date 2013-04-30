@@ -23,10 +23,10 @@
                name="applicationHeaderIcon"
                value="platform:/plugin/org.semanticsoft.vaaclipsedemo.mini/icons/vaaclipse.png">
          </property>
-         <property
+         <!--property
                name="applicationAuthenticationProvider"
                value="bundleclass://org.semanticsoft.vaaclipsedemo.mini/org.semanticsoft.vaaclipsedemo.mini.login.LoginProvider">
-         </property>
+         </property-->
       </product>
    </extension>
    <extension

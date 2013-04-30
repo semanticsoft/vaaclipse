@@ -1,98 +1,91 @@
 /*
  * Perspective panel
  */
-.perspectivepanel {
+.v-app .perspectivepanel {
 	position: relative;
 	float: right;
-	padding-left:    10px;
-	padding-top:    6px;
- 	padding-bottom: 6px;
- 	margin-right: 4px;
+	padding-left: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-right: 4px;
 	border: none;
 	background-color: transparent;
 }
 
-.toptrimbar {
+.v-app .toptrimbar {
 	float: left;
+	padding-left: 8px;
 }
 
-/*
- * toptrimbarborder border
- */
- 
- .toptrimbar_11 {
+.v-app .trimbar .content {
 	background-color: #d2d2d2;
-	padding-top:    1px;
- 	padding-bottom: 1px;
+	size: 100%;
 }
 
-.toptrimbar_00 {
-	background-image: url('img/toptrimbar_00.png');
-	width: 8px;
+.v-app .trimbar .edge_top_left {
+	background-image: url('img/toptrimbar_edge_top_left.png');
 	height: 8px;
 }
 
-.toptrimbar_01 {
-	background-image: url('img/toptrimbar_01.png');
-	height: 8px;
+.v-app .trimbar .edge_top_middle {
+	background-image: url('img/toptrimbar_edge_top_middle.png');
 	background-repeat: repeat-x;
-}
-
-.toptrimbar_02 {
-	background-image: url('img/toptrimbar_02.png');
-	width: 6px;
 	height: 8px;
 }
 
-.toptrimbar_10 {
-	background-image: url('img/toptrimbar_10.png');
+.v-app .trimbar .edge_top_right {
+	background-image: url('img/toptrimbar_edge_top_right.png');
+	height: 8px;
+}
+
+.v-app .trimbar .edge_center_left {
+	background-image: url('img/toptrimbar_edge_center_left.png');
+	background-repeat: repeat-y;
+	height: 26px;
 	width: 8px;
 	min-width: 8px;
-	background-repeat: repeat-y;
 }
 
-.toptrimbar_12 {
-	background-image: url('img/toptrimbar_12.png');
-	width: 6px;
+.v-app .trimbar .edge_center_right {
+	background-image: url('img/toptrimbar_edge_center_right.png');
 	background-repeat: repeat-y;
+	height: 26px;
 }
 
-.toptrimbar_20 {
-	background-image: url('img/toptrimbar_20.png');
-	width: 7px;
+.v-app .trimbar .edge_bottom_left {
+	background-image: url('img/toptrimbar_edge_bottom_left.png');
 	height: 6px;
 }
 
-.toptrimbar_21 {
-	background-image: url('img/toptrimbar_21.png');
-	height: 6px;
+.v-app .trimbar .edge_bottom_middle {
+	background-image: url('img/toptrimbar_edge_bottom_middle.png');
 	background-repeat: repeat-x;
+	height: 8px;
 }
 
-.toptrimbar_22 {
-	background-image: url('img/toptrimbar_22.png');
+.v-app .trimbar .edge_bottom_right {
+	background-image: url('img/toptrimbar_edge_bottom_right.png');
 	width: 6px;
 	height: 6px;
 }
- 
+
 /*
 *	trimbar
 */
-.horizontaltrimbar {
-	padding-left:   5px;
-	padding-top:    6px;
- 	padding-bottom: 6px;
+.v-app .horizontaltrimbar {
+	padding-left: 5px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
-.verticaltrimbar {
-	padding-left:   4px;
-	padding-right:  4px;
-	padding-top:    5px;
+.v-app .verticaltrimbar {
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 5px;
 }
 
-.verticaltrimelement {
+.v-app .verticaltrimelement {
 	position: relative;
-	float: top;
 	padding: 0px;
 	margin-top: 3px;
 	margin-bottom: 3px;
@@ -100,7 +93,7 @@
 	margin-right: 0px;
 }
 
-.horizontaltrimelement {
+.v-app .horizontaltrimelement {
 	position: relative;
 	float: left;
 	padding: 0px;
@@ -110,7 +103,7 @@
 	margin-right: 3px;
 }
 
-.horizontalseparator {
+.v-app .horizontalseparator {
 	position: relative;
 	float: left;
 	margin-top: 0px;
@@ -123,7 +116,7 @@
 	background-repeat: repeat;
 }
 
-.verticalseparator {
+.v-app .verticalseparator {
 	position: relative;
 	float: top;
 	margin-top: 4px;
@@ -137,11 +130,11 @@
 /**
  * toolbar
  */
-.toolbar {
+.v-app .toolbar {
 	background-color: transparent;
 }
 
-.verticaltoolbarlement {
+.v-app .verticaltoolbarlement {
 	padding: 0px;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -149,7 +142,7 @@
 	margin-right: 0px;
 }
 
-.horizontaltoolbarlement {
+.v-app .horizontaltoolbarlement {
 	padding: 0px;
 	margin-top: 0px;
 	margin-bottom: 0px;
@@ -160,9 +153,10 @@
 /*
 *toolbar button
 */
-div.v-button-vaaclipsebutton,
-div.v-disabled.v-button-vaaclipsebutton {
+.v-app .v-button-vaaclipsebutton,.v-app .v-disabled.v-button-vaaclipsebutton {
+	display: block;
 	background: transparent;
+	background-image: none;
 	border: none;
 	padding: 0px;
 	border-radius: 4px;
@@ -173,25 +167,34 @@ div.v-disabled.v-button-vaaclipsebutton {
 	-moz-box-shadow: none;
 }
 
-div.v-button-vaaclipsebutton .v-button-wrap,
-div.v-disabled.v-button-vaaclipsebutton .v-button-wrap {
+.v-app .v-button-vaaclipsebutton .v-button-wrap,.v-app .v-disabled.v-button-vaaclipsebutton .v-button-wrap {
 	background: transparent;
 	border: none;
 	padding: 0px;
 }
-	
-.v-button-vaaclipsebutton .v-icon {
+
+.v-app .v-button-vaaclipsebutton .v-icon {
 	margin-left: 0px;
 	margin-top: 0px;
-	padding: 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
 }
 
-.v-button-vaaclipsebutton:focus .v-icon {
+.v-app .v-button-pushed .v-icon, .v-app .v-button-vaaclipsebutton:focus .v-icon {
 	margin-left: 1px;
 	margin-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 2px;
 }
 
-.toptrimbar_11 .v-button-vaaclipsebutton .v-button-caption {
+.v-app .v-disabled:focus .v-icon {
+	margin-left: 0px;
+	margin-top: 0px;
+}
+
+.v-app .toptrimbar_11 .v-button-vaaclipsebutton .v-button-caption {
 	color: #222222;
 	font-size: 11px;
 	font-weight: bold;
@@ -199,176 +202,97 @@ div.v-disabled.v-button-vaaclipsebutton .v-button-wrap {
 	text-shadow: 0 1px 0 #FFFFFF;
 }
 
-.v-button-vaaclipsebutton:hover {
-	background-image: url(img/toolbar_button_hover_gradient.png);
-	background-repeat: repeat-x;
-	background-color: #e4e7ef;
-	/*background-image: none;*/
-	border: solid 1px #000000;
+.v-app .v-button-vaaclipsebutton:hover {
+  	box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, .3) inset, 
+    -1px -1px 0px 0px rgba(0, 0, 0, .3) inset;
+    background: #d6d6d6;
+    background: -moz-linear-gradient(top, #f1f1f1 0%, #d6d6d6 50%, #c7c7c7 50%, #cfcfcf 75%, #d7d7d7 100%);
+    background: -webkit-linear-gradient(top, #f1f1f1 0%, #d6d6d6 50%, #c7c7c7 50%, #cfcfcf 75%, #d7d7d7 100%);
+    background: -webkit-gradient(top, #f1f1f1 0%, #d6d6d6 50%, #c7c7c7 50%, #cfcfcf 75%, #d7d7d7 100%);
+    background: linear-gradient(top, #f1f1f1 0%, #d6d6d6 50%, #c7c7c7 50%, #cfcfcf 75%, #d7d7d7 100%);
+    background: -o-linear-gradient(top, #f1f1f1 0%, #d6d6d6 50%, #c7c7c7 50%, #cfcfcf 75%, #d7d7d7 100%);
+    background: -ms-linear-gradient(top, #f1f1f1 0%, #d6d6d6 50%, #c7c7c7 50%, #cfcfcf 75%, #d7d7d7 100%);
 }
 
-.v-button-vaaclipsebutton:hover .v-button-wrap {
-	background: transparent;
+.v-app .v-button-pushed, .v-app .v-button-vaaclipsebutton:active,.v-button-vaaclipsebutton:focus {
+  	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3) inset,
+    -1px -1px 0px 0px rgba(0, 0, 0, .2) inset !important;
+    background: #f0f0f0 !important;
+    background: -moz-linear-gradient(top, #b6b6b6 0%, #f0f0f0 50%, #d0d0d0 100%) !important;
+    background: -webkit-linear-gradient(top, #b6b6b6 0%, #f0f0f0 50%, #d0d0d0 100%) !important;
+    background: -webkit-gradient(top, #b6b6b6 0%, #f0f0f0 50%, #d0d0d0 100%) !important;
+    background: linear-gradient(top, #b6b6b6 0%, #f0f0f0 50%, #d0d0d0 100%) !important;
+    background: -o-linear-gradient(top, #b6b6b6 0%, #f0f0f0 50%, #d0d0d0 100%) !important;
+    background: -ms-linear-gradient(top, #b6b6b6 0%, #f0f0f0 50%, #d0d0d0 100%) !important;
+}
+
+.v-app .v-disabled:hover, .v-app .v-disabled:active,.v-disabled:focus {
+	background-image: none !important;
+	background-color: transparent !important;
+	display: block !important;
+  	box-shadow: none !important;
+}
+
+.v-app .v-button-vaaclipsebutton:active .v-button-wrap,.v-app .v-button-vaaclipsebutton:focus .v-button-wrap, .v-app .v-button-pushed .v-button-wrap {
 	background-image: none;
-	display: inline;
-	padding: 0px;
-	margin: 0px;
-	color: #000000;
 }
 
-.v-button-vaaclipsebutton:active, .v-button-vaaclipsebutton:focus,
-.v-ie7 .v-pressed.v-button,
-.v-ie8 .v-pressed.v-button,
-div.v-button-pushed {
-	background-image: url(img/toolbar_button_pushed_gradient.png);
-	background-repeat: repeat-x;
-	background-color: #dfe3ec;
-	/*background-image: none;*/
-	border: solid 1px #000000;
-	height: auto;
-	width: auto;
-	}
-
-.v-button-vaaclipsebutton:active .v-button-wrap,
-.v-button-vaaclipsebutton:focus .v-button-wrap,
-.v-ie7 .v-pressed.v-button .v-button-wrap,
-.v-ie8 .v-pressed.v-button .v-button-wrap,
-.v-button-pushed .v-button-wrap {
-	/*background-image: url(../chameleon/img/grad-dark-top2.png);*/
-	background: transparent;
-	background-image: none;
-	display: inline;
-	padding: 0px;
-	margin: 0px;
-	border: none;
-	color: #000000;
-}
-
-
-.v-button-icononly .v-button-caption {
+.v-app .v-button-icononly .v-button-caption {
 	display: none;
 }
 
-.v-button-icononly .v-icon {
+.v-app .v-button-icononly .v-icon {
 	margin-right: -2px;
 }
 
-.v-button-vaaclipsebutton .v-button-wrap .v-button-caption {
-	padding-right: 4px;
+.v-app .v-button-vaaclipsebutton .v-button-wrap .v-button-caption {
+	padding-right: 8px;
 }
 
-.v-button-textonly .v-button-wrap .v-button-caption {
-	padding-left: 3px;
-	padding-right: 3px;
+.v-app .v-button-textonly .v-button-wrap .v-button-caption {
+	padding-left: 6px;
+	padding-right: 6px;
 }
 
-/*
-	vaadock-toolbar-button horizontal
-*/
-.vaadock-toolbar-button {
-	background-color: transparent;
-	border: none;
-	margin: 0px;
-	padding: 0;
+.v-app .v-button-general {
+	margin: 2px;
 }
 
-.v-ie .vaadock-toolbar-button {
-	background-color: transparent;
-	width: 0;
-	overflow: visible;
-}
-
-.v-gecko .vaadock-toolbar-button .v-icon {
-	margin-left: -2px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-.vaadock-toolbar-button .v-icon {
-	margin-left: 0px;
-	margin-top: 0px;
-	padding: 3px;
-}
-
-.v-ie .vaadock-toolbar-button .v-icon {
-	margin-left: -12px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-.vaadock-toolbar-button:hover {
-	background-color: transparent;
-	background: url('img/toolbar_button_background_hover_23x20.png') no-repeat 0 0;
-}
-
-.vaadock-toolbar-button:active {
-	background-color: transparent;
-	background: url('img/toolbar_button_background_active_23x20.png') no-repeat 0 0;
-}
-
-.vaadock-toolbar-button_selected {
-	border: none;
-	margin: 0px;
-	padding: 0px;
-	background:
-		url('img/toolbar_button_background_active_23x20.png')
-		no-repeat 0 0;
-}
-
-.v-gecko .vaadock-toolbar-button_selected .v-icon {
-	margin-left: -2px;
-	margin-top: -2px;
-	padding: 3px;
-}
-
-.v-ie .vaadock-toolbar-button_selected {
-	width: 0;
-	overflow: visible;
-}
-
-.vaadock-toolbar-button_selected .v-icon {
-	margin-left: 0px;
-	margin-top: 0px;
-	padding: 3px;
-}
-
-.v-ie .vaadock-toolbar-button_selected .v-icon {
-	margin-left: -12px;
-	margin-top: -2px;
-	padding: 3px;
+.v-app .v-button-general .v-button-wrap .v-button-caption {
+	font-weight: bold;
 }
 
 /*
  * sash widget
  */
-.v-splitpanel-hsplitter-invisible-locked {
-width: 0px;
+.v-app .v-splitpanel-hsplitter-invisible-locked {
+	width: 0px;
 }
 
-.v-splitpanel-vsplitter-invisible-locked {
-width: 0px;
+.v-app .v-splitpanel-vsplitter-invisible-locked {
+	width: 0px;
 }
 
-.area {
+.v-app .area {
 	background-color: transparent;
 }
 
 /*
  * window no header
  */
- .v-window-loading-window .v-window-outerheader {
-    height: 0;
-    margin-left: 0;
-    padding: 0;
+.v-app .v-window-loading-window .v-window-outerheader {
+	height: 0;
+	margin-left: 0;
+	padding: 0;
 }
 
-.mparttoolbararea {
+.v-app .mparttoolbararea {
 	padding-right: 4px;
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
 
-.mparttoolbar {
+.v-app .mparttoolbar {
 	float: right;
 }
 
@@ -378,42 +302,4 @@ bugfixing style for context menu addon
 .v-ie9 .close-perspective-item .ctxmenu-name {
 	margin-left: 25px;
 	margin-top: -25px;
-}
-
-/************* jhighlight styles**************************/
-.xml_plain {
-color: rgb(0,0,0);
-}
-.xml_tag_name {
-color: rgb(0,55,255);
-}
-.xml_comment {
-color: rgb(147,147,147); background-color: rgb(247,247,247);
-}
-.xml_tag_symbols {
-color: rgb(0,59,255);
-}
-.xml_rife_tag {
-color: rgb(0,0,0); background-color: rgb(228,230,160);
-}
-.xml_attribute_value {
-color: rgb(193,0,0);
-}
-.xml_attribute_name {
-color: rgb(0,0,0); font-weight: bold;
-}
-.xml_char_data {
-color: rgb(0,0,0);
-}
-code {
-color: rgb(0,0,0); font-family: monospace; font-size: 12px; white-space: nowrap;
-}
-.xml_rife_name {
-color: rgb(0,0,196); background-color: rgb(228,230,160);
-}
-h1 {
-font-family: sans-serif; font-size: 16pt; font-weight: bold; color: rgb(0,0,0); background: rgb(210,210,210); border: solid 1px black; padding: 5px; text-align: center;
-}
-.xml_processing_instruction {
-color: rgb(0,0,0); font-weight: bold; font-style: italic;
 }

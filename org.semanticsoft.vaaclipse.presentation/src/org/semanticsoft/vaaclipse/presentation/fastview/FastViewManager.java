@@ -11,9 +11,7 @@
 
 package org.semanticsoft.vaaclipse.presentation.fastview;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,17 +26,11 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
-import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.Events;
-import org.semanticsoft.vaaclipse.presentation.renderers.StackRenderer;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
-
-import com.vaadin.ui.AbstractOrderedLayout;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.ComponentContainer;
 
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 
@@ -56,8 +48,8 @@ public class FastViewManager
 	private EModelService modelService;
 	
 	private Map<MUIElement, SingleElementFastViewManager> element2man = new HashMap<MUIElement, SingleElementFastViewManager>();
-	private Map<StackWidget, LayoutDragMode> layoutDragMode = new HashMap<>();
-	private Map<MUIElement, List<MPartStack>> areaStackWidgets = new HashMap<>();
+	private Map<StackWidget, LayoutDragMode> layoutDragMode = new HashMap<StackWidget, LayoutDragMode>();
+	private Map<MUIElement, List<MPartStack>> areaStackWidgets = new HashMap<MUIElement, List<MPartStack>>();
 	
 	private EventHandler minimizeHandler = new EventHandler() {
 		
@@ -139,24 +131,6 @@ public class FastViewManager
 				}
 			}
 	};
-	
-//	private void gatherStacksWidgets(ComponentContainer container, List<StackWidget> stackWidgets)
-//	{
-//		Iterator<Component> it = container.getComponentIterator();
-//		while (it.hasNext())
-//		{
-//			Component child = it.next();
-//			if (child instanceof StackWidget)
-//			{
-//				stackWidgets.add((StackWidget) child);
-//			}
-//			
-//			if (child instanceof ComponentContainer)
-//			{
-//				gatherStacksWidgets((ComponentContainer) child, stackWidgets);
-//			}
-//		}
-//	}
 	
 	private void disableDrag(MPartStack stack)
 	{

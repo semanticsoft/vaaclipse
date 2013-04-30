@@ -2,11 +2,12 @@ package org.semanticsoft.vaaclipsedemo.contributions.handlers;
 
 import org.eclipse.e4.core.di.annotations.Execute;
 
-import com.vaadin.Application;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 public class AboutHandler {
 	@Execute
-	public void execute(Application vaadinApp) {
-		vaadinApp.getMainWindow().showNotification("Vaaclipse Contribution Demo");
+	public void execute(UI vaadinApp) {
+		Notification.show("Vaaclipse Contribution Demo");
 	}
 }

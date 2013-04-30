@@ -73,6 +73,9 @@ public class PartRenderer extends VaadinRenderer {
 		pane.addComponent(contributionArea);
 		pane.setExpandRatio(contributionArea, 100);
 		
+		pane.setStyleName("part");
+		element.setWidget(pane);
+		
 		IEclipseContext localContext = part.getContext();
 		localContext.set(Component.class, contributionArea);
 		localContext.set(ComponentContainer.class, contributionArea);
@@ -89,10 +92,6 @@ public class PartRenderer extends VaadinRenderer {
 		Object newPart = contributionFactory.create(part.getContributionURI(), localContext);
 		
 		part.setObject(newPart);
-		
-		pane.setStyleName("part");
-
-		element.setWidget(pane);
 	}
 	
 	@Override

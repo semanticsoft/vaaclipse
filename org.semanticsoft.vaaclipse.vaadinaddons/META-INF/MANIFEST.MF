@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Vaadinaddons
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadinaddons
-Bundle-Version: 1.0.0.M1
+Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Export-Package: com.vaadin.incubator.dashlayout.client.ui,
  com.vaadin.incubator.dashlayout.client.util.css,
@@ -16,10 +16,14 @@ Export-Package: com.vaadin.incubator.dashlayout.client.ui,
  fi.jasoft.dragdroplayouts.interfaces,
  org.semanticsoft.vaaclipse.widgets,
  org.semanticsoft.vaaclipse.widgets.client.ui,
- org.semanticsoft.vaadinaddons.boundsinfo,
- org.semanticsoft.vaadinaddons.boundsinfo.client.ui,
+ org.semanticsoft.vaaclipse.widgets.client.ui.extlayout,
+ org.semanticsoft.vaaclipse.widgets.client.ui.fastview,
+ org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget,
  org.vaadin.peter.contextmenu,
  org.vaadin.peter.contextmenu.client.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: com.vaadin;bundle-version="6.8.1",
- org.semanticsoft.commons;bundle-version="1.0.0"
+Require-Bundle: org.semanticsoft.commons;bundle-version="0.0.1",
+ com.vaadin.server;bundle-version="7.0.0",
+ com.vaadin.shared;bundle-version="7.0.0",
+ com.vaadin.shared.deps;bundle-version="1.0.2",
+ org.semanticsoft.vaaclipse.vaadin.addon.dndlayout;bundle-version="0.0.1"

@@ -11,7 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.handlers;
 
-import com.vaadin.Application;
+import com.vaadin.ui.Notification;
+
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
@@ -25,9 +26,9 @@ public class SaveHandler {
 	}
 
 	@Execute
-	public void execute(IEclipseContext context, Application vaadinapp)
+	public void execute(IEclipseContext context)
 			throws InvocationTargetException, InterruptedException {
-		vaadinapp.getMainWindow().showNotification("Save");
+		Notification.show("Save");
 	}
 
 }

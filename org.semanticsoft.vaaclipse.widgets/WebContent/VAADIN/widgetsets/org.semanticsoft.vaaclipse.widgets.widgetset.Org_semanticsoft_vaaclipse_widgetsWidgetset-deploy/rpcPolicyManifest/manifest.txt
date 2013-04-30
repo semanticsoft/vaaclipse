@@ -1,2 +1,0 @@
-# Module org.semanticsoft.vaaclipse.widgets.widgetset.Org_semanticsoft_vaaclipse_widgetsWidgetset
-# RPC service class, partial path of RPC policy file

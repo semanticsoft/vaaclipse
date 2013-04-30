@@ -36,12 +36,17 @@ import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ExpressionContext;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
-import org.semanticsoft.vaaclipse.widgets.TopbarComponent;
-import org.semanticsoft.vaaclipse.widgets.WorkbenchWindow;
+import org.semanticsoft.vaaclipse.presentation.widgets.TopbarComponent;
+import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
 
+import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.ui.AbstractLayout;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 
 
 @SuppressWarnings("restriction")
@@ -83,20 +88,31 @@ public class TrimBarRenderer extends VaadinRenderer {
 		MTrimBar mTrimBar = (MTrimBar) element;
 		int orientation = mTrimBar.getSide().getValue();
 		
-		CssLayout trimBar = new CssLayout();
+		AbstractLayout trimBar = null;
 		
 		if (orientation == SideValue.BOTTOM_VALUE)
 		{
+			trimBar = new CssLayout();
 			trimBar.addStyleName("horizontaltrimbar");
 		}
 		else if (orientation == SideValue.TOP_VALUE)
 		{
+			trimBar = new CssLayout();
 			trimBar.addStyleName("toptrimbar_11");
 		}
 		else if (orientation == SideValue.LEFT_VALUE || orientation == SideValue.RIGHT_VALUE)
+		{
+			trimBar = new VerticalLayout();
 			trimBar.addStyleName("verticaltrimbar");
+		}
 		
 		trimBar.setSizeUndefined();
+		
+		if (orientation == SideValue.BOTTOM_VALUE || orientation == SideValue.TOP_VALUE)
+		{
+			trimBar.setWidth("100%");
+		}
+		
 		element.setWidget(trimBar);
 	}
 
@@ -104,11 +120,11 @@ public class TrimBarRenderer extends VaadinRenderer {
 	public void processContents(MElementContainer<MUIElement> container) {
 		final MTrimBar trimBar = (MTrimBar)((MElementContainer<?>)container);
 		int orientation = trimBar.getSide().getValue();
-		CssLayout trimBarWidget = (CssLayout) container.getWidget();
+		AbstractLayout trimBarWidget = (AbstractLayout) container.getWidget();
 		if (orientation == SideValue.TOP_VALUE || orientation == SideValue.BOTTOM_VALUE)
-			trimBarWidget.setHeight(-1);
+			trimBarWidget.setHeight(-1, Unit.PIXELS);
 		else
-			trimBarWidget.setWidth(-1);
+			trimBarWidget.setWidth(-1, Unit.PIXELS);
 
 		boolean isFirst = true;
 		trimBarWidget.removeAllComponents();
@@ -177,7 +193,7 @@ public class TrimBarRenderer extends VaadinRenderer {
 
 	private void refreshVisibility(MTrimBar trimBar) {
 		
-		CssLayout trimBarWidget = (CssLayout) trimBar.getWidget();
+		AbstractLayout trimBarWidget = (AbstractLayout) trimBar.getWidget();
 		int orientation = trimBar.getSide().getValue();
 		
 		trimBarWidget.setVisible(trimBarWidget.getComponentCount() != 0);
@@ -185,9 +201,9 @@ public class TrimBarRenderer extends VaadinRenderer {
 		if (orientation == SideValue.TOP_VALUE)
 		{
 			MWindow window = modelService.getTopLevelWindowFor(trimBar);
-			WorkbenchWindow windowWidget = (WorkbenchWindow) window.getWidget();
+			TrimmedWindowContent windowContent = (TrimmedWindowContent) ((Panel) window.getWidget()).getContent();
 			
-			TopbarComponent topbar = windowWidget.getTopbar();
+			TopbarComponent topbar = windowContent.getTopbar();
 			if (topbar != null)
 				topbar.setVisible(trimBarWidget.getComponentCount() != 0);
 		}
@@ -278,13 +294,21 @@ public class TrimBarRenderer extends VaadinRenderer {
 		else
 			childWidget.addStyleName("verticaltrimelement");
 		
-		CssLayout trimWidget = (CssLayout) element.getWidget();
 		int index = indexOf(child, element);
-		trimWidget.addComponent(childWidget, index);
+		if (element.getWidget() instanceof CssLayout)
+		{
+			CssLayout trimWidget = (CssLayout) element.getWidget();
+			trimWidget.addComponent(childWidget, index);
+			trimWidget.markAsDirty();
+		}
+		else if (element.getWidget() instanceof AbstractOrderedLayout)
+		{
+			AbstractOrderedLayout trimWidget = (AbstractOrderedLayout) element.getWidget();
+			trimWidget.addComponent(childWidget, index);
+			trimWidget.markAsDirty();
+		}
 		
 		refreshVisibility(trimBar);
-		
-		trimWidget.requestRepaint();
 	}
 	
 	@Override
@@ -295,11 +319,11 @@ public class TrimBarRenderer extends VaadinRenderer {
 		
 		super.removeChildGui(child, element);
 		
-		CssLayout trimWidget = (CssLayout) element.getWidget();
+		Component trimWidget = (Component) element.getWidget();
 		
 		MTrimBar trimBar = (MTrimBar)(MElementContainer<?>)element;
 		refreshVisibility(trimBar);
 		
-		trimWidget.requestRepaint();
+		trimWidget.markAsDirty();
 	}
 }

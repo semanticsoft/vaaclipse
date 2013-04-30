@@ -11,22 +11,18 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers;
 
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
-import com.vaadin.Application;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.Window;
+import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.ui.UI;
 
 public class AboutHandler 
 {
 	
 	@Execute
-	public void about(MWindow window)
+	public void about(UI ui)
 	{
-		Window vWindow = (Window) window.getWidget();
-		
-		OptionDialog.show(vWindow, "About", String.format("Mediaplayer - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
+		OptionDialog.show(ui, "About", String.format("Mediaplayer - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 100, Unit.PIXELS, OptionDialog.CLOSE_LISTENER);
 	}	
 	
 }

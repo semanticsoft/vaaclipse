@@ -17,10 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.semanticsoft.commons.geom.Bounds;
-import org.semanticsoft.vaadinaddons.boundsinfo.client.ui.BoundsParser;
 
-import com.vaadin.terminal.PaintException;
-import com.vaadin.terminal.PaintTarget;
+import com.vaadin.server.PaintException;
+import com.vaadin.server.PaintTarget;
 
 import fi.jasoft.dragdroplayouts.DDTabSheet;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
@@ -29,22 +28,17 @@ import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
  * @author rushan
  *
  */
-@com.vaadin.ui.ClientWidget(org.semanticsoft.vaaclipse.widgets.client.ui.VStackWidget.class)
 public class StackWidget extends DDTabSheet
 {
 	public interface StateListener {
 		void stateChanged(int newState, int oldState);
 	}
 	
-	private Integer absoluteLeft;
-	private Integer absoluteTop;
-	private Integer offsetWidth;
-	private Integer offsetHeight;
-	
 	public transient boolean maximizeEnabled = true;
 	public transient boolean minimizeEnabled = true;
 	private int state = 0;
 	private List<StateListener> stateListeners = new ArrayList<StateListener>();
+	private Bounds bounds;
 	
 	public StackWidget()
 	{
@@ -63,20 +57,6 @@ public class StackWidget extends DDTabSheet
 			state = newState;
 			fireStateChangedEvent(state, oldState);
         }
-		
-		if (variables.containsKey("bounds"))
-		{
-			String boundsStr = (String) variables.get("bounds");
-			if (boundsStr != null)
-			{
-				int[] bounds = BoundsParser.fromString(boundsStr);
-				absoluteLeft = bounds[0];
-				absoluteTop = bounds[1];
-				offsetWidth = bounds[2];
-				offsetHeight = bounds[3];
-				System.out.println("update bounds of StackWidget: " + boundsStr);
-			}
-		}
 	}
 	
 	public void setState(int state)
@@ -117,20 +97,6 @@ public class StackWidget extends DDTabSheet
 		this.minimizeEnabled = minimizeEnabled;
 		this.requestRepaint();
 	}
-
-//	public void setSelectedTab(int pos)
-//	{
-//		if (pos >= 0 && pos <= this.getComponentCount())
-//		{
-//			Tab tab = this.getTab(pos);
-//			this.setSelectedTab(tab.getComponent());
-//		}
-//	}
-//
-//	public Object getPlatformComponent(int pos)
-//	{
-//		return this.getTab(pos).getComponent();
-//	}
 	
 	public List<StateListener> getStateListeners()
 	{
@@ -162,42 +128,16 @@ public class StackWidget extends DDTabSheet
 	
 	public boolean hasBoundsInfo()
 	{
-		return this.absoluteTop != null;
-	}
-	
-	public Integer getAbsoluteLeft()
-	{
-		return absoluteLeft;
-	}
-	
-	public Integer getAbsoluteTop()
-	{
-		return absoluteTop;
-	}
-	
-	public Integer getOffsetWidth()
-	{
-		return offsetWidth;
-	}
-	
-	public Integer getOffsetHeight()
-	{
-		return offsetHeight;
+		return this.bounds != null;
 	}
 	
 	public Bounds getBounds()
 	{
-		if (hasBoundsInfo())
-			return new Bounds(absoluteLeft, absoluteTop, offsetWidth, offsetHeight);
-		else
-			return null;
+		return this.bounds;
 	}
 	
 	public void setBounds(Bounds bounds)
 	{
-		this.absoluteLeft = bounds.x;
-		this.absoluteTop = bounds.y;
-		this.offsetWidth = bounds.w;
-		this.offsetHeight = bounds.h;
+		this.bounds = bounds;
 	}
 }

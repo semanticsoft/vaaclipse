@@ -18,7 +18,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 
 /**
  * @author rushan

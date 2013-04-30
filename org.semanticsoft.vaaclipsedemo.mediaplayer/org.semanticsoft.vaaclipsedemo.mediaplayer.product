@@ -25,12 +25,19 @@
 
    <plugins>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.vaadin"/>
+      <plugin id="com.springsource.javax.portlet"/>
+      <plugin id="com.vaadin.client"/>
+      <plugin id="com.vaadin.client-compiled"/>
+      <plugin id="com.vaadin.server"/>
+      <plugin id="com.vaadin.shared"/>
+      <plugin id="com.vaadin.shared.deps"/>
+      <plugin id="com.vaadin.themes"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.commons.io"/>
+      <plugin id="org.apache.commons.logging"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.databinding"/>
@@ -77,10 +84,14 @@
       <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.jsoup"/>
+      <plugin id="org.lunifera.dependencies.bundle.vaadin.addon.icepush"/>
+      <plugin id="org.lunifera.dependencies.fragment.jdk" fragment="true"/>
       <plugin id="org.semanticsoft.commons"/>
       <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
       <plugin id="org.semanticsoft.e4extension"/>
       <plugin id="org.semanticsoft.e4modelextension"/>
+      <plugin id="org.semanticsoft.vaaclipse.additions"/>
       <plugin id="org.semanticsoft.vaaclipse.api"/>
       <plugin id="org.semanticsoft.vaaclipse.app"/>
       <plugin id="org.semanticsoft.vaaclipse.behaviour"/>
@@ -90,7 +101,10 @@
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.theme"/>
       <plugin id="org.semanticsoft.vaaclipse.util"/>
-      <plugin id="org.semanticsoft.vaaclipse.vaadinaddons"/>
+      <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.contextmenu"/>
+      <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.dndlayout"/>
+      <plugin id="org.semanticsoft.vaaclipse.widgets"/>
+      <plugin id="org.semanticsoft.vaaclipse.widgetset.default"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaadin"/>
@@ -98,6 +112,8 @@
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
+      <plugin id="slf4j.api"/>
+      <plugin id="slf4j.jcl" fragment="true"/>
    </plugins>
 
    <configurations>

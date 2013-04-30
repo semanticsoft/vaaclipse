@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.semanticsoft.commons.geom;
 
-import java.awt.geom.Point2D;
-
 
 
 /**
@@ -169,16 +167,6 @@ public class Vector
 		Vector ort1 = new Vector(v.getY()/len, -v.getX()/len);
 		Vector ort2 = new Vector(-v.getY()/len, v.getX()/len);
 		return new Vector[] {ort1, ort2};
-	}
-
-	public Point2D toJavaPoint()
-	{
-		return new Point2D.Double(this.getX(), this.getY());
-	}
-
-	public static Vector fromJavaPoint(Point2D jPoint)
-	{
-		return new Vector(jPoint.getX(), jPoint.getY());
 	}
 	
 	@Override

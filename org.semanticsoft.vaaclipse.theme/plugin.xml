@@ -5,48 +5,57 @@
    <extension
          point="org.semanticsoft.vaaclipse.theme">
       <theme
-            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/styles.css"
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/reindeer/styles.css"
             description="Vaadin Reindeer theme"
             id="reindeer"
             label="Reindeer">
          <resourceLocationUri
-               uri="platform:/plugin/com.vaadin/VAADIN/themes/reindeer/">
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/reindeer/">
          </resourceLocationUri>
       </theme>
       <theme
-            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/styles.css"
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/chameleon/styles.css"
             description="Vaadin Chameleon theme"
             id="chameleon"
             label="Chameleon">
          <resourceLocationUri
-               uri="platform:/plugin/com.vaadin/VAADIN/themes/chameleon/">
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/chameleon/">
          </resourceLocationUri>
       </theme>
       <theme
-            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/runo/styles.css"
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/chameleon/legacy-styles.css"
+            description="Vaadin Chameleon Legacy theme"
+            id="chameleon-legacy"
+            label="Chameleon Legacy">
+         <resourceLocationUri
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/chameleon/">
+         </resourceLocationUri>
+      </theme>
+      <theme
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/runo/styles.css"
             description="Vaadin Runo theme"
             id="runo"
             label="Runo">
          <resourceLocationUri
-               uri="platform:/plugin/com.vaadin/VAADIN/themes/runo/">
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/runo/">
          </resourceLocationUri>
       </theme>
       <theme
-            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/styles.css"
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/liferay/styles.css"
             description="Vaadin Liferay theme"
             id="liferay"
             label="Liferay">
          <resourceLocationUri
-               uri="platform:/plugin/com.vaadin/VAADIN/themes/liferay/">
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/liferay/">
          </resourceLocationUri>
       </theme>
       <theme
-            cssUri="platform:/plugin/com.vaadin/VAADIN/themes/base/styles.css"
+            cssUri="platform:/plugin/com.vaadin.themes/VAADIN/themes/base/styles.css"
             description="Vaadin Base theme"
             id="base"
             label="Base">
          <resourceLocationUri
-               uri="platform:/plugin/com.vaadin/VAADIN/themes/base/">
+               uri="platform:/plugin/com.vaadin.themes/VAADIN/themes/base/">
          </resourceLocationUri>
       </theme>
    </extension>

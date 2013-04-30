@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Contextmenu addon
+Bundle-SymbolicName: org.semanticsoft.vaaclipse.vaadin.addon.contextmenu
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: Rushan R. Gilmullin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .,
+ contextmenu-4.1.1.jar
+Export-Package: org.vaadin.peter.contextmenu,
+ org.vaadin.peter.contextmenu.client
+Require-Bundle: com.vaadin.server;bundle-version="7.0.0",
+ com.vaadin.shared;bundle-version="7.0.0",
+ com.vaadin.shared.deps;bundle-version="1.0.2",
+ com.vaadin.themes;bundle-version="7.0.0"

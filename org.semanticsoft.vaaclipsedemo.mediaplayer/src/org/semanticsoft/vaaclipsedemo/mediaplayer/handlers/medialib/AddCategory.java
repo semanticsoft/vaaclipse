@@ -17,8 +17,8 @@ import org.semanticsoft.vaaclipsedemo.mediaplayer.model.MediaLibrary;
 import org.semanticsoft.vaaclipsedemo.mediaplayer.service.MediaService;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.Notification;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 /**
  * @author rushan
@@ -35,6 +35,9 @@ public class AddCategory extends AddMediaEntryBasic
 	@Inject
 	MediaService mediaService;
 	
+	@Inject
+	UI ui;
+	
 	@CanExecute
 	public boolean canExecute(MediaLibrary medialib)
 	{
@@ -45,7 +48,7 @@ public class AddCategory extends AddMediaEntryBasic
 	public void addCategory(@Optional final String mediaUri, MediaLibrary mediaLibrary, final MWindow window)
 	{
 		init(mediaLibrary, window);
-		createAndShowDlg(window, "New category", "Category name:");
+		createAndShowDlg(ui, "New category", "Category name:");
 	}
 	
 	@Override
@@ -64,7 +67,7 @@ public class AddCategory extends AddMediaEntryBasic
 		MediaCategory mediaCategory = mediaService.findChildCategory(category, newCategoryName);
 		if (mediaCategory != null)
 		{
-			((Window)window.getWidget()).showNotification(String.format("Category with name \"%s\" exists in media library", newCategoryName), Notification.TYPE_WARNING_MESSAGE);
+			Notification.show(String.format("Category with name \"%s\" exists in media library", newCategoryName), Notification.Type.WARNING_MESSAGE);
 			return;
 		}
 		else

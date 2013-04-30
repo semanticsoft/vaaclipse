@@ -74,7 +74,7 @@ public class MediaService
 
 	private List<MediaCategory> getPathToParent(MediaEntry entry)
 	{
-		List<MediaCategory> path = new ArrayList<>();
+		List<MediaCategory> path = new ArrayList<MediaCategory>();
 		
 		MediaEntry curEntry = entry;
 		while (!(curEntry instanceof MediaLibrary))
@@ -89,7 +89,7 @@ public class MediaService
 
 	public List<Media> getAllInnerMedia(MediaCategory mediaCat)
 	{
-		List<Media> medialist = new ArrayList<>();
+		List<Media> medialist = new ArrayList<Media>();
 		for (MediaCategory childCat : mediaCat.getCategories())
 		{
 			medialist.addAll(getAllInnerMedia(childCat));
@@ -100,7 +100,7 @@ public class MediaService
 	
 	public List<MediaCategory> getAllInnerCategories(MediaCategory mediaCat)
 	{
-		List<MediaCategory> medialist = new ArrayList<>();
+		List<MediaCategory> medialist = new ArrayList<MediaCategory>();
 		for (MediaCategory childCat : mediaCat.getCategories())
 		{
 			medialist.addAll(getAllInnerCategories(childCat));
