@@ -36,8 +36,6 @@ public class TrimmedWindowContent extends VerticalLayout
 	private VerticalLayout topBarContainer = new VerticalLayout(); 
 	private HorizontalLayout bottomBarContainer = new HorizontalLayout();
 	
-	private TopbarComponent topbar = new TopbarComponent();
-	
 	private boolean boundsValide = false;
 	
 	public TrimmedWindowContent()
@@ -168,21 +166,21 @@ public class TrimmedWindowContent extends VerticalLayout
 	{
 		if (bar == null)
 		{
-			this.topContainerPanel.removeComponent(topbar);
+			this.topContainerPanel.removeComponent(0, 0);
 			return;
 		}
 		
-		if (this.topContainerPanel.getComponent(0, 0) == null)
+		if (this.topContainerPanel.getComponent(0, 0) != null)
 		{
-			this.topContainerPanel.addComponent(topbar, 0, 0);
+			this.topContainerPanel.removeComponent(0, 0);
 		}
 		
-		topbar.setContent(bar);
+		this.topContainerPanel.addComponent(bar, 0, 0);
 	}
 	
-	public TopbarComponent getTopbar() 
+	public Component getTopbar() 
 	{
-		return topbar;
+		return this.topContainerPanel.getComponent(0, 0);
 	}
 	
 	//-----------------------------------
