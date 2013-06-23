@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.semanticsoft.vaaclipse.app.common.OSGiUIProvider;
 
 import com.vaadin.server.DeploymentConfiguration;
+import com.vaadin.server.ServiceException;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
@@ -41,12 +42,13 @@ public class VaadinOSGiServlet extends VaadinServlet {
 	 *            The vaadin web application.
 	 */
 	public VaadinOSGiServlet() {
-		
+
 	}
 
 	@Override
 	protected OSGiServletService createServletService(
-			DeploymentConfiguration deploymentConfiguration) {
+			DeploymentConfiguration deploymentConfiguration)
+			throws ServiceException {
 
 		// create the servlet service initialized with the ui provider
 		OSGiServletService service = new OSGiServletService(this,
@@ -61,6 +63,7 @@ public class VaadinOSGiServlet extends VaadinServlet {
 						return session;
 					}
 				});
+		service.init();
 		return service;
 	}
 }

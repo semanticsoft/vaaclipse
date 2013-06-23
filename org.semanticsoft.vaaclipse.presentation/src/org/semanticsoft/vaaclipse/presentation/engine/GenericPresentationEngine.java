@@ -552,4 +552,10 @@ public class GenericPresentationEngine implements PresentationEngine {
 		eventBroker.unsubscribe(visibilityHandler);
 		eventBroker.unsubscribe(childrenHandler);
 	}
+
+	// TODO
+	@Override
+	public void focusGui(MUIElement element) {
+		
+	}
 }

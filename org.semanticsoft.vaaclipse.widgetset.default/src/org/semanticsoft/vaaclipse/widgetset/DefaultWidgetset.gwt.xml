@@ -7,7 +7,4 @@
 	<inherits name="fi.jasoft.dragdroplayouts.DragDropLayoutsWidgetSet" />
 	<inherits
 		name="org.semanticsoft.vaaclipse.widgets.Org_semanticsoft_vaaclipse_widgetsWidgetset" />
-		
-	<inherits name="org.vaadin.artur.icepush.IcepushaddonWidgetset" />
-
 </module>

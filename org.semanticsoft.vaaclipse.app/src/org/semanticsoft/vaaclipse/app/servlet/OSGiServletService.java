@@ -11,12 +11,13 @@
  *    
  *******************************************************************************/
 package org.semanticsoft.vaaclipse.app.servlet;
- 
+
 import javax.servlet.http.HttpServletRequest;
 
-import com.vaadin.server.AbstractCommunicationManager;
 import com.vaadin.server.DeploymentConfiguration;
+import com.vaadin.server.LegacyCommunicationManager;
 import com.vaadin.server.ServiceException;
+import com.vaadin.server.SessionExpiredException;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinServletService;
@@ -30,7 +31,7 @@ public class OSGiServletService extends VaadinServletService {
 
 	public OSGiServletService(VaadinServlet servlet,
 			DeploymentConfiguration deploymentConfiguration,
-			IVaadinSessionFactory factory) {
+			IVaadinSessionFactory factory) throws ServiceException {
 		super(servlet, deploymentConfiguration);
 
 		this.factory = factory;
@@ -46,12 +47,21 @@ public class OSGiServletService extends VaadinServletService {
 			throws ServiceException {
 		return factory.createSession(request, getCurrentServletRequest());
 	}
-	
-	@Override
-	protected AbstractCommunicationManager createCommunicationManager(
-			VaadinSession session) {
-		communicationManager = new VaadinOSGiCommunicationManager(session);
-		return communicationManager;
+
+	public VaadinSession findVaadinSession(VaadinRequest request)
+			throws ServiceException, SessionExpiredException {
+		VaadinSession vaadinSession = super.findVaadinSession(request);
+		if (vaadinSession == null) {
+			return null;
+		}
+
+		if (vaadinSession.getCommunicationManager().getClass() == LegacyCommunicationManager.class) {
+			communicationManager = new VaadinOSGiCommunicationManager(
+					vaadinSession);
+			vaadinSession.setCommunicationManager(communicationManager);
+		}
+
+		return vaadinSession;
 	}
 
 	/**
