@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Behaviour
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.behaviour;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Require-Bundle: javax.inject;bundle-version="1.0.0",
- org.eclipse.e4.core.di;bundle-version="1.1.0",
+Require-Bundle: org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.e4.core.commands;bundle-version="0.10.1",
  org.eclipse.core.runtime;bundle-version="3.8.0",
  org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
@@ -22,4 +21,4 @@ Export-Package: org.semanticsoft.vaaclipse.behaviour,
  org.semanticsoft.vaaclipse.behaviour.cleanup
 Bundle-Vendor: Rushan R. Gilmullin
 Service-Component: OSGI-INF/org.semanticsoft.vaaclipse.behaviour.xml
-Import-Package: javax.annotation
+Import-Package: javax.inject;version="1.0.0",javax.annotation; version="1.0.0"
