@@ -29,6 +29,10 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("restriction")
 public class VaadinPresentationEngine extends GenericPresentationEngine {
 
+	public VaadinPresentationEngine(){
+		
+	}
+	
 	@Override
 	public Object run(final MApplicationElement uiRoot,
 			IEclipseContext appContext) {

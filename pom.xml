@@ -97,7 +97,7 @@
 		</profile>
 
 		<profile>
-			<id>p2-juno</id>
+			<id>p2-kepler</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -115,7 +115,7 @@
 							<target>
 								<artifact>
 									<groupId>org.semanticsoft</groupId>
-									<artifactId>org.semanticsoft.vaaclipse.target.juno</artifactId>
+									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
 									<version>${project.version}</version>
 								</artifact>
 							</target>
@@ -124,7 +124,7 @@
 				</plugins>
 			</build>
 			<modules>
-				<module>org.semanticsoft.vaaclipse.target.juno</module>
+				<module>org.semanticsoft.vaaclipse.target.kepler</module>
 
 				<!-- exclusive for P2 -->
 				<module>org.semanticsoft.vaaclipse.p2</module>
