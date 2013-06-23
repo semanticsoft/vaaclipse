@@ -178,7 +178,6 @@ public class VaadinUI extends UI {
 			authConext.set(VerticalLayout.class, content);
 			Object authProviderObj = contributionFactory.create(authProvider,
 					authConext);
-			System.out.println(authProvider);
 		}
 		
 		push = new ICEPush();

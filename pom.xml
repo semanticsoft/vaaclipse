@@ -205,7 +205,6 @@
 				<module>org.semanticsoft.vaaclipse.widgets</module>
 				<module>org.semanticsoft.commons</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
-				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
 			</modules>
 		</profile>
