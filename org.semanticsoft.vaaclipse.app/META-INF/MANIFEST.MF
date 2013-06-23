@@ -25,7 +25,6 @@ Require-Bundle: org.eclipse.core.runtime,
  com.vaadin.shared;bundle-version="7.0.0",
  com.vaadin.shared.deps;bundle-version="1.0.2",
  org.semanticsoft.vaaclipse.widgetset.default;bundle-version="0.0.1",
- org.lunifera.dependencies.bundle.vaadin.addon.icepush;bundle-version="0.5.5",
  org.eclipse.e4.ui.model.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

@@ -61,7 +61,6 @@ import org.semanticsoft.vaaclipse.app.servlet.VaadinOSGiCommunicationManager;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
 import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
-import org.vaadin.artur.icepush.ICEPush;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedHttpSession;
@@ -100,7 +99,6 @@ public class VaadinUI extends UI {
 	private Object user;
 	private Class<Object> userClass;
 
-	private ICEPush push;
 	private static Map<String, Object[]> tempUserStore = new HashMap<String, Object[]>();
 
 	public VaadinUI() {
@@ -115,13 +113,6 @@ public class VaadinUI extends UI {
 		throw new RuntimeException("The changing theme in runtime is not supported by Vaadin 7");
 	}
 	
-	/**
-	 * Pushes all changes made to the browser.
-	 */
-	public void push(){
-		push.push();
-	}
-
 	@Override
 	public void init(VaadinRequest request) {
 		context = VaadinE4Application.getInstance().getAppContext();
@@ -179,9 +170,6 @@ public class VaadinUI extends UI {
 			Object authProviderObj = contributionFactory.create(authProvider,
 					authConext);
 		}
-		
-		push = new ICEPush();
-		push.extend(this);
 		
 		eventBroker.subscribe(
 				AuthenticationConstants.Events.Authentication.name,
