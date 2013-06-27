@@ -79,7 +79,9 @@
       <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
       <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.jetty.continuation"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>
@@ -114,6 +116,7 @@
       <plugin id="org.semanticsoft.vaaclipsedemo.cassandra.widgetset"/>
       <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
+      <plugin id="org.slf4j.api"/>
       <plugin id="slf4j.api"/>
       <plugin id="slf4j.jcl" fragment="true"/>
    </plugins>
