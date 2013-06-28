@@ -57,7 +57,9 @@ import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.app.VaadinE4Application;
-import org.semanticsoft.vaaclipse.app.servlet.VaadinOSGiCommunicationManager;
+import org.semanticsoft.vaaclipse.app.servlet.OSGiServletService;
+import org.semanticsoft.vaaclipse.app.servlet.VaadinExecutorServiceImpl;
+import org.semanticsoft.vaaclipse.app.servlet.VaadinOSGiServlet;
 import org.semanticsoft.vaaclipse.publicapi.authentication.AuthenticationConstants;
 import org.semanticsoft.vaaclipse.publicapi.theme.Theme;
 import org.semanticsoft.vaaclipse.publicapi.theme.ThemeConstants;
@@ -198,7 +200,7 @@ public class VaadinUI extends UI {
 					}
 				});
 		
-		VaadinOSGiCommunicationManager man = (VaadinOSGiCommunicationManager) appContext.get(VaadinExecutorService.class);
+		VaadinExecutorServiceImpl man = (VaadinExecutorServiceImpl) appContext.get(VaadinExecutorService.class);
 		man.exec();
 	}
 
@@ -211,9 +213,7 @@ public class VaadinUI extends UI {
 		appContext.set("e4ApplicationInstanceId", UUID.randomUUID().toString());
 		appContext.set("vaadinUI", this);
 		appContext.set(UI.class, this);
-		appContext.set(VaadinExecutorService.class,
-				(VaadinOSGiCommunicationManager) getSession()
-						.getCommunicationManager());
+		appContext.set(VaadinExecutorService.class, ((OSGiServletService)getSession().getService()).getExecutorService());
 		appContext.set(UISynchronize.class, new UISynchronize() {
 
 			public void syncExec(Runnable runnable) {

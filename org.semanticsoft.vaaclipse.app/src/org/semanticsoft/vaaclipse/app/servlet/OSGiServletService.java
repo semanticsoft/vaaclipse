@@ -12,23 +12,38 @@
  *******************************************************************************/
 package org.semanticsoft.vaaclipse.app.servlet;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
+
 import com.vaadin.server.DeploymentConfiguration;
-import com.vaadin.server.LegacyCommunicationManager;
+import com.vaadin.server.RequestHandler;
 import com.vaadin.server.ServiceException;
-import com.vaadin.server.SessionExpiredException;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinServletService;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.server.communication.UidlRequestHandler;
 
 @SuppressWarnings("serial")
 public class OSGiServletService extends VaadinServletService {
 
 	private final IVaadinSessionFactory factory;
-	private VaadinOSGiCommunicationManager communicationManager;
-
+	private VaaclipseServerRpcHandler vaaclipseServerRpcHandler;
+	
+	public VaaclipseServerRpcHandler getVaaclipseServerRpcHandler() 
+	{
+		return vaaclipseServerRpcHandler;
+	}
+	
+	public VaadinExecutorService getExecutorService()
+	{
+		return vaaclipseServerRpcHandler.getExecutorService();
+	}
+	
 	public OSGiServletService(VaadinServlet servlet,
 			DeploymentConfiguration deploymentConfiguration,
 			IVaadinSessionFactory factory) throws ServiceException {
@@ -47,21 +62,33 @@ public class OSGiServletService extends VaadinServletService {
 			throws ServiceException {
 		return factory.createSession(request, getCurrentServletRequest());
 	}
-
-	public VaadinSession findVaadinSession(VaadinRequest request)
-			throws ServiceException, SessionExpiredException {
-		VaadinSession vaadinSession = super.findVaadinSession(request);
-		if (vaadinSession == null) {
-			return null;
+	
+	@Override
+	protected List<RequestHandler> createRequestHandlers()
+			throws ServiceException {
+		List<RequestHandler> handlers = super.createRequestHandlers();
+		for (RequestHandler h : handlers)
+		{
+			if (h instanceof UidlRequestHandler)
+			{
+				Field rpcField = null;
+				try {
+					rpcField = h.getClass().getDeclaredField("rpcHandler");
+					rpcField.setAccessible(true);
+					vaaclipseServerRpcHandler = new VaaclipseServerRpcHandler();
+					rpcField.set(h, vaaclipseServerRpcHandler);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					if (rpcField != null)
+						rpcField.setAccessible(false);
+				}
+				
+				break;
+			}
 		}
-
-		if (vaadinSession.getCommunicationManager().getClass() == LegacyCommunicationManager.class) {
-			communicationManager = new VaadinOSGiCommunicationManager(
-					vaadinSession);
-			vaadinSession.setCommunicationManager(communicationManager);
-		}
-
-		return vaadinSession;
+		return handlers;
 	}
 
 	/**
