@@ -59,11 +59,11 @@ public class VaadinExecutorServiceImpl implements VaadinExecutorService {
 //	}
 
 	public synchronized void exec() {
-		System.out.println("exec called!");
+		//System.out.println("exec called!");
 		Runnable runnable;
 		while ((runnable = runnables.poll()) != null) {
 			try {
-				System.out.println("Runnable 1");
+				//System.out.println("Runnable 1");
 				runnable.run();
 				Object key = runnable2Key.remove(runnable);
 				keys.remove(key);
@@ -74,7 +74,7 @@ public class VaadinExecutorServiceImpl implements VaadinExecutorService {
 
 		for (Runnable runnable2 : runnables2) {
 			try {
-				System.out.println("Runnable 2");
+				//System.out.println("Runnable 2");
 				runnable2.run();
 			} catch (Throwable e) {
 				e.printStackTrace();
