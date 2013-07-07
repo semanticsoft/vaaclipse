@@ -7,18 +7,18 @@
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.equinox.sdk.feature.group" version="3.9.0.v20130529-1710"/>
+<unit id="org.eclipse.equinox.sdk.feature.group" version="3.9.0.v20130604-2047"/>
 <repository location="http://download.eclipse.org/releases/kepler"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.0.v20130603-0742"/>
-<unit id="org.eclipse.e4.rcp.source.feature.group" version="1.2.0.v20130530-1603"/>
-<unit id="org.eclipse.e4.rcp.feature.group" version="1.2.0.v20130530-1603"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.0.v20130610-0406"/>
+<unit id="org.eclipse.e4.rcp.source.feature.group" version="1.2.0.v20130605-1738"/>
+<unit id="org.eclipse.e4.rcp.feature.group" version="1.2.0.v20130605-1738"/>
 <repository location="http://download.eclipse.org/releases/kepler"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.lunifera.dependencies.feature.vaadin.addon.icepush.feature.group" version="0.5.5"/>
-<unit id="org.lunifera.dependencies.feature.vaadin.feature.group" version="7.1.0.201306251400"/>
+<unit id="org.lunifera.dependencies.feature.vaadin.feature.group" version="7.1.0.201307021233"/>
 <repository location="http://lun.lunifera.org/downloads/p2/lunifera/kepler/latest/"/>
 </location>
 </locations>
