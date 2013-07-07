@@ -94,6 +94,10 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
             } else {
                 targetElement = targetNode.getParentElement();
             }
+            
+        	//VConsole.log("Target Element is: " + targetElement);
+            if (targetElement == null)
+            	return;
 
             if (Util.isTouchEvent(nativeEvent)
                     || (dragElement != null && dragElement
@@ -209,6 +213,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
                 Element relatedTarget = Element.as(nativeEvent
                         .getRelatedEventTarget());
                 VDropHandler newDragHanler = findDragTarget(relatedTarget);
+                VConsole.log("Related Target is: " + relatedTarget);
                 if (dragElement != null
                         && dragElement.isOrHasChild(relatedTarget)) {
                     // ApplicationConnection.getConsole().log(
@@ -277,6 +282,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
     private VDragEventServerCallback serverCallback;
 
     private HandlerRegistration deferredStartRegistration;
+	private String version = "2";
 
     public static VaaclipseDragAndDropManager get() {
         if (instance == null) {
@@ -288,7 +294,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
     /* Singleton */
     protected VaaclipseDragAndDropManager() {
     	
-    	VConsole.log("!!! VaaclipseDragAndDropManager !!!");
+    	VConsole.log("VaaclipseDragAndDropManager - version " + version );
     	
     }
 
@@ -323,8 +329,6 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
      */
     public VDragEvent startDrag(VTransferable transferable,
             final NativeEvent startEvent, final boolean handleDragEvents) {
-    	
-    	VConsole.log("!!! start !!!");
     	
         interruptDrag();
         isStarted = false;
@@ -464,7 +468,9 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
     }
 
   public VDropHandler findDragTarget(com.google.gwt.dom.client.Element element) {
-		
+	
+	  VConsole.log("findDragTarget: version " + version);
+	  
       try {
       	Widget w = Util.findWidget(
                   (com.google.gwt.user.client.Element) element, null);
@@ -485,7 +491,8 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
   		}
   		else
   		{
-              while (!(w instanceof VHasDropHandler) ) {
+            while (!(w instanceof VHasDropHandler)
+                    || !isDropEnabled((VHasDropHandler) w)) {
                   w = w.getParent();
                   if (w == null) {
                       break;
@@ -503,6 +510,15 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
           return null;
       }
 
+  }
+  
+  /**
+   * Checks if the given {@link VHasDropHandler} really is able to accept
+   * drops.
+   */
+  private static boolean isDropEnabled(VHasDropHandler target) {
+      VDropHandler dh = target.getDropHandler();
+      return dh != null && dh.getConnector().isEnabled();
   }
 
     /**
