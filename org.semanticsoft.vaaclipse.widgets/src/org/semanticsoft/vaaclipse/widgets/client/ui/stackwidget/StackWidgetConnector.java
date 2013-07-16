@@ -11,13 +11,14 @@
 
 package org.semanticsoft.vaaclipse.widgets.client.ui.stackwidget;
 
+import java.util.logging.Logger;
+
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.UIDL;
-import com.vaadin.client.VConsole;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.shared.ui.Connect;
 
@@ -32,6 +33,8 @@ import fi.jasoft.dragdroplayouts.client.ui.tabsheet.DDTabsheetConnector;
 @Connect(StackWidget.class)
 public class StackWidgetConnector extends DDTabsheetConnector
 {
+	Logger logger = Logger.getLogger(StackWidgetConnector.class.getName());
+	
 	@Override
 	protected Widget createWidget()
 	{
@@ -58,7 +61,6 @@ public class StackWidgetConnector extends DDTabsheetConnector
 		if (uidl.getIntAttribute("svoi") == 5)
 		{
 			int state = uidl.getIntAttribute("vaadock_tabsheet_state");
-			VConsole.log("VStackWidget: set initial state = " + state);
 			stackWidget.setState(state);
 			stackWidget.maximizeEnabled = uidl.getBooleanAttribute("maximize_enabled");
 			stackWidget.minimizeEnabled = uidl.getBooleanAttribute("minimize_enabled");
@@ -81,7 +83,7 @@ public class StackWidgetConnector extends DDTabsheetConnector
 				if (getWidget().getDropHandler() == null)
 				{
 					getWidget().setDropHandler(new VStackWidgetDropHandler(getWidget(), client));
-					VConsole.log("updateFromUIDL: VStackWidgetDropHandler installed");
+					logger.info("updateFromUIDL: VStackWidgetDropHandler installed");
 				}
 				getWidget().getDropHandler().updateAcceptRules(acceptCrit);
 			}

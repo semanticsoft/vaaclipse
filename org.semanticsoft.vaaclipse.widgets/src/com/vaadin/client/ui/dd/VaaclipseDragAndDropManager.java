@@ -15,6 +15,9 @@
  */
 package com.vaadin.client.ui.dd;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
@@ -63,6 +66,8 @@ import fi.jasoft.dragdroplayouts.client.ui.tabsheet.VDDTabSheet;
 public class VaaclipseDragAndDropManager extends VDragAndDropManager {
 
     public static final String ACTIVE_DRAG_SOURCE_STYLENAME = "v-active-drag-source";
+    
+    Logger logger = Logger.getLogger(VaaclipseDragAndDropManager.class.getName());
 
     private final class DefaultDragAndDropEventHandler implements
             NativePreviewHandler {
@@ -213,7 +218,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
                 Element relatedTarget = Element.as(nativeEvent
                         .getRelatedEventTarget());
                 VDropHandler newDragHanler = findDragTarget(relatedTarget);
-                VConsole.log("Related Target is: " + relatedTarget);
+                //VConsole.log("Related Target is: " + relatedTarget);
                 if (dragElement != null
                         && dragElement.isOrHasChild(relatedTarget)) {
                     // ApplicationConnection.getConsole().log(
@@ -294,7 +299,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
     /* Singleton */
     protected VaaclipseDragAndDropManager() {
     	
-    	VConsole.log("VaaclipseDragAndDropManager - version " + version );
+    	logger.info("VaaclipseDragAndDropManager - version " + version );
     	
     }
 
@@ -469,7 +474,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
 
   public VDropHandler findDragTarget(com.google.gwt.dom.client.Element element) {
 	
-	  VConsole.log("findDragTarget: version " + version);
+	  //VConsole.log("findDragTarget: version " + version);
 	  
       try {
       	Widget w = Util.findWidget(
@@ -755,7 +760,7 @@ public class VaaclipseDragAndDropManager extends VDragAndDropManager {
                 ApplicationConnection connection = getCurrentDragApplicationConnection();
                 Element dragImageParent;
                 if (connection == null) {
-                    VConsole.error("Could not determine ApplicationConnection for current drag operation. The drag image will likely look broken");
+                    logger.log(Level.SEVERE, "Could not determine ApplicationConnection for current drag operation. The drag image will likely look broken");
                     dragImageParent = RootPanel.getBodyElement();
                 } else {
                     dragImageParent = VOverlay.getOverlayContainer(connection);

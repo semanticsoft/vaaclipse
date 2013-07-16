@@ -49,8 +49,6 @@ public class FastViewConnector extends WindowConnector
         {
             getWidget().side = getState().side;
             getWidget().trimmedWindowClientArea = ((ComponentConnector)getState().trimmedWindowClientArea).getWidget();
-            
-            VConsole.log("FastView: side = " + getState().side.toString());
             setPaneLocation();
         }
     }
@@ -68,15 +66,11 @@ public class FastViewConnector extends WindowConnector
 		if (fastView.side == null)
 			return;
 		
-		//VConsole.log(RootPanel.get().toString());
-		
 		//VExtendedVerticalLayout trimmedWindowClientArea = findTrimmedWindowClientArea(RootPanel.get());
 		Widget trimmedWindowClientArea = fastView.trimmedWindowClientArea;
 		
 		if (trimmedWindowClientArea != null)
 		{
-			VConsole.log("TrimmedWindowArea finded!");
-			
 			int x, y;
 			int w = 600, h = 400;
 			if (Side.LEFT.equals(fastView.side))
@@ -92,15 +86,10 @@ public class FastViewConnector extends WindowConnector
 			else
 				return;
 			
-			VConsole.log("Position: x=" + x + " y=" + y);
-			
 			fastView.setPopupPosition(x, y);
 			fastView.setWidth(w + "px");
 			fastView.setHeight(h + "px");	
 		}
-		else
-			VConsole.log("TrimmedWindowArea is null!");
-		
 	}
 
 	private VExtendedVerticalLayout findTrimmedWindowClientArea(Widget widget)
