@@ -21,7 +21,6 @@ import org.semanticsoft.vaaclipse.widgets.common.Side;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ComponentConnector;
-import com.vaadin.client.VConsole;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.ui.window.WindowConnector;
 import com.vaadin.shared.ui.Connect;
