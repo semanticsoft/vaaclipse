@@ -30,10 +30,8 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
-import com.vaadin.client.ComponentConnector;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
-import com.vaadin.client.VConsole;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.HorizontalDropLocation;
@@ -133,12 +131,6 @@ public class VStackWidget extends VDDTabSheet
         DOM.sinkEvents(minimizeButton, Event.ONCLICK);
         setStyleName(minimizeButton, "v-vaadock-tabsheet-minimize-button");
         DOM.appendChild(buttonPanel, minimizeButton);
-        
-//        if (VDragAndDropManager.get().getDragHandlerFinder() == null)
-//        {
-//        	VDragAndDropManager.get().setDragHandlerFinder(this);
-//        	VConsole.log("DragHandlerFinder is installed");
-//        }
 	}
 	
 	@Override
@@ -652,29 +644,25 @@ public class VStackWidget extends VDDTabSheet
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 	private void updateLocationOfPartToolbar()
 	{
-		VConsole.log("updateLocationOfPartToolbar: start; activeTabIndex = " + activeTabIndex + "; tp.getWidgetCount() = " + tp.getWidgetCount());
-//		ComponentConnector selectedTab = getTab(activeTabIndex);
-//		if (selectedTab == null) {
-//			VConsole.log("updateLocationOfPartToolbar: selected tab is null");
-//			return;
-//		}
-//		Widget selectedWidget = (Widget) selectedTab.getWidget();
-		//Widget selectedWidget = tp.getWidget(activeTabIndex);
-		Widget selectedWidget = tp.getWidget(tp.getVisibleWidget());
-				
-		toolbarElement = findToolbarElement(selectedWidget.getElement());
-		if (toolbarElement == null) {
-			VConsole.log("updateLocationOfPartToolbar: toolbarElement is null");
+		if (tp.getWidgetCount() == 0)
 			return;
-		}
+		
+		Widget selectedWidget = tp.getWidget(tp.getVisibleWidget());
+		
+		if (selectedWidget == null || selectedWidget.getElement() == null)
+			return;
+		
+		List pathToToolbar = findToolbarElement(selectedWidget.getElement(), 12);
+		if (pathToToolbar.isEmpty())
+			return;
+		
+		toolbarElement = (Element) pathToToolbar.get(pathToToolbar.size() - 1);
 		
 		String mR = DOM.getStyleAttribute(toolbarElement, "marginRight");
 		String mT = DOM.getStyleAttribute(toolbarElement, "marginTop");
 		
 		if (mR != null && mT != null && !mR.trim().isEmpty() && !mT.trim().isEmpty())
 		{//toolbar is relocated, check is there are space in tabs panel and if no, restore location of toolbar
-			VConsole.log("mR=" + mR);
-			VConsole.log("mT=" + mT);
 			if (!hasSpace(toolbarElement))
 			{
 				restoreLocationOfPartToolbar();
@@ -682,11 +670,10 @@ public class VStackWidget extends VDDTabSheet
 		}
 		else
 		{//toolbar is not relocated, check is there are space in tabs panel and if yes, move toolbar to tabs panel
-			VConsole.log("mtoolbar is not relocated");
 			if (hasSpace(toolbarElement))
 			{
 				if (activeTabIndex >= 0 && this.getParent() != null)
-					changeLocationOfPartToolbar(selectedWidget);	
+					changeLocationOfPartToolbar(selectedWidget, pathToToolbar);	
 			}
 		}
 	}
@@ -700,23 +687,21 @@ public class VStackWidget extends VDDTabSheet
                 - buttonPanel.getOffsetWidth() - toolbarElement.getOffsetWidth() - 10;
 	}
 	
-	private void changeLocationOfPartToolbar(Widget selectedWidget)
+	private void changeLocationOfPartToolbar(Widget selectedWidget, List pathToToolbar)
 	{
 		overflowRewritedElements = new HashMap<Element, String>();
-		
-		List<Node> pathToParent = findPathToParent(toolbarElement, selectedWidget.getParent().getElement());
-		
-		for (Node node: pathToParent)
+		Element selectedElementParent = selectedWidget.getParent().getElement();
+		//Two DOM-elements of selectedWidget.getParent() should be included to overflow rewrite
+		pathToToolbar.add(0, selectedElementParent.getChild(0));
+		pathToToolbar.add(0, selectedElementParent);
+		for (int i = 0; i < pathToToolbar.size(); i++)
 		{
-			if (node instanceof Element)
+			Element element = (Element) pathToToolbar.get(i);
+			String overflow = DOM.getElementProperty((Element) element, "overflow");
+			if (!"".equals(overflow) && !"visible".equals(overflow) && !"".equals("inherit"))
 			{
-				Element element = (Element) node;
-				String overflow = DOM.getElementProperty((Element) element, "overflow");
-				if (!"".equals(overflow) && !"visible".equals(overflow) && !"".equals("inherit"))
-				{
-					DOM.setStyleAttribute(element, "overflow", "visible");
-					overflowRewritedElements.put(element, overflow);
-				}
+				DOM.setStyleAttribute(element, "overflow", "visible");
+				overflowRewritedElements.put(element, overflow);
 			}
 		}
 		
@@ -744,43 +729,35 @@ public class VStackWidget extends VDDTabSheet
 		overflowRewritedElements = null;
 	}
 	
-	private Element findToolbarElement(Element parent)
+	/**
+	 * Find the toolbar element in rootElement. Searching in first elements throw first n element
+	 * Return the path to toolbar element in order from rootElement to toolbar including rootElement and toolbar
+	 * @return
+	 */
+	private List findToolbarElement(Element rootElement, int n)
 	{
-		for (int i = 0; i < parent.getChildCount(); i++)
+		List pathToParent = new ArrayList();
+		pathToParent.add(rootElement);
+		Element element = rootElement;
+		int depth = 0;
+		while (element.getChildCount() > 0 && ++depth < n)
 		{
-			Node node = parent.getChild(i);
+			Node node = element.getChild(0);
 			if (node instanceof Element)
 			{
-				Element childElement = (Element) node;
-				String className = childElement.getClassName();
+				element = (Element) node;
+				pathToParent.add(element);
+				String className = element.getClassName();
 				if (className != null && !className.contains("mparttoolbararea") && className.contains("mparttoolbar"))
-				{
-					return childElement;
-				}
-				else
-				{
-					Element toolbarElement = findToolbarElement(childElement);
-					if (toolbarElement != null)
-						return toolbarElement;
-				}
+					break;
 			}
+			else
+				return new ArrayList();
 		}
-		return null;
-	}
-	
-	private List<Node> findPathToParent(Element element, Element parentElement)
-	{
-		List<Node> pathToParent = new ArrayList<Node>();
-		Node parent = element.getParentElement();
-		while (parent != null && parent != parentElement)
-		{
-			pathToParent.add(parent);
-			parent = parent.getParentElement();
-		}
-		if (parent != null)
-			pathToParent.add(parent);
-		else
+		
+		if (element == null)
 			pathToParent.clear();
+		
 		return pathToParent;
 	}
 }
