@@ -164,7 +164,7 @@ public class PackageExplorer
 		
 		tree = new Tree();
 		tree.setSizeFull();
-		tree.setImmediate(true);
+		tree.setImmediate(false);
 		panel.setContent(tree);
 		
 		FilesystemContainer fsc = new FilesystemContainer(demoRoot, true);
