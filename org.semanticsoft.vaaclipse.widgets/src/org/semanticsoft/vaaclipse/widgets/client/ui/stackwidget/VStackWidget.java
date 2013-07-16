@@ -33,6 +33,7 @@ import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.ComponentConnector;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
+import com.vaadin.client.VConsole;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.HorizontalDropLocation;
@@ -90,11 +91,9 @@ public class VStackWidget extends VDDTabSheet
 	private String baseURL;
 	
 	//Relocate of part toolbar support
-	private boolean toolbarRelocated = false;
+	//private boolean toolbarRelocated = false;
 	private Element toolbarElement;
-	private Integer toolbarElementHeight;
 	private Map<Element, String> overflowRewritedElements;
-	private Integer oldTabbarOffsetHeight;
 
 	/**
 	 * The constructor should first call super() to initialize the component and
@@ -143,10 +142,14 @@ public class VStackWidget extends VDDTabSheet
 	}
 	
 	@Override
-	public void iLayout()
-	{
+	public void iLayout() {
 		super.iLayout();
 		
+		processPartToolbar();
+	}
+	
+	public void processPartToolbar()
+	{
 		updateLocationOfButtonPanel();
 		updateLocationOfPartToolbar();
 	}
@@ -649,38 +652,41 @@ public class VStackWidget extends VDDTabSheet
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 	private void updateLocationOfPartToolbar()
 	{
-		if (toolbarRelocated)
-		{
-			//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is relocated");
+		VConsole.log("updateLocationOfPartToolbar: start; activeTabIndex = " + activeTabIndex + "; tp.getWidgetCount() = " + tp.getWidgetCount());
+//		ComponentConnector selectedTab = getTab(activeTabIndex);
+//		if (selectedTab == null) {
+//			VConsole.log("updateLocationOfPartToolbar: selected tab is null");
+//			return;
+//		}
+//		Widget selectedWidget = (Widget) selectedTab.getWidget();
+		//Widget selectedWidget = tp.getWidget(activeTabIndex);
+		Widget selectedWidget = tp.getWidget(tp.getVisibleWidget());
+				
+		toolbarElement = findToolbarElement(selectedWidget.getElement());
+		if (toolbarElement == null) {
+			VConsole.log("updateLocationOfPartToolbar: toolbarElement is null");
+			return;
+		}
+		
+		String mR = DOM.getStyleAttribute(toolbarElement, "marginRight");
+		String mT = DOM.getStyleAttribute(toolbarElement, "marginTop");
+		
+		if (mR != null && mT != null && !mR.trim().isEmpty() && !mT.trim().isEmpty())
+		{//toolbar is relocated, check is there are space in tabs panel and if no, restore location of toolbar
+			VConsole.log("mR=" + mR);
+			VConsole.log("mT=" + mT);
 			if (!hasSpace(toolbarElement))
 			{
-				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
 				restoreLocationOfPartToolbar();
 			}
 		}
 		else
-		{
-			//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar is not relocated");
-			ComponentConnector selectedTab = getTab(activeTabIndex);
-			if (selectedTab == null)
+		{//toolbar is not relocated, check is there are space in tabs panel and if yes, move toolbar to tabs panel
+			VConsole.log("mtoolbar is not relocated");
+			if (hasSpace(toolbarElement))
 			{
-				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: selected tab is null");
-				return;
-			}
-			
-			Widget selectedWidget = (Widget) selectedTab.getWidget();
-			
-			Element _toolbarElement = findToolbarElement(selectedWidget.getElement());
-			if (_toolbarElement == null)
-			{
-				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: toolbar element is null");
-				return;
-			}
-			
-			if (hasSpace(_toolbarElement))
-			{
-				//VConsole.log(this.hashCode() + ".updateLocationOfPartToolbar: has space");
-				changeLocationOfPartToolbar(selectedWidget, _toolbarElement);	
+				if (activeTabIndex >= 0 && this.getParent() != null)
+					changeLocationOfPartToolbar(selectedWidget);	
 			}
 		}
 	}
@@ -694,20 +700,11 @@ public class VStackWidget extends VDDTabSheet
                 - buttonPanel.getOffsetWidth() - toolbarElement.getOffsetWidth() - 10;
 	}
 	
-	private void changeLocationOfPartToolbar(Widget selectedWidget, Element _toolbarElement)
+	private void changeLocationOfPartToolbar(Widget selectedWidget)
 	{
-		if (toolbarRelocated || activeTabIndex < 0 || this.getParent() == null)
-			return;
-		
-		toolbarElement = _toolbarElement;
 		overflowRewritedElements = new HashMap<Element, String>();
 		
 		List<Node> pathToParent = findPathToParent(toolbarElement, selectedWidget.getParent().getElement());
-		
-		if (pathToParent == null || pathToParent.isEmpty())
-		{
-			//VConsole.log(this.hashCode() + ".Path to parent is null or empty");
-		}
 		
 		for (Node node: pathToParent)
 		{
@@ -723,8 +720,6 @@ public class VStackWidget extends VDDTabSheet
 			}
 		}
 		
-		toolbarRelocated = true;
-		
 		updateGeometry();
 	}
 
@@ -735,13 +730,11 @@ public class VStackWidget extends VDDTabSheet
 		
 		DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");
 		DOM.setStyleAttribute(toolbarElement, "marginTop", marginTop + "px");
-		
-		//VConsole.log(this.hashCode() + ".updateGeometry: marginRight: " + marginRight + ", marginTop: " + marginTop);
 	}
 	
 	void restoreLocationOfPartToolbar()
 	{
-		if (!toolbarRelocated)
+		if (toolbarElement == null)
 			return;
 		
 		DOM.setStyleAttribute(toolbarElement, "marginRight", "");
@@ -749,9 +742,6 @@ public class VStackWidget extends VDDTabSheet
 		
 		toolbarElement = null;
 		overflowRewritedElements = null;
-		oldTabbarOffsetHeight = null;
-		toolbarElementHeight = null;
-		toolbarRelocated = false;
 	}
 	
 	private Element findToolbarElement(Element parent)
