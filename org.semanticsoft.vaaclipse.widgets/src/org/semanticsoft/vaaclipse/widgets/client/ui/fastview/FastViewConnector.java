@@ -11,14 +11,11 @@
 
 package org.semanticsoft.vaaclipse.widgets.client.ui.fastview;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import org.semanticsoft.vaaclipse.widgets.FastView;
-import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.VExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.common.Side;
 
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ComponentConnector;
 import com.vaadin.client.communication.StateChangeEvent;

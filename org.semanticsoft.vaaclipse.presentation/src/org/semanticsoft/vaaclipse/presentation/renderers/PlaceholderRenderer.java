@@ -28,7 +28,6 @@ import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
-import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 
 import com.vaadin.ui.Component;
@@ -54,7 +53,6 @@ public class PlaceholderRenderer extends VaadinRenderer
 		ref.setCurSharedRef(ph);
 		
 		VerticalLayout phComp = new VerticalLayout();
-		//ExtendedVerticalLayout phComp = new ExtendedVerticalLayout();
 		phComp.setSizeFull();
 		phComp.setMargin(false);
 		ph.setWidget(phComp);

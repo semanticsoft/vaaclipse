@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.Behaviour;
 import org.semanticsoft.vaaclipse.presentation.widgets.TrimmedWindowContent;
-import org.semanticsoft.vaaclipse.widgets.ExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.FastView;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
