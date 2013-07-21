@@ -35,8 +35,7 @@ public class StackWidget extends DDTabSheet
 		void stateChanged(int newState, int oldState);
 	}
 	
-	public transient boolean maximizeEnabled = true;
-	public transient boolean minimizeEnabled = true;
+	private boolean minMaxEnabled = true;
 	private int state = 0;
 	private List<StateListener> stateListeners = new ArrayList<StateListener>();
 	
@@ -85,30 +84,16 @@ public class StackWidget extends DDTabSheet
 		super.paintContent(target);
 		
 		target.addAttribute("vaadock_tabsheet_state", state);
-		target.addAttribute("maximize_enabled", this.maximizeEnabled);
-		target.addAttribute("minimize_enabled", this.minimizeEnabled);
+		target.addAttribute("minmax_enabled", this.minMaxEnabled);
 		target.addAttribute("svoi", 5);
 	}
-
-	public boolean isMaximizeEnabled()
-	{
-		return this.maximizeEnabled;
+	
+	public boolean isMinMaxEnabled() {
+		return minMaxEnabled;
 	}
-
-	public void setMaximizeEnabled(boolean maximizeEnabled)
-	{
-		this.maximizeEnabled = maximizeEnabled;
-		this.requestRepaint();
-	}
-
-	public boolean isMinimizeEnabled()
-	{
-		return this.minimizeEnabled;
-	}
-
-	public void setMinimizeEnabled(boolean minimizeEnabled)
-	{
-		this.minimizeEnabled = minimizeEnabled;
+	
+	public void setMinMaxEnabled(boolean minMaxEnabled) {
+		this.minMaxEnabled = minMaxEnabled;
 		this.requestRepaint();
 	}
 	

@@ -59,6 +59,7 @@ public class VStackWidget extends VDDTabSheet
 	//Minmax button support
 	Element tabs;
 	Element scroller;
+	String originalScrollerMarginLeftAttribute;
 	Element buttonPanel;
 	
 	//Docking support
@@ -83,8 +84,7 @@ public class VStackWidget extends VDDTabSheet
 	private static final int NORMAL = 0;
 	private static final int MAXIMIZED = 1;
 	
-	boolean maximizeEnabled = true;
-	boolean minimizeEnabled = true;
+	private boolean minmaxEnabled = true;
 	
 	private String baseURL;
 	
@@ -108,10 +108,6 @@ public class VStackWidget extends VDDTabSheet
 		tabs = (Element) getElement().getChild(0);
         
         scroller = DOM.getChild(tabs, 1);
-        
-        DOM.setStyleAttribute(scroller, "marginRight", "45px");
-        //scroller.setAttribute("style", "width:90px;");
-        
         for (int i = 0; i < DOM.getChildCount(scroller); i++)
         {
         	Element child = DOM.getChild(scroller, i);
@@ -131,6 +127,29 @@ public class VStackWidget extends VDDTabSheet
         DOM.sinkEvents(minimizeButton, Event.ONCLICK);
         setStyleName(minimizeButton, "v-vaadock-tabsheet-minimize-button");
         DOM.appendChild(buttonPanel, minimizeButton);
+        
+        setMinmaxEnabled(true);
+	}
+	
+	public boolean isMinmaxEnabled() 
+	{
+		return minmaxEnabled;
+	}
+	
+	public void setMinmaxEnabled(boolean minmaxEnabled) 
+	{
+		this.minmaxEnabled = minmaxEnabled;
+		
+		if (this.minmaxEnabled)
+		{
+			DOM.setStyleAttribute(buttonPanel, "display", "");
+			DOM.setStyleAttribute(scroller, "marginRight", "45px");
+		}
+		else
+		{
+			DOM.setStyleAttribute(buttonPanel, "display", "none");
+			DOM.setStyleAttribute(scroller, "marginRight", "0px");
+		}
 	}
 	
 	@Override
@@ -148,10 +167,12 @@ public class VStackWidget extends VDDTabSheet
 	
 	private void updateLocationOfButtonPanel()
 	{
-		int buttonPanelHeight = tabs.getOffsetHeight();
-        int buttonPanelMarginTop = -buttonPanelHeight;
-        DOM.setStyleAttribute(buttonPanel, "height", buttonPanelHeight + "px");
-        DOM.setStyleAttribute(buttonPanel, "marginTop", buttonPanelMarginTop + "px");
+		if (isMinmaxEnabled()) {
+			int buttonPanelHeight = tabs.getOffsetHeight();
+	        int buttonPanelMarginTop = -buttonPanelHeight;
+	        DOM.setStyleAttribute(buttonPanel, "height", buttonPanelHeight + "px");
+	        DOM.setStyleAttribute(buttonPanel, "marginTop", buttonPanelMarginTop + "px");	
+		}
 	}
 	
 	public int getState()
@@ -161,7 +182,7 @@ public class VStackWidget extends VDDTabSheet
 	
 	public void setState(int state)
     {
-    	if (state != MINIMIZED && state != NORMAL && state != MAXIMIZED)
+    	if (!this.isMinmaxEnabled() && state != MINIMIZED && state != NORMAL && state != MAXIMIZED)
     		return;
     	
     	this.state = state;
@@ -684,7 +705,7 @@ public class VStackWidget extends VDDTabSheet
 		Element spacertd = (Element) tb.getChild(0).getChild(0).getLastChild();
 		
 		return tb.getOffsetWidth() - DOM.getElementPropertyInt((Element) spacertd.cast(), "offsetWidth") < getOffsetWidth()
-                - buttonPanel.getOffsetWidth() - toolbarElement.getOffsetWidth() - 10;
+                - (isMinmaxEnabled() ? buttonPanel.getOffsetWidth() : 0) - toolbarElement.getOffsetWidth() - 10;
 	}
 	
 	private void changeLocationOfPartToolbar(Widget selectedWidget, List pathToToolbar)
@@ -710,7 +731,7 @@ public class VStackWidget extends VDDTabSheet
 
 	private void updateGeometry()
 	{
-		int marginRight = buttonPanel.getOffsetWidth() + 5;
+		int marginRight = (isMinmaxEnabled() ? buttonPanel.getOffsetWidth() : 0) + 5;
 		int marginTop = tabs.getAbsoluteTop() - toolbarElement.getAbsoluteTop();
 		
 		DOM.setStyleAttribute(toolbarElement, "marginRight", marginRight + "px");

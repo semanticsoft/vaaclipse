@@ -211,8 +211,7 @@ public class AreaRenderer extends VaadinRenderer
 			StackWidget topLeftStackWidget = (StackWidget) topLeftStak.getWidget();
 			if (topLeftStackWidget != null)
 			{
-				topLeftStackWidget.setMaximizeEnabled(true);
-				topLeftStackWidget.setMinimizeEnabled(true);
+				topLeftStackWidget.setMinMaxEnabled(true);
 				topLeftStackWidget.removeAllStateListeners();
 				
 				topLeftStackWidget.addStateListener(new StateListener() {
@@ -271,8 +270,7 @@ public class AreaRenderer extends VaadinRenderer
 					StackWidget stackWidget = (StackWidget) stack.getWidget();
 					if (stackWidget != null)
 					{
-						stackWidget.setMaximizeEnabled(false);
-						stackWidget.setMinimizeEnabled(false);
+						stackWidget.setMinMaxEnabled(false);
 						stackWidget.removeAllStateListeners();
 					}
 				}

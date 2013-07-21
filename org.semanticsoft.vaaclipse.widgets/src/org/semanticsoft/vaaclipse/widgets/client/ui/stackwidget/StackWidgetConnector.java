@@ -62,13 +62,7 @@ public class StackWidgetConnector extends DDTabsheetConnector
 		{
 			int state = uidl.getIntAttribute("vaadock_tabsheet_state");
 			stackWidget.setState(state);
-			stackWidget.maximizeEnabled = uidl.getBooleanAttribute("maximize_enabled");
-			stackWidget.minimizeEnabled = uidl.getBooleanAttribute("minimize_enabled");
-
-			if (!stackWidget.maximizeEnabled)
-				stackWidget.maximizeButton.setAttribute("style", "display: none;");
-			if (!stackWidget.minimizeEnabled)
-				stackWidget.minimizeButton.setAttribute("style", "display: none;");
+			stackWidget.setMinmaxEnabled(uidl.getBooleanAttribute("minmax_enabled"));
 		}
 
 		if (isRealUpdate(uidl) && !uidl.hasAttribute("hidden"))
