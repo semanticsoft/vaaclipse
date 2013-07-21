@@ -70,6 +70,10 @@
     width: 44px;
 }
 
+.reindeer .vaadock-tabsheet-button-panel {
+	background: url("../../../themes/reindeer/common/img/vertical-sprites.png") repeat-x scroll left -1127px transparent;	
+}
+
 .v-app .v-vaadock-tabsheet-maximize-button {
 	width: 18px;
     height: 18px;
