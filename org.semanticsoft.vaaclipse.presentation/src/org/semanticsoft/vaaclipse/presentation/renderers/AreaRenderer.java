@@ -39,6 +39,7 @@ import org.semanticsoft.vaaclipse.widgets.StackWidget.StateListener;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan
@@ -164,12 +165,8 @@ public class AreaRenderer extends VaadinRenderer
 		if (area.isHorizontal())
 			areaComp = new HorizontalLayout();
 		else
-		{
-			ExtendedVerticalLayout bi = new ExtendedVerticalLayout();
-			bi.setVariableValue("e4ElementType", "area");
-			areaComp = bi;
-		}
-		areaComp.addStyleName("area");
+			areaComp = new VerticalLayout();
+		areaComp.addStyleName("org_semanticsoft_vaaclipse_area");
 		areaComp.setSizeFull();
 		element.setWidget(areaComp);
 	}

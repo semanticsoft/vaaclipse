@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.semanticsoft.vaaclipse.widgets.client.ui.extlayout.VExtendedVerticalLayout;
 import org.semanticsoft.vaaclipse.widgets.common.GeomUtils;
 import org.semanticsoft.vaaclipse.widgets.common.Side;
 import org.semanticsoft.vaaclipse.widgets.common.Vector;
@@ -33,6 +32,7 @@ import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
 import com.vaadin.client.ui.dd.VDragEvent;
+import com.vaadin.client.ui.orderedlayout.VAbstractOrderedLayout;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.HorizontalDropLocation;
 
@@ -446,14 +446,14 @@ public class VStackWidget extends VDDTabSheet
 				return false;
 			}
 			
-			VExtendedVerticalLayout outerArea = findOuterArea(targetTabSheet);
+			VAbstractOrderedLayout outerArea = findOuterArea(targetTabSheet);
 				
 			Widget boundingWidget = null;
 			
 			if (outerArea != null)
 			{
 				//VConsole.log("updateDropDetails: outer area is finded");
-				if ("area".equals(outerArea.getVariableValue(E4_ELEMENT_TYPE)))
+				if (outerArea.getStyleName().contains("org_semanticsoft_vaaclipse_area"))
     				boundingWidget = outerArea;	
 			}
 			else
@@ -640,18 +640,17 @@ public class VStackWidget extends VDDTabSheet
                 details.serialize());
     }
 		
-	private VExtendedVerticalLayout findOuterArea(Widget w)
+	private VAbstractOrderedLayout findOuterArea(Widget w)
     {
-    	if (w instanceof VExtendedVerticalLayout)
+    	if (w instanceof VAbstractOrderedLayout)
     	{
-    		//VConsole.log("VExtendedVerticalLayout finded in parent hierarchy");
-    		VExtendedVerticalLayout bl = (VExtendedVerticalLayout) w;
-			final String type = bl.getVariableValue(E4_ELEMENT_TYPE);
-			if (type != null && ("area".equals(type) || "perspective".equals(type) || "window".equals(type)))
-			{
-				//VConsole.log("VExtendedVerticalLayout finded in parent hierarchy with type = " + type);
+    		VAbstractOrderedLayout bl = (VAbstractOrderedLayout) w;
+    		String styleName = bl.getStyleName();
+    		if (styleName != null && !styleName.isEmpty() &&
+					(styleName.contains("org_semanticsoft_vaaclipse_area") || styleName.contains("org_semanticsoft_vaaclipse_perspective") || styleName.contains("org_semanticsoft_vaaclipse_window")))
+    		{
 				return bl;
-			}
+    		}
     	}
     	
     	if (w.getParent() != null)
