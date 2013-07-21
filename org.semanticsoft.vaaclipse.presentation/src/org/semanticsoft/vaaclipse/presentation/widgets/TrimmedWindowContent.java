@@ -27,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
 public class TrimmedWindowContent extends VerticalLayout
 {
 	private VerticalLayout windowBody;
-	private ExtendedVerticalLayout windowCenterArea;
+	private VerticalLayout windowCenterArea;
 	private HorizontalLayout helperLayout;
 	private GridLayout topContainerPanel;
 	
@@ -62,8 +62,7 @@ public class TrimmedWindowContent extends VerticalLayout
 		this.addComponent(windowBody);
 		this.setExpandRatio(windowBody, 100);
 		
-		windowCenterArea = new ExtendedVerticalLayout();
-		windowCenterArea.setVariableValue(Constants.E4_ELEMENT_TYPE, Constants.TRIMMED_WINDOW_CLIENT_AREA);
+		windowCenterArea = new VerticalLayout();
 		windowCenterArea.setSizeFull();
 		
 		helperLayout = new HorizontalLayout();
@@ -90,7 +89,7 @@ public class TrimmedWindowContent extends VerticalLayout
 		//-------------------------------------------------------------------
 	}
 	
-	public ExtendedVerticalLayout getClientArea()
+	public VerticalLayout getClientArea()
 	{
 		return windowCenterArea;
 	}

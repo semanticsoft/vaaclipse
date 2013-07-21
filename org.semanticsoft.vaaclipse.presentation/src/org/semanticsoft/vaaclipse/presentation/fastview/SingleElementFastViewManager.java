@@ -323,7 +323,7 @@ public class SingleElementFastViewManager
 			ctf.setVisible(true);
 			
 			TrimmedWindowContent windowContent = (TrimmedWindowContent) vaadinWindow.getContent();
-			ExtendedVerticalLayout clientArea = windowContent.getClientArea();
+			VerticalLayout clientArea = windowContent.getClientArea();
 			
 			hostPane.setTrimmedWindowClientArea(clientArea);
 			//hostPane.setContent(ctf);
