@@ -92,6 +92,7 @@
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.jsoup"/>
+      <plugin id="org.lunifera.dependencies.bundle.javax.portlet-api"/>
       <plugin id="org.lunifera.dependencies.bundle.vaadin.addon.icepush"/>
       <plugin id="org.lunifera.dependencies.fragment.jdk" fragment="true"/>
       <plugin id="org.semanticsoft.commons"/>
@@ -108,6 +109,7 @@
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.theme"/>
       <plugin id="org.semanticsoft.vaaclipse.util"/>
+      <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.codelabel"/>
       <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.contextmenu"/>
       <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.dndlayout"/>
       <plugin id="org.semanticsoft.vaaclipse.widgets"/>

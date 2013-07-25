@@ -16,6 +16,10 @@
                value="org.semanticsoft.vaaclipsedemo.cassandra.app/Application.e4xmi">
          </property>
          <property
+               name="applicationWidgetset"
+               value="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.widgetset/resources/org.semanticsoft.vaaclipsedemo.cassandra.widgetset.Widgetset">
+         </property>
+         <property
                name="preferenceCustomization"
                value="plugin_customization.ini">
          </property>
