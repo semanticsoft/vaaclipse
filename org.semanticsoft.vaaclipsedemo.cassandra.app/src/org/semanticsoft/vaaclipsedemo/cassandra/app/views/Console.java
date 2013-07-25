@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import com.vaadin.ui.themes.Reindeer;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -52,6 +54,7 @@ public class Console
 	public void Console(VerticalLayout parent, IEclipseContext context)
 	{
 		panel = new Panel();
+		panel.addStyleName(Reindeer.PANEL_LIGHT);
 		panel.setSizeFull();
 		parent.addComponent(panel);
 		

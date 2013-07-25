@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import com.vaadin.ui.themes.Reindeer;
+
 import com.vaadin.shared.ui.label.ContentMode;
 
 import org.apache.commons.io.IOUtils;
@@ -45,6 +47,7 @@ public class TextEditor extends FileView
 		super(inputPart.getInputURI());
 		
 		panel = new Panel();
+		panel.addStyleName(Reindeer.PANEL_LIGHT);
 		panel.addStyleName("viewpanel");
 		panel.setSizeFull();
 		text = new Label();

@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import com.vaadin.ui.themes.Reindeer;
+
 import com.vaadin.shared.MouseEventDetails.MouseButton;
 
 import com.vaadin.data.util.FilesystemContainer;
@@ -111,6 +113,7 @@ public class PackageExplorer
 	public void PackageExplorer(VerticalLayout parent)
 	{
 		panel = new Panel();
+		panel.addStyleName(Reindeer.PANEL_LIGHT);
 		panel.setSizeFull();
 		parent.addComponent(panel);
 		

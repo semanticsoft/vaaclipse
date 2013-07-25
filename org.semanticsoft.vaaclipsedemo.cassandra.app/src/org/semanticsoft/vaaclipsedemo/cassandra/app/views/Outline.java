@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import com.vaadin.ui.themes.Reindeer;
+
 import com.vaadin.data.Item;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Panel;
@@ -63,6 +65,7 @@ public class Outline
 	{
 		Class<?> o = Outline. class;
 		panel = new Panel();
+		panel.addStyleName(Reindeer.PANEL_LIGHT);
 		panel.setSizeFull();
 		tree = new Tree();
 		panel.setContent(tree);

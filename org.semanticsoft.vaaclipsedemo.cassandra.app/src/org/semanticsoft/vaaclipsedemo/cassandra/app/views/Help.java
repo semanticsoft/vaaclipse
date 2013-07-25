@@ -3,6 +3,12 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.views;
 
+import com.vaadin.shared.ui.MarginInfo;
+
+import com.vaadin.ui.themes.Reindeer;
+
+import com.vaadin.ui.themes.BaseTheme;
+
 import org.apache.commons.io.IOUtils;
 
 import com.vaadin.ui.Label;
@@ -27,7 +33,9 @@ public class Help
 	@Inject
 	public void Help(VerticalLayout parent, IEclipseContext context)
 	{
+		parent.setMargin(new MarginInfo(false, false, false, true));
 		panel = new Panel();
+		panel.addStyleName(Reindeer.PANEL_LIGHT);
 		panel.setSizeFull();
 		parent.addComponent(panel);
 	}
