@@ -55,6 +55,7 @@ public class Console
 		panel.setSizeFull();
 		parent.addComponent(panel);
 		
+		text.addStyleName("textview");
 		text.setContentMode(Label.CONTENT_PREFORMATTED);
 		panel.setContent(text);
 		

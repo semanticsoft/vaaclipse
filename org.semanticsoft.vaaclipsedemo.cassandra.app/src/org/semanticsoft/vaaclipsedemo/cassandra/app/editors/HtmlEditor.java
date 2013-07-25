@@ -23,6 +23,7 @@ public class HtmlEditor extends TextEditor
 		Panel e = new Panel();
 		e.setSizeFull();
 		text = new Label(readContent(), Label.CONTENT_XHTML);
+		text.addStyleName("texteditor");
 		e.setContent(text);
 		container.addComponent(e);
 	}

@@ -52,7 +52,11 @@ public class Help
 			ex.printStackTrace();
 			content = new Label("Can not open file " + helpPath);
 		}
-		
-		panel.setContent(content);
+		finally {
+			if (content != null) {
+				content.addStyleName("textview");
+				panel.setContent(content);	
+			}
+		}
 	}
 }
