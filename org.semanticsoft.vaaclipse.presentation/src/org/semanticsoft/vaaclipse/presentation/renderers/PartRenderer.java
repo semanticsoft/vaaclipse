@@ -50,18 +50,19 @@ public class PartRenderer extends VaadinRenderer {
 	public void createWidget(MUIElement element, MElementContainer<MUIElement> parent) {
 		VerticalLayout pane = new VerticalLayout();
 		pane.setSizeFull();
-		final MPart part = (MPart) element;
-
-		CssLayout toolbarArea = new CssLayout();
-		toolbarArea.setStyleName("mparttoolbararea");
-		toolbarArea.setSizeUndefined();
-		toolbarArea.setWidth("100%");
-		pane.addComponent(toolbarArea);
-		
-		//create toolbar
+		final MPart part = (MPart) element;		
+		//toolbar
 		MToolBar toolbar = part.getToolbar();
 		if (toolbar != null && toolbar.isToBeRendered())
 		{
+			//create toolbar area
+			CssLayout toolbarArea = new CssLayout();
+			toolbarArea.setStyleName("mparttoolbararea");
+			toolbarArea.setSizeUndefined();
+			toolbarArea.setWidth("100%");
+			pane.addComponent(toolbarArea);
+			
+			//create toolbar
 			Component toolbarWidget = (Component) renderingEngine.createGui(toolbar);
 			((AbstractLayout)toolbarWidget).setSizeUndefined();
 			toolbarWidget.setStyleName("mparttoolbar");
