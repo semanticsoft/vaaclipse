@@ -18,13 +18,12 @@
 }
 
 .v-app .textview {
-	margin: 10px;
+	
 }
 
 .v-app .texteditor {
 	font-family: "Courier New", Courier, monospace;
 	font-size: 12px;
-	margin: 10px;
 }
 
 /************* jhighlight styles**************************/

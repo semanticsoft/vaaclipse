@@ -37,19 +37,19 @@ public class TextEditor extends FileView
 	EventBroker eventBroker;
 	@Inject
 	IEclipseContext context;
-	Panel e;
+	Panel panel;
 	
 	@Inject
 	public TextEditor(VerticalLayout container, MInputPart inputPart)
 	{
 		super(inputPart.getInputURI());
 		
-		e = new Panel();
-		e.addStyleName("viewpanel");
-		e.setSizeFull();
+		panel = new Panel();
+		panel.addStyleName("viewpanel");
+		panel.setSizeFull();
 		text = new Label();
-		e.setContent(text);
-		container.addComponent(e);
+		panel.setContent(text);
+		container.addComponent(panel);
 		
 		setupText();
 	}
