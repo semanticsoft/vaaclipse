@@ -69,6 +69,7 @@ public abstract class JHighlightEditor extends TextEditor
 		}
 		
 		text = new Label(html, Label.CONTENT_XHTML);
+		text.addStyleName("texteditor");
 		e.setContent(text);
 	}
 }
