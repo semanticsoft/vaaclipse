@@ -3,8 +3,7 @@
  */
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.VerticalLayout;
 import javax.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
@@ -18,13 +17,15 @@ public class HtmlEditor extends TextEditor
 	@Inject
 	public HtmlEditor(VerticalLayout container, MInputPart inputPart)
 	{
-		super(inputPart.getInputURI());
-		
-		Panel e = new Panel();
-		e.setSizeFull();
-		text = new Label(readContent(), Label.CONTENT_XHTML);
+		super(container, inputPart);
+	}
+	
+	@Override
+	protected void setupText() 
+	{
+		super.setupText();
+		text.setContentMode(ContentMode.HTML);
+		text.removeStyleName("texteditor");
 		text.addStyleName("textview");
-		e.setContent(text);
-		container.addComponent(e);
 	}
 }

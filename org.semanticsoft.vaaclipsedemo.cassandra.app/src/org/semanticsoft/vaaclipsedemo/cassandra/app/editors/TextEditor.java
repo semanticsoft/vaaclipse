@@ -11,6 +11,8 @@
 
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
+import com.vaadin.shared.ui.label.ContentMode;
+
 import org.apache.commons.io.IOUtils;
 
 import com.vaadin.ui.Label;
@@ -35,25 +37,30 @@ public class TextEditor extends FileView
 	EventBroker eventBroker;
 	@Inject
 	IEclipseContext context;
+	Panel e;
 	
 	@Inject
 	public TextEditor(VerticalLayout container, MInputPart inputPart)
 	{
 		super(inputPart.getInputURI());
 		
-		Panel e = new Panel();
+		e = new Panel();
+		e.addStyleName("viewpanel");
 		e.setSizeFull();
-		text = new Label(readContent(), Label.CONTENT_PREFORMATTED);
-		text.addStyleName("texteditor");
+		text = new Label();
 		e.setContent(text);
 		container.addComponent(e);
+		
+		setupText();
 	}
-
-	protected TextEditor(String inputURI)
+	
+	protected void setupText()
 	{
-		super(inputURI);
+		text.setContentMode(ContentMode.PREFORMATTED);
+		text.addStyleName("texteditor");
+		text.setValue(readContent());
 	}
-
+	
 	protected String readContent()
 	{
 		try

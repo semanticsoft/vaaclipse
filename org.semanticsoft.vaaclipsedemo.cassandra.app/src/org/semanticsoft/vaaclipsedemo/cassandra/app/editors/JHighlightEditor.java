@@ -4,12 +4,11 @@
 package org.semanticsoft.vaaclipsedemo.cassandra.app.editors;
 
 import com.uwyn.jhighlight.renderer.XhtmlRendererFactory;
-import com.vaadin.ui.Label;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
@@ -25,19 +24,17 @@ public abstract class JHighlightEditor extends TextEditor
 	@Inject
 	public JHighlightEditor(VerticalLayout container, MInputPart inputPart)
 	{
-		super(inputPart.getInputURI());
-		
-		e = new Panel();
-		e.setSizeFull();
-		//text = new CodeLabel(readContent());
-		container.addComponent(e);
+		super(container, inputPart);
 	}
 	
 	abstract String getJHighlighTypeName();
 	
-	@PostConstruct
-	private void pc()
+	@Override
+	protected void setupText()
 	{
+		text.setContentMode(ContentMode.HTML);
+		text.addStyleName("texteditor");
+		
 		String content = readContent();
 		String html = "";
 		if (content != null)
@@ -63,13 +60,10 @@ public abstract class JHighlightEditor extends TextEditor
 			catch (Exception e)
 			{
 				e.printStackTrace();
-				if (html.isEmpty()) //check the exception is not in finally
+				if (html.isEmpty())
 					html = e.getMessage();
 			}
+			text.setValue(html);
 		}
-		
-		text = new Label(html, Label.CONTENT_XHTML);
-		text.addStyleName("texteditor");
-		e.setContent(text);
 	}
 }
