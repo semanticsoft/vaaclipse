@@ -6,7 +6,7 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .,
- contextmenu-4.1.1.jar
+ contextmenu-4.2.1.jar
 Export-Package: org.vaadin.peter.contextmenu,
  org.vaadin.peter.contextmenu.client
 Require-Bundle: com.vaadin.server;bundle-version="7.0.0",
