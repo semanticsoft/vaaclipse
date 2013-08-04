@@ -92,7 +92,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 	@Override
 	public String getApplicationHeaderIcon()
 	{
-		return webApplication.getHeaderIconURI();
+		String uri = webApplication.getHeaderIconURI();
+		if (uri == null)
+			uri = "org.semanticsoft.vaaclipse.resources/VAADIN/themes/vaaclipse_default_theme/img/vaaclipse.png";
+		return uri;
 	}
 
 	public String getApplicationAuthenticationProvider()

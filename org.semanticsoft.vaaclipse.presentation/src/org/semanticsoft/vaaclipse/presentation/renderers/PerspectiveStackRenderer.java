@@ -11,6 +11,7 @@
 
 package org.semanticsoft.vaaclipse.presentation.renderers;
 
+import java.rmi.activation.Activatable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,12 +36,16 @@ import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.osgi.framework.ServiceReference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.semanticsoft.vaaclipse.Activator;
+import org.semanticsoft.vaaclipse.api.ResourceInfoProvider;
 import org.semanticsoft.vaaclipse.presentation.engine.GenericPresentationEngine;
 import org.semanticsoft.vaaclipse.presentation.utils.Commons;
 import org.semanticsoft.vaaclipse.presentation.utils.HierarchyUtils;
 import org.semanticsoft.vaaclipse.publicapi.model.Tags;
+import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
@@ -493,6 +498,17 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 	{
 		OptionDialog dlg = new OptionDialog();
 		dlg.setCaption("Open perspective");
+		
+		ServiceReference<ResourceInfoProvider> resourceInfoProviderRef = Activator.getInstance().getContext().getServiceReference(ResourceInfoProvider.class);
+		if (resourceInfoProviderRef != null)
+		{
+			ResourceInfoProvider resourceInfoProvider = Activator.getInstance().getContext().getService(resourceInfoProviderRef);
+			if (resourceInfoProvider.getApplicationHeaderIcon() != null)
+			{
+				dlg.setIcon(BundleResource.valueOf(resourceInfoProvider.getApplicationHeaderIcon()));
+			}
+		}
+		
 		dlg.setModal(true);
 		dlg.setWidth(360, Unit.PIXELS);
 		dlg.setHeight(440, Unit.PIXELS);

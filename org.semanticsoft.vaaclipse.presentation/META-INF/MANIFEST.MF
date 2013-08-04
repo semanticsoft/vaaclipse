@@ -32,3 +32,5 @@ Export-Package: org.semanticsoft.vaaclipse.presentation.engine,
  org.semanticsoft.vaaclipse.presentation.renderers
 Service-Component: OSGI-INF/org.semanticsoft.vaaclipse.presentation.widgetinfo.xml
 Import-Package: javax.inject;version="1.0.0",javax.annotation; version="1.0.0"
+Bundle-Activator: org.semanticsoft.vaaclipse.Activator
+Bundle-ActivationPolicy: lazy
