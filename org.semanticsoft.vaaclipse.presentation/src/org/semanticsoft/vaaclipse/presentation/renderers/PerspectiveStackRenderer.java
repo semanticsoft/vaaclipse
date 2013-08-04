@@ -64,6 +64,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author rushan
@@ -520,6 +521,7 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					
 					panel = new Panel();
 					list = new Table();
+					list.addStyleName("open_perspective_window");
 					panel.setContent(list);
 					list.setSizeFull();
 					list.setSelectable(true);
@@ -530,7 +532,6 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 					list.setRowHeaderMode(Table.ROW_HEADER_MODE_ICON_ONLY);
 					list.setItemIconPropertyId(PERSPECTIVE_ICON);
 					list.setColumnExpandRatio(PERSPECTIVE_LABEL, 1);
-					panel.setContent(list);
 				}
 				return panel;
 			}

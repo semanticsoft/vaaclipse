@@ -12,6 +12,11 @@
 	background-color: transparent;
 }
 
+.v-app .open_perspective_window .v-table-cell-content {
+	border: transparent;
+	padding-left: 0px;
+}
+
 /*
 * Toptrimbar
 */
