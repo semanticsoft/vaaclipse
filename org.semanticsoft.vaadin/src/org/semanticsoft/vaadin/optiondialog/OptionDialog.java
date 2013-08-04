@@ -69,6 +69,8 @@ public class OptionDialog extends Window {
 	private HorizontalLayout buttons = new HorizontalLayout();
 	private Map<Button, Integer> button2option = new HashMap<Button, Integer>();
 	private Map<Integer, Button> option2button = new HashMap<Integer, Button>();
+	private Float optionButtonWidth;
+	private Unit optionButtonWidthUnit;
 
 	public OptionDialog() {
 		// msgLabel.setWidth("100%");
@@ -148,6 +150,8 @@ public class OptionDialog extends Window {
 	
 	public void setOptionButtonsWidth(float width, Unit unit)
 	{
+		this.optionButtonWidth = width;
+		this.optionButtonWidthUnit = unit;
 		Iterator<Component> it = buttons.iterator();
 		while (it.hasNext())
 		{
@@ -182,6 +186,8 @@ public class OptionDialog extends Window {
 	public void addOption(int optionId, String optionText) {
 		Button button = new Button();
 		button.setCaption(optionText);
+		if (optionButtonWidth != null)
+			button.setWidth(optionButtonWidth, optionButtonWidthUnit);
 		buttons.addComponent(button);
 		buttons.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
 		button2option.put(button, optionId);

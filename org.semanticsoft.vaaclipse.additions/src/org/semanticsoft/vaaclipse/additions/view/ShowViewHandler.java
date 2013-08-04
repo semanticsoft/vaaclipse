@@ -14,7 +14,10 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
+import org.semanticsoft.vaadin.optiondialog.OptionDialog.OptionsAlign;
 
+import com.vaadin.server.ThemeResource;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -35,10 +38,14 @@ public class ShowViewHandler {
 		}
 
 		OptionDialog dlg = new OptionDialog();
+		dlg.setOptionButtonsAlignment(OptionsAlign.RIGHT);
+		dlg.setOptionButtonsWidth(80, Unit.PIXELS);
 		dlg.setWidth("350px");
 		dlg.setHeight("500px");
 		dlg.setModal(true);
 		dlg.setCaption("Show View");
+		//static resource will process this, so we set application header icon without using ResourceInfoProvider service as for Open Perspective Dialog
+		dlg.setIcon(new ThemeResource("../base/favicon.ico"));
 		ShowViewDialogContent componentProvider = ContextInjectionFactory.make(
 				ShowViewDialogContent.class, context);
 		dlg.setComponentProvider(componentProvider);
