@@ -45,6 +45,7 @@ import org.semanticsoft.vaaclipse.publicapi.resources.ResourceHelper;
 import org.semanticsoft.vaaclipse.widgets.StackWidget;
 import org.semanticsoft.vaaclipse.widgets.TwoStateToolbarButton;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
+import org.semanticsoft.vaadin.optiondialog.OptionDialog.OptionsAlign;
 import org.vaadin.peter.contextmenu.ContextMenu;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItemClickEvent;
@@ -53,6 +54,8 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -491,10 +494,12 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 		OptionDialog dlg = new OptionDialog();
 		dlg.setCaption("Open perspective");
 		dlg.setModal(true);
-		dlg.setWidth("300");
-		dlg.setHeight("600");
+		dlg.setWidth(360, Unit.PIXELS);
+		dlg.setHeight(440, Unit.PIXELS);
 		dlg.addOption(0, "OK");
 		dlg.addOption(1, "CANCEL");
+		dlg.setOptionButtonsWidth(80, Unit.PIXELS);
+		dlg.setOptionButtonsAlignment(OptionsAlign.RIGHT);
 		
 		vaadinUI.addWindow(dlg);
 		
@@ -502,13 +507,14 @@ public class PerspectiveStackRenderer extends VaadinRenderer
 			
 			Panel panel;
 			Table list;
-			IndexedContainer container = new IndexedContainer();			
+			IndexedContainer container;			
 			
 			@Override
 			public Component getComponent(OptionDialog optionDialog)
 			{
 				if (panel == null)
 				{
+					container = new IndexedContainer();
 					container.addContainerProperty(PERSPECTIVE_ICON, Resource.class, null);
 					container.addContainerProperty(PERSPECTIVE_LABEL, String.class, null);
 					

@@ -1,9 +1,11 @@
 package org.semanticsoft.vaadin.optiondialog;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.vaadin.data.util.ObjectProperty;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -15,6 +17,11 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 public class OptionDialog extends Window {
+	
+	public enum OptionsAlign {
+		LEFT, RIGHT, CENTER
+	}
+	
 	public static interface OptionListener {
 		void optionSelected(OptionDialog optionDialog, int optionId);
 	}
@@ -66,6 +73,11 @@ public class OptionDialog extends Window {
 	public OptionDialog() {
 		// msgLabel.setWidth("100%");
 		// buttons.setWidth("100%");
+		
+		buttons.setSpacing(true);
+		buttons.setMargin(new MarginInfo(false, true, false, true));
+		setOptionsPanelHeight(50, Unit.PIXELS);
+		
 		content = new VerticalLayout();
 		content.setSizeFull();
 		this.setContent(content);
@@ -113,6 +125,39 @@ public class OptionDialog extends Window {
 			this.componentProvider = componentProvider;
 		}
 	}
+	
+	public Alignment getOptionButtonsAlignment()
+	{
+		return content.getComponentAlignment(buttons);
+	}
+	
+	public void setOptionButtonsAlignment(OptionsAlign align)
+	{
+		if (align == OptionsAlign.LEFT)
+			content.setComponentAlignment(buttons, Alignment.MIDDLE_LEFT);
+		else if (align == OptionsAlign.RIGHT)
+			content.setComponentAlignment(buttons, Alignment.MIDDLE_RIGHT);
+		else if (align == OptionsAlign.CENTER)
+			content.setComponentAlignment(buttons, Alignment.MIDDLE_CENTER);
+	}
+	
+	public void setOptionsPanelHeight(float height, Unit unit)
+	{
+		buttons.setHeight(height, unit);
+	}
+	
+	public void setOptionButtonsWidth(float width, Unit unit)
+	{
+		Iterator<Component> it = buttons.iterator();
+		while (it.hasNext())
+		{
+			Component c = it.next();
+			if (c instanceof Button)
+			{
+				c.setWidth(width, unit);
+			}
+		}
+	}
 
 	public void open(UI parentWindow) {
 		parentWindow.addWindow(this);
@@ -138,9 +183,10 @@ public class OptionDialog extends Window {
 		Button button = new Button();
 		button.setCaption(optionText);
 		buttons.addComponent(button);
+		buttons.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
 		button2option.put(button, optionId);
 		option2button.put(optionId, button);
-		button.addListener(new Button.ClickListener() {
+		button.addClickListener(new Button.ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
