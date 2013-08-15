@@ -12,6 +12,7 @@ import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.core.ProvisionException;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.eclipse.equinox.p2.operations.InstallOperation;
+import org.eclipse.equinox.p2.operations.ProvisioningJob;
 import org.eclipse.equinox.p2.operations.ProvisioningSession;
 import org.eclipse.equinox.p2.query.IQuery;
 import org.eclipse.equinox.p2.query.IQueryResult;
@@ -87,6 +88,11 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 					.resolveModal(nullProgressMonitor);
 
 			resolutionDetails = installOperation.getResolutionDetails();
+			
+			ProvisioningJob provisioningJob = installOperation
+					.getProvisioningJob(null);
+			
+			provisioningJob.runModal(nullProgressMonitor);
 		} catch (IllegalArgumentException runtimeException) {
 			throw runtimeException;
 		}
