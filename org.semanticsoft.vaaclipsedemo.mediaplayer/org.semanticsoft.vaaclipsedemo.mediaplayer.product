@@ -7,7 +7,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Xmx4000m -server -Dorg.eclipse.equinox.http.jetty.context.path=/mediaplayer -Dorg.osgi.service.http.port=8080</vmArgs>
+      <vmArgs>-Xmx1024m -server -Dorg.eclipse.equinox.http.jetty.context.path=/mediaplayer -Dorg.osgi.service.http.port=8080</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
@@ -21,6 +21,7 @@
    </launcher>
 
    <vm>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
    </vm>
 
    <plugins>
@@ -48,6 +49,7 @@
       <plugin id="org.eclipse.core.filesystem"/>
       <plugin id="org.eclipse.core.filesystem.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.net"/>
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.runtime"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
@@ -60,6 +62,12 @@
       <plugin id="org.eclipse.e4.ui.model.workbench"/>
       <plugin id="org.eclipse.e4.ui.services"/>
       <plugin id="org.eclipse.e4.ui.workbench"/>
+      <plugin id="org.eclipse.ecf"/>
+      <plugin id="org.eclipse.ecf.filetransfer"/>
+      <plugin id="org.eclipse.ecf.identity"/>
+      <plugin id="org.eclipse.ecf.provider.filetransfer"/>
+      <plugin id="org.eclipse.ecf.provider.filetransfer.ssl" fragment="true"/>
+      <plugin id="org.eclipse.ecf.ssl" fragment="true"/>
       <plugin id="org.eclipse.emf.common"/>
       <plugin id="org.eclipse.emf.ecore"/>
       <plugin id="org.eclipse.emf.ecore.change"/>
@@ -72,9 +80,22 @@
       <plugin id="org.eclipse.equinox.http.jetty"/>
       <plugin id="org.eclipse.equinox.http.registry"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
+      <plugin id="org.eclipse.equinox.p2.core"/>
+      <plugin id="org.eclipse.equinox.p2.director"/>
+      <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.metadata"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+      <plugin id="org.eclipse.equinox.p2.operations"/>
+      <plugin id="org.eclipse.equinox.p2.repository"/>
+      <plugin id="org.eclipse.equinox.p2.transport.ecf"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.security"/>
+      <plugin id="org.eclipse.equinox.security.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.equinox.simpleconfigurator"/>
+      <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
       <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.jetty.continuation"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>
@@ -87,6 +108,8 @@
       <plugin id="org.jsoup"/>
       <plugin id="org.lunifera.dependencies.bundle.vaadin.addon.icepush"/>
       <plugin id="org.lunifera.dependencies.fragment.jdk" fragment="true"/>
+      <plugin id="org.sat4j.core"/>
+      <plugin id="org.sat4j.pb"/>
       <plugin id="org.semanticsoft.commons"/>
       <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
       <plugin id="org.semanticsoft.e4extension"/>
@@ -96,9 +119,9 @@
       <plugin id="org.semanticsoft.vaaclipse.app"/>
       <plugin id="org.semanticsoft.vaaclipse.behaviour"/>
       <plugin id="org.semanticsoft.vaaclipse.contributions"/>
+      <plugin id="org.semanticsoft.vaaclipse.p2.service"/>
       <plugin id="org.semanticsoft.vaaclipse.presentation"/>
       <plugin id="org.semanticsoft.vaaclipse.publicapi"/>
-      <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.theme"/>
       <plugin id="org.semanticsoft.vaaclipse.util"/>
       <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.contextmenu"/>
@@ -109,6 +132,7 @@
       <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
+      <plugin id="org.slf4j.api"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
@@ -117,13 +141,14 @@
    </plugins>
 
    <configurations>
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.e4.ui.services" autoStart="false" startLevel="1" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
       <plugin id="org.semanticsoft.vaaclipse.app" autoStart="false" startLevel="2" />
+      <plugin id="org.semanticsoft.vaaclipse.p2.service" autoStart="true" startLevel="2" />
       <plugin id="org.semanticsoft.vaadin.osgi.staticres" autoStart="true" startLevel="0" />
    </configurations>
 
