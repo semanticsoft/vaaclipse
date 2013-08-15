@@ -75,6 +75,8 @@
       <children xsi:type="menu:Menu" xmi:id="_xC5CRjDGEeKcFLjGBzrJfw" label="Help">
         <children xsi:type="menu:DirectMenuItem" xmi:id="_C8hxAFm-EeKUIKT1CIcS7g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.directmenuitem.0" label="Logged Users Count" tooltip="Total logged users count since Mediaplayer start" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.help.UsersCountHandler"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xC5CRzDGEeKcFLjGBzrJfw" label="About" command="_xC4bQjDGEeKcFLjGBzrJfw"/>
+      <children xsi:type="menu:DirectMenuItem" xmi:id="_xC5CRzDGEeKcFLjGBzrJhh" label="Install New Software" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.help.InstallNewSoftwareHandler"/>
+      
       </children>
     </mainMenu>
     <sharedElements xsi:type="basic:Part" xmi:id="_Odwi0DDdEeKcFLjGBzrJfw" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.part.player" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.views.PlayerView" label="Player" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.mediaplayer/icons/player.png" tooltip="Player"/>
@@ -125,6 +127,7 @@
   <handlers xmi:id="_JCy9sD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.AddCategory" command="_Cp6JAD99EeKod85Q1rNT2g"/>
   <handlers xmi:id="_LNLxoD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.addMedia" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.medialib.AddMedia" command="_E3YGID99EeKod85Q1rNT2g"/>
   <handlers xmi:id="_JSj5IEyQEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.theme.ChangeThemeHandler" command="_hiBt0EyQEeKbU9kDDO2U-g"/>
+  <handlers xmi:id="_HHHHHHHHHHHHHHHHHHHH-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.handler.0" contributionURI="bundleclass://org.semanticsoft.vaaclipsedemo.mediaplayer/org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.help.InstallNewSoftwareHandler" command="_hiBt0EyQEeKbU9kDDO2L-g"/>
   <bindingTables xmi:id="_xC4bOjDGEeKcFLjGBzrJfw" bindingContext="_xC30IDDGEeKcFLjGBzrJfw">
     <bindings xmi:id="_xC4bOzDGEeKcFLjGBzrJfw" keySequence="M1+Q" command="_xC4bODDGEeKcFLjGBzrJfw"/>
     <bindings xmi:id="_xC4bPjDGEeKcFLjGBzrJfw" keySequence="M1+O"/>
@@ -161,7 +164,8 @@
   <commands xmi:id="_Xq7NsD8aEeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.removeFromLibrary" commandName="removeFromLibrary"/>
   <commands xmi:id="_Cp6JAD99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.addCategory" commandName="addCategory"/>
   <commands xmi:id="_E3YGID99EeKod85Q1rNT2g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.addMedia" commandName="addMedia"/>
-  <commands xmi:id="_hiBt0EyQEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.changeTheme" commandName="changeTheme">
+  <commands xmi:id="_hiBt0EyQEeKbU9kDDO2U-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.changeTheme" commandName="changeTheme"/>
+  <commands xmi:id="_hiBt0EyQEeKbU9kDDO2L-g" elementId="org.semanticsoft.vaaclipsedemo.mediaplayer.command.InstallNewSoftware" commandName="InstallNewSoftware"> 
     <parameters xmi:id="_Eho14EySEeKbU9kDDO2U-g" elementId="theme" name="theme"/>
   </commands>
   <addons xmi:id="_xC4bMjDGEeKcFLjGBzrJfw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
