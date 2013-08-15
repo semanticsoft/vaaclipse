@@ -22,7 +22,7 @@ public class AboutHandler
 	@Execute
 	public void about(UI ui)
 	{
-		OptionDialog.show(ui, "About", String.format("Mediaplayer - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 100, Unit.PIXELS, OptionDialog.CLOSE_LISTENER);
+		OptionDialog.show(ui, "About", String.format("Mediaplayer - demo application for Vaaclipse Framework"), new String[] {"OK"}, 500, 150, Unit.PIXELS, OptionDialog.CLOSE_LISTENER);
 	}	
 	
 }
