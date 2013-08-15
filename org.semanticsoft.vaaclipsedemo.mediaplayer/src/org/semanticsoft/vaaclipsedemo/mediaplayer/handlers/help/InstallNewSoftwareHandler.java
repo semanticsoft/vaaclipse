@@ -75,6 +75,8 @@ public class InstallNewSoftwareHandler {
 				// TODO Auto-generated method stub
 
 				String value = textField.getValue();
+				System.out.println("Value "+value);
+				tree.removeAllItems();
 				if (value != null && !value.trim().isEmpty()) {
 					loadRepository.addAll(installService.loadRepository(value,
 							provisioningAgent));
@@ -94,7 +96,11 @@ public class InstallNewSoftwareHandler {
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 
-				List<IInstallableUnit> listFinal = new ArrayList<>();
+				tree.removeAllItems();
+				
+				
+				
+				/*List<IInstallableUnit> listFinal = new ArrayList<>();
 				Set values = (Set) tree.getValue();
 				for (Object string : values) {
 					System.out.println(string);
@@ -107,15 +113,16 @@ public class InstallNewSoftwareHandler {
 						}
 					}
 
-				}
+				}*/
+				
 				textArea.setValue("");
 
-				String installNewSoftware = "";
+				String installNewSoftware = "OK";
 				try {
 					installNewSoftware = installService
-							.installNewSoftware(listFinal);
+							.installNewSoftware(loadRepository);
 
-				} catch (IllegalArgumentException exception) {
+				} catch (Exception exception) {
 
 					exception.printStackTrace();
 					if (exception.getMessage().contains(
@@ -123,7 +130,7 @@ public class InstallNewSoftwareHandler {
 
 						textArea.setValue("You must export via .product file first");
 					else
-						textArea.setValue(exception.getMessage());
+						textArea.setValue(exception.getMessage()+"Something bat happended");
 
 					return;
 
