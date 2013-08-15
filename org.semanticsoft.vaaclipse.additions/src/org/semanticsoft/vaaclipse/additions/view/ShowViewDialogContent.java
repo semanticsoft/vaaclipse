@@ -24,6 +24,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.MouseEventDetails.MouseButton;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
@@ -120,13 +121,13 @@ class ShowViewDialogContent implements ComponentProvider
 		tree.setItemCaptionPropertyId(NAME_PROP);
 		tree.setItemIconPropertyId(ICON_PROP);
 		
-		tree.addListener(new ItemClickEvent.ItemClickListener() {
+		tree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 
 			private static final long serialVersionUID = 1L;
 
 			public void itemClick(final ItemClickEvent event)
 			{
-				if (event.getButton() == ItemClickEvent.BUTTON_LEFT)
+				if (event.getButton() == MouseButton.LEFT)
 				{
 					Item item = event.getItem();
 					Object object = item.getItemProperty(OBJECT_PROP).getValue();
@@ -176,6 +177,7 @@ class ShowViewDialogContent implements ComponentProvider
 			}
 			if (isView) {
 				Item descriptorItem = data.addItem(descriptor);
+				data.setChildrenAllowed(descriptor, false);
 				setupDescriptorItem(descriptorItem, descriptor);
 				
 				if (category != null)
