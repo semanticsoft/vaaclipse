@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -74,6 +72,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		List<IInstallableUnit> list = new ArrayList<IInstallableUnit>();
 		for (IInstallableUnit iInstallableUnit : query) {
 
+			System.out.println(iInstallableUnit);
 			list.add(iInstallableUnit);
 
 		}
@@ -126,6 +125,17 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 			throw new IllegalArgumentException(
 					"Must first call method laod repository");
 		}
+		List<IInstallableUnit> listFinalToInstall = new ArrayList<>();
+		for (IInstallableUnit iInstallableUnit : listIInstallableUnits) {
+
+			if (!QueryUtil.isGroup(iInstallableUnit)) {
+				listFinalToInstall.add(iInstallableUnit);
+			}
+		}
+
+		listFinalToInstall.addAll(getUpdatedGroups());
+
+		listIInstallableUnits = listFinalToInstall;
 
 		try {
 
@@ -209,10 +219,34 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+
 			throw e;
 		}
 
 		return "Wait a minute and see to plugins folder if jar was added than restart application";
+	}
+
+	private List<IInstallableUnit> getUpdatedGroups() {
+		nullProgressMonitor = new NullProgressMonitor();
+		this.agent = agent;
+
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		try {
+			loadRepository = metadataRepositoryManager.loadRepository(uri, 0,
+					nullProgressMonitor);
+		} catch (ProvisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		IQuery<IInstallableUnit> createQuery = QueryUtil.createIUGroupQuery();
+
+		IQueryResult<IInstallableUnit> query = loadRepository.query(
+				createQuery, nullProgressMonitor);
+		List<IInstallableUnit> list = toList(query);
+		return list;
 	}
 
 	@Override

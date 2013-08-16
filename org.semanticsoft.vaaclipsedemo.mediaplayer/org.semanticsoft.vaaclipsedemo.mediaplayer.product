@@ -128,6 +128,10 @@
       <plugin id="org.eclipse.equinox.p2.touchpoint.natives.source"/>
       <plugin id="org.eclipse.equinox.p2.transport.ecf"/>
       <plugin id="org.eclipse.equinox.p2.transport.ecf.source"/>
+      <plugin id="org.eclipse.equinox.p2.updatechecker"/>
+      <plugin id="org.eclipse.equinox.p2.updatechecker.source"/>
+      <plugin id="org.eclipse.equinox.p2.updatesite"/>
+      <plugin id="org.eclipse.equinox.p2.updatesite.source"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.security"/>
@@ -177,8 +181,6 @@
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
-      <plugin id="slf4j.api"/>
-      <plugin id="slf4j.jcl" fragment="true"/>
    </plugins>
 
    <configurations>
