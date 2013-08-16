@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -33,6 +31,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	URI uri;
 
 	IProvisioningAgent agent;
+	IMetadataRepository loadRepository = null;
 
 	@Override
 	public List<IInstallableUnit> loadRepository(String uriString,
@@ -49,7 +48,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
-		IMetadataRepository loadRepository = null;
+
 		try {
 			loadRepository = metadataRepositoryManager.loadRepository(uri, 0,
 					nullProgressMonitor);
@@ -58,18 +57,44 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 			e.printStackTrace();
 		}
 
-		IQuery<IInstallableUnit> createQuery = QueryUtil.createIUAnyQuery();
+		IQuery<IInstallableUnit> createQuery = QueryUtil
+				.createIUCategoryQuery();
+
 		IQueryResult<IInstallableUnit> query = loadRepository.query(
 				createQuery, nullProgressMonitor);
-		List<IInstallableUnit> list = new ArrayList<IInstallableUnit>();
-		for (IInstallableUnit iInstallableUnit : query) {
-
-			list.add(iInstallableUnit);
-
-		}
+		List<IInstallableUnit> list = toList(query);
 
 		return list;
 
+	}
+
+	private List<IInstallableUnit> toList(IQueryResult<IInstallableUnit> query) {
+		List<IInstallableUnit> list = new ArrayList<IInstallableUnit>();
+		for (IInstallableUnit iInstallableUnit : query) {
+
+			System.out.println(iInstallableUnit);
+			list.add(iInstallableUnit);
+
+		}
+		return list;
+	}
+
+	@Override
+	public boolean isCategory(IInstallableUnit installableUnit) {
+
+		return QueryUtil.isCategory(installableUnit);
+	}
+
+	@Override
+	public List<IInstallableUnit> extractFromCategory(IInstallableUnit category) {
+
+		IQuery<IInstallableUnit> createIUCategoryMemberQuery = QueryUtil
+				.createIUCategoryMemberQuery(category);
+
+		IQueryResult<IInstallableUnit> query = loadRepository.query(
+				createIUCategoryMemberQuery, nullProgressMonitor);
+
+		return toList(query);
 	}
 
 	@Override
@@ -95,137 +120,133 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	public String installNewSoftware(
 			List<IInstallableUnit> listIInstallableUnits) {
 
+		if (uri == null || agent == null || nullProgressMonitor == null) {
+
+			throw new IllegalArgumentException(
+					"Must first call method laod repository");
+		}
+		List<IInstallableUnit> listFinalToInstall = new ArrayList<>();
+		for (IInstallableUnit iInstallableUnit : listIInstallableUnits) {
+
+			if (!QueryUtil.isGroup(iInstallableUnit)) {
+				listFinalToInstall.add(iInstallableUnit);
+			}
+		}
+
+		listFinalToInstall.addAll(getUpdatedGroups());
+
+		listIInstallableUnits = listFinalToInstall;
+
 		try {
 
-			// TODO Auto-generated method stub
-			// TODO Auto-generated method stub
+			final ProvisioningSession session = new ProvisioningSession(agent);
+			InstallOperation installOperation = new InstallOperation(session,
+					listIInstallableUnits);
 
-			NullProgressMonitor monitor = new NullProgressMonitor();
-			try {
-				MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
-						agent);
-				/*
-				 * metadataRepositoryManager .addRepository(new URI(
-				 * "http://update.zeroturnaround.com/update-site"));
-				 */
+			installOperation.getProvisioningContext().setArtifactRepositories(
+					new URI[] { uri });
+			installOperation.getProvisioningContext().setMetadataRepositories(
+					new URI[] { uri });
 
-				
-				
+			IStatus resolveModal = installOperation
+					.resolveModal(nullProgressMonitor);
 
-				IMetadataRepository loadRepository = metadataRepositoryManager
-						.loadRepository(uri, 0, monitor);
+			String resolutionDetails = installOperation.getResolutionDetails();
 
-				IQuery<IInstallableUnit> createQuery = QueryUtil
-						.createIUAnyQuery();
-
-				IQueryResult<IInstallableUnit> query = loadRepository.query(
-						createQuery, monitor);
-
-				List<IInstallableUnit> list = new ArrayList<IInstallableUnit>();
-				for (IInstallableUnit iInstallableUnit : query) {
-
-					System.out.println("...----." + iInstallableUnit);
-					list.add(iInstallableUnit);
-
-				}
-
-				final ProvisioningSession session = new ProvisioningSession(
-						agent);
-				InstallOperation installOperation = new InstallOperation(
-						session, list);
-
-				installOperation.getProvisioningContext()
-						.setArtifactRepositories(new URI[] { uri });
-				installOperation.getProvisioningContext()
-						.setMetadataRepositories(new URI[] { uri });
-
-				IStatus resolveModal = installOperation.resolveModal(monitor);
-
-				String resolutionDetails = installOperation
-						.getResolutionDetails();
-
-				if (resolveModal.isOK() == true) {
-
-				}else{
-					return resolutionDetails;
-				}
-				
-				if (resolveModal.getCode() == resolveModal.OK) {
-
-				} else if (resolveModal.getCode() == resolveModal.ERROR) {
-
-					return resolutionDetails;
-				} else if (resolveModal.getCode() == resolveModal.WARNING) {
-					return resolutionDetails;
-				} else if (resolveModal.getCode() == resolveModal.CANCEL) {
-					return resolutionDetails;
-				} else if (resolveModal.getCode() == resolveModal.INFO) {
-					return resolutionDetails;
-				}else 
-					return resolutionDetails;
-				
-				if(resolveModal.getSeverity()==IStatus.ERROR){
-					return resolutionDetails;
-				}
-
-				ProvisioningJob provisioningJob = installOperation
-						.getProvisioningJob(null);
-
-				provisioningJob.addJobChangeListener(new JobChangeAdapter() {
-
-					@Override
-					public void scheduled(IJobChangeEvent event) {
-						// TODO Auto-generated method stub
-
-						super.scheduled(event);
-					}
-
-					@Override
-					public void sleeping(IJobChangeEvent event) {
-						// TODO Auto-generated method stub
-
-						super.sleeping(event);
-					}
-
-					@Override
-					public void aboutToRun(IJobChangeEvent event) {
-						// TODO Auto-generated method stub
-
-						super.aboutToRun(event);
-
-					}
-
-					@Override
-					public void running(IJobChangeEvent event) {
-						// TODO Auto-generated method stub
-
-						super.running(event);
-					}
-
-					@Override
-					public void done(IJobChangeEvent event) {
-						// TODO Auto-generated method stub
-
-						super.done(event);
-					}
-
-				});
-
-				IStatus run = provisioningJob.runModal(monitor);
-
-			} catch (ProvisionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-
-			}  catch (Exception e) {
-				// TODO: handle exception
-
+			if (!resolveModal.isOK()) {
+				return resolutionDetails;
+			}
+			if (resolveModal.getSeverity() == IStatus.ERROR) {
+				return resolutionDetails;
 			}
 
-		} catch (Exception e) {
+			if (resolveModal.getCode() == IStatus.ERROR) {
 
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.WARNING) {
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.CANCEL) {
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.INFO) {
+				return resolutionDetails;
+			}
+
+			ProvisioningJob provisioningJob = installOperation
+					.getProvisioningJob(null);
+
+			provisioningJob.addJobChangeListener(new JobChangeAdapter() {
+
+				@Override
+				public void scheduled(IJobChangeEvent event) {
+					// TODO Auto-generated method stub
+
+					super.scheduled(event);
+				}
+
+				@Override
+				public void sleeping(IJobChangeEvent event) {
+					// TODO Auto-generated method stub
+
+					super.sleeping(event);
+				}
+
+				@Override
+				public void aboutToRun(IJobChangeEvent event) {
+					// TODO Auto-generated method stub
+
+					super.aboutToRun(event);
+
+				}
+
+				@Override
+				public void running(IJobChangeEvent event) {
+					// TODO Auto-generated method stub
+
+					super.running(event);
+				}
+
+				@Override
+				public void done(IJobChangeEvent event) {
+					// TODO Auto-generated method stub
+
+					super.done(event);
+				}
+
+			});
+
+			IStatus run = provisioningJob.runModal(nullProgressMonitor);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+			throw e;
 		}
+
 		return "Wait a minute and see to plugins folder if jar was added than restart application";
+	}
+
+	private List<IInstallableUnit> getUpdatedGroups() {
+		nullProgressMonitor = new NullProgressMonitor();
+		this.agent = agent;
+
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		try {
+			loadRepository = metadataRepositoryManager.loadRepository(uri, 0,
+					nullProgressMonitor);
+		} catch (ProvisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		IQuery<IInstallableUnit> createQuery = QueryUtil.createIUGroupQuery();
+
+		IQueryResult<IInstallableUnit> query = loadRepository.query(
+				createQuery, nullProgressMonitor);
+		List<IInstallableUnit> list = toList(query);
+		return list;
 	}
 
 	@Override
