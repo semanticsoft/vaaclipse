@@ -15,7 +15,9 @@ public interface IInstallNewSoftwareService {
 	String loadAndInstallNewSoftware(String uriString, IProvisioningAgent agent);
 
 	String validate(List<IInstallableUnit> listIInstallableUnits);
-
 	
+	List<IInstallableUnit> extractFromCategory(IInstallableUnit category);
+
+	boolean isCategory(IInstallableUnit installableUnit);
 	
 }
