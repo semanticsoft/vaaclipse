@@ -1,9 +1,7 @@
 package org.semanticsoft.vaaclipsedemo.mediaplayer.handlers.help;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -11,13 +9,10 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
-import org.semanticsoft.vaaclipsedemo.mediaplayer.MediaplayerActivator;
-import org.semanticsoft.vaadin.optiondialog.OptionDialog;
-
 import com.vaadin.event.FieldEvents;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
@@ -26,7 +21,6 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
 
 public class InstallNewSoftwareHandler {
 	@Inject
@@ -67,7 +61,7 @@ public class InstallNewSoftwareHandler {
 		textArea.setImmediate(true);
 		textArea.setSizeFull();
 
-		final List<IInstallableUnit> loadRepository = new ArrayList<>();
+		final List<IInstallableUnit> loadRepository = new ArrayList<IInstallableUnit>();
 		textField.addBlurListener(new FieldEvents.BlurListener() {
 
 			@Override
@@ -75,7 +69,7 @@ public class InstallNewSoftwareHandler {
 				// TODO Auto-generated method stub
 
 				String value = textField.getValue();
-				System.out.println("Value "+value);
+				System.out.println("Value " + value);
 				tree.removeAllItems();
 				if (value != null && !value.trim().isEmpty()) {
 					loadRepository.addAll(installService.loadRepository(value,
@@ -97,24 +91,21 @@ public class InstallNewSoftwareHandler {
 				// TODO Auto-generated method stub
 
 				tree.removeAllItems();
-				
-				
-				
-				/*List<IInstallableUnit> listFinal = new ArrayList<>();
-				Set values = (Set) tree.getValue();
-				for (Object string : values) {
-					System.out.println(string);
-					for (IInstallableUnit iInstallableUnit : loadRepository) {
 
-						if (string.equals(iInstallableUnit.getId() + " "
-								+ iInstallableUnit.getVersion())) {
-							System.out.println("Ok found it");
-							listFinal.add(iInstallableUnit);
-						}
-					}
+				/*
+				 * List<IInstallableUnit> listFinal = new ArrayList<>(); Set
+				 * values = (Set) tree.getValue(); for (Object string : values)
+				 * { System.out.println(string); for (IInstallableUnit
+				 * iInstallableUnit : loadRepository) {
+				 * 
+				 * if (string.equals(iInstallableUnit.getId() + " " +
+				 * iInstallableUnit.getVersion())) {
+				 * System.out.println("Ok found it");
+				 * listFinal.add(iInstallableUnit); } }
+				 * 
+				 * }
+				 */
 
-				}*/
-				
 				textArea.setValue("");
 
 				String installNewSoftware = "OK";
@@ -130,7 +121,8 @@ public class InstallNewSoftwareHandler {
 
 						textArea.setValue("You must export via .product file first");
 					else
-						textArea.setValue(exception.getMessage()+"Something bat happended");
+						textArea.setValue(exception.getMessage()
+								+ "Something bat happended");
 
 					return;
 

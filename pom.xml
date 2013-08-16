@@ -150,6 +150,9 @@
 				<module>org.semanticsoft.vaaclipse.resources</module>
 				<module>org.semanticsoft.vaaclipse.theme</module>
 				<module>org.semanticsoft.vaaclipse.util</module>
+				
+				<module>org.semanticsoft.vaaclipse.p2.service</module>
+				
 				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
