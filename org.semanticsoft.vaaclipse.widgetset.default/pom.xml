@@ -15,7 +15,7 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.vaadin.peter</groupId>
+			<groupId>org.vaadin.addons</groupId>
 			<artifactId>contextmenu</artifactId>
 			<version>4.2.1</version>
 		</dependency>
