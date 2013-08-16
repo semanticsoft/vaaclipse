@@ -200,7 +200,7 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 						OptionDialog.show(vaadinUI, caption,
 								msg, 
 								new String[] {"Yes", "No", "Cancel"},
-								400, 80, Component.UNITS_PIXELS,
+								400, 140, Unit.PIXELS,
 								new OptionDialog.OptionListener() {
 
 									@Override

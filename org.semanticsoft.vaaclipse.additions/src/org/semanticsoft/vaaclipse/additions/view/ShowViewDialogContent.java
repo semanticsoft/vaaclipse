@@ -20,14 +20,24 @@ import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
 
+import com.vaadin.data.Container.Filter;
+import com.vaadin.data.Container.Filterable;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
+import com.vaadin.data.util.filter.SimpleStringFilter;
+import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.MouseEventDetails.MouseButton;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
+import com.vaadin.ui.VerticalLayout;
 
 
 /**
@@ -60,19 +70,48 @@ class ShowViewDialogContent implements ComponentProvider
 	
 	@Inject
 	IEclipseContext context;
+	private VerticalLayout content;
+	private TextField searchField;
 	
 	@Override
 	public Component getComponent(OptionDialog optionDialog)
 	{
 		this.optionDialog = optionDialog;
-		return this.panel;
+		return this.content;
 	}
 	
 	@PostConstruct
 	public void init()
 	{
+		content = new VerticalLayout();
+		content.setSpacing(true);
+		content.setMargin(new MarginInfo(true, true, false, true));
+		searchField = new TextField();
+		searchField.focus();
+		searchField.setWidth(100, Unit.PERCENTAGE);
+		searchField.addTextChangeListener(new TextChangeListener() {
+			SimpleStringFilter filter = null;
+			@Override
+			public void textChange(TextChangeEvent event) {
+				Filterable f = (Filterable) tree.getContainerDataSource();
+		        
+		        // Remove old filter
+		        if (filter != null)
+		            f.removeContainerFilter(filter);
+		        
+		        // Set new filter for the "caption" property
+		        filter = new SimpleStringFilter(NAME_PROP, event.getText(),
+		                                        true, false);
+		        f.addContainerFilter(filter);
+			}
+		});
+		content.addComponent(searchField);
 		panel = new Panel();
+		panel.setSizeFull();
+		content.addComponent(panel);
 		createTree();
+		content.setExpandRatio(searchField, 0);
+		content.setExpandRatio(panel, 1);
 	}
 	
 	@Override
@@ -120,13 +159,13 @@ class ShowViewDialogContent implements ComponentProvider
 		tree.setItemCaptionPropertyId(NAME_PROP);
 		tree.setItemIconPropertyId(ICON_PROP);
 		
-		tree.addListener(new ItemClickEvent.ItemClickListener() {
+		tree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 
 			private static final long serialVersionUID = 1L;
 
 			public void itemClick(final ItemClickEvent event)
 			{
-				if (event.getButton() == ItemClickEvent.BUTTON_LEFT)
+				if (event.getButton() == MouseButton.LEFT)
 				{
 					Item item = event.getItem();
 					Object object = item.getItemProperty(OBJECT_PROP).getValue();
@@ -154,7 +193,6 @@ class ShowViewDialogContent implements ComponentProvider
 	private HierarchicalContainer createDataSource()
 	{
 		HierarchicalContainer data = new HierarchicalContainer();
-		
 		data.addContainerProperty(NAME_PROP, String.class, "No Name");
 		data.addContainerProperty(ICON_PROP, ThemeResource.class, null);
 		data.addContainerProperty(OBJECT_PROP, Object.class, null);
@@ -176,6 +214,7 @@ class ShowViewDialogContent implements ComponentProvider
 			}
 			if (isView) {
 				Item descriptorItem = data.addItem(descriptor);
+				data.setChildrenAllowed(descriptor, false);
 				setupDescriptorItem(descriptorItem, descriptor);
 				
 				if (category != null)

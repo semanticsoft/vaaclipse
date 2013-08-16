@@ -24,6 +24,6 @@ public class UsersCountHandler
 		int usersCount = MediaplayerActivator.getInstance().getUserCounter().getValue();
 		String startTime = new SimpleDateFormat("dd.MM.yyyy HH:mm z").format(MediaplayerActivator.getInstance().getStartTime());
 		
-		OptionDialog.show(ui, "Total Logged Users Count", String.format("%s users was logged to Mediaplayer since application has started at %s", usersCount, startTime), new String[] {"OK"}, 500, 100, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
+		OptionDialog.show(ui, "Total Logged Users Count", String.format("%s users was logged to Mediaplayer since application has started at %s", usersCount, startTime), new String[] {"OK"}, 500, 150, Component.UNITS_PIXELS, OptionDialog.CLOSE_LISTENER);
 	}
 }
