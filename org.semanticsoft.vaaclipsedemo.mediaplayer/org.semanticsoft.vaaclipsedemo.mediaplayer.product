@@ -163,6 +163,7 @@
       <plugin id="org.semanticsoft.vaaclipse.p2.service"/>
       <plugin id="org.semanticsoft.vaaclipse.presentation"/>
       <plugin id="org.semanticsoft.vaaclipse.publicapi"/>
+      <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
       <plugin id="org.semanticsoft.vaaclipse.theme"/>
       <plugin id="org.semanticsoft.vaaclipse.util"/>
       <plugin id="org.semanticsoft.vaaclipse.vaadin.addon.contextmenu"/>
