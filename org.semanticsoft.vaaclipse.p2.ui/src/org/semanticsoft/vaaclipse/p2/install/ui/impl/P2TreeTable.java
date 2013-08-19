@@ -82,7 +82,7 @@ public class P2TreeTable implements IRepositoryExplorer {
 	@Override
 	public void fill(List<IInstallableUnit> iInstallableUnits) {
 
-		treeTable.removeAllItems();
+		clear();
 		loadRepository.addAll(iInstallableUnits);
 		for (IInstallableUnit iInstallableUnit : loadRepository) {
 
@@ -95,6 +95,14 @@ public class P2TreeTable implements IRepositoryExplorer {
 
 		}
 
+	}
+
+	private void clear() {
+		treeTable.removeAllItems();
+		selectedRepository.clear();
+		loadRepository.clear();
+		childsLinkedToRoot.clear();
+		listChecks.clear();
 	}
 
 	@Override
