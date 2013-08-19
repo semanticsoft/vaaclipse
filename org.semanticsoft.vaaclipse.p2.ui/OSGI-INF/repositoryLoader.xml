@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.semanticsoft.vaaclipse.p2.ui3">
+   <implementation class="org.semanticsoft.vaaclipse.p2.install.ui.impl.RepositoryLoader"/>
+   <service>
+      <provide interface="org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryLoader"/>
+   </service>
+</scr:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.semanticsoft.vaaclipse.p2.ui1">
+   <implementation class="org.semanticsoft.vaaclipse.p2.install.ui.impl.LoadExplorRepositoryView"/>
+   <reference bind="setiRepositoryExplorer" cardinality="1..1" interface="org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryExplorer" name="IRepositoryExplorer" policy="dynamic"/>
+   <reference bind="setiRepositoryLoader" cardinality="1..1" interface="org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryLoader" name="IRepositoryLoader" policy="dynamic"/>
+   <service>
+      <provide interface="org.semanticsoft.vaaclipse.p2.install.ui.ILoadExplorRepoistory"/>
+   </service>
+   
+</scr:component>
+
+
+  
