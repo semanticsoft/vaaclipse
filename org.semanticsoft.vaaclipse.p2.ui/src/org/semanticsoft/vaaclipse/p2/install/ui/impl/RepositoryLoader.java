@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryExplorer;
@@ -42,12 +43,15 @@ public class RepositoryLoader implements IRepositoryLoader {
 
 	public void initUI() {
 
+		final Label errorLabel = new Label();
+		errorLabel.setImmediate(true);
 		Label label = new Label("Enter URI here");
 
 		final TextField textField = new TextField();
 		textField.setValue("http://localhost/MyUpdateSite");
 		textField.setImmediate(true);
 
+		mainLayout.addComponent(errorLabel);
 		mainLayout.addComponent(label);
 		mainLayout.addComponent(textField);
 
@@ -57,7 +61,7 @@ public class RepositoryLoader implements IRepositoryLoader {
 			@Override
 			public void handleAction(Object sender, Object target) {
 				// TODO Auto-generated method stub
-
+				errorLabel.setValue("");
 				validate = true;
 				String value = textField.getValue();
 
@@ -69,6 +73,9 @@ public class RepositoryLoader implements IRepositoryLoader {
 					} catch (Exception e) {
 						validate = false;
 						e.printStackTrace();
+
+						errorLabel.setValue("URI is not valid");
+
 						errorMessage = e.getMessage();
 					}
 					iRepositoryExplorer.fill(loadRepository);

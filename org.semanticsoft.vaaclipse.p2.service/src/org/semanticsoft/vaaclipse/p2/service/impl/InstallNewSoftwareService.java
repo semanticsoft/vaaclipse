@@ -55,6 +55,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		} catch (ProvisionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 
 		IQuery<IInstallableUnit> createQuery = QueryUtil

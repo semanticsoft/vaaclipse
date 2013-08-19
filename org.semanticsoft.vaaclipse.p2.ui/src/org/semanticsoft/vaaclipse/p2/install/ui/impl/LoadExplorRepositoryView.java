@@ -1,12 +1,17 @@
 package org.semanticsoft.vaaclipse.p2.install.ui.impl;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.install.ui.IBasicUI;
 import org.semanticsoft.vaaclipse.p2.install.ui.ILoadExplorRepoistory;
 import org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryExplorer;
 import org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryLoader;
+import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
@@ -20,8 +25,10 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 
 	private IRepositoryExplorer iRepositoryExplorer;
 	String errorMessage;
+	TextArea textArea;
 
 	VerticalLayout mainLayout = new VerticalLayout();
+	IInstallNewSoftwareService installService;
 
 	@Override
 	public Object getUIComponent() {
@@ -29,47 +36,74 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 		return mainLayout;
 	}
 
-	@Inject
 	public LoadExplorRepositoryView() {
 		// TODO Auto-generated constructor stub
 
 	}
 
 	public LoadExplorRepositoryView(IRepositoryLoader iRepositoryLoader,
-			IRepositoryExplorer iRepositoryExplorer) {
+			IRepositoryExplorer iRepositoryExplorer,
+			IInstallNewSoftwareService installNewSoftwareService) {
 		super();
-		this.iRepositoryLoader = iRepositoryLoader;
-		this.iRepositoryExplorer = iRepositoryExplorer;
+		setiRepositoryExplorer(iRepositoryExplorer);
+		setiRepositoryLoader(iRepositoryLoader);
+		this.installService = installNewSoftwareService;
+		initUI();
 	}
 
 	@Override
 	public void initUI() {
 		// TODO Auto-generated method stub
 
-		CssLayout errorLayout = new CssLayout();
-
 		mainLayout.setWidth("600px");
 		mainLayout.setHeight("450px");
-		mainLayout.addComponent(errorLayout);
-
+		textArea = new TextArea("Error Message");
 		getiRepositoryLoader().setiRepositoryExplorer(getiRepositoryExplorer());
 
-		System.out.println("Vlera eshte " + getiRepositoryExplorer() + "  ");
 		mainLayout.addComponent((Component) getiRepositoryLoader()
 				.getUIComponent());
 		mainLayout.addComponent((Component) getiRepositoryExplorer()
 				.getUIComponent());
-
-		Label c = new Label(getiRepositoryLoader().errorMessage());
-		c.setImmediate(true);
-
-		errorLayout.addComponent(c);
+		textArea.setSizeFull();
+		mainLayout.addComponent(textArea);
 
 	}
 
 	public boolean validate() {
 
-		return false;
+		textArea.setValue("");
+
+		String installNewSoftware = "OK";
+		try {
+			List<IInstallableUnit> selectedRepository = getiRepositoryExplorer()
+					.getSelectedRepository();
+			if (selectedRepository == null || selectedRepository.isEmpty()) {
+
+				textArea.setValue("You must select at last one");
+				return false;
+			}
+			installNewSoftware = installService
+					.installNewSoftware(selectedRepository);
+
+		} catch (Exception exception) {
+
+			errorMessage = exception.getMessage();
+			exception.printStackTrace();
+			if (exception.getMessage().contains(
+					"Profile id _SELF_ is not registered"))
+
+				textArea.setValue("You must export via .product file first");
+			else
+				textArea.setValue(exception.getMessage()
+						+ "Something bat happended");
+
+			return false;
+
+		}
+
+		textArea.setValue(installNewSoftware);
+
+		return true;
 
 	}
 
@@ -84,7 +118,7 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 	}
 
 	public void setiRepositoryLoader(IRepositoryLoader iRepositoryLoader) {
-		System.out.println("Settttttttttttttttttttting");
+
 		this.iRepositoryLoader = iRepositoryLoader;
 	}
 

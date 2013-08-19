@@ -13,6 +13,9 @@ Require-Bundle: com.vaadin.server;bundle-version="7.1.2",
  org.eclipse.equinox.p2.core,
  javax.inject,
  org.eclipse.e4.core.contexts,
- org.eclipse.e4.core.di
+ org.eclipse.e4.core.di,
+ org.eclipse.e4.core.services,
+ org.eclipse.core.net;bundle-version="1.2.200",
+ org.eclipse.e4.ui.di
 Export-Package: org.semanticsoft.vaaclipse.p2.install.ui,
  org.semanticsoft.vaaclipse.p2.processor

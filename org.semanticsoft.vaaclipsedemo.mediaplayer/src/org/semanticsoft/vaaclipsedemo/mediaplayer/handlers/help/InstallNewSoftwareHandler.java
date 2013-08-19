@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
+import org.semanticsoft.vaaclipse.p2.install.ui.IBasicUI;
+import org.semanticsoft.vaaclipse.p2.install.ui.IContainerP2Views;
+import org.semanticsoft.vaaclipse.p2.install.ui.ILoadExplorRepoistory;
 import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
 
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -20,6 +23,7 @@ import com.vaadin.event.ShortcutListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -36,11 +40,14 @@ public class InstallNewSoftwareHandler {
 	IProvisioningAgent provisioningAgent;
 
 	@Execute
-	public void execute(UI ui, final IInstallNewSoftwareService installService) {
+	public void execute(UI ui,IContainerP2Views basicUI) {
 
+		System.out.println("???????????????????????????"+basicUI);
 		Window window = new Window("Install new Software");
 
-		VerticalLayout mainLayout = new VerticalLayout();
+		basicUI.initUI();
+		window.setContent((Component) basicUI.getUIComponent());
+		/*VerticalLayout mainLayout = new VerticalLayout();
 		window.setContent(mainLayout);
 		window.setModal(true);
 		window.setPositionX(500);
@@ -210,7 +217,7 @@ public class InstallNewSoftwareHandler {
 
 			}
 		});
-
+*/
 		ui.addWindow(window);
 
 	}

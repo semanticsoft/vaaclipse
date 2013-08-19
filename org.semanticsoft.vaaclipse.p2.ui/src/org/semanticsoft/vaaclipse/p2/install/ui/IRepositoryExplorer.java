@@ -18,4 +18,5 @@ public interface IRepositoryExplorer extends IBasicUI {
 	void addSubItem(IInstallableUnit childIInstallableUnit,
 			IInstallableUnit root);
 
+	List<IInstallableUnit> getSelectedRepository();
 }

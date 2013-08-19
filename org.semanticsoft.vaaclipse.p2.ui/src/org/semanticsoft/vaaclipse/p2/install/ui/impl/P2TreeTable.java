@@ -166,4 +166,10 @@ public class P2TreeTable implements IRepositoryExplorer {
 		return false;
 	}
 
+	@Override
+	public List<IInstallableUnit> getSelectedRepository() {
+		// TODO Auto-generated method stub
+		return selectedRepository;
+	}
+
 }
