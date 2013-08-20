@@ -34,7 +34,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	IMetadataRepository loadRepository = null;
 
 	@Override
-	public List<IInstallableUnit> loadRepository(String uriString,
+	public synchronized List<IInstallableUnit> loadRepository(String uriString,
 			IProvisioningAgent agent) {
 
 		nullProgressMonitor = new NullProgressMonitor();
@@ -99,23 +99,13 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	}
 
 	@Override
-	public String validate(List<IInstallableUnit> listIInstallableUnits) {
+	public synchronized String validate(List<IInstallableUnit> listIInstallableUnits) {
 		if (uri == null || agent == null || nullProgressMonitor == null) {
 
 			throw new IllegalArgumentException(
 					"Must first call method laod repository");
 		}
-		List<IInstallableUnit> listFinalToInstall = new ArrayList<>();
-		for (IInstallableUnit iInstallableUnit : listIInstallableUnits) {
-
-			if (!QueryUtil.isGroup(iInstallableUnit)) {
-				listFinalToInstall.add(iInstallableUnit);
-			}
-		}
-
-		listFinalToInstall.addAll(getUpdatedGroups());
-
-		listIInstallableUnits = listFinalToInstall;
+		
 
 		try {
 
@@ -161,7 +151,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	}
 
 	@Override
-	public String installNewSoftware(
+	public synchronized String installNewSoftware(
 			List<IInstallableUnit> listIInstallableUnits) {
 
 		if (uri == null || agent == null || nullProgressMonitor == null) {
