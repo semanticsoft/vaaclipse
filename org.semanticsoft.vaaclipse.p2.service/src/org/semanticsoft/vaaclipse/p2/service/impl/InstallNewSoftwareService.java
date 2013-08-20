@@ -100,27 +100,6 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 
 	@Override
 	public String validate(List<IInstallableUnit> listIInstallableUnits) {
-		final ProvisioningSession session = new ProvisioningSession(agent);
-		InstallOperation installOperation = new InstallOperation(session,
-				listIInstallableUnits);
-
-		installOperation.getProvisioningContext().setArtifactRepositories(
-				new URI[] { uri });
-		installOperation.getProvisioningContext().setMetadataRepositories(
-				new URI[] { uri });
-
-		IStatus resolveModal = installOperation
-				.resolveModal(new NullProgressMonitor());
-
-		String resolutionDetails = installOperation.getResolutionDetails();
-		return resolutionDetails;
-
-	}
-
-	@Override
-	public String installNewSoftware(
-			List<IInstallableUnit> listIInstallableUnits) {
-
 		if (uri == null || agent == null || nullProgressMonitor == null) {
 
 			throw new IllegalArgumentException(
@@ -137,6 +116,59 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		listFinalToInstall.addAll(getUpdatedGroups());
 
 		listIInstallableUnits = listFinalToInstall;
+
+		try {
+
+			final ProvisioningSession session = new ProvisioningSession(agent);
+			InstallOperation installOperation = new InstallOperation(session,
+					listIInstallableUnits);
+
+			installOperation.getProvisioningContext().setArtifactRepositories(
+					new URI[] { uri });
+			installOperation.getProvisioningContext().setMetadataRepositories(
+					new URI[] { uri });
+
+			IStatus resolveModal = installOperation
+					.resolveModal(nullProgressMonitor);
+
+			String resolutionDetails = installOperation.getResolutionDetails();
+
+			if (!resolveModal.isOK()) {
+				return resolutionDetails;
+			}
+			if (resolveModal.getSeverity() == IStatus.ERROR) {
+				return resolutionDetails;
+			}
+
+			if (resolveModal.getCode() == IStatus.ERROR) {
+
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.WARNING) {
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.CANCEL) {
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.INFO) {
+				return resolutionDetails;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			throw ex;
+		}
+		return null;
+
+	}
+
+	@Override
+	public String installNewSoftware(
+			List<IInstallableUnit> listIInstallableUnits) {
+
+		if (uri == null || agent == null || nullProgressMonitor == null) {
+
+			throw new IllegalArgumentException(
+					"Must first call method laod repository");
+		}
 
 		try {
 

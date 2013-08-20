@@ -7,7 +7,9 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
+import org.eclipse.equinox.p2.metadata.ILicense;
 import org.semanticsoft.vaaclipse.p2.install.ui.IBasicUI;
+import org.semanticsoft.vaaclipse.p2.install.ui.ILicenseView;
 import org.semanticsoft.vaaclipse.p2.install.ui.ILoadExplorRepoistory;
 import org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryExplorer;
 import org.semanticsoft.vaaclipse.p2.install.ui.IRepositoryLoader;
@@ -24,6 +26,8 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 	private IRepositoryLoader iRepositoryLoader;
 
 	private IRepositoryExplorer iRepositoryExplorer;
+
+	private ILicenseView licenseView;
 	String errorMessage;
 	TextArea textArea;
 
@@ -43,8 +47,10 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 
 	public LoadExplorRepositoryView(IRepositoryLoader iRepositoryLoader,
 			IRepositoryExplorer iRepositoryExplorer,
-			IInstallNewSoftwareService installNewSoftwareService) {
+			IInstallNewSoftwareService installNewSoftwareService,
+			ILicenseView licenseView) {
 		super();
+		this.licenseView = licenseView;
 		setiRepositoryExplorer(iRepositoryExplorer);
 		setiRepositoryLoader(iRepositoryLoader);
 		this.installService = installNewSoftwareService;
@@ -82,8 +88,7 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 				textArea.setValue("You must select at last one");
 				return false;
 			}
-			installNewSoftware = installService
-					.installNewSoftware(selectedRepository);
+			installNewSoftware = installService.validate(selectedRepository);
 
 		} catch (Exception exception) {
 
@@ -100,6 +105,9 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 			return false;
 
 		}
+
+		licenseView.addRepositories(getiRepositoryExplorer()
+				.getSelectedRepository());
 
 		textArea.setValue(installNewSoftware);
 

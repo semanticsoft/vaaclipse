@@ -21,8 +21,10 @@ import com.vaadin.ui.TreeTable;
 public class P2TreeTable implements IRepositoryExplorer {
 
 	private TreeTable treeTable;
-	private List<CheckBox> listChecks = new ArrayList<>();
-	private List<IInstallableUnit> selectedRepository = new ArrayList<>();
+	private List<CheckBox> listRootChecks = new ArrayList<>();
+	private List<CheckBox> listChildChecks = new ArrayList<>();
+	private List<IInstallableUnit> selectedRepositoryRoot = new ArrayList<>();
+	private List<IInstallableUnit> selectedRepositoryChilds = new ArrayList<>();
 	private List<IInstallableUnit> loadRepository = new ArrayList<>();
 	private HashMap<String, List<CheckBox>> childsLinkedToRoot = new HashMap<>();
 	private IInstallNewSoftwareService installService;
@@ -41,14 +43,13 @@ public class P2TreeTable implements IRepositoryExplorer {
 		return treeTable;
 	}
 
-	ValueChangeListener checkBoxListener = new ValueChangeListener() {
+	com.vaadin.data.Property.ValueChangeListener checkBoxChildListener = new ValueChangeListener() {
 
 		@Override
 		public void valueChange(ValueChangeEvent event) {
 			// TODO Auto-generated method stub
-
-			selectedRepository.clear();
-			for (CheckBox checkBox2 : listChecks) {
+			selectedRepositoryChilds.clear();
+			for (CheckBox checkBox2 : listChildChecks) {
 
 				Boolean value2 = checkBox2.getValue();
 				String caption2 = checkBox2.getCaption();
@@ -57,7 +58,33 @@ public class P2TreeTable implements IRepositoryExplorer {
 					if (caption2.equals(iInstallableUnit2.getId())) {
 
 						if (value2) {
-							selectedRepository.add(iInstallableUnit2);
+							selectedRepositoryChilds.add(iInstallableUnit2);
+						}
+
+					}
+				}
+
+			}
+		}
+	};
+
+	ValueChangeListener checkBoxRootListener = new ValueChangeListener() {
+
+		@Override
+		public void valueChange(ValueChangeEvent event) {
+			// TODO Auto-generated method stub
+
+			selectedRepositoryRoot.clear();
+			for (CheckBox checkBox2 : listRootChecks) {
+
+				Boolean value2 = checkBox2.getValue();
+				String caption2 = checkBox2.getCaption();
+				for (IInstallableUnit iInstallableUnit2 : loadRepository) {
+
+					if (caption2.equals(iInstallableUnit2.getId())) {
+
+						if (value2) {
+							selectedRepositoryRoot.add(iInstallableUnit2);
 						}
 						boolean category = installService
 								.isCategory(iInstallableUnit2);
@@ -83,6 +110,8 @@ public class P2TreeTable implements IRepositoryExplorer {
 	public void fill(List<IInstallableUnit> iInstallableUnits) {
 
 		clear();
+		ArrayList<IInstallableUnit> arrayList = new ArrayList<>();
+
 		loadRepository.addAll(iInstallableUnits);
 		for (IInstallableUnit iInstallableUnit : loadRepository) {
 
@@ -91,18 +120,23 @@ public class P2TreeTable implements IRepositoryExplorer {
 			List<IInstallableUnit> extractFromCategory = installService
 					.extractFromCategory(iInstallableUnit);
 
+			arrayList.addAll(extractFromCategory);
 			addSubItems(extractFromCategory, iInstallableUnit);
 
 		}
+
+		loadRepository.addAll(arrayList);
 
 	}
 
 	private void clear() {
 		treeTable.removeAllItems();
-		selectedRepository.clear();
+		selectedRepositoryChilds.clear();
+		selectedRepositoryRoot.clear();
 		loadRepository.clear();
 		childsLinkedToRoot.clear();
-		listChecks.clear();
+		listRootChecks.clear();
+		listChildChecks.clear();
 	}
 
 	@Override
@@ -123,8 +157,8 @@ public class P2TreeTable implements IRepositoryExplorer {
 		treeTable.addItem(new Object[] { checkBox,
 				iInstallableUnit.getVersion().toString() },
 				iInstallableUnit.getId());
-		checkBox.addValueChangeListener(checkBoxListener);
-		listChecks.add(checkBox);
+		checkBox.addValueChangeListener(checkBoxRootListener);
+		listRootChecks.add(checkBox);
 	}
 
 	@Override
@@ -152,7 +186,9 @@ public class P2TreeTable implements IRepositoryExplorer {
 	public void addSubItem(IInstallableUnit childIInstallableUnit,
 			IInstallableUnit root) {
 		CheckBox checkBoxChild = new CheckBox(childIInstallableUnit.getId());
-		listChecks.add(checkBoxChild);
+		checkBoxChild.addValueChangeListener(checkBoxChildListener);
+
+		listChildChecks.add(checkBoxChild);
 		treeTable.addItem(new Object[] { checkBoxChild,
 				childIInstallableUnit.getVersion().toString() },
 				childIInstallableUnit.getId());
@@ -178,7 +214,8 @@ public class P2TreeTable implements IRepositoryExplorer {
 	@Override
 	public List<IInstallableUnit> getSelectedRepository() {
 		// TODO Auto-generated method stub
-		return selectedRepository;
+		selectedRepositoryRoot.addAll(selectedRepositoryChilds);
+		return selectedRepositoryRoot;
 	}
 
 }

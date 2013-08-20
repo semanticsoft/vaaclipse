@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.semanticsoft.vaaclipse.p2.install.ui.IBasicUI;
 import org.semanticsoft.vaaclipse.p2.install.ui.IContainerP2Views;
+import org.semanticsoft.vaaclipse.p2.install.ui.ILicenseView;
+import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -17,16 +19,19 @@ public class ContainerP2Views implements IContainerP2Views {
 
 	List<IBasicUI> listUI = new ArrayList<>();
 	Button buttonNext = new Button("Next");
-	Button buttonPrevies = new Button("Previews");
+	Button buttonPrevies = new Button("Back");
+	Button buttonInstall = new Button("Install");
 	VerticalLayout mainLayout = new VerticalLayout();
 	IBasicUI selectedBasicUI = null;
+	IInstallNewSoftwareService installService;
 	int maxViews = 2;
 
-	public ContainerP2Views(IBasicUI... listUI) {
+	public ContainerP2Views(
+			IInstallNewSoftwareService installNewSoftwareService,
+			IBasicUI... listUI) {
 		super();
-
+		this.installService = installNewSoftwareService;
 		addViews(Arrays.asList(listUI));
-		
 
 	}
 
@@ -43,10 +48,30 @@ public class ContainerP2Views implements IContainerP2Views {
 		mainLayout.addComponent((Component) listUI.get(0).getUIComponent());
 
 		selectedBasicUI = listUI.get(0);
-		CssLayout cssLayout = new CssLayout();
+		final CssLayout cssLayout = new CssLayout();
 
-		cssLayout.addComponent(buttonNext);
 		cssLayout.addComponent(buttonPrevies);
+		cssLayout.addComponent(buttonNext);
+		buttonInstall.setEnabled(false);
+		buttonPrevies.setEnabled(false);
+
+		cssLayout.addComponent(buttonInstall);
+
+		buttonInstall.addClickListener(new Button.ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+
+				boolean validate = listUI.get(maxViews - 1).validate();
+
+				if (validate) {
+					installService.installNewSoftware(((ILicenseView) listUI
+							.get(maxViews - 1)).getRepos());
+				}
+
+			}
+		});
 
 		Button.ClickListener listenerButton = new Button.ClickListener() {
 
@@ -55,29 +80,51 @@ public class ContainerP2Views implements IContainerP2Views {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
+				mainLayout.removeAllComponents();
 
 				if (event.getButton() == buttonNext) {
 
-					if (index < maxViews&&listUI.get(index).validate()) {
+					boolean validate = listUI.get(index).validate();
+					if (index < maxViews - 1 && validate) {
 
 						index++;
-						mainLayout.removeAllComponents();
 						mainLayout.addComponent((Component) listUI.get(index)
 								.getUIComponent());
-					} else {
-
+						handleButtons();
 					}
 				} else if (event.getButton() == buttonPrevies) {
 
 					if (index > -1) {
 
-						index--;
-						mainLayout.removeAllComponents();
+						if (index > 0)
+
+							index--;
 						mainLayout.addComponent((Component) listUI.get(index)
 								.getUIComponent());
-					} else {
-
+						handleButtons();
 					}
+				}
+
+				mainLayout.addComponent(cssLayout);
+			}
+
+			private void handleButtons() {
+				if (index == 0) {
+					buttonPrevies.setEnabled(false);
+					buttonInstall.setEnabled(false);
+				} else if (index == maxViews - 1) {
+					buttonNext.setEnabled(false);
+					buttonInstall.setEnabled(true);
+
+				}
+
+				if (index > 0) {
+					buttonPrevies.setEnabled(true);
+
+				}
+				if (index < maxViews - 1) {
+					buttonNext.setEnabled(true);
+
 				}
 			}
 		};
