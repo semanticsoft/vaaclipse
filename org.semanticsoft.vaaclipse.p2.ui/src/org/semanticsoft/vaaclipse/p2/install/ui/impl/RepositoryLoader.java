@@ -63,6 +63,7 @@ public class RepositoryLoader implements IRepositoryLoader {
 				// TODO Auto-generated method stub
 				errorLabel.setValue("");
 				validate = true;
+				loadRepository.clear();
 				String value = textField.getValue();
 
 				if (value != null && !value.trim().isEmpty()) {
