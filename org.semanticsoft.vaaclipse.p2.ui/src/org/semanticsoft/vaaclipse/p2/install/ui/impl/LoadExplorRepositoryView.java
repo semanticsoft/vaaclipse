@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.swing.JOptionPane;
 
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
@@ -111,7 +112,10 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 
 		textArea.setValue(installNewSoftware);
 
-		return true;
+		if (installNewSoftware == null)
+			return true;
+		else
+			return false;
 
 	}
 

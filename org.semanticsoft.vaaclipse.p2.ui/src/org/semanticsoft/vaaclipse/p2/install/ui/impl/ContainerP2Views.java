@@ -13,7 +13,10 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HasComponents;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 public class ContainerP2Views implements IContainerP2Views {
 
@@ -45,6 +48,7 @@ public class ContainerP2Views implements IContainerP2Views {
 	public void initUI() {
 		// TODO Auto-generated method stub
 
+		mainLayout.removeAllComponents();
 		mainLayout.addComponent((Component) listUI.get(0).getUIComponent());
 
 		selectedBasicUI = listUI.get(0);
@@ -52,6 +56,7 @@ public class ContainerP2Views implements IContainerP2Views {
 
 		cssLayout.addComponent(buttonPrevies);
 		cssLayout.addComponent(buttonNext);
+		buttonNext.setEnabled(true);
 		buttonInstall.setEnabled(false);
 		buttonPrevies.setEnabled(false);
 
@@ -68,6 +73,16 @@ public class ContainerP2Views implements IContainerP2Views {
 				if (validate) {
 					installService.installNewSoftware(((ILicenseView) listUI
 							.get(maxViews - 1)).getRepos());
+
+					HasComponents parent = buttonNext.getParent();
+					while (!(parent instanceof Window)) {
+
+						parent = parent.getParent();
+					}
+
+					Window w = (Window) parent;
+					w.close();
+					Notification.show("Software installed");
 				}
 
 			}
@@ -80,13 +95,12 @@ public class ContainerP2Views implements IContainerP2Views {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				mainLayout.removeAllComponents();
 
 				if (event.getButton() == buttonNext) {
 
 					boolean validate = listUI.get(index).validate();
 					if (index < maxViews - 1 && validate) {
-
+						mainLayout.removeAllComponents();
 						index++;
 						mainLayout.addComponent((Component) listUI.get(index)
 								.getUIComponent());
