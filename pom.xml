@@ -13,8 +13,8 @@
 
 	<properties>
 		<next-release>0.0.2-SNAPSHOT</next-release>
-		<tycho-version>0.17.0-SNAPSHOT</tycho-version>
-		<tychoExtrasVersion>0.17.0-SNAPSHOT</tychoExtrasVersion>
+		<tycho-version>0.18.0</tycho-version>
+		<tychoExtrasVersion>0.18.0</tychoExtrasVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<vaadin-version>7.1-SNAPSHOT</vaadin-version>
@@ -119,6 +119,13 @@
 									<version>${project.version}</version>
 								</artifact>
 							</target>
+							<environments>
+								<environment>
+									<os>win32</os>
+									<ws>win32</ws>
+									<arch>x86</arch>
+								</environment>
+							</environments>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -154,6 +161,7 @@
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
+				<module>org.semanticsoft.vaaclipsedemo.cassandra.product</module>
 
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
 
