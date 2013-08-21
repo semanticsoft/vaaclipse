@@ -133,7 +133,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 		startVaadinWebApplication();
 
-		// showFrame();
+		showFrame();
 
 		String msg;
 		while (!(msg = queue.take()).equals(EXIT))
