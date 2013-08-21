@@ -25,7 +25,6 @@
 
    <plugins>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.springsource.javax.portlet"/>
       <plugin id="com.vaadin.client"/>
       <plugin id="com.vaadin.client-compiled"/>
       <plugin id="com.vaadin.server"/>
@@ -46,11 +45,9 @@
       <plugin id="org.eclipse.core.databinding.property"/>
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.filesystem"/>
-      <plugin id="org.eclipse.core.filesystem.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.runtime"/>
-      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.e4.core.commands"/>
       <plugin id="org.eclipse.e4.core.contexts"/>
       <plugin id="org.eclipse.e4.core.di"/>
@@ -74,7 +71,9 @@
       <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
       <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.jetty.continuation"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>
@@ -85,8 +84,8 @@
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.jsoup"/>
+      <plugin id="org.lunifera.dependencies.bundle.javax.portlet-api"/>
       <plugin id="org.lunifera.dependencies.bundle.vaadin.addon.icepush"/>
-      <plugin id="org.lunifera.dependencies.fragment.jdk" fragment="true"/>
       <plugin id="org.semanticsoft.commons"/>
       <plugin id="org.semanticsoft.e4.injector.objectsuppliers"/>
       <plugin id="org.semanticsoft.e4extension"/>
@@ -106,14 +105,12 @@
       <plugin id="org.semanticsoft.vaaclipse.widgets"/>
       <plugin id="org.semanticsoft.vaaclipse.widgetset.default"/>
       <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer"/>
-      <plugin id="org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons"/>
       <plugin id="org.semanticsoft.vaadin"/>
       <plugin id="org.semanticsoft.vaadin.osgi.staticres"/>
+      <plugin id="org.slf4j.api"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
-      <plugin id="slf4j.api"/>
-      <plugin id="slf4j.jcl" fragment="true"/>
    </plugins>
 
    <configurations>

@@ -138,7 +138,7 @@
 
 				<!-- P2 features -->
 				<module>org.semanticsoft.vaaclipse.feature.runtime.core</module>
-				<module>org.semanticsoft.vaaclipse.feature.runtime.demo.cassandra</module>
+				<module>org.semanticsoft.vaaclipsedemo.feature</module>
 				<module>org.semanticsoft.vaaclipse.feature.ide.model.extensions</module>
 				<!-- <module>org.semanticsoft.vaaclipse.feature.ide</module> -->
 				<!-- end P2 features -->
@@ -167,9 +167,6 @@
 
 				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
 				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
-				<module>
-						org.semanticsoft.vaaclipsedemo.mediaplayer.vaadinaddons
-					</module>
 				<module>org.semanticsoft.vaaclipsedemo.mini</module>
 
 				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
@@ -178,7 +175,6 @@
 
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
-				<module>org.semanticsoft.vaaclipse.vaadin.addon.codelabel</module>
 			</modules>
 		</profile>
 
