@@ -157,24 +157,26 @@
 				<module>org.semanticsoft.vaaclipse.resources</module>
 				<module>org.semanticsoft.vaaclipse.theme</module>
 				<module>org.semanticsoft.vaaclipse.util</module>
+				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
+				<module>org.semanticsoft.e4extension</module>
+				<module>org.semanticsoft.e4modelextension</module>
+				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
+
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
+				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
+				
+				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
+				
 				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
 				<module>org.semanticsoft.vaaclipsedemo.cassandra.product</module>
-
-				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
-
-				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
+				
 				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
+				<module>org.semanticsoft.vaaclipsedemo.mediaplayer.product</module>
+				
 				<module>org.semanticsoft.vaaclipsedemo.mini</module>
-
-				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
-				<module>org.semanticsoft.e4extension</module>
-				<module>org.semanticsoft.e4modelextension</module>
-
-				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
-				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
 			</modules>
 		</profile>
 
