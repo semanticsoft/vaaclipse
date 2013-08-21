@@ -34,7 +34,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	IMetadataRepository loadRepository = null;
 
 	@Override
-	public List<IInstallableUnit> loadRepository(String uriString,
+	public synchronized List<IInstallableUnit> loadRepository(String uriString,
 			IProvisioningAgent agent) {
 
 		nullProgressMonitor = new NullProgressMonitor();
@@ -55,6 +55,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		} catch (ProvisionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 
 		IQuery<IInstallableUnit> createQuery = QueryUtil
@@ -98,26 +99,59 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	}
 
 	@Override
-	public String validate(List<IInstallableUnit> listIInstallableUnits) {
-		final ProvisioningSession session = new ProvisioningSession(agent);
-		InstallOperation installOperation = new InstallOperation(session,
-				listIInstallableUnits);
+	public synchronized String validate(List<IInstallableUnit> listIInstallableUnits) {
+		if (uri == null || agent == null || nullProgressMonitor == null) {
 
-		installOperation.getProvisioningContext().setArtifactRepositories(
-				new URI[] { uri });
-		installOperation.getProvisioningContext().setMetadataRepositories(
-				new URI[] { uri });
+			throw new IllegalArgumentException(
+					"Must first call method laod repository");
+		}
+		
 
-		IStatus resolveModal = installOperation
-				.resolveModal(new NullProgressMonitor());
+		try {
 
-		String resolutionDetails = installOperation.getResolutionDetails();
-		return resolutionDetails;
+			final ProvisioningSession session = new ProvisioningSession(agent);
+			InstallOperation installOperation = new InstallOperation(session,
+					listIInstallableUnits);
+
+			installOperation.getProvisioningContext().setArtifactRepositories(
+					new URI[] { uri });
+			installOperation.getProvisioningContext().setMetadataRepositories(
+					new URI[] { uri });
+
+			IStatus resolveModal = installOperation
+					.resolveModal(nullProgressMonitor);
+
+			String resolutionDetails = installOperation.getResolutionDetails();
+
+			if (!resolveModal.isOK()) {
+				return resolutionDetails;
+			}
+			if (resolveModal.getSeverity() == IStatus.ERROR) {
+				return resolutionDetails;
+			}
+
+			if (resolveModal.getCode() == IStatus.ERROR) {
+
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.WARNING) {
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.CANCEL) {
+				return resolutionDetails;
+			} else if (resolveModal.getCode() == IStatus.INFO) {
+				return resolutionDetails;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			throw ex;
+		}
+		return null;
 
 	}
 
 	@Override
-	public String installNewSoftware(
+	public synchronized String installNewSoftware(
 			List<IInstallableUnit> listIInstallableUnits) {
 
 		if (uri == null || agent == null || nullProgressMonitor == null) {
@@ -125,17 +159,6 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 			throw new IllegalArgumentException(
 					"Must first call method laod repository");
 		}
-		List<IInstallableUnit> listFinalToInstall = new ArrayList<>();
-		for (IInstallableUnit iInstallableUnit : listIInstallableUnits) {
-
-			if (!QueryUtil.isGroup(iInstallableUnit)) {
-				listFinalToInstall.add(iInstallableUnit);
-			}
-		}
-
-		listFinalToInstall.addAll(getUpdatedGroups());
-
-		listIInstallableUnits = listFinalToInstall;
 
 		try {
 

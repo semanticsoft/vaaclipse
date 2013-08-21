@@ -40,7 +40,10 @@
             beforefragment="true"
             class="org.semanticsoft.vaaclipsedemo.mediaplayer.processors.MediaLibrarySetupProcessor">
       	</processor>
-         
+          <processor
+            beforefragment="true"
+            class="org.semanticsoft.vaaclipse.p2.processor.P2Processor">
+      	</processor>
    </extension>
    
    <extension
