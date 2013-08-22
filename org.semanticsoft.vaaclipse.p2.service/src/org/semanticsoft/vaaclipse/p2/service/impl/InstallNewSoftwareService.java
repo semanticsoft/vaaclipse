@@ -106,7 +106,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 					"Must first call method laod repository");
 		}
 		
-
+		
 		try {
 
 			final ProvisioningSession session = new ProvisioningSession(agent);
@@ -144,7 +144,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 
-			throw ex;
+			throw new RuntimeException(ex);
 		}
 		return null;
 
@@ -243,7 +243,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 			// TODO: handle exception
 			e.printStackTrace();
 
-			throw e;
+			throw new RuntimeException(e);
 		}
 
 		return "Wait a minute and see to plugins folder if jar was added than restart application";
