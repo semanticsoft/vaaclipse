@@ -160,6 +160,8 @@
 				<module>org.semanticsoft.e4.injector.objectsuppliers</module>
 				<module>org.semanticsoft.e4extension</module>
 				<module>org.semanticsoft.e4modelextension</module>
+				<module>org.semanticsoft.vaaclipse.p2.service</module>
+				<module>org.semanticsoft.vaaclipse.p2.ui</module>
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
 
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
