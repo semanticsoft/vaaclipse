@@ -46,6 +46,7 @@
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.filesystem"/>
       <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.net"/>
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.runtime"/>
       <plugin id="org.eclipse.e4.core.commands"/>
@@ -75,9 +76,11 @@
       <plugin id="org.eclipse.equinox.http.jetty"/>
       <plugin id="org.eclipse.equinox.http.registry"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
+      <plugin id="org.eclipse.equinox.p2.artifact.repository"/>
       <plugin id="org.eclipse.equinox.p2.core"/>
       <plugin id="org.eclipse.equinox.p2.director"/>
       <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.jarprocessor"/>
       <plugin id="org.eclipse.equinox.p2.metadata"/>
       <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
       <plugin id="org.eclipse.equinox.p2.operations"/>
@@ -115,6 +118,7 @@
       <plugin id="org.semanticsoft.vaaclipse.behaviour"/>
       <plugin id="org.semanticsoft.vaaclipse.contributions"/>
       <plugin id="org.semanticsoft.vaaclipse.p2.service"/>
+      <plugin id="org.semanticsoft.vaaclipse.p2.ui"/>
       <plugin id="org.semanticsoft.vaaclipse.presentation"/>
       <plugin id="org.semanticsoft.vaaclipse.publicapi"/>
       <plugin id="org.semanticsoft.vaaclipse.resources" fragment="true"/>
