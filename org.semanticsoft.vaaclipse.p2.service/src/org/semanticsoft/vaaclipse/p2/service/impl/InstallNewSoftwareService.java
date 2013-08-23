@@ -1,5 +1,6 @@
 package org.semanticsoft.vaaclipse.p2.service.impl;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.core.ProvisionException;
+import org.eclipse.equinox.p2.engine.ProvisioningContext;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.eclipse.equinox.p2.operations.InstallOperation;
 import org.eclipse.equinox.p2.operations.ProvisioningJob;
@@ -22,8 +24,10 @@ import org.eclipse.equinox.p2.operations.ProvisioningSession;
 import org.eclipse.equinox.p2.query.IQuery;
 import org.eclipse.equinox.p2.query.IQueryResult;
 import org.eclipse.equinox.p2.query.QueryUtil;
+import org.eclipse.equinox.p2.repository.IRepositoryManager;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepository;
 import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
+
 
 public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	NullProgressMonitor nullProgressMonitor;
@@ -33,25 +37,46 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	IProvisioningAgent agent;
 	IMetadataRepository loadRepository = null;
 
+	public static boolean containsString(String original, String tobeChecked,
+			boolean caseSensitive) {
+		if (caseSensitive) {
+			return original.contains(tobeChecked);
+
+		} else {
+			return original.toLowerCase().contains(tobeChecked.toLowerCase());
+		}
+
+	}
+
 	@Override
 	public synchronized List<IInstallableUnit> loadRepository(String uriString,
 			IProvisioningAgent agent) {
 
+		uri = null;
 		nullProgressMonitor = new NullProgressMonitor();
 		this.agent = agent;
-		try {
-			uri = new URI(uriString);
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+
+		if (!containsString(uriString, "http", false)
+				
+				&& !(uriString.contains(".jar") || uriString.contains(".zip"))) {
+
+			uri = new File(uriString).toURI();
 		}
+
+		if (uri == null)
+			try {
+				uri = new URI(uriString);
+			} catch (URISyntaxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
 
 		try {
-			loadRepository = metadataRepositoryManager.loadRepository(uri, 0,
-					nullProgressMonitor);
+			loadRepository = metadataRepositoryManager.loadRepository(uri,
+					IRepositoryManager.REPOSITORIES_ALL, nullProgressMonitor);
 		} catch (ProvisionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,24 +124,26 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	}
 
 	@Override
-	public synchronized String validate(List<IInstallableUnit> listIInstallableUnits) {
+	public synchronized String validate(
+			List<IInstallableUnit> listIInstallableUnits) {
 		if (uri == null || agent == null || nullProgressMonitor == null) {
 
 			throw new IllegalArgumentException(
 					"Must first call method laod repository");
 		}
-		
-		
+
 		try {
 
+			
 			final ProvisioningSession session = new ProvisioningSession(agent);
 			InstallOperation installOperation = new InstallOperation(session,
 					listIInstallableUnits);
+			installOperation.setProvisioningContext(new ProvisioningContext(agent));
 
-			installOperation.getProvisioningContext().setArtifactRepositories(
+			/*installOperation.getProvisioningContext().setArtifactRepositories(
 					new URI[] { uri });
 			installOperation.getProvisioningContext().setMetadataRepositories(
-					new URI[] { uri });
+					new URI[] { uri });*/
 
 			IStatus resolveModal = installOperation
 					.resolveModal(nullProgressMonitor);

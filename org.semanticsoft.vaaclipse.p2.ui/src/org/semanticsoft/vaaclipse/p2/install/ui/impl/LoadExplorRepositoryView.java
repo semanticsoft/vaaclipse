@@ -41,11 +41,9 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 		return mainLayout;
 	}
 
-	public LoadExplorRepositoryView() {
-		// TODO Auto-generated constructor stub
 
-	}
 
+	@Inject
 	public LoadExplorRepositoryView(IRepositoryLoader iRepositoryLoader,
 			IRepositoryExplorer iRepositoryExplorer,
 			IInstallNewSoftwareService installNewSoftwareService,
