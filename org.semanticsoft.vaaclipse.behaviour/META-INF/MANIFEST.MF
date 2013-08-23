@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Behaviour
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.behaviour;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.1.0.qualifier
 Require-Bundle: org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.e4.core.commands;bundle-version="0.10.1",
  org.eclipse.core.runtime;bundle-version="3.8.0",

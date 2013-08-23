@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mediaplayer
 Bundle-SymbolicName: org.semanticsoft.vaaclipsedemo.mediaplayer; singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Require-Bundle: org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",

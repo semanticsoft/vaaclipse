@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Cassandra
 Bundle-SymbolicName: org.semanticsoft.vaaclipsedemo.cassandra.app;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.model.workbench;bundle-version="0.9.1",

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Additions
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.additions
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Rusha Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.vaaclipse.additions.view

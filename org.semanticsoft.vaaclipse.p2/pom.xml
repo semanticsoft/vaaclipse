@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.semanticsoft.vaaclipse.p2</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-repository</packaging>
 
 	<build>

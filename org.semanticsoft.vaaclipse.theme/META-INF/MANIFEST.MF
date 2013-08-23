@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Theme
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.theme;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.0.1.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.semanticsoft.vaaclipse.publicapi;bundle-version="0.0.1",
