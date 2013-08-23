@@ -1,5 +1,8 @@
 package org.semanticsoft.vaaclipse.p2.processor;
 
+import javax.management.InvalidApplicationException;
+
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
@@ -27,7 +30,7 @@ public class P2Processor {
 				installNewSoftwareService, provisioningAgent);
 
 		ILicenseView licenseView = new LicenseView();
-
+        
 		LoadExplorRepositoryView loadExplorRepositoryView = new LoadExplorRepositoryView(
 				repositoryLoader, p2TreeTable, installNewSoftwareService,
 				licenseView);
@@ -38,6 +41,8 @@ public class P2Processor {
 		ctx.set(IContainerP2Views.class, new ContainerP2Views(
 				installNewSoftwareService,loadExplorRepositoryView,licenseView));
 		ctx.set(ILicenseView.class, licenseView);
+		
+		
 
 	}
 }

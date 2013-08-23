@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Widgetset
 Bundle-SymbolicName: org.semanticsoft.vaaclipse.widgetset.default
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Vaadin-Resources: resources
 Require-Bundle: com.vaadin.server;bundle-version="7.0.0",

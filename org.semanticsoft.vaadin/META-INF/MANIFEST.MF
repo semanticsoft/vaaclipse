@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.semanticsoft.vaadin
 Bundle-SymbolicName: org.semanticsoft.vaadin
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: com.vaadin.server;bundle-version="7.0.0",

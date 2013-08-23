@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="org.semanticsoft.vaaclipsedemo.mediaplayer" uid="org.semanticsoft.vaaclipsedemo.mediaplayer.product" id="org.semanticsoft.vaaclipsedemo.mediaplayer.product" application="org.semanticsoft.vaaclipse.app.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="org.semanticsoft.vaaclipsedemo.mediaplayer" uid="org.semanticsoft.vaaclipsedemo.mediaplayer.product" id="org.semanticsoft.vaaclipsedemo.mediaplayer.product" application="org.semanticsoft.vaaclipse.app.application" version="1.1.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -163,6 +163,7 @@
       <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
       <plugin id="org.semanticsoft.vaaclipse.app" autoStart="false" startLevel="2" />
+      <plugin id="org.semanticsoft.vaaclipse.p2.service" autoStart="true" startLevel="2" />
       <plugin id="org.semanticsoft.vaadin.osgi.staticres" autoStart="true" startLevel="0" />
    </configurations>
 
