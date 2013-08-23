@@ -7,4 +7,4 @@ Bundle-Vendor: Rushan R. Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.vaaclipse.api
 Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
- org.semanticsoft.commons;bundle-version="0.0.1"
+ org.semanticsoft.commons;bundle-version="1.1.0"
