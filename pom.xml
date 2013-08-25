@@ -12,7 +12,6 @@
 	</prerequisites>
 
 	<properties>
-		<next-release>0.0.2-SNAPSHOT</next-release>
 		<tycho-version>0.18.0</tycho-version>
 		<tychoExtrasVersion>0.18.0</tychoExtrasVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,34 +68,6 @@
 
 	<profiles>
 		<profile>
-			<id>prepare-for-next-release</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>org.eclipse.tycho:tycho-versions-plugin:set-version</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>tycho-versions-plugin</artifactId>
-						<version>${tycho-version}</version>
-						<executions>
-							<execution>
-								<id>change-next-release</id>
-								<goals>
-									<goal>set-version</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<newVersion>${next-release}</newVersion>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
 			<id>p2-kepler</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -135,14 +106,12 @@
 
 				<!-- exclusive for P2 -->
 				<module>org.semanticsoft.vaaclipse.p2</module>
-
+				
 				<!-- P2 features -->
 				<module>org.semanticsoft.vaaclipse.feature.runtime.core</module>
-				<module>org.semanticsoft.vaaclipsedemo.feature</module>
-				<module>org.semanticsoft.vaaclipse.feature.ide.model.extensions</module>
-				<!-- <module>org.semanticsoft.vaaclipse.feature.ide</module> -->
 				<!-- end P2 features -->
-
+				
+				<!-- Runtime components -->
 				<module>org.semanticsoft.vaadin</module>
 				<module>org.semanticsoft.vaadin.osgi.staticres</module>
 				<module>org.semanticsoft.commons</module>
@@ -163,22 +132,10 @@
 				<module>org.semanticsoft.vaaclipse.p2.service</module>
 				<module>org.semanticsoft.vaaclipse.p2.ui</module>
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
-
+				
+				<!-- Addons components -->
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
-				
-				<module>org.semanticsoft.vaaclipsedemo.contributions</module>
-				
-				<module>org.semanticsoft.vaaclipse.demo.contacts</module>
-				<module>org.semanticsoft.vaaclipsedemo.cassandra.app</module>
-				<module>org.semanticsoft.vaaclipsedemo.cassandra.vaadinaddons</module>
-				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
-				<module>org.semanticsoft.vaaclipsedemo.cassandra.product</module>
-				
-				<module>org.semanticsoft.vaaclipsedemo.mediaplayer</module>
-				<module>org.semanticsoft.vaaclipsedemo.mediaplayer.product</module>
-				
-				<module>org.semanticsoft.vaaclipsedemo.mini</module>
 			</modules>
 		</profile>
 
@@ -217,43 +174,7 @@
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
 			</modules>
 		</profile>
-
-		<profile>
-			<id>build-cassandra-widgetsets</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>verify</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<!-- <resolver>p2</resolver> -->
-							<!-- <pomDependencies>consider</pomDependencies> -->
-							<ignoreTychoRepositories>true</ignoreTychoRepositories>
-							<target>
-								<artifact>
-									<groupId>org.semanticsoft</groupId>
-									<artifactId>org.semanticsoft.vaaclipse.target.kepler</artifactId>
-									<version>1.0.0-SNAPSHOT</version>
-								</artifact>
-							</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-			<modules>
-				<module>org.semanticsoft.vaaclipse.target.kepler</module>
-				<module>org.semanticsoft.vaaclipse.widgets</module>
-				<module>org.semanticsoft.commons</module>
-				<module>org.semanticsoft.vaaclipse.vaadin.addon.dndlayout</module>
-				<module>org.semanticsoft.vaaclipsedemo.cassandra.widgetset</module>
-			</modules>
-		</profile>
-
+		
 		<profile>
 			<id>client-widgets</id>
 			<activation>
