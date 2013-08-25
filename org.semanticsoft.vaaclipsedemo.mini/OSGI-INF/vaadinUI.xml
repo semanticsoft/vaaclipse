@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" factory="org.lunifera.web.vaadin.UI/org.semanticsoft.vaaclipse.app.webapp.VaadinUI" name="org.semanticsoft.vaaclipse.app.ui">
-   <implementation class="org.semanticsoft.vaaclipse.app.webapp.VaadinUI"/>
-</scr:component>
