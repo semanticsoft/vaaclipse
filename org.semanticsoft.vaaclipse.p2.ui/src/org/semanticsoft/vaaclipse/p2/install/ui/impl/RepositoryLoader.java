@@ -58,6 +58,7 @@ public class RepositoryLoader implements IRepositoryLoader {
 		final TextField textField = new TextField();
 		textField.setValue("http://localhost/MyUpdateSite");
 		textField.setImmediate(true);
+		textField.setSizeFull();
 
 		mainLayout.addComponent(errorLabel);
 		mainLayout.addComponent(label);

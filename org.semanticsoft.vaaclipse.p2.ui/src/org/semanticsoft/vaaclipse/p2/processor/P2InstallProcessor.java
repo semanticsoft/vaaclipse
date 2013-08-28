@@ -32,7 +32,7 @@ import org.semanticsoft.vaaclipse.p2.uninstall.ui.impl.UninstallView;
  * 
  * Contributors: Klevis Ramo - initial API and implementation
  *******************************************************************************/
-public class P2Processor {
+public class P2InstallProcessor {
 
 	@Execute
 	public void setUp(IEclipseContext ctx,
@@ -56,22 +56,6 @@ public class P2Processor {
 				installNewSoftwareService, loadExplorRepositoryView,
 				licenseView));
 		ctx.set(ILicenseView.class, licenseView);
-		// finish install config
-
-		// start uninstall config
-		List<IInstallableUnit> listInstalledSoftware = uninstallSoftwareService
-				.listInstalledSoftware(provisioningAgent,
-						IUninstallSoftwareService.GROUP);
-		IUninstallView uninstallView = null;
-		if (listInstalledSoftware != null)
-			uninstallView = new UninstallView(listInstalledSoftware,
-					uninstallSoftwareService, provisioningAgent);
-		else {
-			uninstallView = new UninstallView(
-
-			uninstallSoftwareService, provisioningAgent);
-		}
-		ctx.set(IUninstallView.class, uninstallView);
 
 	}
 }

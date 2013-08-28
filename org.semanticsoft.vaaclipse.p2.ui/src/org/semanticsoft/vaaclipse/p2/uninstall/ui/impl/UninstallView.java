@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.iservice.IUninstallSoftwareService;
@@ -11,6 +13,7 @@ import org.semanticsoft.vaaclipse.p2.uninstall.ui.IUninstallView;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Notification;
@@ -51,7 +54,7 @@ public class UninstallView implements IUninstallView {
 	@Override
 	public void addRepositories(List<IInstallableUnit> list) {
 		// TODO Auto-generated method stub
-		
+
 		this.list = list;
 		treeTable.removeAllItems();
 		for (IInstallableUnit iInstallableUnit : list) {
@@ -60,7 +63,6 @@ public class UninstallView implements IUninstallView {
 					iInstallableUnit.getId());
 
 		}
-		
 
 	}
 
@@ -84,13 +86,15 @@ public class UninstallView implements IUninstallView {
 		optionGroup.addItem("Group");
 		optionGroup.addItem("Category");
 		optionGroup.addItem("Any");
-		optionGroup.addValueChangeListener(new Property.ValueChangeListener() {
+		optionGroup.setImmediate(true);
+		optionGroup.addValueChangeListener(new ValueChangeListener() {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
 
 				Object value = event.getProperty().getValue();
+
 				if (value.equals("Group")) {
 
 					addRepositories(uninstallSoftwareService
