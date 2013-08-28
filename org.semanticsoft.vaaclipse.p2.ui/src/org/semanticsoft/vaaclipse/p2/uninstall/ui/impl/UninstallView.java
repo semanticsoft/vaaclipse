@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.iservice.IUninstallSoftwareService;
 import org.semanticsoft.vaaclipse.p2.uninstall.ui.IUninstallView;
 
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
@@ -23,19 +26,24 @@ public class UninstallView implements IUninstallView {
 	List<IInstallableUnit> list;
 	String errorMessage = "";
 	IUninstallSoftwareService uninstallSoftwareService;
+	IProvisioningAgent agent;
 
 	public UninstallView(List<IInstallableUnit> list,
-			IUninstallSoftwareService uninstallSoftwareService) {
+			IUninstallSoftwareService uninstallSoftwareService,
+			IProvisioningAgent agent) {
 		super();
 		this.list = list;
+		this.agent = agent;
 		this.uninstallSoftwareService = uninstallSoftwareService;
 		initUI();
 		addRepositories(list);
 
 	}
 
-	public UninstallView(IUninstallSoftwareService uninstallSoftwareService) {
+	public UninstallView(IUninstallSoftwareService uninstallSoftwareService,
+			IProvisioningAgent agent) {
 		super();
+		this.agent = agent;
 		this.uninstallSoftwareService = uninstallSoftwareService;
 		initUI();
 	}
@@ -43,6 +51,7 @@ public class UninstallView implements IUninstallView {
 	@Override
 	public void addRepositories(List<IInstallableUnit> list) {
 		// TODO Auto-generated method stub
+		
 		this.list = list;
 		treeTable.removeAllItems();
 		for (IInstallableUnit iInstallableUnit : list) {
@@ -51,6 +60,7 @@ public class UninstallView implements IUninstallView {
 					iInstallableUnit.getId());
 
 		}
+		
 
 	}
 
@@ -74,6 +84,29 @@ public class UninstallView implements IUninstallView {
 		optionGroup.addItem("Group");
 		optionGroup.addItem("Category");
 		optionGroup.addItem("Any");
+		optionGroup.addValueChangeListener(new Property.ValueChangeListener() {
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+
+				Object value = event.getProperty().getValue();
+				if (value.equals("Group")) {
+
+					addRepositories(uninstallSoftwareService
+							.listInstalledSoftware(agent,
+									IUninstallSoftwareService.GROUP));
+				} else if (value.equals("Category")) {
+					addRepositories(uninstallSoftwareService
+							.listInstalledSoftware(agent,
+									IUninstallSoftwareService.CATEGORY));
+				} else if (value.equals("Any")) {
+					addRepositories(uninstallSoftwareService
+							.listInstalledSoftware(agent,
+									IUninstallSoftwareService.ANY));
+				}
+			}
+		});
 
 		mainLayout.addComponent(optionGroup);
 
@@ -101,7 +134,43 @@ public class UninstallView implements IUninstallView {
 					Notification.show(errorMessage());
 
 				} else {
-					//TO implement
+					// TO implement
+					Collection<Object> value = (Collection<Object>) treeTable
+							.getValue();
+					List<IInstallableUnit> repositories = getRepositories();
+					List<IInstallableUnit> listToUninstall = new ArrayList<IInstallableUnit>();
+					for (Object object : value) {
+
+						for (IInstallableUnit iInstallableUnit : repositories) {
+
+							if (object.equals(iInstallableUnit.getId())) {
+
+								listToUninstall.add(iInstallableUnit);
+
+							}
+						}
+
+					}
+
+					String uninstallSelected = "OK";
+
+					try {
+						uninstallSelected = uninstallSoftwareService
+								.uninstallSelected(listToUninstall);
+					} catch (Exception em) {
+						Notification.show(em.getMessage(), Type.WARNING_MESSAGE);
+						em.printStackTrace();
+						return;
+					}
+
+					if (uninstallSelected == null) {
+						Notification.show("Software Uninstalled!",
+								Type.HUMANIZED_MESSAGE);
+
+					} else {
+						Notification.show(uninstallSelected,
+								Type.WARNING_MESSAGE);
+					}
 				}
 
 			}
@@ -120,7 +189,7 @@ public class UninstallView implements IUninstallView {
 	public boolean validate() {
 		// TODO Auto-generated method stub
 		Collection<Object> value = (Collection<Object>) treeTable.getValue();
-		
+
 		if (value.isEmpty()) {
 			errorMessage = "You must select at least one";
 			return false;

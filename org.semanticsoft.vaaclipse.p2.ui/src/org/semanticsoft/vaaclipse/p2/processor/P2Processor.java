@@ -65,11 +65,11 @@ public class P2Processor {
 		IUninstallView uninstallView = null;
 		if (listInstalledSoftware != null)
 			uninstallView = new UninstallView(listInstalledSoftware,
-					uninstallSoftwareService);
+					uninstallSoftwareService, provisioningAgent);
 		else {
 			uninstallView = new UninstallView(
 
-			uninstallSoftwareService);
+			uninstallSoftwareService, provisioningAgent);
 		}
 		ctx.set(IUninstallView.class, uninstallView);
 
