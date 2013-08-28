@@ -1,0 +1,131 @@
+package org.semanticsoft.vaaclipse.p2.uninstall.ui.impl;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.equinox.p2.metadata.IInstallableUnit;
+import org.semanticsoft.vaaclipse.p2.iservice.IUninstallSoftwareService;
+import org.semanticsoft.vaaclipse.p2.uninstall.ui.IUninstallView;
+
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.OptionGroup;
+import com.vaadin.ui.TreeTable;
+import com.vaadin.ui.VerticalLayout;
+
+public class UninstallView implements IUninstallView {
+	VerticalLayout mainLayout = new VerticalLayout();
+	private TreeTable treeTable;
+	private Button buttonUninstall;
+	List<IInstallableUnit> list;
+	String errorMessage = "";
+	IUninstallSoftwareService uninstallSoftwareService;
+
+	public UninstallView(List<IInstallableUnit> list,
+			IUninstallSoftwareService uninstallSoftwareService) {
+		super();
+		this.list = list;
+		this.uninstallSoftwareService = uninstallSoftwareService;
+		initUI();
+		addRepositories(list);
+
+	}
+
+	public UninstallView(IUninstallSoftwareService uninstallSoftwareService) {
+		super();
+		this.uninstallSoftwareService = uninstallSoftwareService;
+		initUI();
+	}
+
+	@Override
+	public void addRepositories(List<IInstallableUnit> list) {
+		// TODO Auto-generated method stub
+		this.list = list;
+		treeTable.removeAllItems();
+		for (IInstallableUnit iInstallableUnit : list) {
+			treeTable.addItem(new Object[] { iInstallableUnit.getId(),
+					iInstallableUnit.getVersion().toString() },
+					iInstallableUnit.getId());
+
+		}
+
+	}
+
+	@Override
+	public List<IInstallableUnit> getRepositories() {
+		// TODO Auto-generated method stub
+		return list;
+	}
+
+	@Override
+	public Object getUIComponent() {
+		// TODO Auto-generated method stub
+		return mainLayout;
+	}
+
+	@Override
+	public void initUI() {
+		// TODO Auto-generated method stub
+
+		OptionGroup optionGroup = new OptionGroup("Choose display mode");
+		optionGroup.addItem("Group");
+		optionGroup.addItem("Category");
+		optionGroup.addItem("Any");
+
+		mainLayout.addComponent(optionGroup);
+
+		treeTable = new TreeTable("List of installed software");
+		treeTable.addContainerProperty("Name", String.class, "");
+		treeTable.addContainerProperty("Version", String.class, "");
+		treeTable.setPageLength(10);
+		treeTable.setWidth("40em");
+		treeTable.setSelectable(true);
+		treeTable.setImmediate(true);
+		treeTable.setMultiSelect(true);
+
+		mainLayout.addComponent(treeTable);
+
+		buttonUninstall = new Button("Uninstall Selected");
+		buttonUninstall.addClickListener(new Button.ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+
+				boolean validate = validate();
+				if (!validate) {
+
+					Notification.show(errorMessage());
+
+				} else {
+					//TO implement
+				}
+
+			}
+		});
+		mainLayout.addComponent(buttonUninstall);
+
+	}
+
+	@Override
+	public String errorMessage() {
+		// TODO Auto-generated method stub
+		return errorMessage;
+	}
+
+	@Override
+	public boolean validate() {
+		// TODO Auto-generated method stub
+		Collection<Object> value = (Collection<Object>) treeTable.getValue();
+		
+		if (value.isEmpty()) {
+			errorMessage = "You must select at least one";
+			return false;
+		}
+		return true;
+	}
+
+}

@@ -1,11 +1,14 @@
 package org.semanticsoft.vaaclipse.p2.processor;
 
+import java.util.List;
+
 import javax.management.InvalidApplicationException;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
+import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.install.ui.IContainerP2Views;
 import org.semanticsoft.vaaclipse.p2.install.ui.ILicenseView;
 import org.semanticsoft.vaaclipse.p2.install.ui.ILoadExplorRepoistory;
@@ -17,6 +20,9 @@ import org.semanticsoft.vaaclipse.p2.install.ui.impl.LoadExplorRepositoryView;
 import org.semanticsoft.vaaclipse.p2.install.ui.impl.P2TreeTable;
 import org.semanticsoft.vaaclipse.p2.install.ui.impl.RepositoryLoader;
 import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
+import org.semanticsoft.vaaclipse.p2.iservice.IUninstallSoftwareService;
+import org.semanticsoft.vaaclipse.p2.uninstall.ui.IUninstallView;
+import org.semanticsoft.vaaclipse.p2.uninstall.ui.impl.UninstallView;
 
 /*******************************************************************************
  * Copyright (c) 2012 Klevis Ramo and others. All rights reserved. This program
@@ -31,7 +37,8 @@ public class P2Processor {
 	@Execute
 	public void setUp(IEclipseContext ctx,
 			IInstallNewSoftwareService installNewSoftwareService,
-			IProvisioningAgent provisioningAgent) {
+			IProvisioningAgent provisioningAgent,
+			IUninstallSoftwareService uninstallSoftwareService) {
 
 		P2TreeTable p2TreeTable = new P2TreeTable(installNewSoftwareService);
 		RepositoryLoader repositoryLoader = new RepositoryLoader(p2TreeTable,
@@ -49,6 +56,22 @@ public class P2Processor {
 				installNewSoftwareService, loadExplorRepositoryView,
 				licenseView));
 		ctx.set(ILicenseView.class, licenseView);
+		// finish install config
+
+		// start uninstall config
+		List<IInstallableUnit> listInstalledSoftware = uninstallSoftwareService
+				.listInstalledSoftware(provisioningAgent,
+						IUninstallSoftwareService.GROUP);
+		IUninstallView uninstallView = null;
+		if (listInstalledSoftware != null)
+			uninstallView = new UninstallView(listInstalledSoftware,
+					uninstallSoftwareService);
+		else {
+			uninstallView = new UninstallView(
+
+			uninstallSoftwareService);
+		}
+		ctx.set(IUninstallView.class, uninstallView);
 
 	}
 }

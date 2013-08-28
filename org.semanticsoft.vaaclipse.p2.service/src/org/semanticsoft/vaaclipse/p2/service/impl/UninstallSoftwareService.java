@@ -34,7 +34,9 @@ public class UninstallSoftwareService implements IUninstallSoftwareService {
 				.getService(IProfileRegistry.SERVICE_NAME);
 
 		IQueryable<IInstallableUnit> queryable = service.getProfile("_SELF_");
-
+		if (queryable == null) {
+			return null;
+		}
 		NullProgressMonitor monitor = new NullProgressMonitor();
 		IQuery<IInstallableUnit> createIU = null;
 		if (i == GROUP) {
