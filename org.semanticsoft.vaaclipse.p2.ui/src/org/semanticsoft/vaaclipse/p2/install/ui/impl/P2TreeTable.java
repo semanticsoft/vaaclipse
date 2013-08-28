@@ -117,7 +117,7 @@ public class P2TreeTable implements IRepositoryExplorer {
 	};
 
 	@Override
-	public void fill(List<IInstallableUnit> iInstallableUnits) {
+	public void addRepositories(List<IInstallableUnit> iInstallableUnits) {
 
 		clear();
 		ArrayList<IInstallableUnit> arrayList = new ArrayList<>();
@@ -222,7 +222,7 @@ public class P2TreeTable implements IRepositoryExplorer {
 	}
 
 	@Override
-	public List<IInstallableUnit> getSelectedRepository() {
+	public List<IInstallableUnit> getRepositories() {
 		// TODO Auto-generated method stub
 		selectedRepositoryRoot.addAll(selectedRepositoryChilds);
 		return selectedRepositoryRoot;

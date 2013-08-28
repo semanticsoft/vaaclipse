@@ -17,7 +17,4 @@ import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 public interface ILicenseView extends IBasicUI {
 
 	
-public void addRepositories(List<IInstallableUnit> list)	;
-	
-List<IInstallableUnit> getRepos();
 }

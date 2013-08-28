@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.semanticsoft.vaaclipse.p2.install.ui.IBasicUI;
 import org.semanticsoft.vaaclipse.p2.install.ui.IContainerP2Views;
-import org.semanticsoft.vaaclipse.p2.install.ui.ILicenseView;
 import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
 
 import com.vaadin.ui.Button;
@@ -19,14 +19,12 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 /*******************************************************************************
- * Copyright (c) 2012 Klevis Ramo and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Klevis Ramo - initial API and implementation
+ * Copyright (c) 2012 Klevis Ramo and others. All rights reserved. This program
+ * and the accompanying materials are made available under the terms of the
+ * Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Klevis Ramo - initial API and implementation
  *******************************************************************************/
 public class ContainerP2Views implements IContainerP2Views {
 
@@ -81,8 +79,8 @@ public class ContainerP2Views implements IContainerP2Views {
 				boolean validate = listUI.get(maxViews - 1).validate();
 
 				if (validate) {
-					installService.installNewSoftware(((ILicenseView) listUI
-							.get(maxViews - 1)).getRepos());
+					installService.installNewSoftware( listUI
+							.get(maxViews - 1).getRepositories());
 
 					HasComponents parent = buttonNext.getParent();
 					while (!(parent instanceof Window)) {
@@ -101,18 +99,30 @@ public class ContainerP2Views implements IContainerP2Views {
 		Button.ClickListener listenerButton = new Button.ClickListener() {
 
 			int index = 0;
+			IBasicUI iBasicUIWas = null;
+			IBasicUI iBasicUI = null;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 
+				
+
 				if (event.getButton() == buttonNext) {
 
 					boolean validate = listUI.get(index).validate();
+					
 					if (index < maxViews - 1 && validate) {
 						mainLayout.removeAllComponents();
 						index++;
-						mainLayout.addComponent((Component) listUI.get(index)
+						iBasicUIWas = iBasicUI;
+						if(iBasicUI==null){
+							iBasicUIWas=listUI.get(0);
+						}
+						iBasicUI = listUI.get(index);
+
+						iBasicUI.addRepositories(iBasicUIWas.getRepositories());
+						mainLayout.addComponent((Component) iBasicUI
 								.getUIComponent());
 						handleButtons();
 					}
@@ -121,9 +131,16 @@ public class ContainerP2Views implements IContainerP2Views {
 					if (index > -1) {
 
 						if (index > 0)
-
+							mainLayout.removeAllComponents();
 							index--;
-						mainLayout.addComponent((Component) listUI.get(index)
+						if(iBasicUI==null){
+							iBasicUIWas=listUI.get(0);
+						}
+						iBasicUIWas = iBasicUI;
+						iBasicUI = listUI.get(index);
+
+						iBasicUI.addRepositories(iBasicUIWas.getRepositories());
+						mainLayout.addComponent((Component) iBasicUI
 								.getUIComponent());
 						handleButtons();
 					}
@@ -179,6 +196,18 @@ public class ContainerP2Views implements IContainerP2Views {
 		}
 		maxViews = views.size();
 		listUI.addAll(views);
+	}
+
+	@Override
+	public void addRepositories(List<IInstallableUnit> list) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<IInstallableUnit> getRepositories() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -137,7 +137,7 @@ public class LicenseView implements ILicenseView {
 	}
 
 	@Override
-	public List<IInstallableUnit> getRepos() {
+	public List<IInstallableUnit> getRepositories() {
 		// TODO Auto-generated method stub
 		return listReos;
 	}

@@ -23,14 +23,12 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
 /*******************************************************************************
- * Copyright (c) 2012 Klevis Ramo and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Klevis Ramo - initial API and implementation
+ * Copyright (c) 2012 Klevis Ramo and others. All rights reserved. This program
+ * and the accompanying materials are made available under the terms of the
+ * Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Klevis Ramo - initial API and implementation
  *******************************************************************************/
 public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 
@@ -38,7 +36,6 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 
 	private IRepositoryExplorer iRepositoryExplorer;
 
-	private ILicenseView licenseView;
 	String errorMessage;
 	TextArea textArea;
 
@@ -51,15 +48,12 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 		return mainLayout;
 	}
 
-
-
 	@Inject
 	public LoadExplorRepositoryView(IRepositoryLoader iRepositoryLoader,
 			IRepositoryExplorer iRepositoryExplorer,
-			IInstallNewSoftwareService installNewSoftwareService,
-			ILicenseView licenseView) {
+			IInstallNewSoftwareService installNewSoftwareService) {
 		super();
-		this.licenseView = licenseView;
+
 		setiRepositoryExplorer(iRepositoryExplorer);
 		setiRepositoryLoader(iRepositoryLoader);
 		this.installService = installNewSoftwareService;
@@ -91,7 +85,7 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 		String installNewSoftware = "OK";
 		try {
 			List<IInstallableUnit> selectedRepository = getiRepositoryExplorer()
-					.getSelectedRepository();
+					.getRepositories();
 			if (selectedRepository == null || selectedRepository.isEmpty()) {
 
 				textArea.setValue("You must select at last one");
@@ -114,9 +108,6 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 			return false;
 
 		}
-
-		licenseView.addRepositories(getiRepositoryExplorer()
-				.getSelectedRepository());
 
 		textArea.setValue(installNewSoftware);
 
@@ -148,6 +139,18 @@ public class LoadExplorRepositoryView implements ILoadExplorRepoistory {
 
 	public void setiRepositoryExplorer(IRepositoryExplorer iRepositoryExplorer) {
 		this.iRepositoryExplorer = iRepositoryExplorer;
+	}
+
+	@Override
+	public void addRepositories(List<IInstallableUnit> list) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<IInstallableUnit> getRepositories() {
+		// TODO Auto-generated method stub
+		return getiRepositoryExplorer().getRepositories();
 	}
 
 }
