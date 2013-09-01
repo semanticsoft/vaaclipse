@@ -62,7 +62,7 @@
 		<pluginRepository>
 			<!-- used to find XMLTask jar -->
 			<id>atlassian</id>
-			<url>http://repository.atlassian.com/maven2/</url>
+			<url>https://maven.atlassian.com/repository/public</url>
 		</pluginRepository>
 	</pluginRepositories>
 
