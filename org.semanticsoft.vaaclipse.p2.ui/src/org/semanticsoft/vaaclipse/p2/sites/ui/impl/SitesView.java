@@ -1,6 +1,7 @@
 package org.semanticsoft.vaaclipse.p2.sites.ui.impl;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
@@ -13,6 +14,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window.CloseEvent;
@@ -81,6 +83,17 @@ public class SitesView implements ISitesView {
 
 	}
 
+	public void removeSite(String uri) {
+		try {
+			sitesManager.removeRepository(uri, agent);
+		} catch (RuntimeException e) {
+
+			e.printStackTrace();
+
+			return;
+		}
+	}
+
 	@Override
 	public void initUI() {
 		// TODO Auto-generated method stub
@@ -99,6 +112,27 @@ public class SitesView implements ISitesView {
 		});
 		buttonLayout.addComponent(buttonAdd);
 		Button buttonRemove = new Button("Remove");
+		buttonRemove.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+
+				Collection<URI> value = (Collection<URI>) treeTable.getValue();
+				if(value.isEmpty()){
+					
+					Notification.show("Mus select at least one");
+					return;
+				}
+				for (URI u : value) {
+
+					removeSite(u.toString());
+
+				}
+
+				loadSites();
+			}
+		});
 		buttonLayout.addComponent(buttonRemove);
 		Button buttonEdit = new Button("Edit");
 		buttonLayout.addComponent(buttonEdit);
@@ -121,6 +155,7 @@ public class SitesView implements ISitesView {
 		treeTable.setWidth("40em");
 		treeTable.setSelectable(true);
 		treeTable.setImmediate(true);
+		treeTable.setMultiSelect(true);
 
 		HorizontalLayout simpleContainer = new HorizontalLayout();
 		simpleContainer.addComponent(treeTable);
