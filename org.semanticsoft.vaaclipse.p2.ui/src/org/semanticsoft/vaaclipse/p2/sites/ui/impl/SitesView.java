@@ -8,22 +8,23 @@ import org.semanticsoft.vaaclipse.p2.iservice.ISitesManager;
 import org.semanticsoft.vaaclipse.p2.sites.ui.ISitesView;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Window.CloseEvent;
+import com.vaadin.ui.Window.CloseListener;
+
 /*******************************************************************************
- * Copyright (c) 2012 Klevis Ramo and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Klevis Ramo - initial API and implementation
+ * Copyright (c) 2012 Klevis Ramo and others. All rights reserved. This program
+ * and the accompanying materials are made available under the terms of the
+ * Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Klevis Ramo - initial API and implementation
  *******************************************************************************/
 public class SitesView implements ISitesView {
 
@@ -58,12 +59,26 @@ public class SitesView implements ISitesView {
 		initUI();
 		loadSites();
 	}
-	
-	public void addSite(){
-		AddSiteDialog addSiteDialog = new AddSiteDialog(sitesManager,agent);
-		
+
+	public void addSite() {
+		final AddSiteDialog addSiteDialog = new AddSiteDialog(sitesManager,
+				agent);
+		addSiteDialog.addCloseListener(new CloseListener() {
+
+			@Override
+			public void windowClose(CloseEvent e) {
+				// TODO Auto-generated method stub
+
+				if (addSiteDialog.isInstalled()) {
+
+					loadSites();
+
+				}
+			}
+		});
+
 		mainLayout.getUI().addWindow(addSiteDialog);
-		
+
 	}
 
 	@Override
@@ -74,11 +89,11 @@ public class SitesView implements ISitesView {
 
 		Button buttonAdd = new Button("Add");
 		buttonAdd.addClickListener(new ClickListener() {
-			
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
+
 				addSite();
 			}
 		});

@@ -24,6 +24,7 @@ public class AddSiteDialog extends Window {
 	private Upload uploadSites;
 	ISitesManager sitesManager;
 	IProvisioningAgent agent;
+	private boolean installed = false;
 
 	public AddSiteDialog(ISitesManager sitesManager, IProvisioningAgent agent) {
 		// TODO Auto-generated constructor stub
@@ -56,6 +57,7 @@ public class AddSiteDialog extends Window {
 		textField = new TextField("Enter URL here");
 		content.addComponent(textField);
 		uploadSites = new Upload("Upload here", receiver);
+
 		content.addComponent(uploadSites);
 		this.setModal(true);
 		this.center();
@@ -68,6 +70,7 @@ public class AddSiteDialog extends Window {
 				// TODO Auto-generated method stub
 				IStatus validate = null;
 				String uri = null;
+				setInstalled(false);
 				try {
 					uri = textField.getValue();
 					validate = sitesManager.validate(agent, uri);
@@ -97,8 +100,18 @@ public class AddSiteDialog extends Window {
 				}
 
 				Notification.show("Repository added");
+				setInstalled(true);
 				AddSiteDialog.this.close();
+
 			}
 		});
+	}
+
+	public boolean isInstalled() {
+		return installed;
+	}
+
+	private void setInstalled(boolean installed) {
+		this.installed = installed;
 	}
 }
