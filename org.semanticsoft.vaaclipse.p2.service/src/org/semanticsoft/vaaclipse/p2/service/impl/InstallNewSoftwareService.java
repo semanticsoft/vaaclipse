@@ -27,6 +27,7 @@ import org.eclipse.equinox.p2.query.QueryUtil;
 import org.eclipse.equinox.p2.repository.IRepositoryManager;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepository;
 import org.semanticsoft.vaaclipse.p2.iservice.IInstallNewSoftwareService;
+import org.semanticsoft.vaaclipse.p2.util.Utils;
 
 
 /*******************************************************************************
@@ -47,16 +48,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 	IProvisioningAgent agent;
 	IMetadataRepository loadRepository = null;
 
-	public static boolean containsString(String original, String tobeChecked,
-			boolean caseSensitive) {
-		if (caseSensitive) {
-			return original.contains(tobeChecked);
-
-		} else {
-			return original.toLowerCase().contains(tobeChecked.toLowerCase());
-		}
-
-	}
+	
 
 	@Override
 	public synchronized List<IInstallableUnit> loadRepository(String uriString,
@@ -66,7 +58,7 @@ public class InstallNewSoftwareService implements IInstallNewSoftwareService {
 		nullProgressMonitor = new NullProgressMonitor();
 		this.agent = agent;
 
-		if (!containsString(uriString, "http", false)
+		if (!Utils.containsString(uriString, "http", false)
 				
 				&& !(uriString.contains(".jar") || uriString.contains(".zip"))) {
 

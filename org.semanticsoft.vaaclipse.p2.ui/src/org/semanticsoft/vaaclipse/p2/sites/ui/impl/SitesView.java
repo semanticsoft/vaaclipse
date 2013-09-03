@@ -8,11 +8,13 @@ import org.semanticsoft.vaaclipse.p2.iservice.ISitesManager;
 import org.semanticsoft.vaaclipse.p2.sites.ui.ISitesView;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 /*******************************************************************************
  * Copyright (c) 2012 Klevis Ramo and others.
  * All rights reserved. This program and the accompanying materials
@@ -56,6 +58,13 @@ public class SitesView implements ISitesView {
 		initUI();
 		loadSites();
 	}
+	
+	public void addSite(){
+		AddSiteDialog addSiteDialog = new AddSiteDialog(sitesManager,agent);
+		
+		mainLayout.getUI().addWindow(addSiteDialog);
+		
+	}
 
 	@Override
 	public void initUI() {
@@ -64,6 +73,15 @@ public class SitesView implements ISitesView {
 		CssLayout buttonLayout = new CssLayout();
 
 		Button buttonAdd = new Button("Add");
+		buttonAdd.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				
+				addSite();
+			}
+		});
 		buttonLayout.addComponent(buttonAdd);
 		Button buttonRemove = new Button("Remove");
 		buttonLayout.addComponent(buttonRemove);
