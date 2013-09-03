@@ -49,6 +49,7 @@ public class P2InstallProcessor {
 		LoadExplorRepositoryView loadExplorRepositoryView = new LoadExplorRepositoryView(
 				repositoryLoader, p2TreeTable, installNewSoftwareService);
 
+		
 		ctx.set(IRepositoryExplorer.class, p2TreeTable);
 		ctx.set(IRepositoryLoader.class, repositoryLoader);
 		ctx.set(ILoadExplorRepoistory.class, loadExplorRepositoryView);

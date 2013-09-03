@@ -19,4 +19,5 @@ Require-Bundle: com.vaadin.server;bundle-version="7.1.2",
  org.eclipse.e4.ui.di
 Export-Package: org.semanticsoft.vaaclipse.p2.install.ui,
  org.semanticsoft.vaaclipse.p2.processor,
+ org.semanticsoft.vaaclipse.p2.sites.ui,
  org.semanticsoft.vaaclipse.p2.uninstall.ui
