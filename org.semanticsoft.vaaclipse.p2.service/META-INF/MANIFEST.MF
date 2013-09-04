@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.equinox.p2.metadata;bundle-version="2.2.0",
  org.eclipse.equinox.p2.metadata.repository;bundle-version="1.2.100",
  org.eclipse.equinox.p2.transport.ecf;bundle-version="1.1.0",
  org.eclipse.equinox.p2.operations,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.equinox.p2.artifact.repository;bundle-version="1.1.200"
 Service-Component: OSGI-INF/componentInstall.xml,OSGI-INF/componentUninstall.xml,
  OSGI-INF/componentSites.xml
 Export-Package: org.semanticsoft.vaaclipse.p2.iservice

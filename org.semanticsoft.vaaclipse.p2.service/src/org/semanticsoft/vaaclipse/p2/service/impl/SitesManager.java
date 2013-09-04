@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.equinox.internal.p2.artifact.repository.ArtifactRepositoryManager;
 import org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.core.ProvisionException;
@@ -39,6 +40,7 @@ public class SitesManager implements ISitesManager {
 
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
+
 		URI[] knownRepositories = metadataRepositoryManager
 				.getKnownRepositories(MetadataRepositoryManager.REPOSITORIES_ALL);
 
@@ -69,8 +71,12 @@ public class SitesManager implements ISitesManager {
 			String nickName) {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
+		ArtifactRepositoryManager artifactRepositoryManager = new ArtifactRepositoryManager(
+				agent);
 
 		metadataRepositoryManager.setRepositoryProperty(uri,
+				IRepository.PROP_NICKNAME, nickName);
+		artifactRepositoryManager.setRepositoryProperty(uri,
 				IRepository.PROP_NICKNAME, nickName);
 	}
 
@@ -88,7 +94,10 @@ public class SitesManager implements ISitesManager {
 			boolean enable) {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
+		ArtifactRepositoryManager artifactRepositoryManager = new ArtifactRepositoryManager(
+				agent);
 		metadataRepositoryManager.setEnabled(uri, enable);
+		artifactRepositoryManager.setEnabled(uri, enable);
 
 	}
 
@@ -185,11 +194,17 @@ public class SitesManager implements ISitesManager {
 	public void addRepository(String uri, IProvisioningAgent agent) {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
+		ArtifactRepositoryManager artifactRepositoryManager = new ArtifactRepositoryManager(
+				agent);
 		try {
 
-			metadataRepositoryManager.addRepository(new URI(uri));
-			setReposiotoryNickName(agent, new URI(uri),
-					getReposiotoryName(agent, new URI(uri)));
+			URI location = new URI(uri);
+			metadataRepositoryManager.addRepository(location);
+			artifactRepositoryManager.addRepository(location);
+			metadataRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			artifactRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			setReposiotoryNickName(agent, location,
+					getReposiotoryName(agent, location));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -206,9 +221,16 @@ public class SitesManager implements ISitesManager {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
 
+		ArtifactRepositoryManager artifactRepositoryManager = new ArtifactRepositoryManager(
+				agent);
 		try {
-			metadataRepositoryManager.addRepository(new URI(uri));
-			setReposiotoryNickName(agent, new URI(uri), nickName);
+
+			URI location = new URI(uri);
+			metadataRepositoryManager.addRepository(location);
+			artifactRepositoryManager.addRepository(location);
+			metadataRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			artifactRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			setReposiotoryNickName(agent, location, nickName);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -224,8 +246,11 @@ public class SitesManager implements ISitesManager {
 	public void removeRepository(String uri, IProvisioningAgent agent) {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
+		ArtifactRepositoryManager artifactRepositoryManager = new ArtifactRepositoryManager(
+				agent);
 		try {
 			metadataRepositoryManager.removeRepository(new URI(uri));
+			artifactRepositoryManager.removeRepository(new URI(uri));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
