@@ -105,6 +105,38 @@ public class SitesView implements ISitesView {
 		}
 	}
 
+	public void modificSite() {
+
+		if (!isSelected()) {
+			Notification.show("You must select at least one");
+			return;
+		}
+
+		Collection<URI> selected = getSelected();
+		if (selected.size() > 1) {
+			Notification.show("You must select only one entry");
+			return;
+		}
+		URI uri = selected.iterator().next();
+		final AddSiteDialog addSiteDialog = new AddSiteDialog(sitesManager, agent,
+				uri.toString(), sitesManager.getReposiotoryNickName(agent, uri));
+		mainLayout.getUI().addWindow(addSiteDialog);
+		
+		addSiteDialog.addCloseListener(new CloseListener() {
+
+			@Override
+			public void windowClose(CloseEvent e) {
+				// TODO Auto-generated method stub
+
+				if (addSiteDialog.isInstalled()) {
+
+					loadSites();
+
+				}
+			}
+		});
+	}
+
 	@Override
 	public void initUI() {
 		// TODO Auto-generated method stub
@@ -147,6 +179,14 @@ public class SitesView implements ISitesView {
 		});
 		buttonLayout.addComponent(buttonRemove);
 		Button buttonEdit = new Button("Edit");
+		buttonEdit.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				modificSite();
+			}
+		});
 		buttonLayout.addComponent(buttonEdit);
 		VerticalLayout verticalLayoutButton = new VerticalLayout();
 
