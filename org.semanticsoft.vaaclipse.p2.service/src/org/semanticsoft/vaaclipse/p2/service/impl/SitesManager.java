@@ -3,7 +3,10 @@ package org.semanticsoft.vaaclipse.p2.service.impl;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -44,8 +47,15 @@ public class SitesManager implements ISitesManager {
 		URI[] knownRepositories = metadataRepositoryManager
 				.getKnownRepositories(MetadataRepositoryManager.REPOSITORIES_ALL);
 
-		return Arrays.asList(knownRepositories);
+		URI[] knownRepositories2 = metadataRepositoryManager
+				.getKnownRepositories(MetadataRepositoryManager.REPOSITORIES_DISABLED);
 
+		List<URI> finalRepositories = new ArrayList<URI>();
+
+		Collections.addAll(finalRepositories, knownRepositories);
+		Collections.addAll(finalRepositories, knownRepositories2);
+
+		return finalRepositories;
 	}
 
 	@Override
@@ -143,6 +153,13 @@ public class SitesManager implements ISitesManager {
 		};
 		try {
 
+			List<URI> listAllUpdateSites = listAllUpdateSites(agent);
+			for (URI uri2 : listAllUpdateSites) {
+
+				if (uri2.toString().equals(uri)) {
+					throw new RuntimeException("Repository alwrady added");
+				}
+			}
 			URI u = null;
 			NullProgressMonitor nullProgressMonitor = new NullProgressMonitor();
 			IStatus validateRepositoryLocation = repositoryTracker
@@ -201,8 +218,10 @@ public class SitesManager implements ISitesManager {
 			URI location = new URI(uri);
 			metadataRepositoryManager.addRepository(location);
 			artifactRepositoryManager.addRepository(location);
-			metadataRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
-			artifactRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			metadataRepositoryManager.setRepositoryProperty(location,
+					IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			artifactRepositoryManager.setRepositoryProperty(location,
+					IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
 			setReposiotoryNickName(agent, location,
 					getReposiotoryName(agent, location));
 		} catch (URISyntaxException e) {
@@ -228,8 +247,10 @@ public class SitesManager implements ISitesManager {
 			URI location = new URI(uri);
 			metadataRepositoryManager.addRepository(location);
 			artifactRepositoryManager.addRepository(location);
-			metadataRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
-			artifactRepositoryManager.setRepositoryProperty(location, IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			metadataRepositoryManager.setRepositoryProperty(location,
+					IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
+			artifactRepositoryManager.setRepositoryProperty(location,
+					IRepository.PROP_SYSTEM, Boolean.FALSE.toString());
 			setReposiotoryNickName(agent, location, nickName);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
