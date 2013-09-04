@@ -94,7 +94,13 @@ public class AddSiteDialog extends Window {
 				}
 
 				try {
-					sitesManager.addRepository(uri, agent);
+					if (textRepoName.getValue() == null
+							|| textRepoName.getValue().isEmpty())
+						sitesManager.addRepository(uri, agent);
+					else {
+						sitesManager.addRepository(uri, agent,
+								textRepoName.getValue());
+					}
 				} catch (RuntimeException e) {
 
 					erroLabel.setValue(e.getMessage());

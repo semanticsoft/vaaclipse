@@ -54,7 +54,8 @@ public class SitesView implements ISitesView {
 			treeTable
 					.addItem(
 							new Object[] {
-									sitesManager.getReposiotoryName(agent, uri),
+									sitesManager.getReposiotoryNickName(agent,
+											uri),
 									uri.toString(),
 									""
 											+ sitesManager.isRepositoryEnabled(
@@ -128,7 +129,7 @@ public class SitesView implements ISitesView {
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 
-				if (isSelected()) {
+				if (!isSelected()) {
 
 					Notification.show("Must select at least one");
 					return;
@@ -157,7 +158,7 @@ public class SitesView implements ISitesView {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (isSelected()) {
+				if (!isSelected()) {
 
 					Notification.show("Must select at least one");
 					return;

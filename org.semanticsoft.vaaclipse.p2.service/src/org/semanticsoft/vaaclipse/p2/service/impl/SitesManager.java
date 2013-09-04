@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -17,6 +18,8 @@ import org.eclipse.equinox.p2.operations.ProvisioningSession;
 import org.eclipse.equinox.p2.operations.RepositoryTracker;
 import org.eclipse.equinox.p2.repository.IRepository;
 import org.eclipse.equinox.p2.repository.IRepositoryManager;
+import org.eclipse.equinox.p2.repository.artifact.IArtifactRepository;
+import org.eclipse.equinox.p2.repository.artifact.spi.ArtifactRepositoryFactory;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepository;
 import org.semanticsoft.vaaclipse.p2.iservice.ISitesManager;
 import org.semanticsoft.vaaclipse.p2.util.Utils;
@@ -50,6 +53,25 @@ public class SitesManager implements ISitesManager {
 
 		return metadataRepositoryManager.getRepositoryProperty(uri,
 				IRepository.PROP_NAME);
+	}
+
+	@Override
+	public String getReposiotoryNickName(IProvisioningAgent agent, URI uri) {
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		return metadataRepositoryManager.getRepositoryProperty(uri,
+				IRepository.PROP_NICKNAME);
+	}
+
+	@Override
+	public void setReposiotoryNickName(IProvisioningAgent agent, URI uri,
+			String nickName) {
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		metadataRepositoryManager.setRepositoryProperty(uri,
+				IRepository.PROP_NICKNAME, nickName);
 	}
 
 	@Override
@@ -164,7 +186,10 @@ public class SitesManager implements ISitesManager {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
 		try {
+
 			metadataRepositoryManager.addRepository(new URI(uri));
+			setReposiotoryNickName(agent, new URI(uri),
+					getReposiotoryName(agent, new URI(uri)));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,6 +198,26 @@ public class SitesManager implements ISitesManager {
 
 			throw e;
 		}
+	}
+
+	@Override
+	public void addRepository(String uri, IProvisioningAgent agent,
+			String nickName) {
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		try {
+			metadataRepositoryManager.addRepository(new URI(uri));
+			setReposiotoryNickName(agent, new URI(uri), nickName);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RuntimeException e) {
+			// TODO: handle exception
+
+			throw e;
+		}
+
 	}
 
 	@Override

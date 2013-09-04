@@ -31,4 +31,11 @@ public interface ISitesManager {
 
 	void setRepositoryEnabled(IProvisioningAgent agent, URI uri, boolean enable);
 
+	String getReposiotoryNickName(IProvisioningAgent agent, URI uri);
+
+	void setReposiotoryNickName(IProvisioningAgent agent, URI uri,
+			String nickName);
+
+	void addRepository(String uri, IProvisioningAgent agent, String nickName);
+
 }
