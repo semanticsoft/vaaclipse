@@ -15,6 +15,7 @@ import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.core.ProvisionException;
 import org.eclipse.equinox.p2.operations.ProvisioningSession;
 import org.eclipse.equinox.p2.operations.RepositoryTracker;
+import org.eclipse.equinox.p2.repository.IRepository;
 import org.eclipse.equinox.p2.repository.IRepositoryManager;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepository;
 import org.semanticsoft.vaaclipse.p2.iservice.ISitesManager;
@@ -40,7 +41,34 @@ public class SitesManager implements ISitesManager {
 
 		return Arrays.asList(knownRepositories);
 
-	} 
+	}
+
+	@Override
+	public String getReposiotoryName(IProvisioningAgent agent, URI uri) {
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		return metadataRepositoryManager.getRepositoryProperty(uri,
+				IRepository.PROP_NAME);
+	}
+
+	@Override
+	public boolean isRepositoryEnabled(IProvisioningAgent agent, URI uri) {
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+
+		return metadataRepositoryManager.isEnabled(uri);
+
+	}
+
+	@Override
+	public void setRepositoryEnabled(IProvisioningAgent agent, URI uri,
+			boolean enable) {
+		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
+				agent);
+		metadataRepositoryManager.setEnabled(uri, enable);
+
+	}
 
 	@Override
 	public IStatus validate(IProvisioningAgent agent, String uri) {
@@ -146,9 +174,9 @@ public class SitesManager implements ISitesManager {
 			throw e;
 		}
 	}
-	
+
 	@Override
-	public void removeRepository(String uri, IProvisioningAgent agent){
+	public void removeRepository(String uri, IProvisioningAgent agent) {
 		MetadataRepositoryManager metadataRepositoryManager = new MetadataRepositoryManager(
 				agent);
 		try {

@@ -8,6 +8,8 @@ import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.semanticsoft.vaaclipse.p2.iservice.ISitesManager;
 import org.semanticsoft.vaaclipse.p2.sites.ui.ISitesView;
 
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -49,7 +51,15 @@ public class SitesView implements ISitesView {
 
 			String string = uri.toString();
 
-			treeTable.addItem(new Object[] { "", uri.toString(), "true" }, uri);
+			treeTable
+					.addItem(
+							new Object[] {
+									sitesManager.getReposiotoryName(agent, uri),
+									uri.toString(),
+									""
+											+ sitesManager.isRepositoryEnabled(
+													agent, uri) }, uri);
+
 		}
 
 	}
@@ -118,12 +128,13 @@ public class SitesView implements ISitesView {
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 
-				Collection<URI> value = (Collection<URI>) treeTable.getValue();
-				if(value.isEmpty()){
-					
-					Notification.show("Mus select at least one");
+				if (isSelected()) {
+
+					Notification.show("Must select at least one");
 					return;
 				}
+
+				Collection<URI> value = getSelected();
 				for (URI u : value) {
 
 					removeSite(u.toString());
@@ -140,7 +151,38 @@ public class SitesView implements ISitesView {
 
 		CheckBox enableChek = new CheckBox("Enable");
 		verticalLayoutButton.addComponent(enableChek);
+
+		enableChek.addValueChangeListener(new ValueChangeListener() {
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				if (isSelected()) {
+
+					Notification.show("Must select at least one");
+					return;
+				}
+				Boolean value = (Boolean) event.getProperty().getValue();
+
+				Collection<URI> selected = getSelected();
+				for (URI uri : selected) {
+
+					sitesManager.setRepositoryEnabled(agent, uri, value);
+				}
+
+				loadSites();
+			}
+		});
 		Button reloadButton = new Button("Reload");
+		reloadButton.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+
+				loadSites();
+			}
+		});
 		verticalLayoutButton.addComponent(reloadButton);
 		Button importButton = new Button("Import");
 		verticalLayoutButton.addComponent(importButton);
@@ -164,6 +206,18 @@ public class SitesView implements ISitesView {
 		mainLayout.addComponent(buttonLayout);
 		mainLayout.addComponent(simpleContainer);
 
+	}
+
+	private boolean isSelected() {
+		Collection<URI> value = (Collection<URI>) treeTable.getValue();
+
+		return !value.isEmpty();
+	}
+
+	private Collection<URI> getSelected() {
+		Collection<URI> value = (Collection<URI>) treeTable.getValue();
+
+		return value;
 	}
 
 	@Override

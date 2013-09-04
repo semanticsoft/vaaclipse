@@ -25,4 +25,10 @@ public interface ISitesManager {
 
 	void removeRepository(String uri, IProvisioningAgent agent);
 
+	String getReposiotoryName(IProvisioningAgent agent, URI uri);
+
+	boolean isRepositoryEnabled(IProvisioningAgent agent, URI uri);
+
+	void setRepositoryEnabled(IProvisioningAgent agent, URI uri, boolean enable);
+
 }

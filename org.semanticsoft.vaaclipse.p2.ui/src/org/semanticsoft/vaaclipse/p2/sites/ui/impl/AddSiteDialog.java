@@ -25,6 +25,7 @@ public class AddSiteDialog extends Window {
 	ISitesManager sitesManager;
 	IProvisioningAgent agent;
 	private boolean installed = false;
+	private TextField textRepoName;
 
 	public AddSiteDialog(ISitesManager sitesManager, IProvisioningAgent agent) {
 		// TODO Auto-generated constructor stub
@@ -54,6 +55,8 @@ public class AddSiteDialog extends Window {
 		erroLabel.setImmediate(true);
 
 		content.addComponent(erroLabel);
+		textRepoName = new TextField("Name ");
+		content.addComponent(textRepoName);
 		textField = new TextField("Enter URL here");
 		content.addComponent(textField);
 		uploadSites = new Upload("Upload here", receiver);
