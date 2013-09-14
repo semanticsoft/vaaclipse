@@ -18,6 +18,7 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.internal.workbench.PartServiceSaveHandler;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
@@ -177,16 +178,9 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 			}
 
 			IEclipseContext localContext = getContext(element);
-			localContext.set(ISaveHandler.class, new ISaveHandler() {
+			localContext.set(ISaveHandler.class, new PartServiceSaveHandler() {
 				public Save promptToSave(MPart dirtyPart)
 				{
-					// Object[] elements =
-					// promptForSave(Collections.singleton(dirtyPart));
-					// if (elements == null) {
-					// return Save.CANCEL;
-					// }
-					// return elements.length == 0 ? Save.NO : Save.YES;
-
 					if (saveCandidate == null)
 					{
 						saveCandidate = dirtyPart;
@@ -257,18 +251,6 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 					// return response;
 
 					throw new RuntimeException("Multiple saving is not implemented yet");
-				}
-
-				// TODO fp
-				@Override
-				public boolean save(MPart dirtyPart, boolean confirm) {
-					return false;
-				}
-
-				@Override
-				public boolean saveParts(Collection<MPart> dirtyParts,
-						boolean confirm) {
-					return false;
 				}
 			});
 		}
