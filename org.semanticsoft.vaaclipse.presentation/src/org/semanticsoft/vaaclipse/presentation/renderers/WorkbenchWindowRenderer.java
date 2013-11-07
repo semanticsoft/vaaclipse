@@ -267,6 +267,19 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 
 					throw new RuntimeException("Multiple saving is not implemented yet");
 				}
+
+				@Override
+				public boolean save(MPart dirtyPart, boolean confirm) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean saveParts(Collection<MPart> dirtyParts,
+						boolean confirm) {
+					// TODO Auto-generated method stub
+					return false;
+				}
 			});
 		}
 	}

@@ -276,7 +276,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 					eclipseContext.set(key, props.get(key));
 				}
 
-				E4Workbench.processHierarchy(element);
+				//E4Workbench.processHierarchy(element);
 				//eclipseContext.activate();
 			}
 		}
@@ -553,5 +553,11 @@ public class GenericPresentationEngine implements PresentationEngine {
 		eventBroker.unsubscribe(toBeRenderedHandler);
 		eventBroker.unsubscribe(visibilityHandler);
 		eventBroker.unsubscribe(childrenHandler);
+	}
+
+	@Override
+	public void focusGui(MUIElement element) {
+		// TODO Auto-generated method stub
+		
 	}
 }
