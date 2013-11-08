@@ -4,7 +4,7 @@ Bundle-Name: org.semanticsoft.e4.injector.objectsuppliers
 Bundle-SymbolicName: org.semanticsoft.e4.injector.objectsuppliers;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: javax.annotation;version="1.0.0"
+Import-Package: javax.annotation;version="1.1.0"
 Require-Bundle: org.eclipse.e4.ui.di;bundle-version="0.10.1",
  org.eclipse.e4.core.di.extensions;bundle-version="0.11.0",
  org.eclipse.e4.core.di;bundle-version="1.1.0",

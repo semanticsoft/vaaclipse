@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.M1
 Bundle-Vendor: Rusha Gilmullin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.vaaclipse.additions.view
-Import-Package: javax.annotation
+Import-Package: javax.annotation;version="1.1.0"
 Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.eclipse.e4.core.di;bundle-version="1.1.0",
  org.eclipse.e4.ui.model.workbench;bundle-version="0.10.1",
