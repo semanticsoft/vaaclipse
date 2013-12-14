@@ -225,7 +225,12 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 		appAuthProvider = readClassProperty("applicationAuthenticationProvider");
 
-		String productionMode = appContext.getBrandingProperty("org.semanticsoft.vaaclipse.app.vaadin.production_mode");
+		String productionMode = appContext.getBrandingProperty("vaadin.productionMode");
+		String disableXsrfProtection = appContext.getBrandingProperty("vaadin.disable-xsrf-protection");
+		
+		if ("true".equals(disableXsrfProtection)) {
+			System.out.println("Warning: XSRF protection is OFF!");
+		}
 
 		final BundleContext bundleContext = Activator.getDefault().getBundle().getBundleContext();
 		ServiceReference<?> httpServiceRef = bundleContext.getServiceReference(HttpService.class.getName());
@@ -237,19 +242,13 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 		webApplication = new VaadinWebApplication(bundleContext.getBundle());
 		webApplication.setWidgetsetName(appWidgetsetName);
-		webApplication.setProductionMode(Boolean.valueOf(productionMode));
+		webApplication.setProductionMode(Boolean.valueOf(productionMode != null ? productionMode: "true"));
+		webApplication.setInitProperty("disable-xsrf-protection", disableXsrfProtection != null ? disableXsrfProtection : "false");
 		webApplication.setPort(Integer.valueOf(port));
 		webApplication.setHeaderIconURI(appHeaderIcon);
 		webApplication.setThemeId(cssTheme);
 
-		// start the vaadin application
-		//
-		Dictionary<String, String> initParams = new Hashtable<String, String>();
-		initParams.put("widgetset", webApplication.getWidgetsetName());
-		if (productionMode != null)
-		{
-			initParams.put("productionMode", productionMode);
-		}
+		// start the vaadin application		
 		webApplication.activate();
 	}
 

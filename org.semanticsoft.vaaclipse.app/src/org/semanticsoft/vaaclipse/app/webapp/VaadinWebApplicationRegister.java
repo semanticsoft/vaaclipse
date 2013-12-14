@@ -101,6 +101,11 @@ public class VaadinWebApplicationRegister implements ManagedService {
 					webApplication.getWidgetsetName());
 			properties.put(Constants.PROP_PRODUCTION_MODE,
 					Boolean.toString(webApplication.isProductionMode()));
+			
+			for (String propName : webApplication.getInitProperties()) {
+				properties.put(propName, webApplication.getInitProperty(propName));
+			}
+			
 			servlet = new VaadinOSGiServlet();
 			HttpContext defaultContext = new WebResourcesHttpContext(Activator
 					.getDefault().getBundle());

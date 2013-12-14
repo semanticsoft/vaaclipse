@@ -13,6 +13,9 @@
 package org.semanticsoft.vaaclipse.app.webapp;
 
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -35,6 +38,8 @@ public class VaadinWebApplication {
 	private String widgetsetName;
 	private String headerIconURI;
 	private boolean productionMode;
+	
+	private Map<String, String> initProperties = new HashMap<>();
 
 	private HttpServiceTracker tracker;
 
@@ -122,6 +127,18 @@ public class VaadinWebApplication {
 	 */
 	public void setProductionMode(boolean productionMode) {
 		this.productionMode = productionMode;
+	}
+	
+	public String getInitProperty(String propName) {
+		return this.initProperties.get(propName);
+	}
+	
+	public void setInitProperty(String propName, String propValue) {
+		this.initProperties.put(propName, propValue);
+	}
+	
+	public Set<String> getInitProperties() {
+		return this.initProperties.keySet();
 	}
 
 	/**
