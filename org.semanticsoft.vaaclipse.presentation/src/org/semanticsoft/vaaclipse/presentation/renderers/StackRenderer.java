@@ -188,7 +188,8 @@ public class StackRenderer extends VaadinRenderer {
 			if (stack != null)
 			{
 				Tab tab = ((StackWidget)stack.getWidget()).getTab((Component) (placeholder == null ? part.getWidget() : placeholder.getWidget()));
-				updateTab(tab, part, attName, newValue);	
+				if (tab != null)
+					updateTab(tab, part, attName, newValue);	
 			}
 		}
 	};
