@@ -227,6 +227,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 		String productionMode = appContext.getBrandingProperty("vaadin.productionMode");
 		String disableXsrfProtection = appContext.getBrandingProperty("vaadin.disable-xsrf-protection");
+		String pushmode = appContext.getBrandingProperty("vaadin.pushmode");
 		
 		if ("true".equals(disableXsrfProtection)) {
 			System.out.println("Warning: XSRF protection is OFF!");
@@ -244,6 +245,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 		webApplication.setWidgetsetName(appWidgetsetName);
 		webApplication.setProductionMode(Boolean.valueOf(productionMode != null ? productionMode: "true"));
 		webApplication.setInitProperty("disable-xsrf-protection", disableXsrfProtection != null ? disableXsrfProtection : "false");
+		if (pushmode != null) {
+			System.out.println("Push Enabled");
+			webApplication.setInitProperty("pushmode", pushmode);
+		}
 		webApplication.setPort(Integer.valueOf(port));
 		webApplication.setHeaderIconURI(appHeaderIcon);
 		webApplication.setThemeId(cssTheme);
