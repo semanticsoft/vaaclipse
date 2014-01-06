@@ -189,7 +189,8 @@ public class WorkbenchWindowRenderer extends VaadinRenderer
 						SavePromptSetup setup = partRenderer.getSavePromptSetup(saveCandidate);
 						String caption = setup.getCaption() != null ? setup.getCaption() : "Save";
 						String msg = setup.getMessage() != null ? setup.getMessage() :
-							String.format("%s has been modified. Save changes?", saveCandidate instanceof MInputPart ? ((MInputPart)saveCandidate).getInputURI() : "Data");
+							String.format("%s has been modified. Save changes?", saveCandidate instanceof MInputPart && 
+									((MInputPart)saveCandidate).getInputURI() != null ? ((MInputPart)saveCandidate).getInputURI() : "Data");
 						
 						OptionDialog.show(vaadinUI, caption,
 								msg, 

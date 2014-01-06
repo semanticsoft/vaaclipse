@@ -31,6 +31,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Util;
+import com.vaadin.client.VConsole;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.client.ui.orderedlayout.VAbstractOrderedLayout;
 import com.vaadin.shared.MouseEventDetails;
@@ -678,8 +679,17 @@ public class VStackWidget extends VDDTabSheet
 		
 		toolbarElement = (Element) pathToToolbar.get(pathToToolbar.size() - 1);
 		
-		String mR = DOM.getStyleAttribute(toolbarElement, "marginRight");
-		String mT = DOM.getStyleAttribute(toolbarElement, "marginTop");
+		if (toolbarElement == null)
+			return;
+
+		String mR, mT;
+		try {
+			mR = DOM.getStyleAttribute(toolbarElement, "marginRight");
+			mT = DOM.getStyleAttribute(toolbarElement, "marginTop");
+		}
+		catch (Exception e) {
+			return;
+		}
 		
 		if (mR != null && mT != null && !mR.trim().isEmpty() && !mT.trim().isEmpty())
 		{//toolbar is relocated, check is there are space in tabs panel and if no, restore location of toolbar
