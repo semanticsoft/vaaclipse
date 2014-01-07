@@ -8,6 +8,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.semanticsoft.vaaclipse.publicapi.app,
  org.semanticsoft.vaaclipse.publicapi.authentication,
  org.semanticsoft.vaaclipse.publicapi.editor,
+ org.semanticsoft.vaaclipse.publicapi.events,
  org.semanticsoft.vaaclipse.publicapi.model,
  org.semanticsoft.vaaclipse.publicapi.resources,
  org.semanticsoft.vaaclipse.publicapi.theme

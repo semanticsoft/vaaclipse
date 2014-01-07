@@ -20,8 +20,10 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
+import org.semanticsoft.vaaclipse.api.Events;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
 import org.semanticsoft.vaaclipse.presentation.fastview.FastViewManager;
+import org.semanticsoft.vaaclipse.publicapi.events.PublicEvents;
 
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -66,6 +68,8 @@ public class VaadinPresentationEngine extends GenericPresentationEngine {
 
 	@Override
 	public void stop() {
+		eventBroker.send(PublicEvents.EXIT_WORKBENCH, null);
+		
 		super.stop();
 		
 		VaadinExecutorService executor = theApp.getContext().get(VaadinExecutorService.class);

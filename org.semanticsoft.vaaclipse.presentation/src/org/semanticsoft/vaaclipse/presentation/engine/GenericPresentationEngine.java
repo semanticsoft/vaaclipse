@@ -65,7 +65,7 @@ public class GenericPresentationEngine implements PresentationEngine {
 	EModelService modelService;
 
 	@Inject
-	EventBroker eventBroker;
+	protected EventBroker eventBroker;
 
 	private final EventHandler childrenHandler = new EventHandler() {
 		@Override
