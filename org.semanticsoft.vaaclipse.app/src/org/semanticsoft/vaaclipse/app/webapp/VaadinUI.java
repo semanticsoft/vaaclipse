@@ -461,4 +461,11 @@ public class VaadinUI extends UI {
 
 		return eclipseContext;
 	}
+	
+	@Override
+	public void detach() {
+		if (e4Workbench != null)
+			e4Workbench.close();
+		super.detach();
+	}
 }
