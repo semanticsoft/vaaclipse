@@ -15,5 +15,8 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Export-Package: e4modelextension,
  e4modelextension.impl,
- e4modelextension.util
+ e4modelextension.util,
+ preferences,
+ preferences.impl,
+ preferences.util
 Import-Package: javax.annotation

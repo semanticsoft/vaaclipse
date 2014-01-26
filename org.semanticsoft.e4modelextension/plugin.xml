@@ -13,4 +13,12 @@
             genModel="model/e4modelextension.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated e4modelextension -->
+      <package
+            uri="http://www.lunifera.org/vaaclipse/ui/preferences"
+            class="preferences.PreferencesPackage"
+            genModel="model/e4modelextension.genmodel"/>
+   </extension>
+
 </plugin>

@@ -565,13 +565,31 @@ public interface E4modelextensionPackage extends EPackage
 	int VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS = ApplicationPackageImpl.APPLICATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Preferences Categories</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES = ApplicationPackageImpl.APPLICATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Preferences Pages</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VAACLIPSE_APPLICATION__PREFERENCES_PAGES = ApplicationPackageImpl.APPLICATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Vaaclipse Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VAACLIPSE_APPLICATION_FEATURE_COUNT = ApplicationPackageImpl.APPLICATION_FEATURE_COUNT + 1;
+	int VAACLIPSE_APPLICATION_FEATURE_COUNT = ApplicationPackageImpl.APPLICATION_FEATURE_COUNT + 3;
 
 
 	/**
@@ -626,6 +644,28 @@ public interface E4modelextensionPackage extends EPackage
 	 * @generated
 	 */
 	EReference getVaaclipseApplication_EditorDescriptors();
+
+	/**
+	 * Returns the meta object for the reference list '{@link e4modelextension.VaaclipseApplication#getPreferencesCategories <em>Preferences Categories</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Preferences Categories</em>'.
+	 * @see e4modelextension.VaaclipseApplication#getPreferencesCategories()
+	 * @see #getVaaclipseApplication()
+	 * @generated
+	 */
+	EReference getVaaclipseApplication_PreferencesCategories();
+
+	/**
+	 * Returns the meta object for the reference list '{@link e4modelextension.VaaclipseApplication#getPreferencesPages <em>Preferences Pages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Preferences Pages</em>'.
+	 * @see e4modelextension.VaaclipseApplication#getPreferencesPages()
+	 * @see #getVaaclipseApplication()
+	 * @generated
+	 */
+	EReference getVaaclipseApplication_PreferencesPages();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -693,6 +733,22 @@ public interface E4modelextensionPackage extends EPackage
 		 * @generated
 		 */
 		EReference VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS = eINSTANCE.getVaaclipseApplication_EditorDescriptors();
+
+		/**
+		 * The meta object literal for the '<em><b>Preferences Categories</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES = eINSTANCE.getVaaclipseApplication_PreferencesCategories();
+
+		/**
+		 * The meta object literal for the '<em><b>Preferences Pages</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VAACLIPSE_APPLICATION__PREFERENCES_PAGES = eINSTANCE.getVaaclipseApplication_PreferencesPages();
 
 	}
 

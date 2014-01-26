@@ -10,8 +10,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import preferences.PreferencesCategory;
+import preferences.PreferencesPage;
 import e4modelextension.E4modelextensionPackage;
 import e4modelextension.EditorPartDescriptor;
 import e4modelextension.VaaclipseApplication;
@@ -24,6 +27,8 @@ import e4modelextension.VaaclipseApplication;
  * The following features are implemented:
  * <ul>
  *   <li>{@link e4modelextension.impl.VaaclipseApplicationImpl#getEditorDescriptors <em>Editor Descriptors</em>}</li>
+ *   <li>{@link e4modelextension.impl.VaaclipseApplicationImpl#getPreferencesCategories <em>Preferences Categories</em>}</li>
+ *   <li>{@link e4modelextension.impl.VaaclipseApplicationImpl#getPreferencesPages <em>Preferences Pages</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,6 +45,25 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @ordered
 	 */
 	protected EList<EditorPartDescriptor> editorDescriptors;
+
+	/**
+	 * The cached value of the '{@link #getPreferencesCategories() <em>Preferences Categories</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferencesCategories()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PreferencesCategory> preferencesCategories;
+	/**
+	 * The cached value of the '{@link #getPreferencesPages() <em>Preferences Pages</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferencesPages()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PreferencesPage> preferencesPages;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,8 +93,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 */
 	public EList<EditorPartDescriptor> getEditorDescriptors()
 	{
-		if (editorDescriptors == null)
-		{
+		if (editorDescriptors == null) {
 			editorDescriptors = new EObjectContainmentEList<EditorPartDescriptor>(EditorPartDescriptor.class, this, E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS);
 		}
 		return editorDescriptors;
@@ -81,11 +104,34 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PreferencesCategory> getPreferencesCategories() {
+		if (preferencesCategories == null) {
+			preferencesCategories = new EObjectResolvingEList<PreferencesCategory>(PreferencesCategory.class, this, E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES);
+		}
+		return preferencesCategories;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<PreferencesPage> getPreferencesPages() {
+		if (preferencesPages == null) {
+			preferencesPages = new EObjectResolvingEList<PreferencesPage>(PreferencesPage.class, this, E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_PAGES);
+		}
+		return preferencesPages;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return ((InternalEList<?>)getEditorDescriptors()).basicRemove(otherEnd, msgs);
 		}
@@ -100,10 +146,13 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return getEditorDescriptors();
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES:
+				return getPreferencesCategories();
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_PAGES:
+				return getPreferencesPages();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -117,11 +166,18 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				getEditorDescriptors().clear();
 				getEditorDescriptors().addAll((Collection<? extends EditorPartDescriptor>)newValue);
+				return;
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES:
+				getPreferencesCategories().clear();
+				getPreferencesCategories().addAll((Collection<? extends PreferencesCategory>)newValue);
+				return;
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_PAGES:
+				getPreferencesPages().clear();
+				getPreferencesPages().addAll((Collection<? extends PreferencesPage>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,10 +191,15 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				getEditorDescriptors().clear();
+				return;
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES:
+				getPreferencesCategories().clear();
+				return;
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_PAGES:
+				getPreferencesPages().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -152,10 +213,13 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return editorDescriptors != null && !editorDescriptors.isEmpty();
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES:
+				return preferencesCategories != null && !preferencesCategories.isEmpty();
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION__PREFERENCES_PAGES:
+				return preferencesPages != null && !preferencesPages.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

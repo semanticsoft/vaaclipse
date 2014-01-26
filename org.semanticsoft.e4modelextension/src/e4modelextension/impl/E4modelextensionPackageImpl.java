@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import preferences.PreferencesPackage;
+import preferences.impl.PreferencesPackageImpl;
 import e4modelextension.E4modelextensionFactory;
 import e4modelextension.E4modelextensionPackage;
 import e4modelextension.EditorPartDescriptor;
@@ -88,11 +90,16 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		// Initialize simple dependencies
 		ApplicationPackageImpl.eINSTANCE.eClass();
 
+		// Obtain or create and register interdependencies
+		PreferencesPackageImpl thePreferencesPackage = (PreferencesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PreferencesPackage.eNS_URI) instanceof PreferencesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PreferencesPackage.eNS_URI) : PreferencesPackage.eINSTANCE);
+
 		// Create package meta-data objects
 		theE4modelextensionPackage.createPackageContents();
+		thePreferencesPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theE4modelextensionPackage.initializePackageContents();
+		thePreferencesPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theE4modelextensionPackage.freeze();
@@ -158,6 +165,24 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getVaaclipseApplication_PreferencesCategories() {
+		return (EReference)vaaclipseApplicationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getVaaclipseApplication_PreferencesPages() {
+		return (EReference)vaaclipseApplicationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public E4modelextensionFactory getE4modelextensionFactory()
 	{
 		return (E4modelextensionFactory)getEFactoryInstance();
@@ -189,6 +214,8 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 
 		vaaclipseApplicationEClass = createEClass(VAACLIPSE_APPLICATION);
 		createEReference(vaaclipseApplicationEClass, VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS);
+		createEReference(vaaclipseApplicationEClass, VAACLIPSE_APPLICATION__PREFERENCES_CATEGORIES);
+		createEReference(vaaclipseApplicationEClass, VAACLIPSE_APPLICATION__PREFERENCES_PAGES);
 	}
 
 	/**
@@ -218,6 +245,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		// Obtain other dependent packages
 		BasicPackageImpl theBasicPackage = (BasicPackageImpl)EPackage.Registry.INSTANCE.getEPackage(BasicPackageImpl.eNS_URI);
 		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackageImpl.eNS_URI);
+		PreferencesPackage thePreferencesPackage = (PreferencesPackage)EPackage.Registry.INSTANCE.getEPackage(PreferencesPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -234,6 +262,8 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 
 		initEClass(vaaclipseApplicationEClass, VaaclipseApplication.class, "VaaclipseApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVaaclipseApplication_EditorDescriptors(), this.getEditorPartDescriptor(), null, "editorDescriptors", null, 0, -1, VaaclipseApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVaaclipseApplication_PreferencesCategories(), thePreferencesPackage.getPreferencesCategory(), null, "preferencesCategories", null, 0, -1, VaaclipseApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVaaclipseApplication_PreferencesPages(), thePreferencesPackage.getPreferencesPage(), null, "preferencesPages", null, 0, -1, VaaclipseApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

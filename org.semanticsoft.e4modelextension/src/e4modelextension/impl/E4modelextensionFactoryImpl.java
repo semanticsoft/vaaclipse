@@ -2,6 +2,7 @@
  */
 package e4modelextension.impl;
 
+import e4modelextension.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -29,16 +30,13 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 */
 	public static E4modelextensionFactory init()
 	{
-		try
-		{
-			E4modelextensionFactory theE4modelextensionFactory = (E4modelextensionFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.semanticsoft.org/ExtensionUI/e4modelextension"); 
-			if (theE4modelextensionFactory != null)
-			{
+		try {
+			E4modelextensionFactory theE4modelextensionFactory = (E4modelextensionFactory)EPackage.Registry.INSTANCE.getEFactory(E4modelextensionPackage.eNS_URI);
+			if (theE4modelextensionFactory != null) {
 				return theE4modelextensionFactory;
 			}
 		}
-		catch (Exception exception)
-		{
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new E4modelextensionFactoryImpl();
@@ -63,8 +61,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	@Override
 	public EObject create(EClass eClass)
 	{
-		switch (eClass.getClassifierID())
-		{
+		switch (eClass.getClassifierID()) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR: return createEditorPartDescriptor();
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION: return createVaaclipseApplication();
 			default:

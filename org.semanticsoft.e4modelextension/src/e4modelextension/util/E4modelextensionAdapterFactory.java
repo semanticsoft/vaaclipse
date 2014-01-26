@@ -2,6 +2,7 @@
  */
 package e4modelextension.util;
 
+import e4modelextension.*;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.model.application.commands.MBindingTableContainer;
@@ -52,8 +53,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 */
 	public E4modelextensionAdapterFactory()
 	{
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = E4modelextensionPackage.eINSTANCE;
 		}
 	}
@@ -69,12 +69,10 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	@Override
 	public boolean isFactoryForType(Object object)
 	{
-		if (object == modelPackage)
-		{
+		if (object == modelPackage) {
 			return true;
 		}
-		if (object instanceof EObject)
-		{
+		if (object instanceof EObject) {
 			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
@@ -87,96 +85,77 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	protected E4modelextensionSwitch<Adapter> modelSwitch =
-		new E4modelextensionSwitch<Adapter>()
-		{
+		new E4modelextensionSwitch<Adapter>() {
 			@Override
-			public Adapter caseEditorPartDescriptor(EditorPartDescriptor object)
-			{
+			public Adapter caseEditorPartDescriptor(EditorPartDescriptor object) {
 				return createEditorPartDescriptorAdapter();
 			}
 			@Override
-			public Adapter caseVaaclipseApplication(VaaclipseApplication object)
-			{
+			public Adapter caseVaaclipseApplication(VaaclipseApplication object) {
 				return createVaaclipseApplicationAdapter();
 			}
 			@Override
-			public Adapter caseApplicationElement(MApplicationElement object)
-			{
+			public Adapter caseApplicationElement(MApplicationElement object) {
 				return createApplicationElementAdapter();
 			}
 			@Override
-			public Adapter caseUILabel(MUILabel object)
-			{
+			public Adapter caseUILabel(MUILabel object) {
 				return createUILabelAdapter();
 			}
 			@Override
-			public Adapter caseHandlerContainer(MHandlerContainer object)
-			{
+			public Adapter caseHandlerContainer(MHandlerContainer object) {
 				return createHandlerContainerAdapter();
 			}
 			@Override
-			public Adapter caseBindings(MBindings object)
-			{
+			public Adapter caseBindings(MBindings object) {
 				return createBindingsAdapter();
 			}
 			@Override
-			public Adapter casePartDescriptor(MPartDescriptor object)
-			{
+			public Adapter casePartDescriptor(MPartDescriptor object) {
 				return createPartDescriptorAdapter();
 			}
 			@Override
-			public Adapter caseUIElement(MUIElement object)
-			{
+			public Adapter caseUIElement(MUIElement object) {
 				return createUIElementAdapter();
 			}
 			@Override
-			public <T extends MUIElement> Adapter caseElementContainer(MElementContainer<T> object)
-			{
+			public <T extends MUIElement> Adapter caseElementContainer(MElementContainer<T> object) {
 				return createElementContainerAdapter();
 			}
 			@Override
-			public Adapter caseContext(MContext object)
-			{
+			public Adapter caseContext(MContext object) {
 				return createContextAdapter();
 			}
 			@Override
-			public Adapter caseBindingTableContainer(MBindingTableContainer object)
-			{
+			public Adapter caseBindingTableContainer(MBindingTableContainer object) {
 				return createBindingTableContainerAdapter();
 			}
 			@Override
-			public Adapter casePartDescriptorContainer(MPartDescriptorContainer object)
-			{
+			public Adapter casePartDescriptorContainer(MPartDescriptorContainer object) {
 				return createPartDescriptorContainerAdapter();
 			}
 			@Override
-			public Adapter caseMenuContributions(MMenuContributions object)
-			{
+			public Adapter caseMenuContributions(MMenuContributions object) {
 				return createMenuContributionsAdapter();
 			}
 			@Override
-			public Adapter caseToolBarContributions(MToolBarContributions object)
-			{
+			public Adapter caseToolBarContributions(MToolBarContributions object) {
 				return createToolBarContributionsAdapter();
 			}
 			@Override
-			public Adapter caseTrimContributions(MTrimContributions object)
-			{
+			public Adapter caseTrimContributions(MTrimContributions object) {
 				return createTrimContributionsAdapter();
 			}
 			@Override
-			public Adapter caseSnippetContainer(MSnippetContainer object)
-			{
+			public Adapter caseSnippetContainer(MSnippetContainer object) {
 				return createSnippetContainerAdapter();
 			}
 			@Override
-			public Adapter caseApplication(MApplication object)
-			{
+			public Adapter caseApplication(MApplication object) {
 				return createApplicationAdapter();
 			}
 			@Override
-			public Adapter defaultCase(EObject object)
-			{
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};

@@ -5,6 +5,8 @@ package e4modelextension;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import preferences.PreferencesCategory;
+import preferences.PreferencesPage;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link e4modelextension.VaaclipseApplication#getEditorDescriptors <em>Editor Descriptors</em>}</li>
+ *   <li>{@link e4modelextension.VaaclipseApplication#getPreferencesCategories <em>Preferences Categories</em>}</li>
+ *   <li>{@link e4modelextension.VaaclipseApplication#getPreferencesPages <em>Preferences Pages</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,5 +43,37 @@ public interface VaaclipseApplication extends EObject, MApplication
 	 * @generated
 	 */
 	EList<EditorPartDescriptor> getEditorDescriptors();
+
+	/**
+	 * Returns the value of the '<em><b>Preferences Categories</b></em>' reference list.
+	 * The list contents are of type {@link preferences.PreferencesCategory}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preferences Categories</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preferences Categories</em>' reference list.
+	 * @see e4modelextension.E4modelextensionPackage#getVaaclipseApplication_PreferencesCategories()
+	 * @model
+	 * @generated
+	 */
+	EList<PreferencesCategory> getPreferencesCategories();
+
+	/**
+	 * Returns the value of the '<em><b>Preferences Pages</b></em>' reference list.
+	 * The list contents are of type {@link preferences.PreferencesPage}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preferences Pages</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preferences Pages</em>' reference list.
+	 * @see e4modelextension.E4modelextensionPackage#getVaaclipseApplication_PreferencesPages()
+	 * @model
+	 * @generated
+	 */
+	EList<PreferencesPage> getPreferencesPages();
 
 } // VaaclipseApplication

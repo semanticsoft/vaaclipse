@@ -2,6 +2,7 @@
  */
 package e4modelextension.util;
 
+import e4modelextension.*;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.model.application.commands.MBindingTableContainer;
@@ -56,8 +57,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 */
 	public E4modelextensionSwitch()
 	{
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = E4modelextensionPackage.eINSTANCE;
 		}
 	}
@@ -86,10 +86,8 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	@Override
 	protected T1 doSwitch(int classifierID, EObject theEObject)
 	{
-		switch (classifierID)
-		{
-			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR:
-			{
+		switch (classifierID) {
+			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR: {
 				EditorPartDescriptor editorPartDescriptor = (EditorPartDescriptor)theEObject;
 				T1 result = caseEditorPartDescriptor(editorPartDescriptor);
 				if (result == null) result = casePartDescriptor(editorPartDescriptor);
@@ -100,8 +98,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case E4modelextensionPackage.VAACLIPSE_APPLICATION:
-			{
+			case E4modelextensionPackage.VAACLIPSE_APPLICATION: {
 				VaaclipseApplication vaaclipseApplication = (VaaclipseApplication)theEObject;
 				T1 result = caseVaaclipseApplication(vaaclipseApplication);
 				if (result == null) result = caseApplication(vaaclipseApplication);

@@ -141,8 +141,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				return getUriFilter();
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__PART_ADDING_LOGIC_URI:
@@ -159,8 +158,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				setUriFilter((String)newValue);
 				return;
@@ -179,8 +177,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				setUriFilter(URI_FILTER_EDEFAULT);
 				return;
@@ -199,8 +196,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				return URI_FILTER_EDEFAULT == null ? uriFilter != null : !URI_FILTER_EDEFAULT.equals(uriFilter);
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__PART_ADDING_LOGIC_URI:
