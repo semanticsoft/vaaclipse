@@ -12,8 +12,7 @@ import org.eclipse.emf.ecore.EFactory;
  * @see e4modelextension.E4modelextensionPackage
  * @generated
  */
-public interface E4modelextensionFactory extends EFactory
-{
+public interface E4modelextensionFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->

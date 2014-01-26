@@ -3,28 +3,31 @@
 package e4modelextension.util;
 
 import e4modelextension.*;
+
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
+
 import org.eclipse.e4.ui.model.application.commands.MBindingTableContainer;
 import org.eclipse.e4.ui.model.application.commands.MBindings;
 import org.eclipse.e4.ui.model.application.commands.MHandlerContainer;
+
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptorContainer;
+
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MSnippetContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
+
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContributions;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.Switch;
 
-import e4modelextension.E4modelextensionPackage;
-import e4modelextension.EditorPartDescriptor;
-import e4modelextension.VaaclipseApplication;
+import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,8 +42,7 @@ import e4modelextension.VaaclipseApplication;
  * @see e4modelextension.E4modelextensionPackage
  * @generated
  */
-public class E4modelextensionSwitch<T1> extends Switch<T1>
-{
+public class E4modelextensionSwitch<T1> extends Switch<T1> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -55,8 +57,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public E4modelextensionSwitch()
-	{
+	public E4modelextensionSwitch() {
 		if (modelPackage == null) {
 			modelPackage = E4modelextensionPackage.eINSTANCE;
 		}
@@ -71,8 +72,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @generated
 	 */
 	@Override
-	protected boolean isSwitchFor(EPackage ePackage)
-	{
+	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
 	}
 
@@ -84,8 +84,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @generated
 	 */
 	@Override
-	protected T1 doSwitch(int classifierID, EObject theEObject)
-	{
+	protected T1 doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR: {
 				EditorPartDescriptor editorPartDescriptor = (EditorPartDescriptor)theEObject;
@@ -132,8 +131,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseEditorPartDescriptor(EditorPartDescriptor object)
-	{
+	public T1 caseEditorPartDescriptor(EditorPartDescriptor object) {
 		return null;
 	}
 
@@ -148,8 +146,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseVaaclipseApplication(VaaclipseApplication object)
-	{
+	public T1 caseVaaclipseApplication(VaaclipseApplication object) {
 		return null;
 	}
 
@@ -164,8 +161,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseApplicationElement(MApplicationElement object)
-	{
+	public T1 caseApplicationElement(MApplicationElement object) {
 		return null;
 	}
 
@@ -180,8 +176,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseUILabel(MUILabel object)
-	{
+	public T1 caseUILabel(MUILabel object) {
 		return null;
 	}
 
@@ -196,8 +191,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseHandlerContainer(MHandlerContainer object)
-	{
+	public T1 caseHandlerContainer(MHandlerContainer object) {
 		return null;
 	}
 
@@ -212,8 +206,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseBindings(MBindings object)
-	{
+	public T1 caseBindings(MBindings object) {
 		return null;
 	}
 
@@ -228,8 +221,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 casePartDescriptor(MPartDescriptor object)
-	{
+	public T1 casePartDescriptor(MPartDescriptor object) {
 		return null;
 	}
 
@@ -244,8 +236,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseUIElement(MUIElement object)
-	{
+	public T1 caseUIElement(MUIElement object) {
 		return null;
 	}
 
@@ -260,8 +251,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public <T extends MUIElement> T1 caseElementContainer(MElementContainer<T> object)
-	{
+	public <T extends MUIElement> T1 caseElementContainer(MElementContainer<T> object) {
 		return null;
 	}
 
@@ -276,8 +266,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseContext(MContext object)
-	{
+	public T1 caseContext(MContext object) {
 		return null;
 	}
 
@@ -292,8 +281,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseBindingTableContainer(MBindingTableContainer object)
-	{
+	public T1 caseBindingTableContainer(MBindingTableContainer object) {
 		return null;
 	}
 
@@ -308,8 +296,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 casePartDescriptorContainer(MPartDescriptorContainer object)
-	{
+	public T1 casePartDescriptorContainer(MPartDescriptorContainer object) {
 		return null;
 	}
 
@@ -324,8 +311,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseMenuContributions(MMenuContributions object)
-	{
+	public T1 caseMenuContributions(MMenuContributions object) {
 		return null;
 	}
 
@@ -340,8 +326,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseToolBarContributions(MToolBarContributions object)
-	{
+	public T1 caseToolBarContributions(MToolBarContributions object) {
 		return null;
 	}
 
@@ -356,8 +341,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseTrimContributions(MTrimContributions object)
-	{
+	public T1 caseTrimContributions(MTrimContributions object) {
 		return null;
 	}
 
@@ -372,8 +356,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseSnippetContainer(MSnippetContainer object)
-	{
+	public T1 caseSnippetContainer(MSnippetContainer object) {
 		return null;
 	}
 
@@ -388,8 +371,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseApplication(MApplication object)
-	{
+	public T1 caseApplication(MApplication object) {
 		return null;
 	}
 
@@ -405,8 +387,7 @@ public class E4modelextensionSwitch<T1> extends Switch<T1>
 	 * @generated
 	 */
 	@Override
-	public T1 defaultCase(EObject object)
-	{
+	public T1 defaultCase(EObject object) {
 		return null;
 	}
 

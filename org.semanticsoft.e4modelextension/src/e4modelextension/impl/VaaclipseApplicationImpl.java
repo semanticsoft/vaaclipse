@@ -2,22 +2,27 @@
  */
 package e4modelextension.impl;
 
+import e4modelextension.E4modelextensionPackage;
+import e4modelextension.EditorPartDescriptor;
+import e4modelextension.VaaclipseApplication;
+
 import java.util.Collection;
 
 import org.eclipse.e4.ui.model.application.impl.ApplicationImpl;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import preferences.PreferencesCategory;
-import preferences.PreferencesPage;
-import e4modelextension.E4modelextensionPackage;
-import e4modelextension.EditorPartDescriptor;
-import e4modelextension.VaaclipseApplication;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,8 +39,7 @@ import e4modelextension.VaaclipseApplication;
  *
  * @generated
  */
-public class VaaclipseApplicationImpl extends ApplicationImpl implements VaaclipseApplication
-{
+public class VaaclipseApplicationImpl extends ApplicationImpl implements VaaclipseApplication {
 	/**
 	 * The cached value of the '{@link #getEditorDescriptors() <em>Editor Descriptors</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -55,6 +59,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @ordered
 	 */
 	protected EList<PreferencesCategory> preferencesCategories;
+
 	/**
 	 * The cached value of the '{@link #getPreferencesPages() <em>Preferences Pages</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -70,8 +75,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected VaaclipseApplicationImpl()
-	{
+	protected VaaclipseApplicationImpl() {
 		super();
 	}
 
@@ -81,8 +85,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @generated
 	 */
 	@Override
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return E4modelextensionPackage.Literals.VAACLIPSE_APPLICATION;
 	}
 
@@ -91,8 +94,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EditorPartDescriptor> getEditorDescriptors()
-	{
+	public EList<EditorPartDescriptor> getEditorDescriptors() {
 		if (editorDescriptors == null) {
 			editorDescriptors = new EObjectContainmentEList<EditorPartDescriptor>(EditorPartDescriptor.class, this, E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS);
 		}
@@ -129,8 +131,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return ((InternalEList<?>)getEditorDescriptors()).basicRemove(otherEnd, msgs);
@@ -144,8 +145,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @generated
 	 */
 	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType)
-	{
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return getEditorDescriptors();
@@ -164,8 +164,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void eSet(int featureID, Object newValue)
-	{
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				getEditorDescriptors().clear();
@@ -189,8 +188,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @generated
 	 */
 	@Override
-	public void eUnset(int featureID)
-	{
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				getEditorDescriptors().clear();
@@ -211,8 +209,7 @@ public class VaaclipseApplicationImpl extends ApplicationImpl implements Vaaclip
 	 * @generated
 	 */
 	@Override
-	public boolean eIsSet(int featureID)
-	{
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION__EDITOR_DESCRIPTORS:
 				return editorDescriptors != null && !editorDescriptors.isEmpty();

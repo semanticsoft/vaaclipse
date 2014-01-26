@@ -31,6 +31,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getPreferencesScope <em>Preferences Scope</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,6 +47,25 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected PreferencesCategory category;
+
+	/**
+	 * The default value of the '{@link #getPreferencesScope() <em>Preferences Scope</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferencesScope()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PREFERENCES_SCOPE_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getPreferencesScope() <em>Preferences Scope</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferencesScope()
+	 * @generated
+	 * @ordered
+	 */
+	protected String preferencesScope = PREFERENCES_SCOPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -139,6 +159,27 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getPreferencesScope() {
+		return preferencesScope;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPreferencesScope(String newPreferencesScope) {
+		String oldPreferencesScope = preferencesScope;
+		preferencesScope = newPreferencesScope;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE, oldPreferencesScope, preferencesScope));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -174,6 +215,8 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 		switch (featureID) {
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				return getCategory();
+			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
+				return getPreferencesScope();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -188,6 +231,9 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 		switch (featureID) {
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				setCategory((PreferencesCategory)newValue);
+				return;
+			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
+				setPreferencesScope((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -204,6 +250,9 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				setCategory((PreferencesCategory)null);
 				return;
+			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
+				setPreferencesScope(PREFERENCES_SCOPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -218,8 +267,26 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 		switch (featureID) {
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				return category != null;
+			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
+				return PREFERENCES_SCOPE_EDEFAULT == null ? preferencesScope != null : !PREFERENCES_SCOPE_EDEFAULT.equals(preferencesScope);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (preferencesScope: ");
+		result.append(preferencesScope);
+		result.append(')');
+		return result.toString();
 	}
 
 } //PreferencesPageImpl

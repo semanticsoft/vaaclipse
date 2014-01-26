@@ -14,6 +14,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PreferencesPage">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//PreferencesCategory"
         containment="true" eOpposite="#//PreferencesCategory/page"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferencesScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/ElementContainer">
       <eTypeArguments eClassifier="#//FieldEditor">
         <eTypeArguments/>

@@ -3,29 +3,33 @@
 package e4modelextension.util;
 
 import e4modelextension.*;
+
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
+
 import org.eclipse.e4.ui.model.application.commands.MBindingTableContainer;
 import org.eclipse.e4.ui.model.application.commands.MBindings;
 import org.eclipse.e4.ui.model.application.commands.MHandlerContainer;
+
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptorContainer;
+
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MSnippetContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
+
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarContributions;
 import org.eclipse.e4.ui.model.application.ui.menu.MTrimContributions;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
 
-import e4modelextension.E4modelextensionPackage;
-import e4modelextension.EditorPartDescriptor;
-import e4modelextension.VaaclipseApplication;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,8 +39,7 @@ import e4modelextension.VaaclipseApplication;
  * @see e4modelextension.E4modelextensionPackage
  * @generated
  */
-public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
-{
+public class E4modelextensionAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
@@ -51,8 +54,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public E4modelextensionAdapterFactory()
-	{
+	public E4modelextensionAdapterFactory() {
 		if (modelPackage == null) {
 			modelPackage = E4modelextensionPackage.eINSTANCE;
 		}
@@ -67,8 +69,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	@Override
-	public boolean isFactoryForType(Object object)
-	{
+	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -169,8 +170,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	@Override
-	public Adapter createAdapter(Notifier target)
-	{
+	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
@@ -185,8 +185,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see e4modelextension.EditorPartDescriptor
 	 * @generated
 	 */
-	public Adapter createEditorPartDescriptorAdapter()
-	{
+	public Adapter createEditorPartDescriptorAdapter() {
 		return null;
 	}
 
@@ -200,8 +199,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see e4modelextension.VaaclipseApplication
 	 * @generated
 	 */
-	public Adapter createVaaclipseApplicationAdapter()
-	{
+	public Adapter createVaaclipseApplicationAdapter() {
 		return null;
 	}
 
@@ -215,8 +213,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.MApplicationElement
 	 * @generated
 	 */
-	public Adapter createApplicationElementAdapter()
-	{
+	public Adapter createApplicationElementAdapter() {
 		return null;
 	}
 
@@ -230,8 +227,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.MUILabel
 	 * @generated
 	 */
-	public Adapter createUILabelAdapter()
-	{
+	public Adapter createUILabelAdapter() {
 		return null;
 	}
 
@@ -245,8 +241,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.commands.MHandlerContainer
 	 * @generated
 	 */
-	public Adapter createHandlerContainerAdapter()
-	{
+	public Adapter createHandlerContainerAdapter() {
 		return null;
 	}
 
@@ -260,8 +255,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.commands.MBindings
 	 * @generated
 	 */
-	public Adapter createBindingsAdapter()
-	{
+	public Adapter createBindingsAdapter() {
 		return null;
 	}
 
@@ -275,8 +269,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor
 	 * @generated
 	 */
-	public Adapter createPartDescriptorAdapter()
-	{
+	public Adapter createPartDescriptorAdapter() {
 		return null;
 	}
 
@@ -290,8 +283,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.MUIElement
 	 * @generated
 	 */
-	public Adapter createUIElementAdapter()
-	{
+	public Adapter createUIElementAdapter() {
 		return null;
 	}
 
@@ -305,8 +297,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.MElementContainer
 	 * @generated
 	 */
-	public Adapter createElementContainerAdapter()
-	{
+	public Adapter createElementContainerAdapter() {
 		return null;
 	}
 
@@ -320,8 +311,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.MContext
 	 * @generated
 	 */
-	public Adapter createContextAdapter()
-	{
+	public Adapter createContextAdapter() {
 		return null;
 	}
 
@@ -335,8 +325,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.commands.MBindingTableContainer
 	 * @generated
 	 */
-	public Adapter createBindingTableContainerAdapter()
-	{
+	public Adapter createBindingTableContainerAdapter() {
 		return null;
 	}
 
@@ -350,8 +339,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptorContainer
 	 * @generated
 	 */
-	public Adapter createPartDescriptorContainerAdapter()
-	{
+	public Adapter createPartDescriptorContainerAdapter() {
 		return null;
 	}
 
@@ -365,8 +353,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.menu.MMenuContributions
 	 * @generated
 	 */
-	public Adapter createMenuContributionsAdapter()
-	{
+	public Adapter createMenuContributionsAdapter() {
 		return null;
 	}
 
@@ -380,8 +367,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.menu.MToolBarContributions
 	 * @generated
 	 */
-	public Adapter createToolBarContributionsAdapter()
-	{
+	public Adapter createToolBarContributionsAdapter() {
 		return null;
 	}
 
@@ -395,8 +381,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.menu.MTrimContributions
 	 * @generated
 	 */
-	public Adapter createTrimContributionsAdapter()
-	{
+	public Adapter createTrimContributionsAdapter() {
 		return null;
 	}
 
@@ -410,8 +395,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.ui.MSnippetContainer
 	 * @generated
 	 */
-	public Adapter createSnippetContainerAdapter()
-	{
+	public Adapter createSnippetContainerAdapter() {
 		return null;
 	}
 
@@ -425,8 +409,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.e4.ui.model.application.MApplication
 	 * @generated
 	 */
-	public Adapter createApplicationAdapter()
-	{
+	public Adapter createApplicationAdapter() {
 		return null;
 	}
 
@@ -438,8 +421,7 @@ public class E4modelextensionAdapterFactory extends AdapterFactoryImpl
 	 * @return the new adapter.
 	 * @generated
 	 */
-	public Adapter createEObjectAdapter()
-	{
+	public Adapter createEObjectAdapter() {
 		return null;
 	}
 

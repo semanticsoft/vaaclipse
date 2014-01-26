@@ -3,16 +3,14 @@
 package e4modelextension.impl;
 
 import e4modelextension.*;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import e4modelextension.E4modelextensionFactory;
-import e4modelextension.E4modelextensionPackage;
-import e4modelextension.EditorPartDescriptor;
-import e4modelextension.VaaclipseApplication;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,16 +18,14 @@ import e4modelextension.VaaclipseApplication;
  * <!-- end-user-doc -->
  * @generated
  */
-public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4modelextensionFactory
-{
+public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4modelextensionFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static E4modelextensionFactory init()
-	{
+	public static E4modelextensionFactory init() {
 		try {
 			E4modelextensionFactory theE4modelextensionFactory = (E4modelextensionFactory)EPackage.Registry.INSTANCE.getEFactory(E4modelextensionPackage.eNS_URI);
 			if (theE4modelextensionFactory != null) {
@@ -48,8 +44,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public E4modelextensionFactoryImpl()
-	{
+	public E4modelextensionFactoryImpl() {
 		super();
 	}
 
@@ -59,8 +54,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 * @generated
 	 */
 	@Override
-	public EObject create(EClass eClass)
-	{
+	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR: return createEditorPartDescriptor();
 			case E4modelextensionPackage.VAACLIPSE_APPLICATION: return createVaaclipseApplication();
@@ -74,8 +68,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EditorPartDescriptor createEditorPartDescriptor()
-	{
+	public EditorPartDescriptor createEditorPartDescriptor() {
 		EditorPartDescriptorImpl editorPartDescriptor = new EditorPartDescriptorImpl();
 		return editorPartDescriptor;
 	}
@@ -85,8 +78,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VaaclipseApplication createVaaclipseApplication()
-	{
+	public VaaclipseApplication createVaaclipseApplication() {
 		VaaclipseApplicationImpl vaaclipseApplication = new VaaclipseApplicationImpl();
 		return vaaclipseApplication;
 	}
@@ -96,8 +88,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public E4modelextensionPackage getE4modelextensionPackage()
-	{
+	public E4modelextensionPackage getE4modelextensionPackage() {
 		return (E4modelextensionPackage)getEPackage();
 	}
 
@@ -108,8 +99,7 @@ public class E4modelextensionFactoryImpl extends EFactoryImpl implements E4model
 	 * @generated
 	 */
 	@Deprecated
-	public static E4modelextensionPackage getPackage()
-	{
+	public static E4modelextensionPackage getPackage() {
 		return E4modelextensionPackage.eINSTANCE;
 	}
 

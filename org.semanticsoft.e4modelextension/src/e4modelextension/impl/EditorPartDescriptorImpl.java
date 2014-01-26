@@ -2,13 +2,16 @@
  */
 package e4modelextension.impl;
 
-import org.eclipse.e4.ui.model.application.descriptor.basic.impl.PartDescriptorImpl;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import e4modelextension.E4modelextensionPackage;
 import e4modelextension.EditorPartDescriptor;
+
+import org.eclipse.e4.ui.model.application.descriptor.basic.impl.PartDescriptorImpl;
+
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,8 +27,7 @@ import e4modelextension.EditorPartDescriptor;
  *
  * @generated
  */
-public class EditorPartDescriptorImpl extends PartDescriptorImpl implements EditorPartDescriptor
-{
+public class EditorPartDescriptorImpl extends PartDescriptorImpl implements EditorPartDescriptor {
 	/**
 	 * The default value of the '{@link #getUriFilter() <em>Uri Filter</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -71,8 +73,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EditorPartDescriptorImpl()
-	{
+	protected EditorPartDescriptorImpl() {
 		super();
 	}
 
@@ -82,8 +83,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * @generated
 	 */
 	@Override
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return E4modelextensionPackage.Literals.EDITOR_PART_DESCRIPTOR;
 	}
 
@@ -92,8 +92,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getUriFilter()
-	{
+	public String getUriFilter() {
 		return uriFilter;
 	}
 
@@ -102,8 +101,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUriFilter(String newUriFilter)
-	{
+	public void setUriFilter(String newUriFilter) {
 		String oldUriFilter = uriFilter;
 		uriFilter = newUriFilter;
 		if (eNotificationRequired())
@@ -115,8 +113,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getPartAddingLogicUri()
-	{
+	public String getPartAddingLogicUri() {
 		return partAddingLogicUri;
 	}
 
@@ -125,8 +122,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPartAddingLogicUri(String newPartAddingLogicUri)
-	{
+	public void setPartAddingLogicUri(String newPartAddingLogicUri) {
 		String oldPartAddingLogicUri = partAddingLogicUri;
 		partAddingLogicUri = newPartAddingLogicUri;
 		if (eNotificationRequired())
@@ -139,8 +135,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * @generated
 	 */
 	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType)
-	{
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				return getUriFilter();
@@ -156,8 +151,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * @generated
 	 */
 	@Override
-	public void eSet(int featureID, Object newValue)
-	{
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				setUriFilter((String)newValue);
@@ -175,8 +169,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * @generated
 	 */
 	@Override
-	public void eUnset(int featureID)
-	{
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				setUriFilter(URI_FILTER_EDEFAULT);
@@ -194,8 +187,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * @generated
 	 */
 	@Override
-	public boolean eIsSet(int featureID)
-	{
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case E4modelextensionPackage.EDITOR_PART_DESCRIPTOR__URI_FILTER:
 				return URI_FILTER_EDEFAULT == null ? uriFilter != null : !URI_FILTER_EDEFAULT.equals(uriFilter);
@@ -211,8 +203,7 @@ public class EditorPartDescriptorImpl extends PartDescriptorImpl implements Edit
 	 * @generated
 	 */
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

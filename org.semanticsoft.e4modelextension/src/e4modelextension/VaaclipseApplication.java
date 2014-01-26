@@ -3,10 +3,13 @@
 package e4modelextension;
 
 import org.eclipse.e4.ui.model.application.MApplication;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
-import preferences.PreferencesCategory;
-import preferences.PreferencesPage;
+
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,8 +29,7 @@ import preferences.PreferencesPage;
  * @model
  * @generated
  */
-public interface VaaclipseApplication extends EObject, MApplication
-{
+public interface VaaclipseApplication extends EObject, MApplication {
 	/**
 	 * Returns the value of the '<em><b>Editor Descriptors</b></em>' containment reference list.
 	 * The list contents are of type {@link e4modelextension.EditorPartDescriptor}.
@@ -46,7 +48,7 @@ public interface VaaclipseApplication extends EObject, MApplication
 
 	/**
 	 * Returns the value of the '<em><b>Preferences Categories</b></em>' reference list.
-	 * The list contents are of type {@link preferences.PreferencesCategory}.
+	 * The list contents are of type {@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Preferences Categories</em>' reference list isn't clear,
@@ -62,7 +64,7 @@ public interface VaaclipseApplication extends EObject, MApplication
 
 	/**
 	 * Returns the value of the '<em><b>Preferences Pages</b></em>' reference list.
-	 * The list contents are of type {@link preferences.PreferencesPage}.
+	 * The list contents are of type {@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Preferences Pages</em>' reference list isn't clear,

@@ -2,20 +2,23 @@
  */
 package e4modelextension.impl;
 
-import org.eclipse.e4.ui.model.application.descriptor.basic.impl.BasicPackageImpl;
-import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import preferences.PreferencesPackage;
-import preferences.impl.PreferencesPackageImpl;
 import e4modelextension.E4modelextensionFactory;
 import e4modelextension.E4modelextensionPackage;
 import e4modelextension.EditorPartDescriptor;
 import e4modelextension.VaaclipseApplication;
+
+import org.eclipse.e4.ui.model.application.descriptor.basic.impl.BasicPackageImpl;
+
+import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,8 +26,7 @@ import e4modelextension.VaaclipseApplication;
  * <!-- end-user-doc -->
  * @generated
  */
-public class E4modelextensionPackageImpl extends EPackageImpl implements E4modelextensionPackage
-{
+public class E4modelextensionPackageImpl extends EPackageImpl implements E4modelextensionPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -54,8 +56,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * @see #init()
 	 * @generated
 	 */
-	private E4modelextensionPackageImpl()
-	{
+	private E4modelextensionPackageImpl() {
 		super(eNS_URI, E4modelextensionFactory.eINSTANCE);
 	}
 
@@ -78,8 +79,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static E4modelextensionPackage init()
-	{
+	public static E4modelextensionPackage init() {
 		if (isInited) return (E4modelextensionPackage)EPackage.Registry.INSTANCE.getEPackage(E4modelextensionPackage.eNS_URI);
 
 		// Obtain or create and register package
@@ -88,18 +88,13 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		isInited = true;
 
 		// Initialize simple dependencies
-		ApplicationPackageImpl.eINSTANCE.eClass();
-
-		// Obtain or create and register interdependencies
-		PreferencesPackageImpl thePreferencesPackage = (PreferencesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PreferencesPackage.eNS_URI) instanceof PreferencesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PreferencesPackage.eNS_URI) : PreferencesPackage.eINSTANCE);
+		PreferencesPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theE4modelextensionPackage.createPackageContents();
-		thePreferencesPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theE4modelextensionPackage.initializePackageContents();
-		thePreferencesPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theE4modelextensionPackage.freeze();
@@ -115,8 +110,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEditorPartDescriptor()
-	{
+	public EClass getEditorPartDescriptor() {
 		return editorPartDescriptorEClass;
 	}
 
@@ -125,8 +119,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorPartDescriptor_UriFilter()
-	{
+	public EAttribute getEditorPartDescriptor_UriFilter() {
 		return (EAttribute)editorPartDescriptorEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -135,8 +128,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorPartDescriptor_PartAddingLogicUri()
-	{
+	public EAttribute getEditorPartDescriptor_PartAddingLogicUri() {
 		return (EAttribute)editorPartDescriptorEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -145,8 +137,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getVaaclipseApplication()
-	{
+	public EClass getVaaclipseApplication() {
 		return vaaclipseApplicationEClass;
 	}
 
@@ -155,8 +146,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVaaclipseApplication_EditorDescriptors()
-	{
+	public EReference getVaaclipseApplication_EditorDescriptors() {
 		return (EReference)vaaclipseApplicationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -183,8 +173,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public E4modelextensionFactory getE4modelextensionFactory()
-	{
+	public E4modelextensionFactory getE4modelextensionFactory() {
 		return (E4modelextensionFactory)getEFactoryInstance();
 	}
 
@@ -202,8 +191,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void createPackageContents()
-	{
+	public void createPackageContents() {
 		if (isCreated) return;
 		isCreated = true;
 
@@ -232,8 +220,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void initializePackageContents()
-	{
+	public void initializePackageContents() {
 		if (isInitialized) return;
 		isInitialized = true;
 
@@ -255,7 +242,7 @@ public class E4modelextensionPackageImpl extends EPackageImpl implements E4model
 		editorPartDescriptorEClass.getESuperTypes().add(theBasicPackage.getPartDescriptor());
 		vaaclipseApplicationEClass.getESuperTypes().add(theApplicationPackage.getApplication());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(editorPartDescriptorEClass, EditorPartDescriptor.class, "EditorPartDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEditorPartDescriptor_UriFilter(), ecorePackage.getEString(), "uriFilter", null, 0, 1, EditorPartDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorPartDescriptor_PartAddingLogicUri(), ecorePackage.getEString(), "partAddingLogicUri", "bundleclass://org.semanticsoft.e4extension/org.semanticsoft.e4extension.shared.DefaultPartAddingLogic", 0, 1, EditorPartDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -343,13 +343,22 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_PAGE__CATEGORY = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Preferences Scope</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREFERENCES_PAGE__PREFERENCES_SCOPE = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_PAGE_FEATURE_COUNT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 1;
+	int PREFERENCES_PAGE_FEATURE_COUNT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -2790,6 +2799,17 @@ public interface PreferencesPackage extends EPackage {
 	EReference getPreferencesPage_Category();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope <em>Preferences Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Preferences Scope</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope()
+	 * @see #getPreferencesPage()
+	 * @generated
+	 */
+	EAttribute getPreferencesPage_PreferencesScope();
+
+	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor <em>Field Editor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3122,6 +3142,14 @@ public interface PreferencesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PREFERENCES_PAGE__CATEGORY = eINSTANCE.getPreferencesPage_Category();
+
+		/**
+		 * The meta object literal for the '<em><b>Preferences Scope</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PREFERENCES_PAGE__PREFERENCES_SCOPE = eINSTANCE.getPreferencesPage_PreferencesScope();
 
 		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl <em>Field Editor</em>}' class.

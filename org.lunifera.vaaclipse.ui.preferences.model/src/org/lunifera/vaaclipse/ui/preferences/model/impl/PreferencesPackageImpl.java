@@ -278,6 +278,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPreferencesPage_PreferencesScope() {
+		return (EAttribute)preferencesPageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFieldEditor() {
 		return fieldEditorEClass;
 	}
@@ -525,6 +534,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 
 		preferencesPageEClass = createEClass(PREFERENCES_PAGE);
 		createEReference(preferencesPageEClass, PREFERENCES_PAGE__CATEGORY);
+		createEAttribute(preferencesPageEClass, PREFERENCES_PAGE__PREFERENCES_SCOPE);
 
 		fieldEditorEClass = createEClass(FIELD_EDITOR);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__LABEL);
@@ -653,6 +663,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 
 		initEClass(preferencesPageEClass, PreferencesPage.class, "PreferencesPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPreferencesPage_Category(), this.getPreferencesCategory(), this.getPreferencesCategory_Page(), "category", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPreferencesPage_PreferencesScope(), ecorePackage.getEString(), "preferencesScope", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fieldEditorEClass, FieldEditor.class, "FieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFieldEditor_Label(), ecorePackage.getEString(), "label", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

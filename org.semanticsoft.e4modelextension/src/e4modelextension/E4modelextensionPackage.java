@@ -3,7 +3,9 @@
 package e4modelextension;
 
 import org.eclipse.e4.ui.model.application.descriptor.basic.impl.BasicPackageImpl;
+
 import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -16,6 +18,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  *   <li>each class,</li>
  *   <li>each feature of each class,</li>
+ *   <li>each operation of each class,</li>
  *   <li>each enum,</li>
  *   <li>and each data type</li>
  * </ul>
@@ -24,8 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * @model kind="package"
  * @generated
  */
-public interface E4modelextensionPackage extends EPackage
-{
+public interface E4modelextensionPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -256,6 +258,42 @@ public interface E4modelextensionPackage extends EPackage
 	 * @ordered
 	 */
 	int EDITOR_PART_DESCRIPTOR_FEATURE_COUNT = BasicPackageImpl.PART_DESCRIPTOR_FEATURE_COUNT + 2;
+
+	/**
+	 * The operation id for the '<em>Get Localized Label</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDITOR_PART_DESCRIPTOR___GET_LOCALIZED_LABEL = BasicPackageImpl.PART_DESCRIPTOR___GET_LOCALIZED_LABEL;
+
+	/**
+	 * The operation id for the '<em>Get Localized Tooltip</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDITOR_PART_DESCRIPTOR___GET_LOCALIZED_TOOLTIP = BasicPackageImpl.PART_DESCRIPTOR___GET_LOCALIZED_TOOLTIP;
+
+	/**
+	 * The operation id for the '<em>Get Localized Description</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDITOR_PART_DESCRIPTOR___GET_LOCALIZED_DESCRIPTION = BasicPackageImpl.PART_DESCRIPTOR___GET_LOCALIZED_DESCRIPTION;
+
+	/**
+	 * The number of operations of the '<em>Editor Part Descriptor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDITOR_PART_DESCRIPTOR_OPERATION_COUNT = BasicPackageImpl.PART_DESCRIPTOR_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link e4modelextension.impl.VaaclipseApplicationImpl <em>Vaaclipse Application</em>}' class.
@@ -591,6 +629,24 @@ public interface E4modelextensionPackage extends EPackage
 	 */
 	int VAACLIPSE_APPLICATION_FEATURE_COUNT = ApplicationPackageImpl.APPLICATION_FEATURE_COUNT + 3;
 
+	/**
+	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VAACLIPSE_APPLICATION___GET_LOCALIZED_ACCESSIBILITY_PHRASE = ApplicationPackageImpl.APPLICATION___GET_LOCALIZED_ACCESSIBILITY_PHRASE;
+
+	/**
+	 * The number of operations of the '<em>Vaaclipse Application</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VAACLIPSE_APPLICATION_OPERATION_COUNT = ApplicationPackageImpl.APPLICATION_OPERATION_COUNT + 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link e4modelextension.EditorPartDescriptor <em>Editor Part Descriptor</em>}'.
@@ -682,14 +738,14 @@ public interface E4modelextensionPackage extends EPackage
 	 * <ul>
 	 *   <li>each class,</li>
 	 *   <li>each feature of each class,</li>
+	 *   <li>each operation of each class,</li>
 	 *   <li>each enum,</li>
 	 *   <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	interface Literals
-	{
+	interface Literals {
 		/**
 		 * The meta object literal for the '{@link e4modelextension.impl.EditorPartDescriptorImpl <em>Editor Part Descriptor</em>}' class.
 		 * <!-- begin-user-doc -->
