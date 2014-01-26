@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
@@ -38,16 +39,6 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  * @generated
  */
 public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> implements PreferencesPage {
-	/**
-	 * The cached value of the '{@link #getCategory() <em>Category</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCategory()
-	 * @generated
-	 * @ordered
-	 */
-	protected PreferencesCategory category;
-
 	/**
 	 * The default value of the '{@link #getPreferencesScope() <em>Preferences Scope</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -117,7 +108,8 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @generated
 	 */
 	public PreferencesCategory getCategory() {
-		return category;
+		if (eContainerFeatureID() != PreferencesPackage.PREFERENCES_PAGE__CATEGORY) return null;
+		return (PreferencesCategory)eInternalContainer();
 	}
 
 	/**
@@ -126,12 +118,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @generated
 	 */
 	public NotificationChain basicSetCategory(PreferencesCategory newCategory, NotificationChain msgs) {
-		PreferencesCategory oldCategory = category;
-		category = newCategory;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_PAGE__CATEGORY, oldCategory, newCategory);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
+		msgs = eBasicSetContainer((InternalEObject)newCategory, PreferencesPackage.PREFERENCES_PAGE__CATEGORY, msgs);
 		return msgs;
 	}
 
@@ -141,10 +128,12 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @generated
 	 */
 	public void setCategory(PreferencesCategory newCategory) {
-		if (newCategory != category) {
+		if (newCategory != eInternalContainer() || (eContainerFeatureID() != PreferencesPackage.PREFERENCES_PAGE__CATEGORY && newCategory != null)) {
+			if (EcoreUtil.isAncestor(this, newCategory))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (category != null)
-				msgs = ((InternalEObject)category).eInverseRemove(this, PreferencesPackage.PREFERENCES_CATEGORY__PAGE, PreferencesCategory.class, msgs);
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
 			if (newCategory != null)
 				msgs = ((InternalEObject)newCategory).eInverseAdd(this, PreferencesPackage.PREFERENCES_CATEGORY__PAGE, PreferencesCategory.class, msgs);
 			msgs = basicSetCategory(newCategory, msgs);
@@ -184,8 +173,8 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
-				if (category != null)
-					msgs = ((InternalEObject)category).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PreferencesPackage.PREFERENCES_PAGE__CATEGORY, null, msgs);
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetCategory((PreferencesCategory)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -203,6 +192,20 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return basicSetCategory(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
+				return eInternalContainer().eInverseRemove(this, PreferencesPackage.PREFERENCES_CATEGORY__PAGE, PreferencesCategory.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -266,7 +269,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
-				return category != null;
+				return getCategory() != null;
 			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
 				return PREFERENCES_SCOPE_EDEFAULT == null ? preferencesScope != null : !PREFERENCES_SCOPE_EDEFAULT.equals(preferencesScope);
 		}

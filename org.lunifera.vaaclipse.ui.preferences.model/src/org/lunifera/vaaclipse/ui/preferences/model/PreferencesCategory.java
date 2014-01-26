@@ -58,6 +58,7 @@ public interface PreferencesCategory extends EObject, MApplicationElement {
 	/**
 	 * Returns the value of the '<em><b>Child Categories</b></em>' containment reference list.
 	 * The list contents are of type {@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory}.
+	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory <em>Parent Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Child Categories</em>' containment reference list isn't clear,
@@ -66,39 +67,42 @@ public interface PreferencesCategory extends EObject, MApplicationElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Child Categories</em>' containment reference list.
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesCategory_ChildCategories()
-	 * @model containment="true"
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory
+	 * @model opposite="parentCategory" containment="true"
 	 * @generated
 	 */
 	EList<PreferencesCategory> getChildCategories();
 
 	/**
-	 * Returns the value of the '<em><b>Parent Category</b></em>' reference.
+	 * Returns the value of the '<em><b>Parent Category</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getChildCategories <em>Child Categories</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Parent Category</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent Category</em>' reference.
+	 * @return the value of the '<em>Parent Category</em>' container reference.
 	 * @see #setParentCategory(PreferencesCategory)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesCategory_ParentCategory()
-	 * @model
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getChildCategories
+	 * @model opposite="childCategories" transient="false"
 	 * @generated
 	 */
 	PreferencesCategory getParentCategory();
 
 	/**
-	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory <em>Parent Category</em>}' reference.
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory <em>Parent Category</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parent Category</em>' reference.
+	 * @param value the new value of the '<em>Parent Category</em>' container reference.
 	 * @see #getParentCategory()
 	 * @generated
 	 */
 	void setParentCategory(PreferencesCategory value);
 
 	/**
-	 * Returns the value of the '<em><b>Page</b></em>' container reference.
+	 * Returns the value of the '<em><b>Page</b></em>' containment reference.
 	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -106,20 +110,20 @@ public interface PreferencesCategory extends EObject, MApplicationElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Page</em>' container reference.
+	 * @return the value of the '<em>Page</em>' containment reference.
 	 * @see #setPage(PreferencesPage)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesCategory_Page()
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory
-	 * @model opposite="category" transient="false"
+	 * @model opposite="category" containment="true"
 	 * @generated
 	 */
 	PreferencesPage getPage();
 
 	/**
-	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage <em>Page</em>}' container reference.
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage <em>Page</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Page</em>' container reference.
+	 * @param value the new value of the '<em>Page</em>' containment reference.
 	 * @see #getPage()
 	 * @generated
 	 */

@@ -3,25 +3,17 @@
 package org.lunifera.vaaclipse.ui.preferences.model.impl;
 
 import java.util.Collection;
-
 import org.eclipse.e4.ui.model.application.impl.ApplicationElementImpl;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
-
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
@@ -73,14 +65,14 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	protected EList<PreferencesCategory> childCategories;
 
 	/**
-	 * The cached value of the '{@link #getParentCategory() <em>Parent Category</em>}' reference.
+	 * The cached value of the '{@link #getPage() <em>Page</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParentCategory()
+	 * @see #getPage()
 	 * @generated
 	 * @ordered
 	 */
-	protected PreferencesCategory parentCategory;
+	protected PreferencesPage page;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,7 +121,7 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 */
 	public EList<PreferencesCategory> getChildCategories() {
 		if (childCategories == null) {
-			childCategories = new EObjectContainmentEList<PreferencesCategory>(PreferencesCategory.class, this, PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES);
+			childCategories = new EObjectContainmentWithInverseEList<PreferencesCategory>(PreferencesCategory.class, this, PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES, PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY);
 		}
 		return childCategories;
 	}
@@ -140,15 +132,8 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * @generated
 	 */
 	public PreferencesCategory getParentCategory() {
-		if (parentCategory != null && parentCategory.eIsProxy()) {
-			InternalEObject oldParentCategory = (InternalEObject)parentCategory;
-			parentCategory = (PreferencesCategory)eResolveProxy(oldParentCategory);
-			if (parentCategory != oldParentCategory) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY, oldParentCategory, parentCategory));
-			}
-		}
-		return parentCategory;
+		if (eContainerFeatureID() != PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY) return null;
+		return (PreferencesCategory)eInternalContainer();
 	}
 
 	/**
@@ -156,8 +141,9 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PreferencesCategory basicGetParentCategory() {
-		return parentCategory;
+	public NotificationChain basicSetParentCategory(PreferencesCategory newParentCategory, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newParentCategory, PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY, msgs);
+		return msgs;
 	}
 
 	/**
@@ -166,10 +152,19 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * @generated
 	 */
 	public void setParentCategory(PreferencesCategory newParentCategory) {
-		PreferencesCategory oldParentCategory = parentCategory;
-		parentCategory = newParentCategory;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY, oldParentCategory, parentCategory));
+		if (newParentCategory != eInternalContainer() || (eContainerFeatureID() != PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY && newParentCategory != null)) {
+			if (EcoreUtil.isAncestor(this, newParentCategory))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newParentCategory != null)
+				msgs = ((InternalEObject)newParentCategory).eInverseAdd(this, PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES, PreferencesCategory.class, msgs);
+			msgs = basicSetParentCategory(newParentCategory, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY, newParentCategory, newParentCategory));
 	}
 
 	/**
@@ -178,8 +173,7 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * @generated
 	 */
 	public PreferencesPage getPage() {
-		if (eContainerFeatureID() != PreferencesPackage.PREFERENCES_CATEGORY__PAGE) return null;
-		return (PreferencesPage)eInternalContainer();
+		return page;
 	}
 
 	/**
@@ -188,7 +182,12 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * @generated
 	 */
 	public NotificationChain basicSetPage(PreferencesPage newPage, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newPage, PreferencesPackage.PREFERENCES_CATEGORY__PAGE, msgs);
+		PreferencesPage oldPage = page;
+		page = newPage;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_CATEGORY__PAGE, oldPage, newPage);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -198,12 +197,10 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * @generated
 	 */
 	public void setPage(PreferencesPage newPage) {
-		if (newPage != eInternalContainer() || (eContainerFeatureID() != PreferencesPackage.PREFERENCES_CATEGORY__PAGE && newPage != null)) {
-			if (EcoreUtil.isAncestor(this, newPage))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+		if (newPage != page) {
 			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
+			if (page != null)
+				msgs = ((InternalEObject)page).eInverseRemove(this, PreferencesPackage.PREFERENCES_PAGE__CATEGORY, PreferencesPage.class, msgs);
 			if (newPage != null)
 				msgs = ((InternalEObject)newPage).eInverseAdd(this, PreferencesPackage.PREFERENCES_PAGE__CATEGORY, PreferencesPage.class, msgs);
 			msgs = basicSetPage(newPage, msgs);
@@ -218,12 +215,19 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
+			case PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildCategories()).basicAdd(otherEnd, msgs);
+			case PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetParentCategory((PreferencesCategory)otherEnd, msgs);
+			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
+				if (page != null)
+					msgs = ((InternalEObject)page).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PreferencesPackage.PREFERENCES_CATEGORY__PAGE, null, msgs);
 				return basicSetPage((PreferencesPage)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -239,6 +243,8 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 		switch (featureID) {
 			case PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES:
 				return ((InternalEList<?>)getChildCategories()).basicRemove(otherEnd, msgs);
+			case PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY:
+				return basicSetParentCategory(null, msgs);
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
 				return basicSetPage(null, msgs);
 		}
@@ -253,8 +259,8 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
-				return eInternalContainer().eInverseRemove(this, PreferencesPackage.PREFERENCES_PAGE__CATEGORY, PreferencesPage.class, msgs);
+			case PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY:
+				return eInternalContainer().eInverseRemove(this, PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES, PreferencesCategory.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -272,8 +278,7 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 			case PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES:
 				return getChildCategories();
 			case PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY:
-				if (resolve) return getParentCategory();
-				return basicGetParentCategory();
+				return getParentCategory();
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
 				return getPage();
 		}
@@ -343,9 +348,9 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 			case PreferencesPackage.PREFERENCES_CATEGORY__CHILD_CATEGORIES:
 				return childCategories != null && !childCategories.isEmpty();
 			case PreferencesPackage.PREFERENCES_CATEGORY__PARENT_CATEGORY:
-				return parentCategory != null;
+				return getParentCategory() != null;
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
-				return getPage() != null;
+				return page != null;
 		}
 		return super.eIsSet(featureID);
 	}

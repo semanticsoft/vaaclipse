@@ -135,7 +135,7 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_CATEGORY__CHILD_CATEGORIES = ApplicationPackageImpl.APPLICATION_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Parent Category</b></em>' reference.
+	 * The feature id for the '<em><b>Parent Category</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -144,7 +144,7 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_CATEGORY__PARENT_CATEGORY = ApplicationPackageImpl.APPLICATION_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Page</b></em>' container reference.
+	 * The feature id for the '<em><b>Page</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -334,7 +334,7 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_PAGE__SELECTED_ELEMENT = UiPackageImpl.ELEMENT_CONTAINER__SELECTED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Category</b></em>' containment reference.
+	 * The feature id for the '<em><b>Category</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2756,10 +2756,10 @@ public interface PreferencesPackage extends EPackage {
 	EReference getPreferencesCategory_ChildCategories();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory <em>Parent Category</em>}'.
+	 * Returns the meta object for the container reference '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory <em>Parent Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Parent Category</em>'.
+	 * @return the meta object for the container reference '<em>Parent Category</em>'.
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getParentCategory()
 	 * @see #getPreferencesCategory()
 	 * @generated
@@ -2767,10 +2767,10 @@ public interface PreferencesPackage extends EPackage {
 	EReference getPreferencesCategory_ParentCategory();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage <em>Page</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage <em>Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Page</em>'.
+	 * @return the meta object for the containment reference '<em>Page</em>'.
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage()
 	 * @see #getPreferencesCategory()
 	 * @generated
@@ -2788,10 +2788,10 @@ public interface PreferencesPackage extends EPackage {
 	EClass getPreferencesPage();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}'.
+	 * Returns the meta object for the container reference '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Category</em>'.
+	 * @return the meta object for the container reference '<em>Category</em>'.
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory()
 	 * @see #getPreferencesPage()
 	 * @generated
@@ -3110,7 +3110,7 @@ public interface PreferencesPackage extends EPackage {
 		EReference PREFERENCES_CATEGORY__CHILD_CATEGORIES = eINSTANCE.getPreferencesCategory_ChildCategories();
 
 		/**
-		 * The meta object literal for the '<em><b>Parent Category</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Parent Category</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3118,7 +3118,7 @@ public interface PreferencesPackage extends EPackage {
 		EReference PREFERENCES_CATEGORY__PARENT_CATEGORY = eINSTANCE.getPreferencesCategory_ParentCategory();
 
 		/**
-		 * The meta object literal for the '<em><b>Page</b></em>' container reference feature.
+		 * The meta object literal for the '<em><b>Page</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3136,7 +3136,7 @@ public interface PreferencesPackage extends EPackage {
 		EClass PREFERENCES_PAGE = eINSTANCE.getPreferencesPage();
 
 		/**
-		 * The meta object literal for the '<em><b>Category</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Category</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

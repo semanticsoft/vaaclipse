@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface PreferencesPage extends EObject, MElementContainer<FieldEditor<?>> {
 
 	/**
-	 * Returns the value of the '<em><b>Category</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Category</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage <em>Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -34,20 +34,20 @@ public interface PreferencesPage extends EObject, MElementContainer<FieldEditor<
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Category</em>' containment reference.
+	 * @return the value of the '<em>Category</em>' container reference.
 	 * @see #setCategory(PreferencesCategory)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesPage_Category()
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage
-	 * @model opposite="page" containment="true"
+	 * @model opposite="page" transient="false"
 	 * @generated
 	 */
 	PreferencesCategory getCategory();
 
 	/**
-	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}' containment reference.
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Category</em>' containment reference.
+	 * @param value the new value of the '<em>Category</em>' container reference.
 	 * @see #getCategory()
 	 * @generated
 	 */
