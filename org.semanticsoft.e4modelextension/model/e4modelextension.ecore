@@ -10,5 +10,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="VaaclipseApplication" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Application">
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorDescriptors" upperBound="-1"
         eType="#//EditorPartDescriptor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preferencesCategories"
+        upperBound="-1" eType="ecore:EClass ../../org.lunifera.vaaclipse.ui.preferences.model/model/preferences.ecore#//PreferencesCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preferencesPages" upperBound="-1"
+        eType="ecore:EClass ../../org.lunifera.vaaclipse.ui.preferences.model/model/preferences.ecore#//PreferencesPage"/>
   </eClassifiers>
 </ecore:EPackage>

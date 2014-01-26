@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.lunifera.vaaclipse.ui.preferences.model/src"
+    modelPluginID="org.lunifera.vaaclipse.ui.preferences.model" modelName="Preferences"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../org.eclipse.e4.ui.model.workbench/model/UIElements.genmodel#//application"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>preferences.ecore</foreignModel>
+  <genPackages prefix="Preferences" basePackage="org.lunifera.vaaclipse.ui" disposableProviderFactory="true"
+      interfacePackageSuffix="model" metaDataPackageSuffix="model.metadata" classPackageSuffix="model.impl"
+      utilityPackageSuffix="model.util" providerPackageSuffix="model.provider" presentationPackageSuffix="model.presentation"
+      testsPackageSuffix="model.tests" childCreationExtenders="true" ecorePackage="preferences.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="preferences.ecore#//BooleanFieldStyle">
+      <genEnumLiterals ecoreEnumLiteral="preferences.ecore#//BooleanFieldStyle/DEFAULT"/>
+      <genEnumLiterals ecoreEnumLiteral="preferences.ecore#//BooleanFieldStyle/SEPARATE_LABEL"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="preferences.ecore#//PreferencesCategory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//PreferencesCategory/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference preferences.ecore#//PreferencesCategory/childCategories"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference preferences.ecore#//PreferencesCategory/parentCategory"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference preferences.ecore#//PreferencesCategory/page"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="preferences.ecore#//PreferencesPage">
+      <genFeatures notify="false" createChild="false" propertyCategory="" propertyDescription=""
+          propertySortChoices="true" ecoreFeature="ecore:EReference preferences.ecore#//PreferencesPage/category"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="preferences.ecore#//FieldEditor">
+      <genTypeParameters ecoreTypeParameter="preferences.ecore#//FieldEditor/T"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//FieldEditor/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//FieldEditor/preferenceName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="preferences.ecore#//BooleanFieldEditor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//BooleanFieldEditor/style"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="preferences.ecore#//ListFieldEditor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference preferences.ecore#//ListFieldEditor/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="preferences.ecore#//Entry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//Entry/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//Entry/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="preferences.ecore#//ComboFieldEditor"/>
+    <genClasses image="false" ecoreClass="preferences.ecore#//ListEditor"/>
+    <genClasses ecoreClass="preferences.ecore#//RadioGroupFieldEditor"/>
+    <genClasses ecoreClass="preferences.ecore#//ScaleFieldEditor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//ScaleFieldEditor/minValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//ScaleFieldEditor/maxValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//ScaleFieldEditor/incrementValue"/>
+    </genClasses>
+    <genClasses ecoreClass="preferences.ecore#//StringFieldEditor"/>
+    <genClasses ecoreClass="preferences.ecore#//IntegerFieldEditor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//IntegerFieldEditor/minValidValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute preferences.ecore#//IntegerFieldEditor/maxValidValue"/>
+    </genClasses>
+    <genClasses ecoreClass="preferences.ecore#//FileFieldEditor"/>
+    <genClasses ecoreClass="preferences.ecore#//DirectoryFieldEditor"/>
+  </genPackages>
+</genmodel:GenModel>

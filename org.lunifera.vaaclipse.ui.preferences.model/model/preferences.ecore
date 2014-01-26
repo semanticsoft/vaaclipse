@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="preferences" nsURI="http://www.lunifera.org/vaaclipse/ui/preferences"
+    nsPrefix="preferences">
+  <eClassifiers xsi:type="ecore:EClass" name="PreferencesCategory" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ApplicationElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="No Name"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childCategories" upperBound="-1"
+        eType="#//PreferencesCategory" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentCategory" eType="#//PreferencesCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="page" eType="#//PreferencesPage"
+        eOpposite="#//PreferencesPage/category"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreferencesPage">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//PreferencesCategory"
+        containment="true" eOpposite="#//PreferencesCategory/page"/>
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/ElementContainer">
+      <eTypeArguments eClassifier="#//FieldEditor">
+        <eTypeArguments/>
+      </eTypeArguments>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FieldEditor" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/UIElement">
+    <eTypeParameters name="T"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferenceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanFieldEditor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//BooleanFieldStyle"/>
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BooleanFieldStyle">
+    <eLiterals name="DEFAULT"/>
+    <eLiterals name="SEPARATE_LABEL" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListFieldEditor" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//Entry"/>
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eGenericSuperTypes>
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComboFieldEditor" eSuperTypes="#//ListFieldEditor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ListEditor" eSuperTypes="#//ListFieldEditor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RadioGroupFieldEditor" eSuperTypes="#//ListFieldEditor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ScaleFieldEditor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="incrementValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringFieldEditor">
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerFieldEditor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minValidValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxValidValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileFieldEditor">
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eGenericSuperTypes>
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectoryFieldEditor">
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eGenericSuperTypes>
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution"/>
+  </eClassifiers>
+</ecore:EPackage>
