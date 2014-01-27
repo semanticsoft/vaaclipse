@@ -8,6 +8,11 @@
 	clear: left;
 }
 
+.preferences-dialog .add-button, .preferences-dialog .remove-button, .preferences-dialog .up-button, .preferences-dialog .down-button {
+	float: right;
+	clear: right;
+}
+
 .preferences-dialog .field-editor-caption-top {
 	margin-bottom: 5px;
 	float: left;

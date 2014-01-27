@@ -10,6 +10,8 @@ import org.lunifera.vaaclipse.ui.preferences.model.ListFieldEditor;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.AbstractSelect;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 
 /**
  * @author rushan
@@ -26,8 +28,13 @@ public abstract class ListFieldEditorRenderer extends FieldEditorRenderer<String
 	@Override
 	public void render() {
 		select = createSelect();
+		
+		CssLayout layout = new CssLayout();
+		layout.addComponent(new Label(editor.getLabel()));
+		layout.addComponent(select);
+		
 		refreshSelect();
-		component = select;
+		component = layout;
 	}
 
 	protected void refreshSelect() {

@@ -14,12 +14,15 @@ import org.eclipse.emf.common.util.EList;
 import org.lunifera.vaaclipse.ui.preferences.model.Entry;
 
 import com.vaadin.ui.AbstractSelect;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan
@@ -43,20 +46,29 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 	
 	@Override
 	public void render() {
-		super.render();
+		select = createSelect();
+		refreshSelect();
 		
-		ListSelect select = (ListSelect) component;
+		CssLayout layout = new CssLayout();
+		layout.setWidth("100%");
 		
-		HorizontalLayout layout = new HorizontalLayout();
-		layout.setSizeFull();
-		layout.addComponent(select);
+		layout.addComponent(new Label(editor.getLabel()));
+		
+		HorizontalLayout row = new HorizontalLayout();
+		row.setWidth("100%");
+		layout.addComponent(row);
+		
+		row.addComponent(select);
+		select.setWidth("100%");
 		
 		buttonPanel = new CssLayout();
 		buttonPanel.setSizeFull();
+		row.addComponent(buttonPanel);
+		
+		row.setExpandRatio(select, 8);
+		row.setExpandRatio(buttonPanel, 2);
 		
 		createButtons();
-		
-		
 		component = layout;
 	}
 
@@ -105,12 +117,19 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 				swap(false);
 			}
 		});
+		
+//		buttonPanel.setExpandRatio(addButton, 0);
+//		buttonPanel.setExpandRatio(removeButton, 0);
+//		buttonPanel.setExpandRatio(upButton, 0);
+//		buttonPanel.setExpandRatio(downButton, 1);
 	}
 	
 	private Button addButton(String name, String style, ClickListener listener) {
 		Button button = new Button(name);
 		button.addStyleName(style);
+		button.setWidth("80px");
 		buttonPanel.addComponent(button);
+		button.addClickListener(listener);
 		return button;
 	}
 	
@@ -131,6 +150,11 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 			return;
 		
         int target = up ? index - 1 : index + 1;
+        
+        if (target < 0)
+        	target = entries.size() - 1;
+        else if (target >= entries.size())
+        	target = 0;
 
         if (index >= 0) {
             Entry selected = entries.remove(index);
