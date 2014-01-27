@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 import org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor;
 
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 
 /**
@@ -24,8 +26,14 @@ public class StringFieldEditorRenderer extends FieldEditorRenderer<String> {
 		
 		field = new TextField();
 		field.setValue(getValue());
-		field.setCaption(editor.getLabel());
-		component = field;
+		//field.setCaption(editor.getLabel());
+		
+		CssLayout layout = new CssLayout();
+		Label label = new Label(editor.getLabel());
+		layout.addComponent(label);
+		layout.addComponent(field);
+		
+		component = layout;
 	}
 
 	@Override

@@ -4,6 +4,14 @@
 
 .preferences-dialog .field-editor {
 	margin-bottom: 15px;
+	float: left;
+	clear: left;
+}
+
+.preferences-dialog .field-editor-caption-top {
+	margin-bottom: 5px;
+	float: left;
+	clear: left;
 }
 
 .preferences-dialog .restore-defaults {

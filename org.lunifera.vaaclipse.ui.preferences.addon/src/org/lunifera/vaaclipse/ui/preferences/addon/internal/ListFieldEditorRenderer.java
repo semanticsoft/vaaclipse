@@ -26,7 +26,6 @@ public abstract class ListFieldEditorRenderer extends FieldEditorRenderer<String
 	@Override
 	public void render() {
 		select = createSelect();
-		select.setSizeFull();
 		refreshSelect();
 		component = select;
 	}
