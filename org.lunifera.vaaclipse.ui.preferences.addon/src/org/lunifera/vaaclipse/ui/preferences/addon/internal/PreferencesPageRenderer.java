@@ -10,9 +10,13 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ComboFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ListEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.lunifera.vaaclipse.ui.preferences.model.RadioGroupFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.util.PreferencesSwitch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,14 +103,36 @@ public class PreferencesPageRenderer {
 		}
 	}
 
-	private Class<? extends FieldEditorRenderer<?>> getRendererClass(
-			FieldEditor<?> editor) {
-		Class<? extends FieldEditorRenderer<?>> rendererClass = null;
-		if (editor instanceof BooleanFieldEditor)
-			rendererClass = BooleanFieldEditorRenderer.class;
-		else if (editor instanceof StringFieldEditor)
-			rendererClass = StringFieldEditorRenderer.class;
-		return rendererClass;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Class<? extends FieldEditorRenderer<?>> getRendererClass(FieldEditor<?> editor) {
+		
+		PreferencesSwitch<?> switcher = new PreferencesSwitch() {
+			@Override
+			public Object caseBooleanFieldEditor(BooleanFieldEditor object) {
+				return BooleanFieldEditorRenderer.class;
+			}
+			
+			@Override
+			public Object caseComboFieldEditor(ComboFieldEditor object) {
+				return ComboFieldEditorRenderer.class;
+			}
+			
+			@Override
+			public Object caseListEditor(ListEditor object) {
+				return ListEditorRenderer.class;
+			}
+			
+			@Override
+			public Object caseRadioGroupFieldEditor(RadioGroupFieldEditor object) {
+				return RadioGroupFieldEditorRenderer.class;
+			}
+			
+			@Override
+			public Object caseStringFieldEditor(StringFieldEditor object) {
+				return StringFieldEditorRenderer.class;
+			}
+		};
+		return (Class<? extends FieldEditorRenderer<?>>) switcher.doSwitch(editor);
 	}
 	
 	public void save() {

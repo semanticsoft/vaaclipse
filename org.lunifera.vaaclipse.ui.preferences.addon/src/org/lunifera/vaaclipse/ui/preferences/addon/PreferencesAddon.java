@@ -12,7 +12,10 @@ import javax.inject.Inject;
 import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferencesService;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.MContribution;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
@@ -34,6 +37,9 @@ public class PreferencesAddon {
 	@Inject
 	MApplication app;
 	
+	@Inject
+	IEclipseContext context;
+	
 	@PostConstruct
 	void init() {
 		VaaclipseApplication vaaApp = (VaaclipseApplication) app;
@@ -48,6 +54,8 @@ public class PreferencesAddon {
 		for (PreferencesPage page : vaaApp.getPreferencesPages()) {
 			
 			setTypedDefaultValues(page);
+			
+			initContributions(page);
 			
 			String scope = page.getPreferencesScope();
 			
@@ -88,15 +96,27 @@ public class PreferencesAddon {
 				public Object caseScaleFieldEditor(ScaleFieldEditor object) {
 					return Integer.valueOf(object.getDefaultValue());
 				}
-				
-				
-				
 			};
 			Object converted = sw.doSwitch(editor);
 			if (converted == null) {
 				converted = editor.getDefaultValue();
 			}
 			editor.setDefaultValueTyped(converted);
+		}
+	}
+	
+	@SuppressWarnings("restriction")
+	private void initContributions(PreferencesPage page) {
+		for (FieldEditor<?> ed : page.getChildren()) {
+			if (ed instanceof MContribution) {
+				MContribution editorWithContribution = (MContribution) ed;
+				String contributorURI = editorWithContribution.getContributorURI();
+				if (contributorURI != null) {
+					IContributionFactory contributionFactory = (IContributionFactory) context.get(IContributionFactory.class.getName());
+					Object editorContribution = contributionFactory.create(contributorURI, context);
+					editorWithContribution.setObject(editorContribution);
+				}
+			}
 		}
 	}
 }
