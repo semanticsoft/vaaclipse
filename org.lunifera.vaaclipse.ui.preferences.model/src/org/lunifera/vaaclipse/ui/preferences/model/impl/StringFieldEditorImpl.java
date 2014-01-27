@@ -37,4 +37,15 @@ public class StringFieldEditorImpl extends FieldEditorImpl<String> implements St
 		return PreferencesPackage.Literals.STRING_FIELD_EDITOR;
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific type known in this context.
+	 * @generated
+	 */
+	@Override
+	public void setDefaultValueTyped(String newDefaultValueTyped) {
+		super.setDefaultValueTyped(newDefaultValueTyped);
+	}
+
 } //StringFieldEditorImpl

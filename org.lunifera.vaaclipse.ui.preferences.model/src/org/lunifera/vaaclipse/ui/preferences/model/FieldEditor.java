@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getLabel <em>Label</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferenceName <em>Preference Name</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValueTyped <em>Default Value Typed</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,5 +103,31 @@ public interface FieldEditor<T> extends EObject, MUIElement {
 	 * @generated
 	 */
 	void setDefaultValue(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Default Value Typed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Default Value Typed</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default Value Typed</em>' attribute.
+	 * @see #setDefaultValueTyped(Object)
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getFieldEditor_DefaultValueTyped()
+	 * @model
+	 * @generated
+	 */
+	T getDefaultValueTyped();
+
+	/**
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValueTyped <em>Default Value Typed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default Value Typed</em>' attribute.
+	 * @see #getDefaultValueTyped()
+	 * @generated
+	 */
+	void setDefaultValueTyped(T value);
 
 } // FieldEditor

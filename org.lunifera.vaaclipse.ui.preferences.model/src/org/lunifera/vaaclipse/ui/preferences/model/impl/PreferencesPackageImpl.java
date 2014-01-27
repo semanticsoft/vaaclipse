@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
@@ -296,6 +297,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPreferencesPage_Description() {
+		return (EAttribute)preferencesPageEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFieldEditor() {
 		return fieldEditorEClass;
 	}
@@ -325,6 +335,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 */
 	public EAttribute getFieldEditor_DefaultValue() {
 		return (EAttribute)fieldEditorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFieldEditor_DefaultValueTyped() {
+		return (EAttribute)fieldEditorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -554,11 +573,13 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		createEReference(preferencesPageEClass, PREFERENCES_PAGE__CATEGORY);
 		createEAttribute(preferencesPageEClass, PREFERENCES_PAGE__PREFERENCES_SCOPE);
 		createEAttribute(preferencesPageEClass, PREFERENCES_PAGE__PREFERENCES);
+		createEAttribute(preferencesPageEClass, PREFERENCES_PAGE__DESCRIPTION);
 
 		fieldEditorEClass = createEClass(FIELD_EDITOR);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__LABEL);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__PREFERENCE_NAME);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__DEFAULT_VALUE);
+		createEAttribute(fieldEditorEClass, FIELD_EDITOR__DEFAULT_VALUE_TYPED);
 
 		booleanFieldEditorEClass = createEClass(BOOLEAN_FIELD_EDITOR);
 		createEAttribute(booleanFieldEditorEClass, BOOLEAN_FIELD_EDITOR__STYLE);
@@ -623,7 +644,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		UiPackageImpl theUiPackage = (UiPackageImpl)EPackage.Registry.INSTANCE.getEPackage(UiPackageImpl.eNS_URI);
 
 		// Create type parameters
-		addETypeParameter(fieldEditorEClass, "T");
+		ETypeParameter fieldEditorEClass_T = addETypeParameter(fieldEditorEClass, "T");
 
 		// Set bounds for type parameters
 
@@ -687,11 +708,14 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEReference(getPreferencesPage_Category(), this.getPreferencesCategory(), this.getPreferencesCategory_Page(), "category", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPreferencesPage_PreferencesScope(), ecorePackage.getEString(), "preferencesScope", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPreferencesPage_Preferences(), ecorePackage.getEJavaObject(), "preferences", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPreferencesPage_Description(), ecorePackage.getEString(), "description", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fieldEditorEClass, FieldEditor.class, "FieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFieldEditor_Label(), ecorePackage.getEString(), "label", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_PreferenceName(), ecorePackage.getEString(), "preferenceName", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		g1 = createEGenericType(fieldEditorEClass_T);
+		initEAttribute(getFieldEditor_DefaultValueTyped(), g1, "defaultValueTyped", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(booleanFieldEditorEClass, BooleanFieldEditor.class, "BooleanFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanFieldEditor_Style(), this.getBooleanFieldStyle(), "style", null, 0, 1, BooleanFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

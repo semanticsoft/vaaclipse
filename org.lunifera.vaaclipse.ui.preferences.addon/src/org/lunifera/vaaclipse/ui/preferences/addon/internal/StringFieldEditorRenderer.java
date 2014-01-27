@@ -24,12 +24,13 @@ public class StringFieldEditorRenderer extends FieldEditorRenderer<String> {
 		
 		field = new TextField();
 		field.setValue(getValue());
+		field.setCaption(editor.getLabel());
 		component = field;
 	}
 
 	@Override
 	public String getValue() {
-		return getPreferences().get(editor.getPreferenceName(), "");
+		return getPreferences().get(editor.getPreferenceName(), editor.getDefaultValueTyped());
 	}
 
 	@Override

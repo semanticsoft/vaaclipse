@@ -3,6 +3,7 @@
  */
 package org.lunifera.vaaclipse.ui.preferences.addon.internal;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -11,9 +12,13 @@ import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 
 import e4modelextension.VaaclipseApplication;
 
@@ -34,8 +39,15 @@ public class PreferencesPageRenderer {
 	
 	@Inject
 	IEclipseContext context;
+	
+	Logger logger = LoggerFactory.getLogger(PreferencesPageRenderer.class);
+	
+	@PostConstruct
+	public void init() {
+		page.setRenderer(this);
+	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "restriction" })
 	public void render() {
 		pageLayout.addStyleName("preferences-page");
 		
@@ -60,11 +72,11 @@ public class PreferencesPageRenderer {
 					editor.setRenderer(fieldRenderer);
 				}
 				else {
-					//log
+					logger.warn("Unexpected type. Editor doesn't support {} interface", FieldEditor.class);
 				}
 			}
 			else {
-				//log
+				logger.warn("{} editor has no renderer. It is not rendered.", editor);
 			}
 		}
 		
@@ -76,6 +88,9 @@ public class PreferencesPageRenderer {
 		}
 		else {
 			//If there are no contribution class for this page, adding with default layout and style 'field-editor'
+			Label pageDesc = new Label(page.getDescription());
+			pageDesc.addStyleName("field-editor");
+			pageLayout.addComponent(pageDesc);
 			for (FieldEditor<?> editor : page.getChildren()) {
 				Component fieldComponent = (Component) editor.getWidget();
 				fieldComponent.addStyleName("field-editor");
@@ -89,6 +104,8 @@ public class PreferencesPageRenderer {
 		Class<? extends FieldEditorRenderer<?>> rendererClass = null;
 		if (editor instanceof BooleanFieldEditor)
 			rendererClass = BooleanFieldEditorRenderer.class;
+		else if (editor instanceof StringFieldEditor)
+			rendererClass = StringFieldEditorRenderer.class;
 		return rendererClass;
 	}
 	

@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.emf.common.util.EList;
+import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesEvents;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
@@ -55,6 +57,9 @@ import e4modelextension.VaaclipseApplication;
 public class PreferencesDialog {
 	
 	static final String PAGE_HEADER_ERROR_TEXT = "page-header-error-text";
+	
+	@Inject
+	IEventBroker eventBroker;
 	
 	@Inject
 	VaaclipseApplication app;
@@ -277,7 +282,7 @@ public class PreferencesDialog {
 		});
 		
 		if (selectedCategory != null) {
-			tree.select(selectedCategory.hashCode());
+			tree.select(selectedCategory);
 			openPreferencePageForCategory(selectedCategory);
 		}
 	}
@@ -312,17 +317,15 @@ public class PreferencesDialog {
 				if (parentCat != null)
 					tree.setParent(c, parentCat);
 				
-				if (c.getPage() == null) {//Dummy page
-					PreferencesPage page = preferencesFactory.createPreferencesPage();
-					c.setPage(page);
-				}
-				
 				fillCategories(c.getChildCategories(), c);
 			}
 		}
 	}
 	
 	private void openPreferencePageForCategory(PreferencesCategory selectedCat) {
+		selectedCategory = selectedCat;
+		refreshHeaderMessage();
+		
 		pageContent.removeAllComponents();
 		
 		if (selectedCat.getPage() != null) {
@@ -332,9 +335,9 @@ public class PreferencesDialog {
 			PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
 			pageRenderer.render();
 			visitedPages.add(selectedCat.getPage());
+		} else if (!selectedCat.getChildCategories().isEmpty()) {
+			pageContent.addComponent(new Label("Expand the tree to edit a preferences for a specific feature"));
 		}
-		
-		selectedCategory = selectedCat;
 	}
 	
 	private void addListeners() {
@@ -394,19 +397,16 @@ public class PreferencesDialog {
 	}
 	
 	private void restoreDefaults() {
-		Exception exception = null;
-		for (PreferencesPage page : visitedPages) {
+		PreferencesPage currentPage = getCurrentPage();
+		if (currentPage != null) {
 			try {
-				restoreDefaultsOnPage(page);
+				restoreDefaultsOnPage(currentPage);
 			} catch (Exception e) {
-				exception = e;
+				Notification.show("Error restoring defaults", "Restoring defaults on this page failed", Notification.Type.ERROR_MESSAGE);
+				return;
 			}
+			fireEvent(PreferencesEvents.PREFERENCES_TO_DEFAULTS, currentPage);
 		}
-		
-		if (exception != null)
-			Notification.show("Error restore defaults", "Restore default values was failed for some pages", Notification.Type.ERROR_MESSAGE);
-		else
-			Notification.show("Defaults Restored", String.format("The defaults on a page %s was restored", getSelectedCategory()), Notification.Type.TRAY_NOTIFICATION);
 	}
 	
 	private void closeWithSave() {
@@ -424,10 +424,12 @@ public class PreferencesDialog {
 		PreferencesPage currentPage = getCurrentPage();
 		if (currentPage != null) {
 			try {
-				applyChangesOnPage(getCurrentPage());
+				applyChangesOnPage(currentPage);
 			} catch (Exception e) {
 				Notification.show("Error apply changes", "Applying changes on this page failed", Notification.Type.ERROR_MESSAGE);
+				return;
 			}
+			fireEvent(PreferencesEvents.PREFERENCES_APPLIED, currentPage);
 		}
 	}
 	
@@ -442,6 +444,9 @@ public class PreferencesDialog {
 		}
 		if (exception != null)
 			Notification.show("Error apply changes", "Saving changes was failed on some pages", Notification.Type.ERROR_MESSAGE);
+		else {
+			fireEvent(PreferencesEvents.PREFERENCES_APPLIED, (PreferencesPage[]) visitedPages.toArray(new PreferencesPage[visitedPages.size()]));
+		}
 	}
 	
 	private void applyChangesOnPage(PreferencesPage page) throws BackingStoreException {
@@ -484,5 +489,9 @@ public class PreferencesDialog {
 			logger.error("Error flushing changes for preference {} with category {}", preferences, page.getCategory().getName(), e);
 			throw e;
 		}		
+	}
+	
+	private void fireEvent(String topic, PreferencesPage... pages) {
+		eventBroker.send(topic, pages);
 	}
 }

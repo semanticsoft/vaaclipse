@@ -32,6 +32,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getPreferencesScope <em>Preferences Scope</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getPreferences <em>Preferences</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,6 +112,25 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected Object preferences = PREFERENCES_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESCRIPTION_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -286,6 +306,27 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -343,6 +384,8 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return getPreferencesScope();
 			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
 				return getPreferences();
+			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
+				return getDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -369,6 +412,9 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return;
 			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
 				setPreferences(newValue);
+				return;
+			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -397,6 +443,9 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
 				setPreferences(PREFERENCES_EDEFAULT);
 				return;
+			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -419,6 +468,8 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return PREFERENCES_SCOPE_EDEFAULT == null ? preferencesScope != null : !PREFERENCES_SCOPE_EDEFAULT.equals(preferencesScope);
 			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
 				return PREFERENCES_EDEFAULT == null ? preferences != null : !PREFERENCES_EDEFAULT.equals(preferences);
+			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -475,6 +526,8 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 		result.append(preferencesScope);
 		result.append(", preferences: ");
 		result.append(preferences);
+		result.append(", description: ");
+		result.append(description);
 		result.append(')');
 		return result.toString();
 	}

@@ -93,6 +93,17 @@ public class FileFieldEditorImpl extends FieldEditorImpl<String> implements File
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific type known in this context.
+	 * @generated
+	 */
+	@Override
+	public void setDefaultValueTyped(String newDefaultValueTyped) {
+		super.setDefaultValueTyped(newDefaultValueTyped);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getContributionURI() {

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope <em>Preferences Scope</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences <em>Preferences</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -106,4 +107,30 @@ public interface PreferencesPage extends EObject, MElementContainer<FieldEditor<
 	 * @generated
 	 */
 	void setPreferences(Object value);
+
+	/**
+	 * Returns the value of the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Description</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Description</em>' attribute.
+	 * @see #setDescription(String)
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesPage_Description()
+	 * @model
+	 * @generated
+	 */
+	String getDescription();
+
+	/**
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getDescription <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Description</em>' attribute.
+	 * @see #getDescription()
+	 * @generated
+	 */
+	void setDescription(String value);
 } // PreferencesPage

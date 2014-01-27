@@ -24,7 +24,7 @@ public class BooleanFieldEditorRenderer extends FieldEditorRenderer<Boolean> {
 	
 	@Override
 	public Boolean getValue() {
-		return getPreferences().getBoolean(booleanFieldEditor.getPreferenceName(), false);
+		return getPreferences().getBoolean(booleanFieldEditor.getPreferenceName(), booleanFieldEditor.getDefaultValueTyped());
 	}
 	
 	@Override

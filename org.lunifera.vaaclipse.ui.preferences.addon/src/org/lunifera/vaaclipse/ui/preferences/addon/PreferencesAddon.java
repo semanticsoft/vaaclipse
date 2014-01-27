@@ -13,7 +13,11 @@ import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferencesService;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.lunifera.vaaclipse.ui.preferences.model.ScaleFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.util.PreferencesSwitch;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -42,6 +46,9 @@ public class PreferencesAddon {
 		}
 		
 		for (PreferencesPage page : vaaApp.getPreferencesPages()) {
+			
+			setTypedDefaultValues(page);
+			
 			String scope = page.getPreferencesScope();
 			
 			int searchFrom = 0;
@@ -64,6 +71,32 @@ public class PreferencesAddon {
 			if (node != null) {
 				page.setPreferences(node);
 			}
+		}
+	}
+
+	private void setTypedDefaultValues(PreferencesPage page) {
+		for (FieldEditor<?> ed : page.getChildren()) {
+			FieldEditor<Object> editor = (FieldEditor<Object>) ed;
+			
+			PreferencesSwitch<?> sw = new PreferencesSwitch() {
+				@Override
+				public Object caseBooleanFieldEditor(BooleanFieldEditor object) {
+					return Boolean.valueOf(object.getDefaultValue());
+				}
+				
+				@Override
+				public Object caseScaleFieldEditor(ScaleFieldEditor object) {
+					return Integer.valueOf(object.getDefaultValue());
+				}
+				
+				
+				
+			};
+			Object converted = sw.doSwitch(editor);
+			if (converted == null) {
+				converted = editor.getDefaultValue();
+			}
+			editor.setDefaultValueTyped(converted);
 		}
 	}
 }

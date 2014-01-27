@@ -24,6 +24,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getPreferenceName <em>Preference Name</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getDefaultValueTyped <em>Default Value Typed</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,6 +90,16 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @ordered
 	 */
 	protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDefaultValueTyped() <em>Default Value Typed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultValueTyped()
+	 * @generated
+	 * @ordered
+	 */
+	protected T defaultValueTyped;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -177,6 +188,27 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public T getDefaultValueTyped() {
+		return defaultValueTyped;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultValueTyped(T newDefaultValueTyped) {
+		T oldDefaultValueTyped = defaultValueTyped;
+		defaultValueTyped = newDefaultValueTyped;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED, oldDefaultValueTyped, defaultValueTyped));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -186,6 +218,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return getPreferenceName();
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
 				return getDefaultValue();
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
+				return getDefaultValueTyped();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -195,6 +229,7 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -206,6 +241,9 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return;
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
 				setDefaultValue((String)newValue);
+				return;
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
+				setDefaultValueTyped((T)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -228,6 +266,9 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
 				setDefaultValue(DEFAULT_VALUE_EDEFAULT);
 				return;
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
+				setDefaultValueTyped((T)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -246,6 +287,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return PREFERENCE_NAME_EDEFAULT == null ? preferenceName != null : !PREFERENCE_NAME_EDEFAULT.equals(preferenceName);
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
 				return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
+				return defaultValueTyped != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -266,6 +309,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 		result.append(preferenceName);
 		result.append(", defaultValue: ");
 		result.append(defaultValue);
+		result.append(", defaultValueTyped: ");
+		result.append(defaultValueTyped);
 		result.append(')');
 		return result.toString();
 	}

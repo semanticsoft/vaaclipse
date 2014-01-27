@@ -89,6 +89,17 @@ public class IntegerFieldEditorImpl extends FieldEditorImpl<Integer> implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific type known in this context.
+	 * @generated
+	 */
+	@Override
+	public void setDefaultValueTyped(Integer newDefaultValueTyped) {
+		super.setDefaultValueTyped(newDefaultValueTyped);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Integer getMinValidValue() {

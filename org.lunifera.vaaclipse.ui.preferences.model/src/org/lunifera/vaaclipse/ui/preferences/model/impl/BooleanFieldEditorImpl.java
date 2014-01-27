@@ -69,6 +69,17 @@ public class BooleanFieldEditorImpl extends FieldEditorImpl<Boolean> implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific type known in this context.
+	 * @generated
+	 */
+	@Override
+	public void setDefaultValueTyped(Boolean newDefaultValueTyped) {
+		super.setDefaultValueTyped(newDefaultValueTyped);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public BooleanFieldStyle getStyle() {
