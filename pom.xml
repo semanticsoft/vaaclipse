@@ -133,6 +133,7 @@
 				<module>org.semanticsoft.vaaclipse.p2.ui</module>
 				<module>org.semanticsoft.vaaclipse.widgetset.default</module>
 				<module>org.lunifera.vaaclipse.ui.preferences.model</module>
+				<module>org.lunifera.vaaclipse.ui.preferences.addon</module>
 				
 				<!-- Addons components -->
 				<module>org.semanticsoft.vaaclipse.vaadin.addon.contextmenu</module>
