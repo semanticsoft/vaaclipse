@@ -35,7 +35,8 @@ public class StringFieldEditorRenderer extends FieldEditorRenderer<String> {
 
 	@Override
 	public void setValue(String value) {
-		getPreferences().put(editor.getPreferenceName(), value);		
+		if (value != null)
+			getPreferences().put(editor.getPreferenceName(), value);		
 	}
 
 	@Override

@@ -37,6 +37,7 @@ public abstract class ListFieldEditorRenderer extends FieldEditorRenderer<String
 			Item item = select.addItem(entry.getValue());
 			select.setItemCaption(item, entry.getName());
 		}
+		select.select(getValue());
 	}
 
 	@Override
@@ -51,6 +52,7 @@ public abstract class ListFieldEditorRenderer extends FieldEditorRenderer<String
 
 	@Override
 	public void save() {
-		setValue(select.getValue().toString());
+		if (select.getValue() != null)
+			setValue(select.getValue().toString());
 	}
 }

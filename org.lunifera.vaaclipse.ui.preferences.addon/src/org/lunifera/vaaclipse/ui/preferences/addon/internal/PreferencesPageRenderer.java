@@ -58,26 +58,15 @@ public class PreferencesPageRenderer {
 		for (FieldEditor<?> editor : page.getChildren()) {
 			Class<? extends FieldEditorRenderer<?>> rendererClass = getRendererClass(editor);
 			if (rendererClass != null) {
-				Class<FieldEditor<?>> editorInterface = null;
-				Class<?>[] interfaces = editor.getClass().getInterfaces();
-				for (Class<?> i : interfaces) {
-					if (FieldEditor.class.isAssignableFrom(i)) {
-						editorInterface = (Class<FieldEditor<?>>) i;
-						break;
-					}
-				}
-				if (editorInterface != null) {
-					IEclipseContext rendererContext = context.createChild();
-					rendererContext.set(editorInterface, editor);
-					FieldEditorRenderer<?> fieldRenderer = ContextInjectionFactory.make(rendererClass, rendererContext);
-					fieldRenderer.render();
-					Component fieldComponent = fieldRenderer.getComponent();
-					editor.setWidget(fieldComponent);
-					editor.setRenderer(fieldRenderer);
-				}
-				else {
-					logger.warn("Unexpected type. Editor doesn't support {} interface", FieldEditor.class);
-				}
+				IEclipseContext rendererContext = context.createChild();
+				
+				Class<?>[] interfaces = editor.getClass().getInterfaces();	
+				populateInterfaces(editor, rendererContext, interfaces);
+				FieldEditorRenderer<?> fieldRenderer = ContextInjectionFactory.make(rendererClass, rendererContext);
+				fieldRenderer.render();
+				Component fieldComponent = fieldRenderer.getComponent();
+				editor.setWidget(fieldComponent);
+				editor.setRenderer(fieldRenderer);
 			}
 			else {
 				logger.warn("{} editor has no renderer. It is not rendered.", editor);
@@ -99,6 +88,16 @@ public class PreferencesPageRenderer {
 				Component fieldComponent = (Component) editor.getWidget();
 				fieldComponent.addStyleName("field-editor");
 				pageLayout.addComponent(fieldComponent);	
+			}
+		}
+	}
+
+	private void populateInterfaces(FieldEditor<?> editor, IEclipseContext rendererContext, Class<?>[] interfaces) {
+		for (Class<?> i : interfaces) {
+			if (FieldEditor.class.isAssignableFrom(i)) {
+				Class<FieldEditor<?>> editorInterface = (Class<FieldEditor<?>>) i;
+				rendererContext.set(editorInterface, editor);
+				populateInterfaces(editor, rendererContext, i.getInterfaces());
 			}
 		}
 	}
