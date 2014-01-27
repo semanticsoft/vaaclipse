@@ -89,17 +89,23 @@ public class PreferencesAddon {
 			PreferencesSwitch<?> sw = new PreferencesSwitch() {
 				@Override
 				public Object caseBooleanFieldEditor(BooleanFieldEditor object) {
+					if (object.getDefaultValue() == null)
+						return false;
 					return Boolean.valueOf(object.getDefaultValue());
 				}
 				
 				@Override
 				public Object caseScaleFieldEditor(ScaleFieldEditor object) {
+					if (object.getDefaultValue() == null)
+						return 0;
 					return Integer.valueOf(object.getDefaultValue());
 				}
 			};
 			Object converted = sw.doSwitch(editor);
 			if (converted == null) {
 				converted = editor.getDefaultValue();
+				if (converted == null)
+					converted = "";
 			}
 			editor.setDefaultValueTyped(converted);
 		}
