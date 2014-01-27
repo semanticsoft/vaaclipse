@@ -8,12 +8,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.emf.common.util.EList;
+import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesAuthorization;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesEvents;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
@@ -71,10 +73,19 @@ public class PreferencesDialog {
 	@Optional
 	PreferencesCategory selectedCategory;
 	
+	@Inject
+	@Optional
+	PreferencesAuthorization authService;
+	
 	Logger logger = LoggerFactory.getLogger(PreferencesDialog.class);
 	
 	@Inject
 	UI ui;
+	
+	@Inject
+	@Named(value = "username")
+	@Optional
+	String username;
 	
 	TextField filterField = new TextField();
 
@@ -329,12 +340,18 @@ public class PreferencesDialog {
 		pageContent.removeAllComponents();
 		
 		if (selectedCat.getPage() != null) {
-			IEclipseContext pageContext = context.createChild();
-			pageContext.set(CssLayout.class, pageContent);
-			pageContext.set(PreferencesPage.class, selectedCat.getPage());
-			PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
-			pageRenderer.render();
-			visitedPages.add(selectedCat.getPage());
+			
+			if (authService != null && username != null && !authService.isAllowed(selectedCat.getPage(), username)) {
+				pageContent.addComponent(new Label("Access to this page restricted."));
+			}
+			else {
+				IEclipseContext pageContext = context.createChild();
+				pageContext.set(CssLayout.class, pageContent);
+				pageContext.set(PreferencesPage.class, selectedCat.getPage());
+				PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
+				pageRenderer.render();
+				visitedPages.add(selectedCat.getPage());	
+			}
 		} else if (!selectedCat.getChildCategories().isEmpty()) {
 			pageContent.addComponent(new Label("Expand the tree to edit a preferences for a specific feature"));
 		}

@@ -24,6 +24,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.util.PreferencesSwitch;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.osgi.service.prefs.Preferences;
 
 import e4modelextension.VaaclipseApplication;
@@ -45,6 +46,8 @@ public class PreferencesAddon {
 		VaaclipseApplication vaaApp = (VaaclipseApplication) app;
 		
 		BundleContext bundleContext = FrameworkUtil.getBundle(PreferencesAddon.class).getBundleContext();
+		
+		obtainPreferencesAuthService(bundleContext);
 		
 		Map<String, Bundle> bundlesByName = new HashMap<>();
 		for (Bundle b : bundleContext.getBundles()) {
@@ -79,6 +82,15 @@ public class PreferencesAddon {
 			if (node != null) {
 				page.setPreferences(node);
 			}
+		}
+	}
+
+	private void obtainPreferencesAuthService(BundleContext bundleContext) {
+		
+		ServiceReference<PreferencesAuthorization> ref = bundleContext.getServiceReference(PreferencesAuthorization.class);
+		if (ref != null) {
+			PreferencesAuthorization authService = bundleContext.getService(ref);
+			context.set(PreferencesAuthorization.class, authService);
 		}
 	}
 
