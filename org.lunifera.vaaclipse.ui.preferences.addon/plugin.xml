@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.semanticsoft.vaaclipse.theme">
+      	<themecontribution
+            cssUri="css/style.css"
+            id="org.lunifera.vaaclipse.ui.preferences.styles"
+            insertPosition="after=MAIN_CSS">
+         <resourceLocationUri
+               uri="img/">
+         </resourceLocationUri>
+         <themeid
+               refid="reindeer">
+         </themeid>
+      </themecontribution>
+   </extension>
+</plugin>

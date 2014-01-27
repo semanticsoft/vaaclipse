@@ -334,13 +334,31 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_PAGE__SELECTED_ELEMENT = UiPackageImpl.ELEMENT_CONTAINER__SELECTED_ELEMENT;
 
 	/**
+	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREFERENCES_PAGE__CONTRIBUTION_URI = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Object</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREFERENCES_PAGE__OBJECT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Category</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_PAGE__CATEGORY = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 0;
+	int PREFERENCES_PAGE__CATEGORY = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Preferences Scope</b></em>' attribute.
@@ -349,7 +367,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_PAGE__PREFERENCES_SCOPE = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 1;
+	int PREFERENCES_PAGE__PREFERENCES_SCOPE = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREFERENCES_PAGE__PREFERENCES = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Page</em>' class.
@@ -358,7 +385,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_PAGE_FEATURE_COUNT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 2;
+	int PREFERENCES_PAGE_FEATURE_COUNT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -542,13 +569,22 @@ public interface PreferencesPackage extends EPackage {
 	int FIELD_EDITOR__PREFERENCE_NAME = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD_EDITOR__DEFAULT_VALUE = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Field Editor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD_EDITOR_FEATURE_COUNT = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 2;
+	int FIELD_EDITOR_FEATURE_COUNT = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -730,6 +766,15 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int BOOLEAN_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Style</b></em>' attribute.
@@ -929,6 +974,15 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int LIST_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
@@ -1264,6 +1318,15 @@ public interface PreferencesPackage extends EPackage {
 	int COMBO_FIELD_EDITOR__PREFERENCE_NAME = LIST_FIELD_EDITOR__PREFERENCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_FIELD_EDITOR__DEFAULT_VALUE = LIST_FIELD_EDITOR__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1469,6 +1532,15 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int LIST_EDITOR__PREFERENCE_NAME = LIST_FIELD_EDITOR__PREFERENCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_EDITOR__DEFAULT_VALUE = LIST_FIELD_EDITOR__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
@@ -1678,6 +1750,15 @@ public interface PreferencesPackage extends EPackage {
 	int RADIO_GROUP_FIELD_EDITOR__PREFERENCE_NAME = LIST_FIELD_EDITOR__PREFERENCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_GROUP_FIELD_EDITOR__DEFAULT_VALUE = LIST_FIELD_EDITOR__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1883,6 +1964,15 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int SCALE_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCALE_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Min Value</b></em>' attribute.
@@ -2092,6 +2182,15 @@ public interface PreferencesPackage extends EPackage {
 	int STRING_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
+
+	/**
 	 * The number of structural features of the '<em>String Field Editor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2270,6 +2369,15 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTEGER_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Min Valid Value</b></em>' attribute.
@@ -2470,6 +2578,15 @@ public interface PreferencesPackage extends EPackage {
 	int FILE_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2668,6 +2785,15 @@ public interface PreferencesPackage extends EPackage {
 	int DIRECTORY_FIELD_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTORY_FIELD_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2810,6 +2936,17 @@ public interface PreferencesPackage extends EPackage {
 	EAttribute getPreferencesPage_PreferencesScope();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences <em>Preferences</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Preferences</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences()
+	 * @see #getPreferencesPage()
+	 * @generated
+	 */
+	EAttribute getPreferencesPage_Preferences();
+
+	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor <em>Field Editor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2840,6 +2977,17 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFieldEditor_PreferenceName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValue <em>Default Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Value</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValue()
+	 * @see #getFieldEditor()
+	 * @generated
+	 */
+	EAttribute getFieldEditor_DefaultValue();
 
 	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor <em>Boolean Field Editor</em>}'.
@@ -3152,6 +3300,14 @@ public interface PreferencesPackage extends EPackage {
 		EAttribute PREFERENCES_PAGE__PREFERENCES_SCOPE = eINSTANCE.getPreferencesPage_PreferencesScope();
 
 		/**
+		 * The meta object literal for the '<em><b>Preferences</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PREFERENCES_PAGE__PREFERENCES = eINSTANCE.getPreferencesPage_Preferences();
+
+		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl <em>Field Editor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3176,6 +3332,14 @@ public interface PreferencesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FIELD_EDITOR__PREFERENCE_NAME = eINSTANCE.getFieldEditor_PreferenceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD_EDITOR__DEFAULT_VALUE = eINSTANCE.getFieldEditor_DefaultValue();
 
 		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.BooleanFieldEditorImpl <em>Boolean Field Editor</em>}' class.

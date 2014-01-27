@@ -1,13 +1,36 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Addon
-Bundle-SymbolicName: org.lunifera.vaaclipse.ui.preferences.addon
+Bundle-SymbolicName: org.lunifera.vaaclipse.ui.preferences.addon;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: e4modelextension,
+Import-Package: com.vaadin.data;version="7.1.8",
+ com.vaadin.event;version="7.1.8",
+ com.vaadin.server;version="7.1.8",
+ com.vaadin.shared;version="7.1.8",
+ com.vaadin.shared.ui;version="7.1.8",
+ com.vaadin.ui;version="7.1.8",
+ e4modelextension,
  javax.annotation;version="1.1.0",
  javax.inject;version="1.0.0",
+ org.eclipse.core.internal.preferences,
+ org.eclipse.core.runtime.preferences;version="3.3.0",
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.core.services.contributions,
  org.eclipse.e4.ui.model.application,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,
- org.lunifera.vaaclipse.ui.preferences.model
+ org.lunifera.vaaclipse.ui.preferences.model,
+ org.lunifera.vaaclipse.ui.preferences.model.metadata,
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.prefs;version="1.1.1",
+ org.semanticsoft.vaaclipse.publicapi.resources,
+ org.slf4j;version="1.7.2"
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.e4.core.di,
+ com.vaadin.client,
+ org.eclipse.e4.ui.model.workbench;bundle-version="1.0.1",
+ com.vaadin.server;bundle-version="7.1.8",
+ com.vaadin.shared;bundle-version="7.1.8",
+ com.vaadin.shared.deps;bundle-version="1.0.2"
+Export-Package: org.lunifera.vaaclipse.ui.preferences.addon

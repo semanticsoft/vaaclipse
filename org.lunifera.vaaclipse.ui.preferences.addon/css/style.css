@@ -1,0 +1,52 @@
+.preferences-dialog .clear-filter-button {
+	float:right;
+}
+
+.preferences-dialog .field-editor {
+	margin-bottom: 15px;
+}
+
+.preferences-dialog .restore-defaults {
+	float: right;
+}
+
+.preferences-dialog .apply {
+	float: right;
+	margin-left: 10px;
+}
+
+.preferences-dialog .ok-button {
+	float: right;
+}
+
+.preferences-dialog .cancel-button {
+	float: right;
+	margin-left: 10px;
+}
+
+.preferences-dialog .page-header-text {
+	font-weight: bold;
+}
+
+.preferences-dialog .page-header-error-text {
+	font-weight: bold;
+	color: red;
+}
+
+.preferences-dialog .page-header-panel {
+	padding: 10px;
+	border-bottom: solid 1px #DCDCDC;
+}
+
+.preferences-dialog .preferences-page {
+	padding: 10px;
+}
+
+.preferences-dialog .page-bottom-panel {
+	padding: 10px;
+}
+
+.preferences-dialog .dlg-button-panel {
+	padding: 10px;
+	border-top: solid 1px #DCDCDC;
+}

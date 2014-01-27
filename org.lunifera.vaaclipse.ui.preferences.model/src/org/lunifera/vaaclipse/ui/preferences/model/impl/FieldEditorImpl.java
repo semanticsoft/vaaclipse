@@ -23,6 +23,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  * <ul>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getPreferenceName <em>Preference Name</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getDefaultValue <em>Default Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +69,26 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @ordered
 	 */
 	protected String preferenceName = PREFERENCE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DEFAULT_VALUE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -135,6 +156,27 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultValue(String newDefaultValue) {
+		String oldDefaultValue = defaultValue;
+		defaultValue = newDefaultValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE, oldDefaultValue, defaultValue));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -142,6 +184,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return getLabel();
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCE_NAME:
 				return getPreferenceName();
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
+				return getDefaultValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -159,6 +203,9 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return;
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCE_NAME:
 				setPreferenceName((String)newValue);
+				return;
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
+				setDefaultValue((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -178,6 +225,9 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCE_NAME:
 				setPreferenceName(PREFERENCE_NAME_EDEFAULT);
 				return;
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
+				setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -194,6 +244,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCE_NAME:
 				return PREFERENCE_NAME_EDEFAULT == null ? preferenceName != null : !PREFERENCE_NAME_EDEFAULT.equals(preferenceName);
+			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE:
+				return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -212,6 +264,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 		result.append(label);
 		result.append(", preferenceName: ");
 		result.append(preferenceName);
+		result.append(", defaultValue: ");
+		result.append(defaultValue);
 		result.append(')');
 		return result.toString();
 	}

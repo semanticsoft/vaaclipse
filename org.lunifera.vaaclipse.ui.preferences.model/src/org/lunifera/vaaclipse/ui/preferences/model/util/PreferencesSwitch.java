@@ -85,6 +85,7 @@ public class PreferencesSwitch<T1> extends Switch<T1> {
 				PreferencesPage preferencesPage = (PreferencesPage)theEObject;
 				T1 result = casePreferencesPage(preferencesPage);
 				if (result == null) result = caseElementContainer(preferencesPage);
+				if (result == null) result = caseContribution(preferencesPage);
 				if (result == null) result = caseUIElement(preferencesPage);
 				if (result == null) result = caseApplicationElement(preferencesPage);
 				if (result == null) result = defaultCase(theEObject);

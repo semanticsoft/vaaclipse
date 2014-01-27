@@ -287,6 +287,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPreferencesPage_Preferences() {
+		return (EAttribute)preferencesPageEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFieldEditor() {
 		return fieldEditorEClass;
 	}
@@ -307,6 +316,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 */
 	public EAttribute getFieldEditor_PreferenceName() {
 		return (EAttribute)fieldEditorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFieldEditor_DefaultValue() {
+		return (EAttribute)fieldEditorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -535,10 +553,12 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		preferencesPageEClass = createEClass(PREFERENCES_PAGE);
 		createEReference(preferencesPageEClass, PREFERENCES_PAGE__CATEGORY);
 		createEAttribute(preferencesPageEClass, PREFERENCES_PAGE__PREFERENCES_SCOPE);
+		createEAttribute(preferencesPageEClass, PREFERENCES_PAGE__PREFERENCES);
 
 		fieldEditorEClass = createEClass(FIELD_EDITOR);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__LABEL);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__PREFERENCE_NAME);
+		createEAttribute(fieldEditorEClass, FIELD_EDITOR__DEFAULT_VALUE);
 
 		booleanFieldEditorEClass = createEClass(BOOLEAN_FIELD_EDITOR);
 		createEAttribute(booleanFieldEditorEClass, BOOLEAN_FIELD_EDITOR__STYLE);
@@ -615,6 +635,8 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		EGenericType g3 = createEGenericType();
 		g2.getETypeArguments().add(g3);
 		preferencesPageEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(theApplicationPackage.getContribution());
+		preferencesPageEClass.getEGenericSuperTypes().add(g1);
 		fieldEditorEClass.getESuperTypes().add(theUiPackage.getUIElement());
 		g1 = createEGenericType(this.getFieldEditor());
 		g2 = createEGenericType(ecorePackage.getEBooleanObject());
@@ -664,10 +686,12 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEClass(preferencesPageEClass, PreferencesPage.class, "PreferencesPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPreferencesPage_Category(), this.getPreferencesCategory(), this.getPreferencesCategory_Page(), "category", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPreferencesPage_PreferencesScope(), ecorePackage.getEString(), "preferencesScope", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPreferencesPage_Preferences(), ecorePackage.getEJavaObject(), "preferences", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fieldEditorEClass, FieldEditor.class, "FieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFieldEditor_Label(), ecorePackage.getEString(), "label", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_PreferenceName(), ecorePackage.getEString(), "preferenceName", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFieldEditor_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(booleanFieldEditorEClass, BooleanFieldEditor.class, "BooleanFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanFieldEditor_Style(), this.getBooleanFieldStyle(), "style", null, 0, 1, BooleanFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

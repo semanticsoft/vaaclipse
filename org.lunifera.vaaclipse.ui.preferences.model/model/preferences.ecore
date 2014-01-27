@@ -16,16 +16,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//PreferencesCategory"
         eOpposite="#//PreferencesCategory/page"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferencesScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferences" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/ElementContainer">
       <eTypeArguments eClassifier="#//FieldEditor">
         <eTypeArguments/>
       </eTypeArguments>
     </eGenericSuperTypes>
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FieldEditor" eSuperTypes="platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/UIElement">
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferenceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanFieldEditor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//BooleanFieldStyle"/>
