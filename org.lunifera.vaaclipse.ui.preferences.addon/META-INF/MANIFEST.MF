@@ -28,6 +28,7 @@ Import-Package: com.vaadin.data;version="7.1.8",
  org.osgi.framework;version="1.7.0",
  org.osgi.service.prefs;version="1.1.1",
  org.semanticsoft.vaaclipse.publicapi.resources,
+ org.semanticsoft.vaadin.optiondialog,
  org.slf4j;version="1.7.2"
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.e4.core.di,
@@ -35,5 +36,7 @@ Require-Bundle: org.eclipse.e4.core.di,
  org.eclipse.e4.ui.model.workbench;bundle-version="1.0.1",
  com.vaadin.server;bundle-version="7.1.8",
  com.vaadin.shared;bundle-version="7.1.8",
- com.vaadin.shared.deps;bundle-version="1.0.2"
+ com.vaadin.shared.deps;bundle-version="1.0.2",
+ org.eclipse.equinox.preferences;bundle-version="3.5.100",
+ org.eclipse.core.runtime;bundle-version="3.9.0"
 Export-Package: org.lunifera.vaaclipse.ui.preferences.addon

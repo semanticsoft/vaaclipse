@@ -47,6 +47,7 @@ public class PreferencesAddon {
 	@PostConstruct
 	void init() {
 		VaaclipseApplication vaaApp = (VaaclipseApplication) app;
+		context.set(VaaclipseApplication.class, vaaApp);
 		
 		BundleContext bundleContext = FrameworkUtil.getBundle(PreferencesAddon.class).getBundleContext();
 		

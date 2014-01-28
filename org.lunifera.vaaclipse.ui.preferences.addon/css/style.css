@@ -63,3 +63,11 @@
 	padding: 10px;
 	border-top: solid 1px #DCDCDC;
 }
+
+.preferences-export-import-dialog .export {
+	padding: 10px;	
+}
+
+.preferences-export-import-dialog .export .v-panel {
+	margin-top: 10px;
+}

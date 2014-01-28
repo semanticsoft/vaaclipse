@@ -211,6 +211,10 @@ public class OptionDialog extends Window {
 		Button button = option2button.get(optionId);
 		button.setEnabled(enabled);
 	}
+	
+	public Button getOptionButton(int optionId) {
+		return option2button.get(optionId);
+	}
 
 	public static void show(UI parentWindow, String caption,
 			String message, String[] options, int w, int h, Unit units,
