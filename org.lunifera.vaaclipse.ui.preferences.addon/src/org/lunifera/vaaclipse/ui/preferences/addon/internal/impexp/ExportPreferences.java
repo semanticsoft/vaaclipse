@@ -102,7 +102,7 @@ public class ExportPreferences extends BasicImpExp {
 
 	@Override
 	protected void doAction() {
-		
+		dlg.close();
 	}
 
 	@Override
