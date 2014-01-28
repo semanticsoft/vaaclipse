@@ -294,7 +294,7 @@ public class PreferencesDialog {
 		
 		for (Object id : tree.rootItemIds())
 		{
-			tree.expandItem(id);
+			tree.expandItemsRecursively(id);
 		}
 	}
 
@@ -303,7 +303,7 @@ public class PreferencesDialog {
 		String search = filterField.getValue().trim();
 		for (PreferencesCategory c : list) {
 			
-			if (authService != null && "user".equals(c.getParentCategory().getId()) && authService.isAllowed(c)) {
+			if (authService != null && c.getParentCategory() != null && "user".equals(c.getParentCategory().getId()) && !authService.isAllowed(c)) {
 				continue;
 			}
 			
@@ -331,18 +331,12 @@ public class PreferencesDialog {
 		pageContent.removeAllComponents();
 		
 		if (selectedCat.getPage() != null) {
-			
-			if (authService != null && !authService.isAllowed(selectedCat)) {
-				pageContent.addComponent(new Label("Access to this page restricted."));
-			}
-			else {
-				IEclipseContext pageContext = context.createChild();
-				pageContext.set(CssLayout.class, pageContent);
-				pageContext.set(PreferencesPage.class, selectedCat.getPage());
-				PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
-				pageRenderer.render();
-				visitedPages.add(selectedCat.getPage());	
-			}
+			IEclipseContext pageContext = context.createChild();
+			pageContext.set(CssLayout.class, pageContent);
+			pageContext.set(PreferencesPage.class, selectedCat.getPage());
+			PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
+			pageRenderer.render();
+			visitedPages.add(selectedCat.getPage());
 		} else if (!selectedCat.getChildCategories().isEmpty()) {
 			pageContent.addComponent(new Label("Expand the tree to edit a preferences for a specific feature"));
 		}
