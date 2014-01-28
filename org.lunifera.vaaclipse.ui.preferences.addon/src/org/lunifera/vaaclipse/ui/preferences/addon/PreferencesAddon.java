@@ -19,6 +19,7 @@ import org.eclipse.e4.ui.model.application.MContribution;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.ScaleFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
@@ -116,6 +117,13 @@ public class PreferencesAddon {
 				
 				@Override
 				public Object caseScaleFieldEditor(ScaleFieldEditor object) {
+					if (object.getDefaultValue() == null)
+						return 0;
+					return Integer.valueOf(object.getDefaultValue());
+				}
+				
+				@Override
+				public Object caseIntegerFieldEditor(IntegerFieldEditor object) {
 					if (object.getDefaultValue() == null)
 						return 0;
 					return Integer.valueOf(object.getDefaultValue());

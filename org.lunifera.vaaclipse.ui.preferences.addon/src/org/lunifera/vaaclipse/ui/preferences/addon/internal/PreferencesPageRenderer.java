@@ -12,6 +12,7 @@ import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ComboFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ListEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.RadioGroupFieldEditor;
@@ -125,6 +126,11 @@ public class PreferencesPageRenderer {
 			@Override
 			public Object caseStringFieldEditor(StringFieldEditor object) {
 				return StringFieldEditorRenderer.class;
+			}
+			
+			@Override
+			public Object caseIntegerFieldEditor(IntegerFieldEditor object) {
+				return IntegerFieldEditorRenderer.class;
 			}
 		};
 		return (Class<? extends FieldEditorRenderer<?>>) switcher.doSwitch(editor);
