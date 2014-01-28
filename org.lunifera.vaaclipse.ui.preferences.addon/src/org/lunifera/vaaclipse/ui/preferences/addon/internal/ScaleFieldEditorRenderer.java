@@ -26,8 +26,10 @@ public class ScaleFieldEditorRenderer extends FieldEditorRenderer<Integer> {
 	@Override
 	public void render() {
 		CssLayout layout = new CssLayout();
+		layout.setWidth("100%");
 		layout.addComponent(new Label(editor.getLabel()));
 		slider = new Slider();
+		slider.setWidth("100%");
 		slider.setValue(getValue().doubleValue());
 		if (editor.getMaxValue() != null)
 			slider.setMax(editor.getMaxValue().doubleValue());
