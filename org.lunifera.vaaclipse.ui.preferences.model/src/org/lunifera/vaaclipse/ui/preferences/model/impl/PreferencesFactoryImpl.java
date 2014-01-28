@@ -16,6 +16,8 @@ import org.lunifera.vaaclipse.ui.preferences.model.*;
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
+import org.osgi.service.prefs.Preferences;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
@@ -73,6 +75,7 @@ public class PreferencesFactoryImpl extends EFactoryImpl implements PreferencesF
 			case PreferencesPackage.INTEGER_FIELD_EDITOR: return createIntegerFieldEditor();
 			case PreferencesPackage.FILE_FIELD_EDITOR: return createFileFieldEditor();
 			case PreferencesPackage.DIRECTORY_FIELD_EDITOR: return createDirectoryFieldEditor();
+			case PreferencesPackage.LIST_FOLD: return createListFold();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -88,6 +91,10 @@ public class PreferencesFactoryImpl extends EFactoryImpl implements PreferencesF
 		switch (eDataType.getClassifierID()) {
 			case PreferencesPackage.BOOLEAN_FIELD_STYLE:
 				return createBooleanFieldStyleFromString(eDataType, initialValue);
+			case PreferencesPackage.STRING_BUFFER:
+				return createStringBufferFromString(eDataType, initialValue);
+			case PreferencesPackage.PREFERENCES:
+				return createPreferencesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -103,6 +110,10 @@ public class PreferencesFactoryImpl extends EFactoryImpl implements PreferencesF
 		switch (eDataType.getClassifierID()) {
 			case PreferencesPackage.BOOLEAN_FIELD_STYLE:
 				return convertBooleanFieldStyleToString(eDataType, instanceValue);
+			case PreferencesPackage.STRING_BUFFER:
+				return convertStringBufferToString(eDataType, instanceValue);
+			case PreferencesPackage.PREFERENCES:
+				return convertPreferencesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -146,6 +157,16 @@ public class PreferencesFactoryImpl extends EFactoryImpl implements PreferencesF
 	public BooleanFieldEditor createBooleanFieldEditor() {
 		BooleanFieldEditorImpl booleanFieldEditor = new BooleanFieldEditorImpl();
 		return booleanFieldEditor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Entry createEntry() {
+		EntryImpl entry = new EntryImpl();
+		return entry;
 	}
 
 	/**
@@ -233,9 +254,9 @@ public class PreferencesFactoryImpl extends EFactoryImpl implements PreferencesF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Entry createEntry() {
-		EntryImpl entry = new EntryImpl();
-		return entry;
+	public ListFold createListFold() {
+		ListFoldImpl listFold = new ListFoldImpl();
+		return listFold;
 	}
 
 	/**
@@ -256,6 +277,42 @@ public class PreferencesFactoryImpl extends EFactoryImpl implements PreferencesF
 	 */
 	public String convertBooleanFieldStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StringBuffer createStringBufferFromString(EDataType eDataType, String initialValue) {
+		return (StringBuffer)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStringBufferToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Preferences createPreferencesFromString(EDataType eDataType, String initialValue) {
+		return (Preferences)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPreferencesToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

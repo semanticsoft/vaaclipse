@@ -6,6 +6,8 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osgi.service.prefs.Preferences;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Field Editor</b></em>'.
@@ -168,12 +170,12 @@ public interface FieldEditor<T> extends EObject, MUIElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Preferences</em>' attribute.
-	 * @see #setPreferences(Object)
+	 * @see #setPreferences(Preferences)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getFieldEditor_Preferences()
-	 * @model
+	 * @model dataType="org.lunifera.vaaclipse.ui.preferences.model.Preferences"
 	 * @generated
 	 */
-	Object getPreferences();
+	Preferences getPreferences();
 
 	/**
 	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferences <em>Preferences</em>}' attribute.
@@ -183,6 +185,6 @@ public interface FieldEditor<T> extends EObject, MUIElement {
 	 * @see #getPreferences()
 	 * @generated
 	 */
-	void setPreferences(Object value);
+	void setPreferences(Preferences value);
 
 } // FieldEditor

@@ -3,21 +3,31 @@
 package org.lunifera.vaaclipse.ui.preferences.model.impl;
 
 import java.util.List;
+
 import org.eclipse.e4.ui.model.application.MContribution;
+
 import org.eclipse.e4.ui.model.application.impl.ApplicationPackageImpl;
+
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+
 import org.eclipse.e4.ui.model.application.ui.impl.ElementContainerImpl;
 import org.eclipse.e4.ui.model.application.ui.impl.UiPackageImpl;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
 /**
@@ -46,6 +56,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected static final String CONTRIBUTION_URI_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getContributionURI() <em>Contribution URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -55,6 +66,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected String contributionURI = CONTRIBUTION_URI_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getObject() <em>Object</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -64,6 +76,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected static final Object OBJECT_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getObject() <em>Object</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -73,6 +86,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected Object object = OBJECT_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -82,6 +96,7 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected static final String DESCRIPTION_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->

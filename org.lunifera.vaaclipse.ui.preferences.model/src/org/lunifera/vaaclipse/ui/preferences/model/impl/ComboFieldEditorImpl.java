@@ -3,7 +3,9 @@
 package org.lunifera.vaaclipse.ui.preferences.model.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
 import org.lunifera.vaaclipse.ui.preferences.model.ComboFieldEditor;
+
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
 /**

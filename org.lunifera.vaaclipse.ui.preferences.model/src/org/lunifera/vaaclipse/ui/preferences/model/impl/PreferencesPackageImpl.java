@@ -8,12 +8,14 @@ import org.eclipse.e4.ui.model.application.ui.impl.UiPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.ETypeParameter;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
@@ -24,16 +26,20 @@ import org.lunifera.vaaclipse.ui.preferences.model.Entry;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FileFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ListCrud;
 import org.lunifera.vaaclipse.ui.preferences.model.ListEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ListFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ListFold;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
-
 import org.lunifera.vaaclipse.ui.preferences.model.RadioGroupFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ScaleFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor;
+
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
+
+import org.osgi.service.prefs.Preferences;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,6 +82,13 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * @generated
 	 */
 	private EClass listFieldEditorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass entryEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,7 +151,14 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass entryEClass = null;
+	private EClass listCrudEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass listFoldEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -146,6 +166,20 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * @generated
 	 */
 	private EEnum booleanFieldStyleEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType stringBufferEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType preferencesEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -396,6 +430,33 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEntry() {
+		return entryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEntry_Name() {
+		return (EAttribute)entryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEntry_Value() {
+		return (EAttribute)entryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getComboFieldEditor() {
 		return comboFieldEditorEClass;
 	}
@@ -407,6 +468,24 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 */
 	public EClass getListEditor() {
 		return listEditorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getListEditor_ListCrud() {
+		return (EReference)listEditorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getListEditor_ListFold() {
+		return (EReference)listEditorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -522,8 +601,8 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEntry() {
-		return entryEClass;
+	public EClass getListCrud() {
+		return listCrudEClass;
 	}
 
 	/**
@@ -531,8 +610,8 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEntry_Name() {
-		return (EAttribute)entryEClass.getEStructuralFeatures().get(0);
+	public EOperation getListCrud__AddNewValue__String() {
+		return listCrudEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -540,8 +619,17 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEntry_Value() {
-		return (EAttribute)entryEClass.getEStructuralFeatures().get(1);
+	public EClass getListFold() {
+		return listFoldEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getListFold__Apply__String_StringBuffer() {
+		return listFoldEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -551,6 +639,24 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 */
 	public EEnum getBooleanFieldStyle() {
 		return booleanFieldStyleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getStringBuffer() {
+		return stringBufferEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getPreferences() {
+		return preferencesEDataType;
 	}
 
 	/**
@@ -613,6 +719,8 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		comboFieldEditorEClass = createEClass(COMBO_FIELD_EDITOR);
 
 		listEditorEClass = createEClass(LIST_EDITOR);
+		createEReference(listEditorEClass, LIST_EDITOR__LIST_CRUD);
+		createEReference(listEditorEClass, LIST_EDITOR__LIST_FOLD);
 
 		radioGroupFieldEditorEClass = createEClass(RADIO_GROUP_FIELD_EDITOR);
 
@@ -632,8 +740,18 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 
 		directoryFieldEditorEClass = createEClass(DIRECTORY_FIELD_EDITOR);
 
+		listCrudEClass = createEClass(LIST_CRUD);
+		createEOperation(listCrudEClass, LIST_CRUD___ADD_NEW_VALUE__STRING);
+
+		listFoldEClass = createEClass(LIST_FOLD);
+		createEOperation(listFoldEClass, LIST_FOLD___APPLY__STRING_STRINGBUFFER);
+
 		// Create enums
 		booleanFieldStyleEEnum = createEEnum(BOOLEAN_FIELD_STYLE);
+
+		// Create data types
+		stringBufferEDataType = createEDataType(STRING_BUFFER);
+		preferencesEDataType = createEDataType(PREFERENCES);
 	}
 
 	/**
@@ -690,7 +808,12 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		g1 = createEGenericType(theApplicationPackage.getContribution());
 		listFieldEditorEClass.getEGenericSuperTypes().add(g1);
 		comboFieldEditorEClass.getESuperTypes().add(this.getListFieldEditor());
-		listEditorEClass.getESuperTypes().add(this.getListFieldEditor());
+		g1 = createEGenericType(this.getFieldEditor());
+		g2 = createEGenericType(ecorePackage.getEString());
+		g1.getETypeArguments().add(g2);
+		listEditorEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(theApplicationPackage.getContribution());
+		listEditorEClass.getEGenericSuperTypes().add(g1);
 		radioGroupFieldEditorEClass.getESuperTypes().add(this.getListFieldEditor());
 		g1 = createEGenericType(this.getFieldEditor());
 		g2 = createEGenericType(ecorePackage.getEIntegerObject());
@@ -736,7 +859,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		g1 = createEGenericType(fieldEditorEClass_T);
 		initEAttribute(getFieldEditor_DefaultValueTyped(), g1, "defaultValueTyped", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_Bundle(), ecorePackage.getEString(), "bundle", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFieldEditor_Preferences(), ecorePackage.getEJavaObject(), "preferences", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFieldEditor_Preferences(), this.getPreferences(), "preferences", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(booleanFieldEditorEClass, BooleanFieldEditor.class, "BooleanFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanFieldEditor_Style(), this.getBooleanFieldStyle(), "style", null, 0, 1, BooleanFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -751,6 +874,8 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEClass(comboFieldEditorEClass, ComboFieldEditor.class, "ComboFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(listEditorEClass, ListEditor.class, "ListEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getListEditor_ListCrud(), this.getListCrud(), null, "listCrud", null, 0, 1, ListEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getListEditor_ListFold(), this.getListFold(), null, "listFold", null, 0, 1, ListEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(radioGroupFieldEditorEClass, RadioGroupFieldEditor.class, "RadioGroupFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -770,10 +895,25 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 
 		initEClass(directoryFieldEditorEClass, DirectoryFieldEditor.class, "DirectoryFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(listCrudEClass, ListCrud.class, "ListCrud", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		EOperation op = initEOperation(getListCrud__AddNewValue__String(), ecorePackage.getEString(), "addNewValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "values", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(listFoldEClass, ListFold.class, "ListFold", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = initEOperation(getListFold__Apply__String_StringBuffer(), null, "apply", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getStringBuffer(), "prev", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(booleanFieldStyleEEnum, BooleanFieldStyle.class, "BooleanFieldStyle");
 		addEEnumLiteral(booleanFieldStyleEEnum, BooleanFieldStyle.DEFAULT);
 		addEEnumLiteral(booleanFieldStyleEEnum, BooleanFieldStyle.SEPARATE_LABEL);
+
+		// Initialize data types
+		initEDataType(stringBufferEDataType, StringBuffer.class, "StringBuffer", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(preferencesEDataType, Preferences.class, "Preferences", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

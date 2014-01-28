@@ -79,7 +79,7 @@ public interface PreferencesCategory extends EObject, MApplicationElement {
 	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getChildCategories <em>Child Categories</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Parent Category</em>' reference isn't clear,
+	 * If the meaning of the '<em>Parent Category</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -107,7 +107,7 @@ public interface PreferencesCategory extends EObject, MApplicationElement {
 	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Page</em>' reference isn't clear,
+	 * If the meaning of the '<em>Page</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

@@ -34,7 +34,7 @@
       <eGenericType eTypeParameter="#//FieldEditor/T"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferences" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferences" eType="#//Preferences"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanFieldEditor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//BooleanFieldStyle"/>
@@ -59,7 +59,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComboFieldEditor" eSuperTypes="#//ListFieldEditor"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ListEditor" eSuperTypes="#//ListFieldEditor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ListEditor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listCrud" eType="#//ListCrud"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listFold" eType="#//ListFold"/>
+    <eGenericSuperTypes eClassifier="#//FieldEditor">
+      <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eGenericSuperTypes>
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RadioGroupFieldEditor" eSuperTypes="#//ListFieldEditor"/>
   <eClassifiers xsi:type="ecore:EClass" name="ScaleFieldEditor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
@@ -96,5 +103,18 @@
       <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eGenericSuperTypes>
     <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//Contribution"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListCrud" abstract="true" interface="true">
+    <eOperations name="addNewValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="values" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="StringBuffer" instanceClassName="java.lang.StringBuffer"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Preferences" instanceClassName="org.osgi.service.prefs.Preferences"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ListFold">
+    <eOperations name="apply">
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="prev" eType="#//StringBuffer"/>
+    </eOperations>
   </eClassifiers>
 </ecore:EPackage>

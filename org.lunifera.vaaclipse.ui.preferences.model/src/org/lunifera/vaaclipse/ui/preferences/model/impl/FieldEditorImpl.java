@@ -14,6 +14,8 @@ import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
+import org.osgi.service.prefs.Preferences;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Field Editor</b></em>'.
@@ -131,7 +133,7 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object PREFERENCES_EDEFAULT = null;
+	protected static final Preferences PREFERENCES_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPreferences() <em>Preferences</em>}' attribute.
@@ -141,7 +143,7 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @generated
 	 * @ordered
 	 */
-	protected Object preferences = PREFERENCES_EDEFAULT;
+	protected Preferences preferences = PREFERENCES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -272,7 +274,7 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getPreferences() {
+	public Preferences getPreferences() {
 		return preferences;
 	}
 
@@ -281,8 +283,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPreferences(Object newPreferences) {
-		Object oldPreferences = preferences;
+	public void setPreferences(Preferences newPreferences) {
+		Preferences oldPreferences = preferences;
 		preferences = newPreferences;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.FIELD_EDITOR__PREFERENCES, oldPreferences, preferences));
@@ -337,7 +339,7 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				setBundle((String)newValue);
 				return;
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
-				setPreferences(newValue);
+				setPreferences((Preferences)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

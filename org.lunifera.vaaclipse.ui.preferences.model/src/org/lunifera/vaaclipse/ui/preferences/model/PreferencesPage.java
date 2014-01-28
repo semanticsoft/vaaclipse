@@ -3,6 +3,7 @@
 package org.lunifera.vaaclipse.ui.preferences.model;
 
 import org.eclipse.e4.ui.model.application.MContribution;
+
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 
 import org.eclipse.emf.ecore.EObject;
@@ -25,13 +26,12 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface PreferencesPage extends EObject, MElementContainer<FieldEditor<?>>, MContribution {
-
 	/**
 	 * Returns the value of the '<em><b>Category</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getPage <em>Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Category</em>' reference isn't clear,
+	 * If the meaning of the '<em>Category</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -79,4 +79,5 @@ public interface PreferencesPage extends EObject, MElementContainer<FieldEditor<
 	 * @generated
 	 */
 	void setDescription(String value);
+
 } // PreferencesPage
