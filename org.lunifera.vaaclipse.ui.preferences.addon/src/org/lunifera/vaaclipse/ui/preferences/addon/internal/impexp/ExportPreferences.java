@@ -14,7 +14,7 @@ import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferenceFilter;
-import org.lunifera.vaaclipse.ui.preferences.addon.internal.PrefHelper;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.osgi.framework.Bundle;

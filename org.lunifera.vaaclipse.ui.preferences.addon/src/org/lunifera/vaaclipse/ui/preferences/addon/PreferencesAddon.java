@@ -16,7 +16,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MContribution;
-import org.lunifera.vaaclipse.ui.preferences.addon.internal.PrefHelper;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
@@ -52,10 +52,14 @@ public class PreferencesAddon {
 	
 	IPreferencesService equinoxPrefService = PreferencesService.getDefault();
 	IEclipsePreferences root = equinoxPrefService.getRootNode();
+
+	private PreferencesAuthorization authService;
+
+	private VaaclipseApplication vaaApp;
 	
 	@PostConstruct
 	void init() {
-		VaaclipseApplication vaaApp = (VaaclipseApplication) app;
+		vaaApp = (VaaclipseApplication) app;
 		context.set(VaaclipseApplication.class, vaaApp);
 		
 		BundleContext bundleContext = FrameworkUtil.getBundle(PreferencesAddon.class).getBundleContext();
@@ -64,6 +68,14 @@ public class PreferencesAddon {
 		
 		for (Bundle b : bundleContext.getBundles()) {
 			bundlesByName.put(b.getSymbolicName(), b);
+		}
+		
+		if (authService != null) {
+			for (PreferencesCategory cat : vaaApp.getPreferencesCategories()) {
+				if ("user".equals(cat.getId())) {
+					deleteRestrictedCategoriesAndPages(cat);
+				}
+			}	
 		}
 		
 		for (PreferencesCategory c : vaaApp.getPreferencesCategories()) {
@@ -76,6 +88,21 @@ public class PreferencesAddon {
 		}
 		
 		logger.info("Preferences adon activated");
+	}
+
+	private void deleteRestrictedCategoriesAndPages(PreferencesCategory userRoot) {
+				
+		for (PreferencesCategory userCategory : userRoot.getChildCategories()) {
+			if (!authService.isAllowed(userCategory)) {
+				PreferencesPage page = userCategory.getPage();
+				userCategory.setPage(null);
+				if (page != null)
+					page.setCategory(null);
+				userRoot.getChildCategories().remove(userCategory);
+				vaaApp.getPreferencesPages().remove(page);
+			}
+		}
+		
 	}
 
 	private void setupPreferences(PreferencesCategory category, String currentPath) {
@@ -108,7 +135,7 @@ public class PreferencesAddon {
 		
 		ServiceReference<PreferencesAuthorization> ref = bundleContext.getServiceReference(PreferencesAuthorization.class);
 		if (ref != null) {
-			PreferencesAuthorization authService = bundleContext.getService(ref);
+			authService = bundleContext.getService(ref);
 			context.set(PreferencesAuthorization.class, authService);
 		}
 		

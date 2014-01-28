@@ -10,6 +10,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ComboFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;

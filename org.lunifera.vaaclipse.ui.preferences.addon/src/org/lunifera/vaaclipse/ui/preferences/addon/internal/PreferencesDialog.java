@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -18,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesAuthorization;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesEvents;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
@@ -79,11 +79,6 @@ public class PreferencesDialog {
 	
 	@Inject
 	UI ui;
-	
-	@Inject
-	@Named(value = "username")
-	@Optional
-	String username;
 	
 	TextField filterField = new TextField();
 
@@ -332,7 +327,7 @@ public class PreferencesDialog {
 		
 		if (selectedCat.getPage() != null) {
 			
-			if (authService != null && username != null && !authService.isAllowed(selectedCat.getPage(), username)) {
+			if (authService != null && !authService.isAllowed(selectedCat)) {
 				pageContent.addComponent(new Label("Access to this page restricted."));
 			}
 			else {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.lunifera.vaaclipse.ui.preferences.addon.internal;
+package org.lunifera.vaaclipse.ui.preferences.addon.internal.util;
 
 import java.util.HashSet;
 import java.util.Map;
