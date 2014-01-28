@@ -5,6 +5,7 @@ package org.lunifera.vaaclipse.ui.preferences.addon.internal;
 
 import javax.inject.Inject;
 
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
 import org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor;
 
 import com.vaadin.ui.CssLayout;
@@ -45,6 +46,15 @@ public class StringFieldEditorRenderer extends FieldEditorRenderer<String> {
 	public void setValue(String value) {
 		if (value != null)
 			getPreferences().put(editor.getPreferenceName(), value);		
+	}
+	
+	@Override
+	public void validate() throws ValidationFailedException {
+		if (field.getValue() != null && editor.getMaxLength() != null) {
+			if (field.getValue().length() > editor.getMaxLength()) {
+				throw new ValidationFailedException(editor.getLabel(), "The length of text should not be greater than " + editor.getMaxLength());
+			}
+		}
 	}
 
 	@Override

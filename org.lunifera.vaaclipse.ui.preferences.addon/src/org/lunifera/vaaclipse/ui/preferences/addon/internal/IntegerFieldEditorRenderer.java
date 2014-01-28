@@ -26,6 +26,8 @@ public class IntegerFieldEditorRenderer extends FieldEditorRenderer<Integer> {
 	public void render() {
 		CssLayout layout = createCssLayoutWithCaption();
 		textField = new TextField();
+		if (getValue() != null)
+			textField.setValue(getValue().toString());
 		textField.setWidth("100%");
 		layout.addComponent(textField);
 	}
@@ -49,7 +51,7 @@ public class IntegerFieldEditorRenderer extends FieldEditorRenderer<Integer> {
 				value = Integer.parseInt(textField.getValue());
 			}
 			catch (NumberFormatException e) {
-				throw new ValidationFailedException(editor.getLabel(), "The value can not be parsed");
+				throw new ValidationFailedException(editor.getLabel(), "The value should be integer value");
 			}
 			
 			if ((editor.getMinValidValue() != null && value < editor.getMinValidValue()) || (editor.getMaxValidValue() != null && value > editor.getMaxValidValue()))

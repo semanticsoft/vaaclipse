@@ -2272,13 +2272,22 @@ public interface PreferencesPackage extends EPackage {
 	int STRING_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Max Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_FIELD_EDITOR__MAX_LENGTH = FIELD_EDITOR_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>String Field Editor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRING_FIELD_EDITOR_FEATURE_COUNT = FIELD_EDITOR_FEATURE_COUNT + 0;
+	int STRING_FIELD_EDITOR_FEATURE_COUNT = FIELD_EDITOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -3245,6 +3254,17 @@ public interface PreferencesPackage extends EPackage {
 	EClass getStringFieldEditor();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor#getMaxLength <em>Max Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Length</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor#getMaxLength()
+	 * @see #getStringFieldEditor()
+	 * @generated
+	 */
+	EAttribute getStringFieldEditor_MaxLength();
+
+	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor <em>Integer Field Editor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3596,6 +3616,14 @@ public interface PreferencesPackage extends EPackage {
 		 * @generated
 		 */
 		EClass STRING_FIELD_EDITOR = eINSTANCE.getStringFieldEditor();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_FIELD_EDITOR__MAX_LENGTH = eINSTANCE.getStringFieldEditor_MaxLength();
 
 		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.IntegerFieldEditorImpl <em>Integer Field Editor</em>}' class.

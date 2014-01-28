@@ -459,6 +459,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getStringFieldEditor_MaxLength() {
+		return (EAttribute)stringFieldEditorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getIntegerFieldEditor() {
 		return integerFieldEditorEClass;
 	}
@@ -603,6 +612,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		createEAttribute(scaleFieldEditorEClass, SCALE_FIELD_EDITOR__INCREMENT_VALUE);
 
 		stringFieldEditorEClass = createEClass(STRING_FIELD_EDITOR);
+		createEAttribute(stringFieldEditorEClass, STRING_FIELD_EDITOR__MAX_LENGTH);
 
 		integerFieldEditorEClass = createEClass(INTEGER_FIELD_EDITOR);
 		createEAttribute(integerFieldEditorEClass, INTEGER_FIELD_EDITOR__MIN_VALID_VALUE);
@@ -739,6 +749,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEAttribute(getScaleFieldEditor_IncrementValue(), ecorePackage.getEIntegerObject(), "incrementValue", "1", 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringFieldEditorEClass, StringFieldEditor.class, "StringFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringFieldEditor_MaxLength(), ecorePackage.getEIntegerObject(), "maxLength", null, 0, 1, StringFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(integerFieldEditorEClass, IntegerFieldEditor.class, "IntegerFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIntegerFieldEditor_MinValidValue(), ecorePackage.getEIntegerObject(), "minValidValue", null, 0, 1, IntegerFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
