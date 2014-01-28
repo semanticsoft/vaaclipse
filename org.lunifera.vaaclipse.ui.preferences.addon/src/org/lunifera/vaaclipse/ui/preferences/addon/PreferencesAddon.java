@@ -128,6 +128,7 @@ public class PreferencesAddon {
 					converted = "";
 			}
 			editor.setDefaultValueTyped(converted);
+			editor.setDefaultValue(converted.toString());
 		}
 	}
 	

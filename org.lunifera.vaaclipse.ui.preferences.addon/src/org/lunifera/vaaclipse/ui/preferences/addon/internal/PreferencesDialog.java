@@ -414,6 +414,9 @@ public class PreferencesDialog {
 				return;
 			}
 			fireEvent(PreferencesEvents.PREFERENCES_TO_DEFAULTS, currentPage);
+			
+			//Refresh the current page (it should be rerendered)
+			openPreferencePageForCategory(getSelectedCategory());
 		}
 	}
 	
