@@ -213,8 +213,10 @@ public class PreferencesDialog {
 		rightSide.addComponent(pageHeader);
 		
 		pageContent = new CssLayout();
-		pageContent.setSizeFull();
-		rightSide.addComponent(pageContent);
+		//pageContent.setSizeFull();
+		Panel pageContentPanel = new Panel(pageContent);//wrap page content to panel - if content is too large, scrolling needed
+		pageContentPanel.setSizeFull();
+		rightSide.addComponent(pageContentPanel);
 		
 		pageBottom = new CssLayout();
 		pageBottom.addStyleName("page-bottom-panel");
@@ -234,7 +236,7 @@ public class PreferencesDialog {
 		splitPanel.setSplitPosition(30, Unit.PERCENTAGE);
 		
 		rightSide.setExpandRatio(pageHeader, 0);
-		rightSide.setExpandRatio(pageContent, 1);
+		rightSide.setExpandRatio(pageContentPanel, 1);
 		rightSide.setExpandRatio(pageBottom, 0);
 		
 		clearFilterButton.addClickListener(new ClickListener() {
