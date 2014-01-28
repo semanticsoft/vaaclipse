@@ -41,7 +41,7 @@ public abstract class ListFieldEditorRenderer extends FieldEditorRenderer<String
 		select.removeAllItems();
 		for (Entry entry : editor.getEntries()) {
 			Item item = select.addItem(entry.getValue());
-			select.setItemCaption(item, entry.getName());
+			select.setItemCaption(entry.getValue(), entry.getName());
 		}
 		select.select(getValue());
 	}

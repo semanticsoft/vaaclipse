@@ -125,8 +125,6 @@ public class PreferencesDialog {
 
 	private BundleContext bundleContext;
 
-	private PreferencesFactory preferencesFactory;
-
 	private String errorMessage;
 	
 	List<PreferencesPage> visitedPages = new ArrayList<>();
@@ -144,14 +142,7 @@ public class PreferencesDialog {
 	}
 	
 	@PostConstruct
-	public void init() {
-		
-		bundleContext = FrameworkUtil.getBundle(PreferencesDialog.class).getBundleContext();
-		ServiceReference<PreferencesFactory> ref = bundleContext.getServiceReference(PreferencesFactory.class);
-		if (ref != null) {
-			preferencesFactory = bundleContext.getService(ref);
-		}
-		
+	public void init() {		
 		if (selectedCategory == null && !app.getPreferencesCategories().isEmpty()) {
 			selectedCategory = app.getPreferencesCategories().get(0);
 		}

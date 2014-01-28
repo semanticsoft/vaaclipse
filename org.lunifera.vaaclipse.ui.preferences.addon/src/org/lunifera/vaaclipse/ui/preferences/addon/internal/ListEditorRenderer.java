@@ -80,6 +80,7 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 				Object contrib = editor.getObject();
 				if (contrib != null) {
 					ContextInjectionFactory.invoke(contrib, Execute.class, context);
+					refreshSelect();
 				}
 			}
 		});

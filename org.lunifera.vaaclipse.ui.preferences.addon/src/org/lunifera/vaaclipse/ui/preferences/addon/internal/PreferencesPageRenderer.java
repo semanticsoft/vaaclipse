@@ -61,7 +61,7 @@ public class PreferencesPageRenderer {
 				IEclipseContext rendererContext = context.createChild();
 				
 				Class<?>[] interfaces = editor.getClass().getInterfaces();	
-				populateInterfaces(editor, rendererContext, interfaces);
+				PrefHelper.populateInterfaces(editor, rendererContext, interfaces);
 				FieldEditorRenderer<?> fieldRenderer = ContextInjectionFactory.make(rendererClass, rendererContext);
 				fieldRenderer.render();
 				Component fieldComponent = fieldRenderer.getComponent();
@@ -91,17 +91,7 @@ public class PreferencesPageRenderer {
 			}
 		}
 	}
-
-	private void populateInterfaces(FieldEditor<?> editor, IEclipseContext rendererContext, Class<?>[] interfaces) {
-		for (Class<?> i : interfaces) {
-			if (FieldEditor.class.isAssignableFrom(i)) {
-				Class<FieldEditor<?>> editorInterface = (Class<FieldEditor<?>>) i;
-				rendererContext.set(editorInterface, editor);
-				populateInterfaces(editor, rendererContext, i.getInterfaces());
-			}
-		}
-	}
-
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Class<? extends FieldEditorRenderer<?>> getRendererClass(FieldEditor<?> editor) {
 		

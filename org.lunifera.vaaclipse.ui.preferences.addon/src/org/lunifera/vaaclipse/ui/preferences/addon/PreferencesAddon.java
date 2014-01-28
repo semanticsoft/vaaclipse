@@ -16,10 +16,12 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MContribution;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.ScaleFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
 import org.lunifera.vaaclipse.ui.preferences.model.util.PreferencesSwitch;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -92,6 +94,12 @@ public class PreferencesAddon {
 			PreferencesAuthorization authService = bundleContext.getService(ref);
 			context.set(PreferencesAuthorization.class, authService);
 		}
+		
+		ServiceReference<PreferencesFactory> prefFactoryRef = bundleContext.getServiceReference(PreferencesFactory.class);
+		if (prefFactoryRef != null) {
+			PreferencesFactory service = bundleContext.getService(prefFactoryRef);
+			context.set(PreferencesFactory.class, service);
+		}
 	}
 
 	private void setTypedDefaultValues(PreferencesPage page) {
@@ -128,10 +136,12 @@ public class PreferencesAddon {
 		for (FieldEditor<?> ed : page.getChildren()) {
 			if (ed instanceof MContribution) {
 				MContribution editorWithContribution = (MContribution) ed;
-				String contributorURI = editorWithContribution.getContributorURI();
+				String contributorURI = editorWithContribution.getContributionURI();
 				if (contributorURI != null) {
-					IContributionFactory contributionFactory = (IContributionFactory) context.get(IContributionFactory.class.getName());
-					Object editorContribution = contributionFactory.create(contributorURI, context);
+					IEclipseContext childContext = context.createChild();
+					PrefHelper.populateInterfaces((FieldEditor<?>) editorWithContribution, childContext, editorWithContribution.getClass().getInterfaces());
+					IContributionFactory contributionFactory = (IContributionFactory) childContext.get(IContributionFactory.class.getName());
+					Object editorContribution = contributionFactory.create(contributorURI, childContext);
 					editorWithContribution.setObject(editorContribution);
 				}
 			}
