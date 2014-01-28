@@ -6,7 +6,6 @@ package org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -85,10 +84,15 @@ public abstract class BasicImpExp implements ComponentProvider {
 	protected abstract String getActionName();
 	
 	protected void createPreferencesTable(CssLayout layout) {
+		createPreferencesTable(layout, app.getPreferencesPages());
+	}
+	
+	protected void createPreferencesTable(CssLayout layout, List<PreferencesPage> pageList) {
 		
 		BeanItemContainer<PreferencesPage> container = new BeanItemContainer<>(PreferencesPage.class);
 		container.addNestedContainerProperty("category.name");
-		for (PreferencesPage page : app.getPreferencesPages()) {
+		
+		for (PreferencesPage page : pageList) {
 			container.addBean(page);
 		}
 		

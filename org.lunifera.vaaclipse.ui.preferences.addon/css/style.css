@@ -64,10 +64,14 @@
 	border-top: solid 1px #DCDCDC;
 }
 
-.preferences-export-import-dialog .export {
+.preferences-export-import-dialog .export, .preferences-export-import-dialog .import {
 	padding: 10px;	
 }
 
-.preferences-export-import-dialog .export .v-panel {
+.preferences-export-import-dialog .export .v-panel, .preferences-export-import-dialog .import .v-panel {
 	margin-top: 10px;
+}
+
+.preferences-export-import-dialog .import .v-label {
+	margin-top: 20px;
 }
