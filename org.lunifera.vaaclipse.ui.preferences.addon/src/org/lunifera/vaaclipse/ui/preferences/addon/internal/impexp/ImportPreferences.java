@@ -11,14 +11,11 @@ import java.util.ArrayList;
 import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IExportedPreferences;
-import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.server.FileDownloader;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
@@ -84,11 +81,6 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 		baos = new ByteArrayOutputStream(200);
 		return baos;
 		
-	}
-
-	@Override
-	protected boolean actionAllowed(PreferencesCategory category) {
-		return authService == null || authService.importAllowed();
 	}
 
 }

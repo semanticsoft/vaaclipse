@@ -10,8 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesAuthorization;
-import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -20,7 +18,6 @@ import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.shared.ui.ui.PageClientRpc;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Panel;
@@ -48,9 +45,6 @@ public abstract class BasicImpExp implements ComponentProvider {
 	
 	List<CheckBox> checkBoxes = new ArrayList<>();
 	HashMap<String, Bundle> bundlesByName;
-	
-	@Inject
-	PreferencesAuthorization authService;
 	
 	@PostConstruct
 	public void init(UI ui) {
@@ -88,7 +82,6 @@ public abstract class BasicImpExp implements ComponentProvider {
 	
 	protected abstract void doAction();
 	protected abstract String getActionName();
-	protected abstract boolean actionAllowed(PreferencesCategory category);
 	
 	protected void createPreferencesTable(CssLayout layout) {
 		createPreferencesTable(layout, app.getPreferencesPages());
@@ -100,8 +93,7 @@ public abstract class BasicImpExp implements ComponentProvider {
 		container.addNestedContainerProperty("category.name");
 		
 		for (PreferencesPage page : pageList) {
-			if (page.getCategory() != null && actionAllowed(page.getCategory()))
-				container.addBean(page);
+			container.addBean(page);
 		}
 		
 		table = new Table();

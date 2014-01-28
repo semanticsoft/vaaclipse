@@ -114,10 +114,5 @@ public class ExportPreferences extends BasicImpExp {
 	@Override
 	protected String getActionName() {
 		return "Export";
-	}
-
-	@Override
-	protected boolean actionAllowed(PreferencesCategory category) {
-		return authService == null || authService.exportAllowed();
 	}	
 }
