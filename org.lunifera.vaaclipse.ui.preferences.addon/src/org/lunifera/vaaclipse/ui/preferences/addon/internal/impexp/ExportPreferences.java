@@ -3,17 +3,21 @@
  */
 package org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferenceFilter;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.Preferences;
 import org.osgi.service.prefs.PreferencesService;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
@@ -59,12 +63,16 @@ public class ExportPreferences extends BasicImpExp {
 			@Override
             public InputStream getStream() {
             	
+            	List<PreferencesPage> selectedPages = getSelectedPages();
+            	if (selectedPages.isEmpty())
+            		return null;
+            	
             	IEclipsePreferences root = org.eclipse.core.internal.preferences.PreferencesService.getDefault().getRootNode();
             	
             	ByteArrayOutputStream baos = new ByteArrayOutputStream(200);
             	
             	try {
-					org.eclipse.core.internal.preferences.PreferencesService.getDefault().exportPreferences(root, new IPreferenceFilter[] {createFilter(getSelectedPages())}, baos);
+					org.eclipse.core.internal.preferences.PreferencesService.getDefault().exportPreferences(root, new IPreferenceFilter[] {createFilter(selectedPages)}, baos);
 				} catch (CoreException e) {
 					logger.error("Exception when export preferences", e);
 					return null;
@@ -72,7 +80,8 @@ public class ExportPreferences extends BasicImpExp {
         		
         		byte[] preferencesBytes = baos.toByteArray();
             	
-            	return null;
+        		ByteArrayInputStream is = new ByteArrayInputStream(preferencesBytes);
+            	return is;
                 
             }
         }, "preferences");
@@ -81,14 +90,15 @@ public class ExportPreferences extends BasicImpExp {
 	protected IPreferenceFilter createFilter(List<PreferencesPage> selectedPages) {
 		final List<String> list = new ArrayList<>();
 		for (PreferencesPage p : selectedPages) {
-			list.add(p.getPreferencesScope());
+			String eqPath = PrefHelper.toEquinoxPreferencePath(bundlesByName, p.getPreferencesScope());
+			list.add(eqPath);
 		}
 		
 		return new IPreferenceFilter() {
 			
 			@Override
 			public String[] getScopes() {
-				return (String[]) list.toArray();
+				return (String[]) list.toArray(new String[list.size()]);
 			}
 			
 			@Override

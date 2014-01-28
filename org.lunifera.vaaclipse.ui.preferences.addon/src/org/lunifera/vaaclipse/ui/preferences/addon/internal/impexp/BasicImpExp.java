@@ -4,12 +4,17 @@
 package org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
 
@@ -40,9 +45,16 @@ public abstract class BasicImpExp implements ComponentProvider {
 	Table table;
 	
 	List<CheckBox> checkBoxes = new ArrayList<>();
+	HashMap<String, Bundle> bundlesByName;
 	
 	@PostConstruct
 	public void init(UI ui) {
+		
+		BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+		bundlesByName = new HashMap<>();
+		for (Bundle b : bundleContext.getBundles()) {
+			bundlesByName.put(b.getSymbolicName(), b);
+		}
 		
 		dlg = new OptionDialog();
 		dlg.addStyleName("preferences-export-import-dialog");

@@ -66,20 +66,7 @@ public class PreferencesAddon {
 			
 			String scope = page.getPreferencesScope();
 			
-			int searchFrom = 0;
-			if (scope.startsWith("/"))
-				searchFrom = 1;
-			int endOfBundleName = scope.indexOf("/", searchFrom);
-			String absolutePreferencePath = scope;
-			if (endOfBundleName > 0 && endOfBundleName < scope.length() - 1) {
-				String bundleName = scope.substring(searchFrom, endOfBundleName);
-				Bundle bundle = bundlesByName.get(bundleName);
-				if (bundle != null) {
-					String bundleRelativePath = scope.substring(endOfBundleName + 1);
-					absolutePreferencePath = "/configuration/org.eclipse.core.runtime.preferences.OSGiPreferences." + bundle.getBundleId()
-							+ "/" + bundleRelativePath;	
-				}
-			}
+			String absolutePreferencePath = PrefHelper.toEquinoxPreferencePath(bundlesByName, scope);
 			IPreferencesService equinoxPrefService = PreferencesService.getDefault();
 			IEclipsePreferences root = equinoxPrefService.getRootNode();
 			Preferences node = root.node(absolutePreferencePath);
