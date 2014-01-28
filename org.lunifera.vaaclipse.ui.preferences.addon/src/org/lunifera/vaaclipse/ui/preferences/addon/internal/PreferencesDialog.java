@@ -17,6 +17,7 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.emf.common.util.EList;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesAuthorization;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesEvents;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
@@ -362,7 +363,7 @@ public class PreferencesDialog {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				applyChangesOnCurrentPage();
+				applyPressed();
 			}
 		});
 		
@@ -370,7 +371,7 @@ public class PreferencesDialog {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				closeWithSave();
+				okPressed();
 			}
 		});
 		
@@ -378,7 +379,7 @@ public class PreferencesDialog {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				closeWithoutSave();
+				cancelPressed();
 			}
 		});
 	}
@@ -420,48 +421,63 @@ public class PreferencesDialog {
 		}
 	}
 	
-	private void closeWithSave() {
+	private void okPressed() {
 		
-		applyChangesOnAllVisitedPages();
-		
-		ui.removeWindow(window);
-	}
-	
-	private void closeWithoutSave() {
-		ui.removeWindow(window);
-	}
-	
-	private void applyChangesOnCurrentPage() {
-		PreferencesPage currentPage = getCurrentPage();
-		if (currentPage != null) {
-			try {
-				applyChangesOnPage(currentPage);
-			} catch (Exception e) {
-				Notification.show("Error apply changes", "Applying changes on this page failed", Notification.Type.ERROR_MESSAGE);
-				return;
-			}
-			fireEvent(PreferencesEvents.PREFERENCES_APPLIED, currentPage);
-		}
-	}
-	
-	private void applyChangesOnAllVisitedPages() {
 		Exception exception = null;
 		for (PreferencesPage page : visitedPages) {
 			try {
 				applyChangesOnPage(page);
+			}  catch (ValidationFailedException validationException) {
+				setErrorMessage(validationException.getLocalizedMessage());
+				Notification.show("Validation failed", validationException.getLocalizedMessage(), Notification.Type.WARNING_MESSAGE);
+				return;
 			} catch (Exception e) {
 				exception = e;
 			}
 		}
-		if (exception != null)
-			Notification.show("Error apply changes", "Saving changes was failed on some pages", Notification.Type.ERROR_MESSAGE);
+		if (exception != null) {
+			String errorMessage = "Saving changes was failed on some pages";
+			setErrorMessage(errorMessage);
+			Notification.show("Error apply changes", errorMessage, Notification.Type.ERROR_MESSAGE);
+			return;
+		}
 		else {
 			fireEvent(PreferencesEvents.PREFERENCES_APPLIED, (PreferencesPage[]) visitedPages.toArray(new PreferencesPage[visitedPages.size()]));
 		}
+		
+		clearErrorMessage();
+		
+		ui.removeWindow(window);
 	}
 	
-	private void applyChangesOnPage(PreferencesPage page) throws BackingStoreException {
+	private void cancelPressed() {
+		ui.removeWindow(window);
+	}
+	
+	private void applyPressed() {
+		PreferencesPage currentPage = getCurrentPage();
+		if (currentPage != null) {
+			try {
+				applyChangesOnPage(currentPage);
+			} catch (ValidationFailedException validationException) {
+				setErrorMessage(validationException.getLocalizedMessage());
+				Notification.show("Validation failed", "The preferences is not correct", Notification.Type.WARNING_MESSAGE);
+				return;
+			} catch (Exception e) {
+				setErrorMessage("Applying changes on this page failed");
+				Notification.show("Error apply changes", "Applying changes on this page failed", Notification.Type.ERROR_MESSAGE);
+				return;
+			}
+			clearErrorMessage();
+			fireEvent(PreferencesEvents.PREFERENCES_APPLIED, currentPage);
+		}
+	}
+	
+	private void applyChangesOnPage(PreferencesPage page) throws BackingStoreException, ValidationFailedException {
 		PreferencesPageRenderer pageRenderer = (PreferencesPageRenderer) page.getRenderer();
+		
+		pageRenderer.validate();
+		
 		try {
 			pageRenderer.save();	
 		}

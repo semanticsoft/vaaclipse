@@ -5,6 +5,7 @@ package org.lunifera.vaaclipse.ui.preferences.addon.internal;
 
 import javax.inject.Inject;
 
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.osgi.service.prefs.Preferences;
@@ -57,4 +58,8 @@ public abstract class FieldEditorRenderer<T> {
 	public abstract void setValue(T value);
 	
 	public abstract void save();
+	
+	public void validate() throws ValidationFailedException {
+		
+	}
 }

@@ -5,9 +5,8 @@ package org.lunifera.vaaclipse.ui.preferences.addon.internal;
 
 import javax.inject.Inject;
 
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
 import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.TextField;
@@ -39,6 +38,25 @@ public class IntegerFieldEditorRenderer extends FieldEditorRenderer<Integer> {
 	@Override
 	public void setValue(Integer value) {
 		this.getPreferences().putInt(editor.getPreferenceName(), value);
+	}
+	
+	@Override
+	public void validate() throws ValidationFailedException {
+		
+		if (textField.getValue() != null) {
+			int value;
+			try {
+				value = Integer.parseInt(textField.getValue());
+			}
+			catch (NumberFormatException e) {
+				throw new ValidationFailedException(editor.getLabel(), "The value can not be parsed");
+			}
+			
+			if ((editor.getMinValidValue() != null && value < editor.getMinValidValue()) || (editor.getMaxValidValue() != null && value > editor.getMaxValidValue()))
+				throw new ValidationFailedException(editor.getLabel(), String.format("Value should be in range (%s, %s)", 
+						editor.getMinValidValue() != null ? editor.getMinValidValue().toString() : "?", 
+								editor.getMaxValidValue() != null ? editor.getMaxValidValue().toString() : "?"));
+		}
 	}
 
 	@Override

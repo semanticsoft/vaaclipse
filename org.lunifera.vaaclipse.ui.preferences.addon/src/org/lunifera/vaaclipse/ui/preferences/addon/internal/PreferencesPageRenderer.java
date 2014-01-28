@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ComboFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
@@ -142,4 +143,11 @@ public class PreferencesPageRenderer {
 			renderer.save();
 		}
 	}
+	
+	public void validate() throws ValidationFailedException {
+		for (FieldEditor<?> editor : page.getChildren()) {
+			FieldEditorRenderer<?> renderer = (FieldEditorRenderer<?>) editor.getRenderer();
+			renderer.validate();
+		}
+	}	
 }
