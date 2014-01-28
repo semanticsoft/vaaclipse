@@ -21,10 +21,7 @@ import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.Validation
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
-import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
@@ -486,23 +483,21 @@ public class PreferencesDialog {
 			throw e;
 		}
 		
-		Preferences preferences = (Preferences) page.getPreferences();
 		try {
-			preferences.flush();
+			PrefHelper.flush(page);
 		} catch (BackingStoreException e) {
-			logger.error("Error flushing changes for preference {} with category {}", preferences, page.getCategory().getName(), e);
+			logger.error("Error flushing changes for category {}", page.getCategory().getName(), e);
 			throw e;
 		}
 	}
 	
 	private void restoreDefaultsOnPage(PreferencesPage page) throws BackingStoreException {
-		Preferences preferences = (Preferences) page.getPreferences();
 		
 		try {
 			for (FieldEditor<?> fieldEditor : page.getChildren()) {
 				String defaultValue = fieldEditor.getDefaultValue();
 				if (defaultValue != null)
-					preferences.put(fieldEditor.getPreferenceName(), defaultValue);
+					((Preferences)fieldEditor.getPreferences()).put(fieldEditor.getPreferenceName(), defaultValue);
 			}
 		}
 		catch (Exception e) {
@@ -511,9 +506,9 @@ public class PreferencesDialog {
 		}
 		
 		try {
-			preferences.flush();
+			PrefHelper.flush(page);
 		} catch (BackingStoreException e) {
-			logger.error("Error flushing changes for preference {} with category {}", preferences, page.getCategory().getName(), e);
+			logger.error("Error flushing changes for category {}", page.getCategory().getName(), e);
 			throw e;
 		}		
 	}

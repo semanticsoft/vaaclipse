@@ -30,8 +30,6 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getContributionURI <em>Contribution URI</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getObject <em>Object</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getCategory <em>Category</em>}</li>
- *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getPreferencesScope <em>Preferences Scope</em>}</li>
- *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getPreferences <em>Preferences</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
@@ -75,44 +73,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * @ordered
 	 */
 	protected Object object = OBJECT_EDEFAULT;
-	/**
-	 * The default value of the '{@link #getPreferencesScope() <em>Preferences Scope</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPreferencesScope()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PREFERENCES_SCOPE_EDEFAULT = null;
-	/**
-	 * The cached value of the '{@link #getPreferencesScope() <em>Preferences Scope</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPreferencesScope()
-	 * @generated
-	 * @ordered
-	 */
-	protected String preferencesScope = PREFERENCES_SCOPE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getPreferences() <em>Preferences</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPreferences()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Object PREFERENCES_EDEFAULT = null;
-	/**
-	 * The cached value of the '{@link #getPreferences() <em>Preferences</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPreferences()
-	 * @generated
-	 * @ordered
-	 */
-	protected Object preferences = PREFERENCES_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -264,48 +224,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getPreferencesScope() {
-		return preferencesScope;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPreferencesScope(String newPreferencesScope) {
-		String oldPreferencesScope = preferencesScope;
-		preferencesScope = newPreferencesScope;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE, oldPreferencesScope, preferencesScope));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object getPreferences() {
-		return preferences;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPreferences(Object newPreferences) {
-		Object oldPreferences = preferences;
-		preferences = newPreferences;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_PAGE__PREFERENCES, oldPreferences, preferences));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getDescription() {
 		return description;
 	}
@@ -380,10 +298,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return getObject();
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				return getCategory();
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
-				return getPreferencesScope();
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
-				return getPreferences();
 			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
 				return getDescription();
 		}
@@ -406,12 +320,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return;
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				setCategory((PreferencesCategory)newValue);
-				return;
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
-				setPreferencesScope((String)newValue);
-				return;
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
-				setPreferences(newValue);
 				return;
 			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
 				setDescription((String)newValue);
@@ -437,12 +345,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				setCategory((PreferencesCategory)null);
 				return;
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
-				setPreferencesScope(PREFERENCES_SCOPE_EDEFAULT);
-				return;
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
-				setPreferences(PREFERENCES_EDEFAULT);
-				return;
 			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -464,10 +366,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 				return OBJECT_EDEFAULT == null ? object != null : !OBJECT_EDEFAULT.equals(object);
 			case PreferencesPackage.PREFERENCES_PAGE__CATEGORY:
 				return getCategory() != null;
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES_SCOPE:
-				return PREFERENCES_SCOPE_EDEFAULT == null ? preferencesScope != null : !PREFERENCES_SCOPE_EDEFAULT.equals(preferencesScope);
-			case PreferencesPackage.PREFERENCES_PAGE__PREFERENCES:
-				return PREFERENCES_EDEFAULT == null ? preferences != null : !PREFERENCES_EDEFAULT.equals(preferences);
 			case PreferencesPackage.PREFERENCES_PAGE__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 		}
@@ -522,10 +420,6 @@ public class PreferencesPageImpl extends ElementContainerImpl<FieldEditor<?>> im
 		result.append(contributionURI);
 		result.append(", object: ");
 		result.append(object);
-		result.append(", preferencesScope: ");
-		result.append(preferencesScope);
-		result.append(", preferences: ");
-		result.append(preferences);
 		result.append(", description: ");
 		result.append(description);
 		result.append(')');

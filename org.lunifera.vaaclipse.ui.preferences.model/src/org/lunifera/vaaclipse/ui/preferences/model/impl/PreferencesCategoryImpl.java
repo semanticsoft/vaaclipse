@@ -28,6 +28,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesCategoryImpl#getChildCategories <em>Child Categories</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesCategoryImpl#getParentCategory <em>Parent Category</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesCategoryImpl#getPage <em>Page</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesCategoryImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,6 +74,26 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * @ordered
 	 */
 	protected PreferencesPage page;
+
+	/**
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String id = ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -215,6 +236,27 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setId(String newId) {
+		String oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.PREFERENCES_CATEGORY__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -281,6 +323,8 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 				return getParentCategory();
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
 				return getPage();
+			case PreferencesPackage.PREFERENCES_CATEGORY__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -307,6 +351,9 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
 				setPage((PreferencesPage)newValue);
 				return;
+			case PreferencesPackage.PREFERENCES_CATEGORY__ID:
+				setId((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -331,6 +378,9 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
 				setPage((PreferencesPage)null);
 				return;
+			case PreferencesPackage.PREFERENCES_CATEGORY__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -351,6 +401,8 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 				return getParentCategory() != null;
 			case PreferencesPackage.PREFERENCES_CATEGORY__PAGE:
 				return page != null;
+			case PreferencesPackage.PREFERENCES_CATEGORY__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -367,6 +419,8 @@ public class PreferencesCategoryImpl extends ApplicationElementImpl implements P
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", id: ");
+		result.append(id);
 		result.append(')');
 		return result.toString();
 	}

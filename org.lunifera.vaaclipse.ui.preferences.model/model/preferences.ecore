@@ -11,12 +11,11 @@
         eOpposite="#//PreferencesCategory/childCategories"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="page" eType="#//PreferencesPage"
         containment="true" eOpposite="#//PreferencesPage/category"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PreferencesPage">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//PreferencesCategory"
         eOpposite="#//PreferencesCategory/page"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferencesScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferences" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.e4.ui.model.workbench/model/UIElements.ecore#//ui/ElementContainer">
       <eTypeArguments eClassifier="#//FieldEditor">
@@ -34,6 +33,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValueTyped">
       <eGenericType eTypeParameter="#//FieldEditor/T"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferences" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanFieldEditor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//BooleanFieldStyle"/>

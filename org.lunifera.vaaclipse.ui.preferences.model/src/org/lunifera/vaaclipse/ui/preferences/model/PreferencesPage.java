@@ -16,8 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getCategory <em>Category</em>}</li>
- *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope <em>Preferences Scope</em>}</li>
- *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences <em>Preferences</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
@@ -55,58 +53,6 @@ public interface PreferencesPage extends EObject, MElementContainer<FieldEditor<
 	 * @generated
 	 */
 	void setCategory(PreferencesCategory value);
-
-	/**
-	 * Returns the value of the '<em><b>Preferences Scope</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Preferences Scope</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Preferences Scope</em>' attribute.
-	 * @see #setPreferencesScope(String)
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesPage_PreferencesScope()
-	 * @model
-	 * @generated
-	 */
-	String getPreferencesScope();
-
-	/**
-	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope <em>Preferences Scope</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Preferences Scope</em>' attribute.
-	 * @see #getPreferencesScope()
-	 * @generated
-	 */
-	void setPreferencesScope(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Preferences</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Preferences</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Preferences</em>' attribute.
-	 * @see #setPreferences(Object)
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getPreferencesPage_Preferences()
-	 * @model
-	 * @generated
-	 */
-	Object getPreferences();
-
-	/**
-	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences <em>Preferences</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Preferences</em>' attribute.
-	 * @see #getPreferences()
-	 * @generated
-	 */
-	void setPreferences(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.
