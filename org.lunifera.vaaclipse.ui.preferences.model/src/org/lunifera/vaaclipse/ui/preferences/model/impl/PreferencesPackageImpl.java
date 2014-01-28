@@ -711,7 +711,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEAttribute(getPreferencesPage_Description(), ecorePackage.getEString(), "description", null, 0, 1, PreferencesPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fieldEditorEClass, FieldEditor.class, "FieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFieldEditor_Label(), ecorePackage.getEString(), "label", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFieldEditor_Label(), ecorePackage.getEString(), "label", "", 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_PreferenceName(), ecorePackage.getEString(), "preferenceName", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		g1 = createEGenericType(fieldEditorEClass_T);
@@ -734,9 +734,9 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEClass(radioGroupFieldEditorEClass, RadioGroupFieldEditor.class, "RadioGroupFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(scaleFieldEditorEClass, ScaleFieldEditor.class, "ScaleFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getScaleFieldEditor_MinValue(), ecorePackage.getEIntegerObject(), "minValue", null, 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getScaleFieldEditor_MaxValue(), ecorePackage.getEIntegerObject(), "maxValue", null, 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getScaleFieldEditor_IncrementValue(), ecorePackage.getEIntegerObject(), "incrementValue", null, 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScaleFieldEditor_MinValue(), ecorePackage.getEIntegerObject(), "minValue", "0", 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScaleFieldEditor_MaxValue(), ecorePackage.getEIntegerObject(), "maxValue", "100", 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScaleFieldEditor_IncrementValue(), ecorePackage.getEIntegerObject(), "incrementValue", "1", 0, 1, ScaleFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stringFieldEditorEClass, StringFieldEditor.class, "StringFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

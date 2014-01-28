@@ -24,6 +24,7 @@ package org.lunifera.vaaclipse.ui.preferences.model;
 public interface ScaleFieldEditor extends FieldEditor<Integer> {
 	/**
 	 * Returns the value of the '<em><b>Min Value</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Min Value</em>' attribute isn't clear,
@@ -33,7 +34,7 @@ public interface ScaleFieldEditor extends FieldEditor<Integer> {
 	 * @return the value of the '<em>Min Value</em>' attribute.
 	 * @see #setMinValue(Integer)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getScaleFieldEditor_MinValue()
-	 * @model
+	 * @model default="0"
 	 * @generated
 	 */
 	Integer getMinValue();
@@ -50,6 +51,7 @@ public interface ScaleFieldEditor extends FieldEditor<Integer> {
 
 	/**
 	 * Returns the value of the '<em><b>Max Value</b></em>' attribute.
+	 * The default value is <code>"100"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Max Value</em>' attribute isn't clear,
@@ -59,7 +61,7 @@ public interface ScaleFieldEditor extends FieldEditor<Integer> {
 	 * @return the value of the '<em>Max Value</em>' attribute.
 	 * @see #setMaxValue(Integer)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getScaleFieldEditor_MaxValue()
-	 * @model
+	 * @model default="100"
 	 * @generated
 	 */
 	Integer getMaxValue();
@@ -76,6 +78,7 @@ public interface ScaleFieldEditor extends FieldEditor<Integer> {
 
 	/**
 	 * Returns the value of the '<em><b>Increment Value</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Increment Value</em>' attribute isn't clear,
@@ -85,7 +88,7 @@ public interface ScaleFieldEditor extends FieldEditor<Integer> {
 	 * @return the value of the '<em>Increment Value</em>' attribute.
 	 * @see #setIncrementValue(Integer)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getScaleFieldEditor_IncrementValue()
-	 * @model
+	 * @model default="1"
 	 * @generated
 	 */
 	Integer getIncrementValue();

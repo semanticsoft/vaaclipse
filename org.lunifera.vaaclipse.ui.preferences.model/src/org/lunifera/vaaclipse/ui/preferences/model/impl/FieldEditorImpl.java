@@ -39,7 +39,7 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String LABEL_EDEFAULT = null;
+	protected static final String LABEL_EDEFAULT = "";
 
 	/**
 	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.

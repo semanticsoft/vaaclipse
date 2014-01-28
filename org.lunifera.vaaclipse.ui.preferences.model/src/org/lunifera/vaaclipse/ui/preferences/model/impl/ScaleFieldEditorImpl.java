@@ -36,7 +36,7 @@ public class ScaleFieldEditorImpl extends FieldEditorImpl<Integer> implements Sc
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer MIN_VALUE_EDEFAULT = null;
+	protected static final Integer MIN_VALUE_EDEFAULT = new Integer(0);
 
 	/**
 	 * The cached value of the '{@link #getMinValue() <em>Min Value</em>}' attribute.
@@ -56,7 +56,7 @@ public class ScaleFieldEditorImpl extends FieldEditorImpl<Integer> implements Sc
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer MAX_VALUE_EDEFAULT = null;
+	protected static final Integer MAX_VALUE_EDEFAULT = new Integer(100);
 
 	/**
 	 * The cached value of the '{@link #getMaxValue() <em>Max Value</em>}' attribute.
@@ -76,7 +76,7 @@ public class ScaleFieldEditorImpl extends FieldEditorImpl<Integer> implements Sc
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer INCREMENT_VALUE_EDEFAULT = null;
+	protected static final Integer INCREMENT_VALUE_EDEFAULT = new Integer(1);
 
 	/**
 	 * The cached value of the '{@link #getIncrementValue() <em>Increment Value</em>}' attribute.

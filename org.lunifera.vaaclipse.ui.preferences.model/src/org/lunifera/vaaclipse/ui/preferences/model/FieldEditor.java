@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface FieldEditor<T> extends EObject, MUIElement {
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
@@ -37,7 +38,7 @@ public interface FieldEditor<T> extends EObject, MUIElement {
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getFieldEditor_Label()
-	 * @model
+	 * @model default=""
 	 * @generated
 	 */
 	String getLabel();
