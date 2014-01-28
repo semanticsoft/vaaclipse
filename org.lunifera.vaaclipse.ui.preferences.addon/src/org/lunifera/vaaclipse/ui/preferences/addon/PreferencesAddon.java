@@ -70,14 +70,6 @@ public class PreferencesAddon {
 			bundlesByName.put(b.getSymbolicName(), b);
 		}
 		
-		if (authService != null) {
-			for (PreferencesCategory cat : vaaApp.getPreferencesCategories()) {
-				if ("user".equals(cat.getId())) {
-					deleteRestrictedCategoriesAndPages(cat);
-				}
-			}	
-		}
-		
 		for (PreferencesCategory c : vaaApp.getPreferencesCategories()) {
 			setupPreferences(c, "");
 		}
@@ -88,21 +80,6 @@ public class PreferencesAddon {
 		}
 		
 		logger.info("Preferences adon activated");
-	}
-
-	private void deleteRestrictedCategoriesAndPages(PreferencesCategory userRoot) {
-				
-		for (PreferencesCategory userCategory : userRoot.getChildCategories()) {
-			if (!authService.isAllowed(userCategory)) {
-				PreferencesPage page = userCategory.getPage();
-				userCategory.setPage(null);
-				if (page != null)
-					page.setCategory(null);
-				userRoot.getChildCategories().remove(userCategory);
-				vaaApp.getPreferencesPages().remove(page);
-			}
-		}
-		
 	}
 
 	private void setupPreferences(PreferencesCategory category, String currentPath) {

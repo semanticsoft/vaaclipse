@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IExportedPreferences;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.slf4j.Logger;
@@ -83,6 +84,11 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 		baos = new ByteArrayOutputStream(200);
 		return baos;
 		
+	}
+
+	@Override
+	protected boolean actionAllowed(PreferencesCategory category) {
+		return authService == null || authService.importAllowed();
 	}
 
 }

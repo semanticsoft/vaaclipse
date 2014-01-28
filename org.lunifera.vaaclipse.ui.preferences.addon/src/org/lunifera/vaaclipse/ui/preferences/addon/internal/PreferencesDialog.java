@@ -302,6 +302,11 @@ public class PreferencesDialog {
 	private void fillCategories(List<PreferencesCategory> list, PreferencesCategory parentCat) {
 		String search = filterField.getValue().trim();
 		for (PreferencesCategory c : list) {
+			
+			if (authService != null && "user".equals(c.getParentCategory().getId()) && authService.isAllowed(c)) {
+				continue;
+			}
+			
 			if (c.getName() == null)
 				c.setName("No Name");
 			if (search.isEmpty() || c.getName().contains(search)) {
