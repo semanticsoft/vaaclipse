@@ -15,6 +15,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ListEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.RadioGroupFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ScaleFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.StringFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.util.PreferencesSwitch;
 import org.slf4j.Logger;
@@ -109,6 +110,11 @@ public class PreferencesPageRenderer {
 			@Override
 			public Object caseListEditor(ListEditor object) {
 				return ListEditorRenderer.class;
+			}
+			
+			@Override
+			public Object caseScaleFieldEditor(ScaleFieldEditor object) {
+				return ScaleFieldEditorRenderer.class;
 			}
 			
 			@Override

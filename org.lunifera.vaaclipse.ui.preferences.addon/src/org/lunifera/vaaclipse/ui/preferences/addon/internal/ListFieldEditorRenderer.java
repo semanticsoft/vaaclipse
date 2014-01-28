@@ -43,8 +43,9 @@ public abstract class ListFieldEditorRenderer extends FieldEditorRenderer<String
 			Item item = select.addItem(entry.getValue());
 			select.setItemCaption(entry.getValue(), entry.getName());
 		}
-		if (getValue() != null)
-			select.select(getValue());
+		String value = getValue();
+		if (value != null)
+			select.select(value);
 	}
 
 	@Override
