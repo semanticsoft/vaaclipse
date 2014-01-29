@@ -2,6 +2,10 @@
 	float:right;
 }
 
+.preferences-dialog .v-panel-deco {
+	display: none;
+}
+
 .preferences-dialog .field-editor {
 	margin-bottom: 15px;
 	float: left;
@@ -65,7 +69,7 @@
 }
 
 .preferences-export-import-dialog .export, .preferences-export-import-dialog .import {
-	padding: 10px;	
+	padding: 10px;
 }
 
 .preferences-export-import-dialog .export .v-panel, .preferences-export-import-dialog .import .v-panel {
