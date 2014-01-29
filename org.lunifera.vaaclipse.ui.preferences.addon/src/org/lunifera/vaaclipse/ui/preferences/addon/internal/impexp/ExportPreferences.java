@@ -7,8 +7,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
@@ -69,10 +71,10 @@ public class ExportPreferences extends BasicImpExp {
     }
 
 	protected IPreferenceFilter createFilter(List<PreferencesPage> selectedPages) {
-		final List<String> list = new ArrayList<>();
+		final Set<String> set = new HashSet<>();
 		for (PreferencesPage p : selectedPages) {
 			for (FieldEditor<?> e : p.getChildren()) {
-				list.add(e.getEquinoxPath());
+				set.add(e.getEquinoxPath());
 			}
 		}
 		
@@ -80,7 +82,7 @@ public class ExportPreferences extends BasicImpExp {
 			
 			@Override
 			public String[] getScopes() {
-				return (String[]) list.toArray(new String[list.size()]);
+				return (String[]) set.toArray(new String[set.size()]);
 			}
 			
 			@Override
