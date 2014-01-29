@@ -24,6 +24,7 @@ public class OpenPreferencesDialogHandler {
 		
 		context.set(VaaclipseApplication.class, (VaaclipseApplication)app);
 		PreferencesDialog prefDlg = ContextInjectionFactory.make(PreferencesDialog.class, context);
+		prefDlg.getWindow().center();
 		ui.addWindow(prefDlg.getWindow());
 	}
 	
