@@ -6,6 +6,8 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osgi.service.prefs.Preferences;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Field Editor</b></em>'.
@@ -18,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferenceName <em>Preference Name</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValueTyped <em>Default Value Typed</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferences <em>Preferences</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,5 +134,57 @@ public interface FieldEditor<T> extends EObject, MUIElement {
 	 * @generated
 	 */
 	void setDefaultValueTyped(T value);
+
+	/**
+	 * Returns the value of the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Bundle</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bundle</em>' attribute.
+	 * @see #setBundle(String)
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getFieldEditor_Bundle()
+	 * @model
+	 * @generated
+	 */
+	String getBundle();
+
+	/**
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getBundle <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bundle</em>' attribute.
+	 * @see #getBundle()
+	 * @generated
+	 */
+	void setBundle(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preferences</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preferences</em>' attribute.
+	 * @see #setPreferences(Preferences)
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getFieldEditor_Preferences()
+	 * @model dataType="org.lunifera.vaaclipse.ui.preferences.model.Preferences"
+	 * @generated
+	 */
+	Preferences getPreferences();
+
+	/**
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferences <em>Preferences</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Preferences</em>' attribute.
+	 * @see #getPreferences()
+	 * @generated
+	 */
+	void setPreferences(Preferences value);
 
 } // FieldEditor

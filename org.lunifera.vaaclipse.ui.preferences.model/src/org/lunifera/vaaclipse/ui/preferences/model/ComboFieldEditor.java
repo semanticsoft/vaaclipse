@@ -14,5 +14,4 @@ package org.lunifera.vaaclipse.ui.preferences.model;
  * @generated
  */
 public interface ComboFieldEditor extends ListFieldEditor {
-
 } // ComboFieldEditor

@@ -3,32 +3,30 @@
  */
 package org.lunifera.vaaclipse.ui.preferences.addon.internal;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.emf.common.util.EList;
-import org.lunifera.vaaclipse.ui.preferences.model.Entry;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.EmfHelper;
+import org.lunifera.vaaclipse.ui.preferences.model.ListCrud;
+import org.lunifera.vaaclipse.ui.preferences.model.ListEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ListFold;
 
-import com.vaadin.ui.AbstractSelect;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author rushan
  *
  */
-public class ListEditorRenderer extends ListFieldEditorRenderer {
+public class ListEditorRenderer extends FieldEditorRenderer<String> {
 
 	private CssLayout buttonPanel;
 	private Button addButton;
@@ -37,16 +35,16 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 	private Button downButton;
 	
 	@Inject
+	ListEditor editor;
+	
+	ListSelect select;
+	
+	@Inject
 	IEclipseContext context;
 
 	@Override
-	public AbstractSelect createSelect() {
-		return new ListSelect();
-	}
-	
-	@Override
 	public void render() {
-		select = createSelect();
+		select = new ListSelect();
 		refreshSelect();
 		
 		CssLayout layout = new CssLayout();
@@ -71,16 +69,63 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 		createButtons();
 		component = layout;
 	}
+	
+	private void refreshSelect() {
+		
+		String value = getValue();
+		if (value != null) {
+			String[] values = value.split(";");
+			select.removeAllItems();
+			for (String v : values) {
+				select.addItem(v);
+			}
+		}
+		
+	}
+
+	@Override
+	public void save() {
+		
+		String value = "";
+		for (Object v : select.getItemIds()) {
+			value += v.toString() + ";";
+		}
+		
+		setValue(value);
+	}
+	
+	public static class DefaultListFold extends EmfHelper.EInterface implements ListFold {
+
+		@Override
+		public void apply(String value, StringBuffer prev) {
+			prev.append(";" + value);
+		}		
+	}
+	
+	public String buildValue() {
+		
+		ListFold op = editor.getListFold();
+		if (op == null) {
+			op = new DefaultListFold();
+		}
+		
+		StringBuffer str = new StringBuffer();
+		for (Object s : select.getItemIds()) {
+			op.apply(s.toString(), str);
+		}
+		
+		return str.toString();
+	}
 
 	private void createButtons() {
 		addButton = addButton("Add", "add-button", new ClickListener() {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Object contrib = editor.getObject();
-				if (contrib != null) {
-					ContextInjectionFactory.invoke(contrib, Execute.class, context);
-					refreshSelect();
+				ListCrud crud = editor.getListCrud();
+				if (crud != null) {
+					String newValue = crud.addNewValue(buildValue());
+					select.addItem(newValue);
 				}
 			}
 		});
@@ -90,17 +135,7 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (select.getValue() != null) {
-					
-					Iterator<Entry> it = editor.getEntries().iterator();
-					
-					while (it.hasNext()) {
-						Entry entry = it.next();
-						if (select.getValue().equals(entry.getValue())) {
-							it.remove();
-							refreshSelect();
-							break;
-						}
-					}
+					select.removeItem(select.getValue());
 				}
 			}
 		});
@@ -136,12 +171,13 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
 	
 	private void swap(boolean up) {
 		Object selectedValue = select.getValue();
+		if (selectedValue == null)
+			return;
 		
 		int index = -1;
-		EList<Entry> entries = editor.getEntries();
-		for (int i = 0; i < entries.size(); i++) {
-			Entry entry = entries.get(i);
-			if (selectedValue.equals(entry.getValue())) {
+		List<Object> list = new ArrayList<>(select.getItemIds());
+		for (int i = 0; i < list.size(); i++) {
+			if (selectedValue.equals(list.get(i))) {
 				index = i;
 				break;
 			}
@@ -153,16 +189,31 @@ public class ListEditorRenderer extends ListFieldEditorRenderer {
         int target = up ? index - 1 : index + 1;
         
         if (target < 0)
-        	target = entries.size() - 1;
-        else if (target >= entries.size())
+        	target = list.size() - 1;
+        else if (target >= list.size())
         	target = 0;
 
         if (index >= 0) {
-            Entry selected = entries.remove(index);
-            entries.add(target, selected);
+            Object selected = list.remove(index);
+            list.add(target, selected);
         }
         
-        refreshSelect();
+        select.removeAllItems();
+        
+        for (Object o : list) {
+        	select.addItem(o);
+        }
+        
         select.select(selectedValue);
+	}
+
+	@Override
+	public String getValue() {
+		return getPreferences().get(editor.getPreferenceName(), editor.getDefaultValue());
+	}
+
+	@Override
+	public void setValue(String value) {
+		getPreferences().put(editor.getPreferenceName(), value);
 	}
 }

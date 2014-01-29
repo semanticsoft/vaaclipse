@@ -16,10 +16,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MContribution;
-import org.lunifera.vaaclipse.ui.preferences.addon.internal.PrefHelper;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.ScaleFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
@@ -29,6 +30,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.prefs.Preferences;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import e4modelextension.VaaclipseApplication;
 
@@ -44,35 +47,64 @@ public class PreferencesAddon {
 	@Inject
 	IEclipseContext context;
 	
+	Map<String, Bundle> bundlesByName = new HashMap<>();
+	Logger logger = LoggerFactory.getLogger(PreferencesAddon.class);
+	
+	IPreferencesService equinoxPrefService = PreferencesService.getDefault();
+	IEclipsePreferences root = equinoxPrefService.getRootNode();
+
+	private PreferencesAuthorization authService;
+
+	private VaaclipseApplication vaaApp;
+	
 	@PostConstruct
 	void init() {
-		VaaclipseApplication vaaApp = (VaaclipseApplication) app;
+		vaaApp = (VaaclipseApplication) app;
 		context.set(VaaclipseApplication.class, vaaApp);
 		
 		BundleContext bundleContext = FrameworkUtil.getBundle(PreferencesAddon.class).getBundleContext();
 		
 		obtainPreferencesAuthService(bundleContext);
 		
-		Map<String, Bundle> bundlesByName = new HashMap<>();
 		for (Bundle b : bundleContext.getBundles()) {
 			bundlesByName.put(b.getSymbolicName(), b);
 		}
 		
+		for (PreferencesCategory c : vaaApp.getPreferencesCategories()) {
+			setupPreferences(c, "");
+		}
+		
 		for (PreferencesPage page : vaaApp.getPreferencesPages()) {
-			
 			setTypedDefaultValues(page);
-			
 			initContributions(page);
-			
-			String scope = page.getPreferencesScope();
-			
-			String absolutePreferencePath = PrefHelper.toEquinoxPreferencePath(bundlesByName, scope);
-			IPreferencesService equinoxPrefService = PreferencesService.getDefault();
-			IEclipsePreferences root = equinoxPrefService.getRootNode();
-			Preferences node = root.node(absolutePreferencePath);
-			if (node != null) {
-				page.setPreferences(node);
+		}
+		
+		logger.info("Preferences adon activated");
+	}
+
+	private void setupPreferences(PreferencesCategory category, String currentPath) {
+		
+		String catPath = currentPath + "/" + category.getId();
+		
+		if (category.getPage() != null) {
+			for (FieldEditor<?> editor : category.getPage().getChildren()) {
+				
+				Bundle bundle = bundlesByName.get(editor.getBundle());
+				if (bundle != null) {
+					String absolutePreferencePath = PrefHelper.toEquinoxPreferencePath(bundle, catPath);
+					
+					Preferences pref = root.node(absolutePreferencePath);
+					editor.setPreferences(pref);
+				}
+				else {
+					logger.warn("Could not find bundle {} for editor {}", editor.getBundle(), editor);
+				}
 			}
+				
+		}
+		
+		for (PreferencesCategory childCat : category.getChildCategories()) {
+			setupPreferences(childCat, catPath);
 		}
 	}
 
@@ -80,7 +112,7 @@ public class PreferencesAddon {
 		
 		ServiceReference<PreferencesAuthorization> ref = bundleContext.getServiceReference(PreferencesAuthorization.class);
 		if (ref != null) {
-			PreferencesAuthorization authService = bundleContext.getService(ref);
+			authService = bundleContext.getService(ref);
 			context.set(PreferencesAuthorization.class, authService);
 		}
 		

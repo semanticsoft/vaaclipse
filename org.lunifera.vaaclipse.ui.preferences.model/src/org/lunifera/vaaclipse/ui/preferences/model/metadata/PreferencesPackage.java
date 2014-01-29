@@ -8,7 +8,9 @@ import org.eclipse.e4.ui.model.application.ui.impl.UiPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -153,13 +155,22 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_CATEGORY__PAGE = ApplicationPackageImpl.APPLICATION_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREFERENCES_CATEGORY__ID = ApplicationPackageImpl.APPLICATION_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Category</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_CATEGORY_FEATURE_COUNT = ApplicationPackageImpl.APPLICATION_ELEMENT_FEATURE_COUNT + 4;
+	int PREFERENCES_CATEGORY_FEATURE_COUNT = ApplicationPackageImpl.APPLICATION_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Category</em>' class.
@@ -361,31 +372,13 @@ public interface PreferencesPackage extends EPackage {
 	int PREFERENCES_PAGE__CATEGORY = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Preferences Scope</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREFERENCES_PAGE__PREFERENCES_SCOPE = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREFERENCES_PAGE__PREFERENCES = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_PAGE__DESCRIPTION = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 5;
+	int PREFERENCES_PAGE__DESCRIPTION = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Page</em>' class.
@@ -394,7 +387,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PREFERENCES_PAGE_FEATURE_COUNT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 6;
+	int PREFERENCES_PAGE_FEATURE_COUNT = UiPackageImpl.ELEMENT_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -596,13 +589,31 @@ public interface PreferencesPackage extends EPackage {
 	int FIELD_EDITOR__DEFAULT_VALUE_TYPED = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD_EDITOR__BUNDLE = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD_EDITOR__PREFERENCES = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Field Editor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD_EDITOR_FEATURE_COUNT = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 4;
+	int FIELD_EDITOR_FEATURE_COUNT = UiPackageImpl.UI_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -802,6 +813,24 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int BOOLEAN_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
 
 	/**
 	 * The feature id for the '<em><b>Style</b></em>' attribute.
@@ -1021,6 +1050,24 @@ public interface PreferencesPackage extends EPackage {
 	int LIST_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1075,86 +1122,6 @@ public interface PreferencesPackage extends EPackage {
 	int LIST_FIELD_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ComboFieldEditorImpl <em>Combo Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ComboFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getComboFieldEditor()
-	 * @generated
-	 */
-	int COMBO_FIELD_EDITOR = 6;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ListEditorImpl <em>List Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ListEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getListEditor()
-	 * @generated
-	 */
-	int LIST_EDITOR = 7;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.RadioGroupFieldEditorImpl <em>Radio Group Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.RadioGroupFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getRadioGroupFieldEditor()
-	 * @generated
-	 */
-	int RADIO_GROUP_FIELD_EDITOR = 8;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ScaleFieldEditorImpl <em>Scale Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ScaleFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getScaleFieldEditor()
-	 * @generated
-	 */
-	int SCALE_FIELD_EDITOR = 9;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.StringFieldEditorImpl <em>String Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.StringFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getStringFieldEditor()
-	 * @generated
-	 */
-	int STRING_FIELD_EDITOR = 10;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.IntegerFieldEditorImpl <em>Integer Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.IntegerFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getIntegerFieldEditor()
-	 * @generated
-	 */
-	int INTEGER_FIELD_EDITOR = 11;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FileFieldEditorImpl <em>File Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.FileFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getFileFieldEditor()
-	 * @generated
-	 */
-	int FILE_FIELD_EDITOR = 12;
-
-	/**
-	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.DirectoryFieldEditorImpl <em>Directory Field Editor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.DirectoryFieldEditorImpl
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getDirectoryFieldEditor()
-	 * @generated
-	 */
-	int DIRECTORY_FIELD_EDITOR = 13;
-
-	/**
 	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.EntryImpl <em>Entry</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1199,6 +1166,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int ENTRY_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ComboFieldEditorImpl <em>Combo Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ComboFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getComboFieldEditor()
+	 * @generated
+	 */
+	int COMBO_FIELD_EDITOR = 6;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -1372,6 +1349,24 @@ public interface PreferencesPackage extends EPackage {
 	int COMBO_FIELD_EDITOR__DEFAULT_VALUE_TYPED = LIST_FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_FIELD_EDITOR__BUNDLE = LIST_FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_FIELD_EDITOR__PREFERENCES = LIST_FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1426,13 +1421,23 @@ public interface PreferencesPackage extends EPackage {
 	int COMBO_FIELD_EDITOR_OPERATION_COUNT = LIST_FIELD_EDITOR_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ListEditorImpl <em>List Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ListEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getListEditor()
+	 * @generated
+	 */
+	int LIST_EDITOR = 7;
+
+	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__ELEMENT_ID = LIST_FIELD_EDITOR__ELEMENT_ID;
+	int LIST_EDITOR__ELEMENT_ID = FIELD_EDITOR__ELEMENT_ID;
 
 	/**
 	 * The feature id for the '<em><b>Persisted State</b></em>' map.
@@ -1441,7 +1446,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__PERSISTED_STATE = LIST_FIELD_EDITOR__PERSISTED_STATE;
+	int LIST_EDITOR__PERSISTED_STATE = FIELD_EDITOR__PERSISTED_STATE;
 
 	/**
 	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
@@ -1450,7 +1455,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__TAGS = LIST_FIELD_EDITOR__TAGS;
+	int LIST_EDITOR__TAGS = FIELD_EDITOR__TAGS;
 
 	/**
 	 * The feature id for the '<em><b>Contributor URI</b></em>' attribute.
@@ -1459,7 +1464,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__CONTRIBUTOR_URI = LIST_FIELD_EDITOR__CONTRIBUTOR_URI;
+	int LIST_EDITOR__CONTRIBUTOR_URI = FIELD_EDITOR__CONTRIBUTOR_URI;
 
 	/**
 	 * The feature id for the '<em><b>Transient Data</b></em>' map.
@@ -1468,7 +1473,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__TRANSIENT_DATA = LIST_FIELD_EDITOR__TRANSIENT_DATA;
+	int LIST_EDITOR__TRANSIENT_DATA = FIELD_EDITOR__TRANSIENT_DATA;
 
 	/**
 	 * The feature id for the '<em><b>Widget</b></em>' attribute.
@@ -1477,7 +1482,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__WIDGET = LIST_FIELD_EDITOR__WIDGET;
+	int LIST_EDITOR__WIDGET = FIELD_EDITOR__WIDGET;
 
 	/**
 	 * The feature id for the '<em><b>Renderer</b></em>' attribute.
@@ -1486,7 +1491,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__RENDERER = LIST_FIELD_EDITOR__RENDERER;
+	int LIST_EDITOR__RENDERER = FIELD_EDITOR__RENDERER;
 
 	/**
 	 * The feature id for the '<em><b>To Be Rendered</b></em>' attribute.
@@ -1495,7 +1500,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__TO_BE_RENDERED = LIST_FIELD_EDITOR__TO_BE_RENDERED;
+	int LIST_EDITOR__TO_BE_RENDERED = FIELD_EDITOR__TO_BE_RENDERED;
 
 	/**
 	 * The feature id for the '<em><b>On Top</b></em>' attribute.
@@ -1504,7 +1509,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__ON_TOP = LIST_FIELD_EDITOR__ON_TOP;
+	int LIST_EDITOR__ON_TOP = FIELD_EDITOR__ON_TOP;
 
 	/**
 	 * The feature id for the '<em><b>Visible</b></em>' attribute.
@@ -1513,7 +1518,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__VISIBLE = LIST_FIELD_EDITOR__VISIBLE;
+	int LIST_EDITOR__VISIBLE = FIELD_EDITOR__VISIBLE;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -1522,7 +1527,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__PARENT = LIST_FIELD_EDITOR__PARENT;
+	int LIST_EDITOR__PARENT = FIELD_EDITOR__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Container Data</b></em>' attribute.
@@ -1531,7 +1536,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__CONTAINER_DATA = LIST_FIELD_EDITOR__CONTAINER_DATA;
+	int LIST_EDITOR__CONTAINER_DATA = FIELD_EDITOR__CONTAINER_DATA;
 
 	/**
 	 * The feature id for the '<em><b>Cur Shared Ref</b></em>' reference.
@@ -1540,7 +1545,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__CUR_SHARED_REF = LIST_FIELD_EDITOR__CUR_SHARED_REF;
+	int LIST_EDITOR__CUR_SHARED_REF = FIELD_EDITOR__CUR_SHARED_REF;
 
 	/**
 	 * The feature id for the '<em><b>Visible When</b></em>' containment reference.
@@ -1549,7 +1554,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__VISIBLE_WHEN = LIST_FIELD_EDITOR__VISIBLE_WHEN;
+	int LIST_EDITOR__VISIBLE_WHEN = FIELD_EDITOR__VISIBLE_WHEN;
 
 	/**
 	 * The feature id for the '<em><b>Accessibility Phrase</b></em>' attribute.
@@ -1558,7 +1563,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__ACCESSIBILITY_PHRASE = LIST_FIELD_EDITOR__ACCESSIBILITY_PHRASE;
+	int LIST_EDITOR__ACCESSIBILITY_PHRASE = FIELD_EDITOR__ACCESSIBILITY_PHRASE;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1567,7 +1572,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__LABEL = LIST_FIELD_EDITOR__LABEL;
+	int LIST_EDITOR__LABEL = FIELD_EDITOR__LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Preference Name</b></em>' attribute.
@@ -1576,7 +1581,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__PREFERENCE_NAME = LIST_FIELD_EDITOR__PREFERENCE_NAME;
+	int LIST_EDITOR__PREFERENCE_NAME = FIELD_EDITOR__PREFERENCE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
@@ -1585,7 +1590,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__DEFAULT_VALUE = LIST_FIELD_EDITOR__DEFAULT_VALUE;
+	int LIST_EDITOR__DEFAULT_VALUE = FIELD_EDITOR__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Default Value Typed</b></em>' attribute.
@@ -1594,7 +1599,25 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__DEFAULT_VALUE_TYPED = LIST_FIELD_EDITOR__DEFAULT_VALUE_TYPED;
+	int LIST_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
 
 	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
@@ -1603,7 +1626,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__CONTRIBUTION_URI = LIST_FIELD_EDITOR__CONTRIBUTION_URI;
+	int LIST_EDITOR__CONTRIBUTION_URI = FIELD_EDITOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' attribute.
@@ -1612,16 +1635,25 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__OBJECT = LIST_FIELD_EDITOR__OBJECT;
+	int LIST_EDITOR__OBJECT = FIELD_EDITOR_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Entries</b></em>' reference list.
+	 * The feature id for the '<em><b>List Crud</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR__ENTRIES = LIST_FIELD_EDITOR__ENTRIES;
+	int LIST_EDITOR__LIST_CRUD = FIELD_EDITOR_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>List Fold</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_EDITOR__LIST_FOLD = FIELD_EDITOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>List Editor</em>' class.
@@ -1630,7 +1662,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR_FEATURE_COUNT = LIST_FIELD_EDITOR_FEATURE_COUNT + 0;
+	int LIST_EDITOR_FEATURE_COUNT = FIELD_EDITOR_FEATURE_COUNT + 4;
 
 	/**
 	 * The operation id for the '<em>Get Localized Accessibility Phrase</em>' operation.
@@ -1639,7 +1671,7 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR___GET_LOCALIZED_ACCESSIBILITY_PHRASE = LIST_FIELD_EDITOR___GET_LOCALIZED_ACCESSIBILITY_PHRASE;
+	int LIST_EDITOR___GET_LOCALIZED_ACCESSIBILITY_PHRASE = FIELD_EDITOR___GET_LOCALIZED_ACCESSIBILITY_PHRASE;
 
 	/**
 	 * The number of operations of the '<em>List Editor</em>' class.
@@ -1648,7 +1680,17 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_EDITOR_OPERATION_COUNT = LIST_FIELD_EDITOR_OPERATION_COUNT + 0;
+	int LIST_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.RadioGroupFieldEditorImpl <em>Radio Group Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.RadioGroupFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getRadioGroupFieldEditor()
+	 * @generated
+	 */
+	int RADIO_GROUP_FIELD_EDITOR = 8;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -1822,6 +1864,24 @@ public interface PreferencesPackage extends EPackage {
 	int RADIO_GROUP_FIELD_EDITOR__DEFAULT_VALUE_TYPED = LIST_FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_GROUP_FIELD_EDITOR__BUNDLE = LIST_FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_GROUP_FIELD_EDITOR__PREFERENCES = LIST_FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1874,6 +1934,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int RADIO_GROUP_FIELD_EDITOR_OPERATION_COUNT = LIST_FIELD_EDITOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ScaleFieldEditorImpl <em>Scale Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ScaleFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getScaleFieldEditor()
+	 * @generated
+	 */
+	int SCALE_FIELD_EDITOR = 9;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -2047,6 +2117,24 @@ public interface PreferencesPackage extends EPackage {
 	int SCALE_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCALE_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCALE_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Min Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2099,6 +2187,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int SCALE_FIELD_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.StringFieldEditorImpl <em>String Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.StringFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getStringFieldEditor()
+	 * @generated
+	 */
+	int STRING_FIELD_EDITOR = 10;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -2272,6 +2370,24 @@ public interface PreferencesPackage extends EPackage {
 	int STRING_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Max Length</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2306,6 +2422,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int STRING_FIELD_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.IntegerFieldEditorImpl <em>Integer Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.IntegerFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getIntegerFieldEditor()
+	 * @generated
+	 */
+	int INTEGER_FIELD_EDITOR = 11;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -2479,6 +2605,24 @@ public interface PreferencesPackage extends EPackage {
 	int INTEGER_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Min Valid Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2522,6 +2666,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTEGER_FIELD_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FileFieldEditorImpl <em>File Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.FileFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getFileFieldEditor()
+	 * @generated
+	 */
+	int FILE_FIELD_EDITOR = 12;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -2695,6 +2849,24 @@ public interface PreferencesPackage extends EPackage {
 	int FILE_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2738,6 +2910,16 @@ public interface PreferencesPackage extends EPackage {
 	 * @ordered
 	 */
 	int FILE_FIELD_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.DirectoryFieldEditorImpl <em>Directory Field Editor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.DirectoryFieldEditorImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getDirectoryFieldEditor()
+	 * @generated
+	 */
+	int DIRECTORY_FIELD_EDITOR = 13;
 
 	/**
 	 * The feature id for the '<em><b>Element Id</b></em>' attribute.
@@ -2911,6 +3093,24 @@ public interface PreferencesPackage extends EPackage {
 	int DIRECTORY_FIELD_EDITOR__DEFAULT_VALUE_TYPED = FIELD_EDITOR__DEFAULT_VALUE_TYPED;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTORY_FIELD_EDITOR__BUNDLE = FIELD_EDITOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Preferences</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTORY_FIELD_EDITOR__PREFERENCES = FIELD_EDITOR__PREFERENCES;
+
+	/**
 	 * The feature id for the '<em><b>Contribution URI</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2956,6 +3156,80 @@ public interface PreferencesPackage extends EPackage {
 	int DIRECTORY_FIELD_EDITOR_OPERATION_COUNT = FIELD_EDITOR_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.ListCrud <em>List Crud</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListCrud
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getListCrud()
+	 * @generated
+	 */
+	int LIST_CRUD = 14;
+
+	/**
+	 * The number of structural features of the '<em>List Crud</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_CRUD_FEATURE_COUNT = 0;
+
+	/**
+	 * The operation id for the '<em>Add New Value</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_CRUD___ADD_NEW_VALUE__STRING = 0;
+
+	/**
+	 * The number of operations of the '<em>List Crud</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_CRUD_OPERATION_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ListFoldImpl <em>List Fold</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ListFoldImpl
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getListFold()
+	 * @generated
+	 */
+	int LIST_FOLD = 15;
+
+	/**
+	 * The number of structural features of the '<em>List Fold</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_FOLD_FEATURE_COUNT = 0;
+
+	/**
+	 * The operation id for the '<em>Apply</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_FOLD___APPLY__STRING_STRINGBUFFER = 0;
+
+	/**
+	 * The number of operations of the '<em>List Fold</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_FOLD_OPERATION_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldStyle <em>Boolean Field Style</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2963,7 +3237,27 @@ public interface PreferencesPackage extends EPackage {
 	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getBooleanFieldStyle()
 	 * @generated
 	 */
-	int BOOLEAN_FIELD_STYLE = 14;
+	int BOOLEAN_FIELD_STYLE = 16;
+
+	/**
+	 * The meta object id for the '<em>String Buffer</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.StringBuffer
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getStringBuffer()
+	 * @generated
+	 */
+	int STRING_BUFFER = 17;
+
+	/**
+	 * The meta object id for the '<em>Preferences</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osgi.service.prefs.Preferences
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getPreferences()
+	 * @generated
+	 */
+	int PREFERENCES = 18;
 
 
 	/**
@@ -3021,6 +3315,17 @@ public interface PreferencesPackage extends EPackage {
 	EReference getPreferencesCategory_Page();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory#getId()
+	 * @see #getPreferencesCategory()
+	 * @generated
+	 */
+	EAttribute getPreferencesCategory_Id();
+
+	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage <em>Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3040,28 +3345,6 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPreferencesPage_Category();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope <em>Preferences Scope</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Preferences Scope</em>'.
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferencesScope()
-	 * @see #getPreferencesPage()
-	 * @generated
-	 */
-	EAttribute getPreferencesPage_PreferencesScope();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences <em>Preferences</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Preferences</em>'.
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getPreferences()
-	 * @see #getPreferencesPage()
-	 * @generated
-	 */
-	EAttribute getPreferencesPage_Preferences();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage#getDescription <em>Description</em>}'.
@@ -3129,6 +3412,28 @@ public interface PreferencesPackage extends EPackage {
 	EAttribute getFieldEditor_DefaultValueTyped();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getBundle <em>Bundle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bundle</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getBundle()
+	 * @see #getFieldEditor()
+	 * @generated
+	 */
+	EAttribute getFieldEditor_Bundle();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferences <em>Preferences</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Preferences</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferences()
+	 * @see #getFieldEditor()
+	 * @generated
+	 */
+	EAttribute getFieldEditor_Preferences();
+
+	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldEditor <em>Boolean Field Editor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3171,6 +3476,38 @@ public interface PreferencesPackage extends EPackage {
 	EReference getListFieldEditor_Entries();
 
 	/**
+	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry <em>Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Entry</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry
+	 * @generated
+	 */
+	EClass getEntry();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry#getName()
+	 * @see #getEntry()
+	 * @generated
+	 */
+	EAttribute getEntry_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry#getValue()
+	 * @see #getEntry()
+	 * @generated
+	 */
+	EAttribute getEntry_Value();
+
+	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.ComboFieldEditor <em>Combo Field Editor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3189,6 +3526,28 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getListEditor();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.lunifera.vaaclipse.ui.preferences.model.ListEditor#getListCrud <em>List Crud</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>List Crud</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListEditor#getListCrud()
+	 * @see #getListEditor()
+	 * @generated
+	 */
+	EReference getListEditor_ListCrud();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.lunifera.vaaclipse.ui.preferences.model.ListEditor#getListFold <em>List Fold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>List Fold</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListEditor#getListFold()
+	 * @see #getListEditor()
+	 * @generated
+	 */
+	EReference getListEditor_ListFold();
 
 	/**
 	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.RadioGroupFieldEditor <em>Radio Group Field Editor</em>}'.
@@ -3317,36 +3676,44 @@ public interface PreferencesPackage extends EPackage {
 	EClass getDirectoryFieldEditor();
 
 	/**
-	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry <em>Entry</em>}'.
+	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.ListCrud <em>List Crud</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Entry</em>'.
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry
+	 * @return the meta object for class '<em>List Crud</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListCrud
 	 * @generated
 	 */
-	EClass getEntry();
+	EClass getListCrud();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry#getName <em>Name</em>}'.
+	 * Returns the meta object for the '{@link org.lunifera.vaaclipse.ui.preferences.model.ListCrud#addNewValue(java.lang.String) <em>Add New Value</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry#getName()
-	 * @see #getEntry()
+	 * @return the meta object for the '<em>Add New Value</em>' operation.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListCrud#addNewValue(java.lang.String)
 	 * @generated
 	 */
-	EAttribute getEntry_Name();
+	EOperation getListCrud__AddNewValue__String();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry#getValue <em>Value</em>}'.
+	 * Returns the meta object for class '{@link org.lunifera.vaaclipse.ui.preferences.model.ListFold <em>List Fold</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry#getValue()
-	 * @see #getEntry()
+	 * @return the meta object for class '<em>List Fold</em>'.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListFold
 	 * @generated
 	 */
-	EAttribute getEntry_Value();
+	EClass getListFold();
+
+	/**
+	 * Returns the meta object for the '{@link org.lunifera.vaaclipse.ui.preferences.model.ListFold#apply(java.lang.String, java.lang.StringBuffer) <em>Apply</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Apply</em>' operation.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListFold#apply(java.lang.String, java.lang.StringBuffer)
+	 * @generated
+	 */
+	EOperation getListFold__Apply__String_StringBuffer();
 
 	/**
 	 * Returns the meta object for enum '{@link org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldStyle <em>Boolean Field Style</em>}'.
@@ -3357,6 +3724,28 @@ public interface PreferencesPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getBooleanFieldStyle();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.StringBuffer <em>String Buffer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>String Buffer</em>'.
+	 * @see java.lang.StringBuffer
+	 * @model instanceClass="java.lang.StringBuffer"
+	 * @generated
+	 */
+	EDataType getStringBuffer();
+
+	/**
+	 * Returns the meta object for data type '{@link org.osgi.service.prefs.Preferences <em>Preferences</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Preferences</em>'.
+	 * @see org.osgi.service.prefs.Preferences
+	 * @model instanceClass="org.osgi.service.prefs.Preferences"
+	 * @generated
+	 */
+	EDataType getPreferences();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -3424,6 +3813,14 @@ public interface PreferencesPackage extends EPackage {
 		EReference PREFERENCES_CATEGORY__PAGE = eINSTANCE.getPreferencesCategory_Page();
 
 		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PREFERENCES_CATEGORY__ID = eINSTANCE.getPreferencesCategory_Id();
+
+		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPageImpl <em>Page</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3440,22 +3837,6 @@ public interface PreferencesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PREFERENCES_PAGE__CATEGORY = eINSTANCE.getPreferencesPage_Category();
-
-		/**
-		 * The meta object literal for the '<em><b>Preferences Scope</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PREFERENCES_PAGE__PREFERENCES_SCOPE = eINSTANCE.getPreferencesPage_PreferencesScope();
-
-		/**
-		 * The meta object literal for the '<em><b>Preferences</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PREFERENCES_PAGE__PREFERENCES = eINSTANCE.getPreferencesPage_Preferences();
 
 		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -3508,6 +3889,22 @@ public interface PreferencesPackage extends EPackage {
 		EAttribute FIELD_EDITOR__DEFAULT_VALUE_TYPED = eINSTANCE.getFieldEditor_DefaultValueTyped();
 
 		/**
+		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD_EDITOR__BUNDLE = eINSTANCE.getFieldEditor_Bundle();
+
+		/**
+		 * The meta object literal for the '<em><b>Preferences</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD_EDITOR__PREFERENCES = eINSTANCE.getFieldEditor_Preferences();
+
+		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.BooleanFieldEditorImpl <em>Boolean Field Editor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3544,6 +3941,32 @@ public interface PreferencesPackage extends EPackage {
 		EReference LIST_FIELD_EDITOR__ENTRIES = eINSTANCE.getListFieldEditor_Entries();
 
 		/**
+		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.EntryImpl <em>Entry</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.EntryImpl
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getEntry()
+		 * @generated
+		 */
+		EClass ENTRY = eINSTANCE.getEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENTRY__NAME = eINSTANCE.getEntry_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENTRY__VALUE = eINSTANCE.getEntry_Value();
+
+		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ComboFieldEditorImpl <em>Combo Field Editor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3562,6 +3985,22 @@ public interface PreferencesPackage extends EPackage {
 		 * @generated
 		 */
 		EClass LIST_EDITOR = eINSTANCE.getListEditor();
+
+		/**
+		 * The meta object literal for the '<em><b>List Crud</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_EDITOR__LIST_CRUD = eINSTANCE.getListEditor_ListCrud();
+
+		/**
+		 * The meta object literal for the '<em><b>List Fold</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_EDITOR__LIST_FOLD = eINSTANCE.getListEditor_ListFold();
 
 		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.RadioGroupFieldEditorImpl <em>Radio Group Field Editor</em>}' class.
@@ -3672,30 +4111,40 @@ public interface PreferencesPackage extends EPackage {
 		EClass DIRECTORY_FIELD_EDITOR = eINSTANCE.getDirectoryFieldEditor();
 
 		/**
-		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.EntryImpl <em>Entry</em>}' class.
+		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.ListCrud <em>List Crud</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.EntryImpl
-		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getEntry()
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.ListCrud
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getListCrud()
 		 * @generated
 		 */
-		EClass ENTRY = eINSTANCE.getEntry();
+		EClass LIST_CRUD = eINSTANCE.getListCrud();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Add New Value</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ENTRY__NAME = eINSTANCE.getEntry_Name();
+		EOperation LIST_CRUD___ADD_NEW_VALUE__STRING = eINSTANCE.getListCrud__AddNewValue__String();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.impl.ListFoldImpl <em>List Fold</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.ListFoldImpl
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getListFold()
+		 * @generated
+		 */
+		EClass LIST_FOLD = eINSTANCE.getListFold();
+
+		/**
+		 * The meta object literal for the '<em><b>Apply</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ENTRY__VALUE = eINSTANCE.getEntry_Value();
+		EOperation LIST_FOLD___APPLY__STRING_STRINGBUFFER = eINSTANCE.getListFold__Apply__String_StringBuffer();
 
 		/**
 		 * The meta object literal for the '{@link org.lunifera.vaaclipse.ui.preferences.model.BooleanFieldStyle <em>Boolean Field Style</em>}' enum.
@@ -3706,6 +4155,26 @@ public interface PreferencesPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum BOOLEAN_FIELD_STYLE = eINSTANCE.getBooleanFieldStyle();
+
+		/**
+		 * The meta object literal for the '<em>String Buffer</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.StringBuffer
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getStringBuffer()
+		 * @generated
+		 */
+		EDataType STRING_BUFFER = eINSTANCE.getStringBuffer();
+
+		/**
+		 * The meta object literal for the '<em>Preferences</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osgi.service.prefs.Preferences
+		 * @see org.lunifera.vaaclipse.ui.preferences.model.impl.PreferencesPackageImpl#getPreferences()
+		 * @generated
+		 */
+		EDataType PREFERENCES = eINSTANCE.getPreferences();
 
 	}
 

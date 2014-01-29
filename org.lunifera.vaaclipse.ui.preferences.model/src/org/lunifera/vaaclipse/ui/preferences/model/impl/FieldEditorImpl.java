@@ -14,6 +14,8 @@ import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 
 import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
 
+import org.osgi.service.prefs.Preferences;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Field Editor</b></em>'.
@@ -25,6 +27,8 @@ import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getPreferenceName <em>Preference Name</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getDefaultValueTyped <em>Default Value Typed</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getPreferences <em>Preferences</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,6 +104,46 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @ordered
 	 */
 	protected T defaultValueTyped;
+
+	/**
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUNDLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected String bundle = BUNDLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPreferences() <em>Preferences</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Preferences PREFERENCES_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPreferences() <em>Preferences</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected Preferences preferences = PREFERENCES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -209,6 +253,48 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBundle() {
+		return bundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBundle(String newBundle) {
+		String oldBundle = bundle;
+		bundle = newBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.FIELD_EDITOR__BUNDLE, oldBundle, bundle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Preferences getPreferences() {
+		return preferences;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPreferences(Preferences newPreferences) {
+		Preferences oldPreferences = preferences;
+		preferences = newPreferences;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.FIELD_EDITOR__PREFERENCES, oldPreferences, preferences));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -220,6 +306,10 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return getDefaultValue();
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
 				return getDefaultValueTyped();
+			case PreferencesPackage.FIELD_EDITOR__BUNDLE:
+				return getBundle();
+			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
+				return getPreferences();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -245,6 +335,12 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
 				setDefaultValueTyped((T)newValue);
 				return;
+			case PreferencesPackage.FIELD_EDITOR__BUNDLE:
+				setBundle((String)newValue);
+				return;
+			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
+				setPreferences((Preferences)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -269,6 +365,12 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
 				setDefaultValueTyped((T)null);
 				return;
+			case PreferencesPackage.FIELD_EDITOR__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
+			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
+				setPreferences(PREFERENCES_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -289,6 +391,10 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
 			case PreferencesPackage.FIELD_EDITOR__DEFAULT_VALUE_TYPED:
 				return defaultValueTyped != null;
+			case PreferencesPackage.FIELD_EDITOR__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
+				return PREFERENCES_EDEFAULT == null ? preferences != null : !PREFERENCES_EDEFAULT.equals(preferences);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -311,6 +417,10 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 		result.append(defaultValue);
 		result.append(", defaultValueTyped: ");
 		result.append(defaultValueTyped);
+		result.append(", bundle: ");
+		result.append(bundle);
+		result.append(", preferences: ");
+		result.append(preferences);
 		result.append(')');
 		return result.toString();
 	}

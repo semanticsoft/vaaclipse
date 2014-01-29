@@ -132,6 +132,14 @@ public class PreferencesAdapterFactory extends AdapterFactoryImpl {
 				return createDirectoryFieldEditorAdapter();
 			}
 			@Override
+			public Adapter caseListCrud(ListCrud object) {
+				return createListCrudAdapter();
+			}
+			@Override
+			public Adapter caseListFold(ListFold object) {
+				return createListFoldAdapter();
+			}
+			@Override
 			public Adapter caseApplicationElement(MApplicationElement object) {
 				return createApplicationElementAdapter();
 			}
@@ -234,6 +242,20 @@ public class PreferencesAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createListFieldEditorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry <em>Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry
+	 * @generated
+	 */
+	public Adapter createEntryAdapter() {
 		return null;
 	}
 
@@ -350,16 +372,30 @@ public class PreferencesAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.lunifera.vaaclipse.ui.preferences.model.Entry <em>Entry</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.lunifera.vaaclipse.ui.preferences.model.ListCrud <em>List Crud</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.lunifera.vaaclipse.ui.preferences.model.Entry
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListCrud
 	 * @generated
 	 */
-	public Adapter createEntryAdapter() {
+	public Adapter createListCrudAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.lunifera.vaaclipse.ui.preferences.model.ListFold <em>List Fold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.ListFold
+	 * @generated
+	 */
+	public Adapter createListFoldAdapter() {
 		return null;
 	}
 

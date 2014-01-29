@@ -51,7 +51,7 @@ public abstract class FieldEditorRenderer<T> {
 	}
 	
 	public Preferences getPreferences() {
-		return (Preferences) page.getPreferences();
+		return (Preferences) basicInterfaceToEditor.getPreferences();
 	}
 	
 	public abstract T getValue();

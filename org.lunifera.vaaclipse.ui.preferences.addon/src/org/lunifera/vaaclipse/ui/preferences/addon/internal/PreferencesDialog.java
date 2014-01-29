@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -18,13 +17,11 @@ import org.eclipse.emf.common.util.EList;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesAuthorization;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesEvents;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
-import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 import org.semanticsoft.vaaclipse.publicapi.resources.BundleResource;
@@ -82,11 +79,6 @@ public class PreferencesDialog {
 	
 	@Inject
 	UI ui;
-	
-	@Inject
-	@Named(value = "username")
-	@Optional
-	String username;
 	
 	TextField filterField = new TextField();
 
@@ -216,8 +208,10 @@ public class PreferencesDialog {
 		rightSide.addComponent(pageHeader);
 		
 		pageContent = new CssLayout();
-		pageContent.setSizeFull();
-		rightSide.addComponent(pageContent);
+		//pageContent.setSizeFull();
+		Panel pageContentPanel = new Panel(pageContent);//wrap page content to panel - if content is too large, scrolling needed
+		pageContentPanel.setSizeFull();
+		rightSide.addComponent(pageContentPanel);
 		
 		pageBottom = new CssLayout();
 		pageBottom.addStyleName("page-bottom-panel");
@@ -237,7 +231,7 @@ public class PreferencesDialog {
 		splitPanel.setSplitPosition(30, Unit.PERCENTAGE);
 		
 		rightSide.setExpandRatio(pageHeader, 0);
-		rightSide.setExpandRatio(pageContent, 1);
+		rightSide.setExpandRatio(pageContentPanel, 1);
 		rightSide.setExpandRatio(pageBottom, 0);
 		
 		clearFilterButton.addClickListener(new ClickListener() {
@@ -300,7 +294,7 @@ public class PreferencesDialog {
 		
 		for (Object id : tree.rootItemIds())
 		{
-			tree.expandItem(id);
+			tree.expandItemsRecursively(id);
 		}
 	}
 
@@ -308,6 +302,11 @@ public class PreferencesDialog {
 	private void fillCategories(List<PreferencesCategory> list, PreferencesCategory parentCat) {
 		String search = filterField.getValue().trim();
 		for (PreferencesCategory c : list) {
+			
+			if (authService != null && c.getParentCategory() != null && "user".equals(c.getParentCategory().getId()) && !authService.isAllowed(c)) {
+				continue;
+			}
+			
 			if (c.getName() == null)
 				c.setName("No Name");
 			if (search.isEmpty() || c.getName().contains(search)) {
@@ -332,18 +331,12 @@ public class PreferencesDialog {
 		pageContent.removeAllComponents();
 		
 		if (selectedCat.getPage() != null) {
-			
-			if (authService != null && username != null && !authService.isAllowed(selectedCat.getPage(), username)) {
-				pageContent.addComponent(new Label("Access to this page restricted."));
-			}
-			else {
-				IEclipseContext pageContext = context.createChild();
-				pageContext.set(CssLayout.class, pageContent);
-				pageContext.set(PreferencesPage.class, selectedCat.getPage());
-				PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
-				pageRenderer.render();
-				visitedPages.add(selectedCat.getPage());	
-			}
+			IEclipseContext pageContext = context.createChild();
+			pageContext.set(CssLayout.class, pageContent);
+			pageContext.set(PreferencesPage.class, selectedCat.getPage());
+			PreferencesPageRenderer pageRenderer = ContextInjectionFactory.make(PreferencesPageRenderer.class, pageContext);
+			pageRenderer.render();
+			visitedPages.add(selectedCat.getPage());
 		} else if (!selectedCat.getChildCategories().isEmpty()) {
 			pageContent.addComponent(new Label("Expand the tree to edit a preferences for a specific feature"));
 		}
@@ -486,23 +479,21 @@ public class PreferencesDialog {
 			throw e;
 		}
 		
-		Preferences preferences = (Preferences) page.getPreferences();
 		try {
-			preferences.flush();
+			PrefHelper.flush(page);
 		} catch (BackingStoreException e) {
-			logger.error("Error flushing changes for preference {} with category {}", preferences, page.getCategory().getName(), e);
+			logger.error("Error flushing changes for category {}", page.getCategory().getName(), e);
 			throw e;
 		}
 	}
 	
 	private void restoreDefaultsOnPage(PreferencesPage page) throws BackingStoreException {
-		Preferences preferences = (Preferences) page.getPreferences();
 		
 		try {
 			for (FieldEditor<?> fieldEditor : page.getChildren()) {
 				String defaultValue = fieldEditor.getDefaultValue();
 				if (defaultValue != null)
-					preferences.put(fieldEditor.getPreferenceName(), defaultValue);
+					((Preferences)fieldEditor.getPreferences()).put(fieldEditor.getPreferenceName(), defaultValue);
 			}
 		}
 		catch (Exception e) {
@@ -511,9 +502,9 @@ public class PreferencesDialog {
 		}
 		
 		try {
-			preferences.flush();
+			PrefHelper.flush(page);
 		} catch (BackingStoreException e) {
-			logger.error("Error flushing changes for preference {} with category {}", preferences, page.getCategory().getName(), e);
+			logger.error("Error flushing changes for category {}", page.getCategory().getName(), e);
 			throw e;
 		}		
 	}

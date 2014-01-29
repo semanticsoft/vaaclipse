@@ -12,6 +12,7 @@ import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.FileFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.IntegerFieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.ListEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.ListFold;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.lunifera.vaaclipse.ui.preferences.model.RadioGroupFieldEditor;
@@ -70,6 +71,15 @@ public interface PreferencesFactory extends EFactory {
 	 * @generated
 	 */
 	BooleanFieldEditor createBooleanFieldEditor();
+
+	/**
+	 * Returns a new object of class '<em>Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Entry</em>'.
+	 * @generated
+	 */
+	Entry createEntry();
 
 	/**
 	 * Returns a new object of class '<em>Combo Field Editor</em>'.
@@ -144,13 +154,13 @@ public interface PreferencesFactory extends EFactory {
 	DirectoryFieldEditor createDirectoryFieldEditor();
 
 	/**
-	 * Returns a new object of class '<em>Entry</em>'.
+	 * Returns a new object of class '<em>List Fold</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Entry</em>'.
+	 * @return a new object of class '<em>List Fold</em>'.
 	 * @generated
 	 */
-	Entry createEntry();
+	ListFold createListFold();
 
 	/**
 	 * Returns the package supported by this factory.

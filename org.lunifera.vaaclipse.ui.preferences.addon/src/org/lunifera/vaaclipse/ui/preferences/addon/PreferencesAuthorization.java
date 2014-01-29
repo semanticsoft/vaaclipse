@@ -1,17 +1,17 @@
 package org.lunifera.vaaclipse.ui.preferences.addon;
 
-import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 
 public interface PreferencesAuthorization {
 
     /**
-     * Returns true if the preference page may be showed for the given user
+     * Returns true if the preference page may be showed for the current user
      * @param pageId
      * @param user
      * @return
      **/
-    boolean isAllowed(PreferencesPage page, String user);
+    boolean isAllowed(PreferencesCategory category);
     
-    boolean exportAllowed(String user);
-    boolean importAllowed(String user);
+    boolean exportAllowed();
+    boolean importAllowed();
 }

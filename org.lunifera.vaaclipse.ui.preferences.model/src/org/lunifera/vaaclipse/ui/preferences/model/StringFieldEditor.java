@@ -20,7 +20,6 @@ package org.lunifera.vaaclipse.ui.preferences.model;
  * @generated
  */
 public interface StringFieldEditor extends FieldEditor<String> {
-
 	/**
 	 * Returns the value of the '<em><b>Max Length</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -46,4 +45,5 @@ public interface StringFieldEditor extends FieldEditor<String> {
 	 * @generated
 	 */
 	void setMaxLength(Integer value);
+
 } // StringFieldEditor

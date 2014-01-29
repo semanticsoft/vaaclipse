@@ -3,14 +3,11 @@
  */
 package org.lunifera.vaaclipse.ui.preferences.addon;
 
-import javax.inject.Named;
-
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp.ExportPreferences;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp.ImportPreferences;
 
 /**
@@ -20,17 +17,17 @@ import org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp.ImportPrefere
 public class ImportPreferencesHandler {
 
 	@CanExecute
-	public boolean canExecute(@Optional PreferencesAuthorization prefAuthService, @Optional @Named(value="username") String userName) {
+	public boolean canExecute(@Optional PreferencesAuthorization prefAuthService) {
 		boolean isAllowed = true;
-		if (prefAuthService != null && userName != null) {
-			isAllowed = prefAuthService.exportAllowed(userName);
+		if (prefAuthService != null) {
+			isAllowed = prefAuthService.importAllowed();
 		}
 		return isAllowed;
 	}
 
 	@Execute
-	public void execute(@Optional PreferencesAuthorization prefAuthService, @Optional @Named(value="username") String userName, IEclipseContext context) {
-		if (!canExecute(prefAuthService, userName))
+	public void execute(@Optional PreferencesAuthorization prefAuthService, IEclipseContext context) {
+		if (!canExecute(prefAuthService))
 			return;
 		
 		ContextInjectionFactory.make(ImportPreferences.class, context);

@@ -138,7 +138,6 @@ public class PreferencesSwitch<T1> extends Switch<T1> {
 			case PreferencesPackage.LIST_EDITOR: {
 				ListEditor listEditor = (ListEditor)theEObject;
 				T1 result = caseListEditor(listEditor);
-				if (result == null) result = caseListFieldEditor(listEditor);
 				if (result == null) result = caseFieldEditor(listEditor);
 				if (result == null) result = caseContribution(listEditor);
 				if (result == null) result = caseUIElement(listEditor);
@@ -201,6 +200,18 @@ public class PreferencesSwitch<T1> extends Switch<T1> {
 				if (result == null) result = caseContribution(directoryFieldEditor);
 				if (result == null) result = caseUIElement(directoryFieldEditor);
 				if (result == null) result = caseApplicationElement(directoryFieldEditor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PreferencesPackage.LIST_CRUD: {
+				ListCrud listCrud = (ListCrud)theEObject;
+				T1 result = caseListCrud(listCrud);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PreferencesPackage.LIST_FOLD: {
+				ListFold listFold = (ListFold)theEObject;
+				T1 result = caseListFold(listFold);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -280,6 +291,21 @@ public class PreferencesSwitch<T1> extends Switch<T1> {
 	 * @generated
 	 */
 	public T1 caseListFieldEditor(ListFieldEditor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseEntry(Entry object) {
 		return null;
 	}
 
@@ -404,17 +430,32 @@ public class PreferencesSwitch<T1> extends Switch<T1> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Entry</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>List Crud</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Entry</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>List Crud</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseEntry(Entry object) {
+	public T1 caseListCrud(ListCrud object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>List Fold</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>List Fold</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseListFold(ListFold object) {
 		return null;
 	}
 

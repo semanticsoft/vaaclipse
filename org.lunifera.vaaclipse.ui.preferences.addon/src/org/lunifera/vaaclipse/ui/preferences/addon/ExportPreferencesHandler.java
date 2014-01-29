@@ -3,10 +3,6 @@
  */
 package org.lunifera.vaaclipse.ui.preferences.addon;
 
-import javax.inject.Named;
-
-import org.eclipse.core.internal.preferences.PreferencesService;
-import org.eclipse.core.runtime.preferences.IPreferencesService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
@@ -21,17 +17,17 @@ import org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp.ExportPrefere
 public class ExportPreferencesHandler {
 	
 	@CanExecute
-	public boolean canExecute(@Optional PreferencesAuthorization prefAuthService, @Optional @Named(value="username") String userName) {
+	public boolean canExecute(@Optional PreferencesAuthorization prefAuthService) {
 		boolean isAllowed = true;
-		if (prefAuthService != null && userName != null) {
-			isAllowed = prefAuthService.exportAllowed(userName);
+		if (prefAuthService != null) {
+			isAllowed = prefAuthService.exportAllowed();
 		}
 		return isAllowed;
 	}
 
 	@Execute
-	public void execute(@Optional PreferencesAuthorization prefAuthService, @Optional @Named(value="username") String userName, IEclipseContext context) {
-		if (!canExecute(prefAuthService, userName))
+	public void execute(@Optional PreferencesAuthorization prefAuthService, IEclipseContext context) {
+		if (!canExecute(prefAuthService))
 			return;
 		
 		ContextInjectionFactory.make(ExportPreferences.class, context);
