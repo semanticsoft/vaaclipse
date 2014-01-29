@@ -50,6 +50,7 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 	
 	@Inject
 	PreferencesFactory factory;
+	private IExportedPreferences toImport;
 	
 	@Override
 	public Component getComponent(OptionDialog optionDialog) {
@@ -73,6 +74,10 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 
 	@Override
 	protected void doAction() {
+		
+		if (toImport == null)
+			return;
+		
 		List<PreferencesPage> selectedPages = getSelectedPages();
 		if (selectedPages.isEmpty()) {
 			setStatusText("Nothing selected to import");
@@ -83,8 +88,7 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 			for (PreferencesPage page : selectedPages) {
 				if (page.getCategory() != null) {
 					for (FieldEditor<?> editor : page.getChildren()) {
-						String equinoxPath = PrefHelper.toEquinoxPath(bundlesByName.get(editor.getBundle()), page.getCategory());
-						
+						//TODO: import
 					}	
 				}
 			}
@@ -107,7 +111,6 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 	@Override
 	public void uploadSucceeded(SucceededEvent event) {
 		byteArray = baos.toByteArray();
-		IExportedPreferences toImport;
 		try {
 			toImport = PreferencesService.getDefault().readPreferences(new ByteArrayInputStream(byteArray));
 		} catch (CoreException e) {
@@ -126,9 +129,8 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 		for (PreferencesPage page : app.getPreferencesPages()) {
 			if (page.getCategory() != null) {
 				for (FieldEditor<?> editor : page.getChildren()) {
-					String equinoxPath = PrefHelper.toEquinoxPath(bundlesByName.get(editor.getBundle()), page.getCategory());
 					try {
-						boolean nodeExists = toImport.nodeExists(equinoxPath);
+						boolean nodeExists = toImport.nodeExists(editor.getEquinoxPath());
 						if (nodeExists) {
 							pages.add(page);
 						}

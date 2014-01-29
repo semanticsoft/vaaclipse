@@ -95,6 +95,7 @@ public class PreferencesAddon {
 					
 					Preferences pref = root.node(absolutePreferencePath);
 					editor.setPreferences(pref);
+					editor.setEquinoxPath(absolutePreferencePath);
 				}
 				else {
 					logger.warn("Could not find bundle {} for editor {}", editor.getBundle(), editor);

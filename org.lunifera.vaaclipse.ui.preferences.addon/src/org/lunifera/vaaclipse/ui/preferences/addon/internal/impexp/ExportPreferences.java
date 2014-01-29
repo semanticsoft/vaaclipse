@@ -14,11 +14,8 @@ import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferenceFilter;
-import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
-import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
-import org.osgi.framework.Bundle;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +28,6 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.BaseTheme;
-import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author rushan
@@ -76,9 +72,7 @@ public class ExportPreferences extends BasicImpExp {
 		final List<String> list = new ArrayList<>();
 		for (PreferencesPage p : selectedPages) {
 			for (FieldEditor<?> e : p.getChildren()) {
-				Bundle bundle = bundlesByName.get(e.getBundle());
-				String eqPath = PrefHelper.toEquinoxPath(bundle, p.getCategory());
-				list.add(eqPath);
+				list.add(e.getEquinoxPath());
 			}
 		}
 		
