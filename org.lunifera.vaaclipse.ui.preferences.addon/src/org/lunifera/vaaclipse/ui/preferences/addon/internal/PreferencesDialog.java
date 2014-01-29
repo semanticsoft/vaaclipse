@@ -157,6 +157,7 @@ public class PreferencesDialog {
 
 	public void createWindow() {
 		window = new Window();
+		window.setCaption("Preferences");
 		window.addStyleName("preferences-dialog");
 		window.setWidth("800px");
 		window.setHeight("600px");
