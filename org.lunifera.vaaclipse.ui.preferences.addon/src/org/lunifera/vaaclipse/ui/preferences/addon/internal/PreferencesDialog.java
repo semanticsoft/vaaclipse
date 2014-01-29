@@ -4,6 +4,7 @@
 package org.lunifera.vaaclipse.ui.preferences.addon.internal;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesAuthorization;
 import org.lunifera.vaaclipse.ui.preferences.addon.PreferencesEvents;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.exception.ValidationFailedException;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.ModelHelper;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
@@ -34,6 +36,7 @@ import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.MouseEventDetails.MouseButton;
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -94,6 +97,7 @@ public class PreferencesDialog {
 
 	private CssLayout leftSide;
 	
+	private Button filterButton = new Button();
 	private Button clearFilterButton = new Button();
 
 	private CssLayout pageHeader;
@@ -121,6 +125,10 @@ public class PreferencesDialog {
 	private String errorMessage;
 	
 	List<PreferencesPage> visitedPages = new ArrayList<>();
+
+	private HashSet<PreferencesCategory> visibleCategories;
+
+	private List<PreferencesCategory> categoryList = new ArrayList<>(100);
 	
 	public Window getWindow() {
 		return window;
@@ -184,15 +192,22 @@ public class PreferencesDialog {
 		leftSide = new CssLayout();
 		leftSide.addStyleName("categories");
 		leftSide.setSizeFull();
-		filterField.setWidth("80%");
+		//filterField.setWidth("70%");
 		filterField.addStyleName("categories-filter");
 		leftSide.addComponent(filterField);
+		
+		filterButton.setIcon(BundleResource.valueOf("platform:/plugin/org.lunifera.vaaclipse.ui.preferences.addon/img/find.png"));
+		filterButton.addStyleName("vaaclipsebutton");
+		filterButton.addStyleName("icon-only");
+		filterButton.addStyleName("filter-category-button");
 		
 		clearFilterButton.setIcon(BundleResource.valueOf("platform:/plugin/org.lunifera.vaaclipse.ui.preferences.addon/img/clear.png"));
 		clearFilterButton.addStyleName("vaaclipsebutton");
 		clearFilterButton.addStyleName("icon-only");
 		clearFilterButton.addStyleName("clear-filter-button");
+		
 		leftSide.addComponent(clearFilterButton);
+		leftSide.addComponent(filterButton);
 		leftSide.addComponent(treePanel);
 		
 		rightSide = new VerticalLayout();
@@ -241,6 +256,14 @@ public class PreferencesDialog {
 				refreshTree();
 			}
 		});
+		
+		filterButton.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				refreshTree();
+			}
+		});
 	}
 	
 	public void createSearchField() {
@@ -261,6 +284,8 @@ public class PreferencesDialog {
 		
 		tree.addContainerProperty("name", String.class, "NoName");
 		tree.setItemCaptionPropertyId("name");
+		
+		ModelHelper.buildChildCategoryListIncludeThisList(app.getPreferencesCategories(), categoryList);
 		
 		refreshTree();
 		
@@ -290,11 +315,31 @@ public class PreferencesDialog {
 		
 		EList<PreferencesCategory> catList = app.getPreferencesCategories();
 		
+		markVisibility();
+		
 		fillCategories(catList, null);
 		
 		for (Object id : tree.rootItemIds())
 		{
 			tree.expandItemsRecursively(id);
+		}
+	}
+
+	private void markVisibility() {
+		visibleCategories = new HashSet<PreferencesCategory>();
+		
+		String filterValue = filterField.getValue();
+		if (filterValue.isEmpty()) {
+			return;
+		}
+		for (PreferencesCategory category : categoryList) {
+			if (category != null && category.getName().contains(filterValue)) {
+				do {
+					visibleCategories.add(category);
+					category = category.getParentCategory();
+				}
+				while (category != null);
+			}
 		}
 	}
 
@@ -309,7 +354,7 @@ public class PreferencesDialog {
 			
 			if (c.getName() == null)
 				c.setName("No Name");
-			if (search.isEmpty() || c.getName().contains(search)) {
+			if (filterField.getValue().isEmpty() || visibleCategories.contains(c)) {
 				
 				Item catItem = tree.addItem(c);
 				catItem.getItemProperty("name").setValue(c.getName());

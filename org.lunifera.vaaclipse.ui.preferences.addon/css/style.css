@@ -1,5 +1,17 @@
+.preferences-dialog .filter-category-button {
+	float:right;
+}
+
+.preferences-dialog .filter-category-button .v-button-caption {
+	display: none;
+}
+
 .preferences-dialog .clear-filter-button {
 	float:right;
+}
+
+.preferences-dialog .clear-filter-button .v-button-caption {
+	display: none;
 }
 
 .preferences-dialog .v-panel-deco {
