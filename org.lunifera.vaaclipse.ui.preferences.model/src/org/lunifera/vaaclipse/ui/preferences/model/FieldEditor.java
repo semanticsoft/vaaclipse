@@ -22,6 +22,7 @@ import org.osgi.service.prefs.Preferences;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getDefaultValueTyped <em>Default Value Typed</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getBundle <em>Bundle</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getPreferences <em>Preferences</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getEquinoxPath <em>Equinox Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -186,5 +187,31 @@ public interface FieldEditor<T> extends EObject, MUIElement {
 	 * @generated
 	 */
 	void setPreferences(Preferences value);
+
+	/**
+	 * Returns the value of the '<em><b>Equinox Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Equinox Path</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Equinox Path</em>' attribute.
+	 * @see #setEquinoxPath(String)
+	 * @see org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesPackage#getFieldEditor_EquinoxPath()
+	 * @model
+	 * @generated
+	 */
+	String getEquinoxPath();
+
+	/**
+	 * Sets the value of the '{@link org.lunifera.vaaclipse.ui.preferences.model.FieldEditor#getEquinoxPath <em>Equinox Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Equinox Path</em>' attribute.
+	 * @see #getEquinoxPath()
+	 * @generated
+	 */
+	void setEquinoxPath(String value);
 
 } // FieldEditor

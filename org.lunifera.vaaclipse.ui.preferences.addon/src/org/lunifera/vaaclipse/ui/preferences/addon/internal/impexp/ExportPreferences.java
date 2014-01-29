@@ -43,7 +43,6 @@ public class ExportPreferences extends BasicImpExp {
 	private CssLayout layout;
 	private Button downloadButton;
 	private byte[] preferencesBytes;
-	private Label statusLabel;
 	
 	@Override
 	public Component getComponent(OptionDialog optionDialog) {
@@ -53,9 +52,7 @@ public class ExportPreferences extends BasicImpExp {
 		layout.addComponent(new Label("Select preferences to export"));
 		createPreferencesTable(layout);
 		
-		statusLabel = new Label("Press Export to export preferences");
-		statusLabel.addStyleName("status-label");
-		layout.addComponent(statusLabel);
+		createStatusLabel(layout, "Press Export to export preferences");
 		
 		return layout;
 	}
@@ -121,13 +118,7 @@ public class ExportPreferences extends BasicImpExp {
 		
 		preferencesBytes = baos.toByteArray();
 		
-		StringBuffer exportedPrefNames = new StringBuffer();
-		for (PreferencesPage page: selectedPages) {
-			String name = page.getCategory().getName();
-			if (name == null)
-				name = "NoName";
-			exportedPrefNames.append(name + ", ");
-		}
+		StringBuffer exportedPrefNames = toTextWithCatName(selectedPages);
 		
 		exportedPrefNames.delete(exportedPrefNames.length()-2, exportedPrefNames.length()-1);
 		
@@ -142,15 +133,6 @@ public class ExportPreferences extends BasicImpExp {
 			FileDownloader fileDownloader = new FileDownloader(createResource());
 			fileDownloader.extend(downloadButton);
 		}
-	}
-
-	private void setStatusText(String statusText) {
-//		layout.removeComponent(statusLabel);
-//		statusLabel = new Label(statusText);
-//		statusLabel.addStyleName("status-label");
-//		layout.addComponent(statusLabel);
-		
-		statusLabel.setValue(statusText);
 	}
 
 	@Override

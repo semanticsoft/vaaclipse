@@ -394,6 +394,15 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFieldEditor_EquinoxPath() {
+		return (EAttribute)fieldEditorEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBooleanFieldEditor() {
 		return booleanFieldEditorEClass;
 	}
@@ -705,6 +714,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__DEFAULT_VALUE_TYPED);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__BUNDLE);
 		createEAttribute(fieldEditorEClass, FIELD_EDITOR__PREFERENCES);
+		createEAttribute(fieldEditorEClass, FIELD_EDITOR__EQUINOX_PATH);
 
 		booleanFieldEditorEClass = createEClass(BOOLEAN_FIELD_EDITOR);
 		createEAttribute(booleanFieldEditorEClass, BOOLEAN_FIELD_EDITOR__STYLE);
@@ -860,6 +870,7 @@ public class PreferencesPackageImpl extends EPackageImpl implements PreferencesP
 		initEAttribute(getFieldEditor_DefaultValueTyped(), g1, "defaultValueTyped", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_Bundle(), ecorePackage.getEString(), "bundle", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFieldEditor_Preferences(), this.getPreferences(), "preferences", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFieldEditor_EquinoxPath(), ecorePackage.getEString(), "equinoxPath", null, 0, 1, FieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(booleanFieldEditorEClass, BooleanFieldEditor.class, "BooleanFieldEditor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanFieldEditor_Style(), this.getBooleanFieldStyle(), "style", null, 0, 1, BooleanFieldEditor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

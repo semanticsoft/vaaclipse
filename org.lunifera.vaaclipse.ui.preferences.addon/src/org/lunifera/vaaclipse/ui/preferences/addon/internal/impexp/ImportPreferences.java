@@ -7,11 +7,25 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.inject.Inject;
 
 import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IExportedPreferences;
+import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
+import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
+import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
+import org.lunifera.vaaclipse.ui.preferences.model.metadata.PreferencesFactory;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 import org.semanticsoft.vaadin.optiondialog.OptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +48,9 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 	Logger logger = LoggerFactory.getLogger(ImportPreferences.class);
 	private byte[] byteArray;
 	
+	@Inject
+	PreferencesFactory factory;
+	
 	@Override
 	public Component getComponent(OptionDialog optionDialog) {
 		
@@ -49,13 +66,36 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 		layout.addComponent(new Label("Select preferences to import"));
 		createPreferencesTable(layout, new ArrayList<PreferencesPage>());
 		
+		createStatusLabel(layout, "Choose file with preferences");
+		
 		return layout;
 	}
 
 	@Override
 	protected void doAction() {
-		// TODO Auto-generated method stub
+		List<PreferencesPage> selectedPages = getSelectedPages();
+		if (selectedPages.isEmpty()) {
+			setStatusText("Nothing selected to import");
+			return;
+		}
 		
+		try {
+			for (PreferencesPage page : selectedPages) {
+				if (page.getCategory() != null) {
+					for (FieldEditor<?> editor : page.getChildren()) {
+						String equinoxPath = PrefHelper.toEquinoxPath(bundlesByName.get(editor.getBundle()), page.getCategory());
+						
+					}	
+				}
+			}
+		}
+		catch (Exception e) {
+			logger.error("Error when import preferences", e);
+			setStatusText("Import preferences failed");
+			return;
+		}
+		
+		setStatusText("Preferences imported: " + toTextWithCatName(selectedPages));
 	}
 
 	@Override
@@ -67,15 +107,38 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 	@Override
 	public void uploadSucceeded(SucceededEvent event) {
 		byteArray = baos.toByteArray();
-		IExportedPreferences imported;
+		IExportedPreferences toImport;
 		try {
-			imported = PreferencesService.getDefault().readPreferences(new ByteArrayInputStream(byteArray));
+			toImport = PreferencesService.getDefault().readPreferences(new ByteArrayInputStream(byteArray));
 		} catch (CoreException e) {
 			logger.error("Error when importing preferences", e);
 			return;
 		}
 		
-		//TODO: show imported preferences in table
+		//Search pages that preferences contains in this preferences for import
+		List<PreferencesPage> pages = findPagesInPreferencesForImport(toImport);
+		refreshPreferences(pages);
+		setStatusText("Preferences file loaded. Please select preferences to import and press Import");
+	}
+	
+	List<PreferencesPage> findPagesInPreferencesForImport(IExportedPreferences toImport) {
+		Set<PreferencesPage> pages = new LinkedHashSet<>();
+		for (PreferencesPage page : app.getPreferencesPages()) {
+			if (page.getCategory() != null) {
+				for (FieldEditor<?> editor : page.getChildren()) {
+					String equinoxPath = PrefHelper.toEquinoxPath(bundlesByName.get(editor.getBundle()), page.getCategory());
+					try {
+						boolean nodeExists = toImport.nodeExists(equinoxPath);
+						if (nodeExists) {
+							pages.add(page);
+						}
+					} catch (BackingStoreException e) {
+						logger.error("Error read from preferences for import", e);
+					}
+				}	
+			}
+		}
+		return new ArrayList<>(pages);
 	}
 
 	@Override

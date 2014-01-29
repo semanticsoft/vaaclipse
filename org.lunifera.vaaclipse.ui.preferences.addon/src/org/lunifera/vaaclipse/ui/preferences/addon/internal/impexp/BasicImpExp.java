@@ -20,6 +20,7 @@ import org.semanticsoft.vaadin.optiondialog.OptionDialog.ComponentProvider;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
@@ -46,6 +47,8 @@ public abstract class BasicImpExp implements ComponentProvider {
 	List<CheckBox> checkBoxes = new ArrayList<>();
 	HashMap<String, Bundle> bundlesByName;
 	private BeanItemContainer<PreferencesPage> container;
+	
+	private Label statusLabel;
 	
 	@PostConstruct
 	public void init(UI ui) {
@@ -134,6 +137,21 @@ public abstract class BasicImpExp implements ComponentProvider {
 		layout.addComponent(panel);
 	}
 	
+	protected void createStatusLabel(CssLayout layout, String string) {
+		statusLabel = new Label("Press Export to export preferences");
+		statusLabel.addStyleName("status-label");
+		layout.addComponent(statusLabel);
+	}
+	
+	protected void setStatusText(String statusText) {
+//		layout.removeComponent(statusLabel);
+//		statusLabel = new Label(statusText);
+//		statusLabel.addStyleName("status-label");
+//		layout.addComponent(statusLabel);
+		
+		statusLabel.setValue(statusText);
+	}
+	
 	protected void refreshPreferences(List<PreferencesPage> pageList) {
 		container.removeAllItems();
 		
@@ -153,4 +171,14 @@ public abstract class BasicImpExp implements ComponentProvider {
 		return list;
 	}
 	
+	protected StringBuffer toTextWithCatName(List<PreferencesPage> selectedPages) {
+		StringBuffer exportedPrefNames = new StringBuffer();
+		for (PreferencesPage page: selectedPages) {
+			String name = page.getCategory().getName();
+			if (name == null)
+				name = "NoName";
+			exportedPrefNames.append(name + ", ");
+		}
+		return exportedPrefNames;
+	}
 }

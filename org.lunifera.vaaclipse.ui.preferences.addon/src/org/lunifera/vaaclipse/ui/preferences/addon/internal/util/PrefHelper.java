@@ -41,7 +41,7 @@ public class PrefHelper {
 	
 	public static String getAbsolutePath(PreferencesCategory cat) {
 		if (cat.getParentCategory() == null)
-			return "";
+			return "/" + cat.getId();
 		return getAbsolutePath(cat.getParentCategory()) + "/" + cat.getId();
 	}
 	

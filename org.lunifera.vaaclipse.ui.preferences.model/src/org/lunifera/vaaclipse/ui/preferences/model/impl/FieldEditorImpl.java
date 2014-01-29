@@ -29,6 +29,7 @@ import org.osgi.service.prefs.Preferences;
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getDefaultValueTyped <em>Default Value Typed</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getBundle <em>Bundle</em>}</li>
  *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getPreferences <em>Preferences</em>}</li>
+ *   <li>{@link org.lunifera.vaaclipse.ui.preferences.model.impl.FieldEditorImpl#getEquinoxPath <em>Equinox Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -144,6 +145,26 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * @ordered
 	 */
 	protected Preferences preferences = PREFERENCES_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEquinoxPath() <em>Equinox Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEquinoxPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EQUINOX_PATH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEquinoxPath() <em>Equinox Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEquinoxPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected String equinoxPath = EQUINOX_PATH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -295,6 +316,27 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEquinoxPath() {
+		return equinoxPath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEquinoxPath(String newEquinoxPath) {
+		String oldEquinoxPath = equinoxPath;
+		equinoxPath = newEquinoxPath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PreferencesPackage.FIELD_EDITOR__EQUINOX_PATH, oldEquinoxPath, equinoxPath));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -310,6 +352,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return getBundle();
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
 				return getPreferences();
+			case PreferencesPackage.FIELD_EDITOR__EQUINOX_PATH:
+				return getEquinoxPath();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -341,6 +385,9 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
 				setPreferences((Preferences)newValue);
 				return;
+			case PreferencesPackage.FIELD_EDITOR__EQUINOX_PATH:
+				setEquinoxPath((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -371,6 +418,9 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
 				setPreferences(PREFERENCES_EDEFAULT);
 				return;
+			case PreferencesPackage.FIELD_EDITOR__EQUINOX_PATH:
+				setEquinoxPath(EQUINOX_PATH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -395,6 +445,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
 			case PreferencesPackage.FIELD_EDITOR__PREFERENCES:
 				return PREFERENCES_EDEFAULT == null ? preferences != null : !PREFERENCES_EDEFAULT.equals(preferences);
+			case PreferencesPackage.FIELD_EDITOR__EQUINOX_PATH:
+				return EQUINOX_PATH_EDEFAULT == null ? equinoxPath != null : !EQUINOX_PATH_EDEFAULT.equals(equinoxPath);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -421,6 +473,8 @@ public class FieldEditorImpl<T> extends UIElementImpl implements FieldEditor<T> 
 		result.append(bundle);
 		result.append(", preferences: ");
 		result.append(preferences);
+		result.append(", equinoxPath: ");
+		result.append(equinoxPath);
 		result.append(')');
 		return result.toString();
 	}
