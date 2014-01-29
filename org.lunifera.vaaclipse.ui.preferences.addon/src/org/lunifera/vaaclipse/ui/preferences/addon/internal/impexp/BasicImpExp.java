@@ -45,6 +45,7 @@ public abstract class BasicImpExp implements ComponentProvider {
 	
 	List<CheckBox> checkBoxes = new ArrayList<>();
 	HashMap<String, Bundle> bundlesByName;
+	private BeanItemContainer<PreferencesPage> container;
 	
 	@PostConstruct
 	public void init(UI ui) {
@@ -89,12 +90,10 @@ public abstract class BasicImpExp implements ComponentProvider {
 	
 	protected void createPreferencesTable(CssLayout layout, List<PreferencesPage> pageList) {
 		
-		BeanItemContainer<PreferencesPage> container = new BeanItemContainer<>(PreferencesPage.class);
+		container = new BeanItemContainer<>(PreferencesPage.class);
 		container.addNestedContainerProperty("category.name");
 		
-		for (PreferencesPage page : pageList) {
-			container.addBean(page);
-		}
+		refreshPreferences(pageList);
 		
 		table = new Table();
 		table.setSizeFull();
@@ -135,6 +134,14 @@ public abstract class BasicImpExp implements ComponentProvider {
 		layout.addComponent(panel);
 	}
 	
+	protected void refreshPreferences(List<PreferencesPage> pageList) {
+		container.removeAllItems();
+		
+		for (PreferencesPage page : pageList) {
+			container.addBean(page);
+		}
+	}
+
 	protected List<PreferencesPage> getSelectedPages() {
 		List<PreferencesPage> list = new ArrayList<>();
 		for (CheckBox cb : checkBoxes) {

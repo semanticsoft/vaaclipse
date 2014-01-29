@@ -32,6 +32,7 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 
 	private ByteArrayOutputStream baos;
 	Logger logger = LoggerFactory.getLogger(ImportPreferences.class);
+	private byte[] byteArray;
 	
 	@Override
 	public Component getComponent(OptionDialog optionDialog) {
@@ -65,7 +66,7 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 	@SuppressWarnings("restriction")
 	@Override
 	public void uploadSucceeded(SucceededEvent event) {
-		byte[] byteArray = baos.toByteArray();
+		byteArray = baos.toByteArray();
 		IExportedPreferences imported;
 		try {
 			imported = PreferencesService.getDefault().readPreferences(new ByteArrayInputStream(byteArray));
@@ -73,6 +74,8 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 			logger.error("Error when importing preferences", e);
 			return;
 		}
+		
+		//TODO: show imported preferences in table
 	}
 
 	@Override
