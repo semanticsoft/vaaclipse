@@ -59,11 +59,11 @@ public abstract class BasicImpExp implements ComponentProvider {
 		dlg.addStyleName("preferences-export-import-dialog");
 		
 		dlg.addOption(IMP_EXP, getActionName());
-		dlg.addOption(CANCEL, "Cancel");
+		dlg.addOption(CANCEL, "Close");
 		
 		dlg.setCaption(getActionName() + " Preferences");
 		dlg.setWidth("600px");
-		dlg.setHeight("400px");
+		dlg.setHeight("450px");
 		dlg.setComponentProvider(this);
 		ui.addWindow(dlg);
 	}
@@ -131,6 +131,7 @@ public abstract class BasicImpExp implements ComponentProvider {
 		
 		Panel panel = new Panel(table);
 		panel.setWidth("100%");
+		panel.setHeight("200px");
 		layout.addComponent(panel);
 	}
 	

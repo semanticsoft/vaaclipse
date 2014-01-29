@@ -72,6 +72,14 @@
 	margin-top: 10px;
 }
 
+.preferences-export-import-dialog .export .status-label {
+	margin-top: 25px;
+}
+
+.preferences-export-import-dialog .export .download-button {
+	margin-top: 10px;
+}
+
 .preferences-export-import-dialog .import .v-label {
 	margin-top: 20px;
 }

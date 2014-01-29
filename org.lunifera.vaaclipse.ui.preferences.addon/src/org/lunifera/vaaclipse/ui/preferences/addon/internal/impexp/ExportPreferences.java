@@ -30,6 +30,8 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.themes.BaseTheme;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  * @author rushan
@@ -38,17 +40,22 @@ import com.vaadin.ui.Label;
 public class ExportPreferences extends BasicImpExp {
 
 	Logger logger = LoggerFactory.getLogger(ExportPreferences.class);
+	private CssLayout layout;
+	private Button downloadButton;
+	private byte[] preferencesBytes;
+	private Label statusLabel;
 	
 	@Override
 	public Component getComponent(OptionDialog optionDialog) {
-		CssLayout layout = new CssLayout();
+		
+		layout = new CssLayout();
 		layout.addStyleName("export");
 		layout.addComponent(new Label("Select preferences to export"));
 		createPreferencesTable(layout);
 		
-		Button importButton = dlg.getOptionButton(IMP_EXP);
-		FileDownloader fileDownloader = new FileDownloader(createResource());
-		fileDownloader.extend(importButton);
+		statusLabel = new Label("Press Export to export preferences");
+		statusLabel.addStyleName("status-label");
+		layout.addComponent(statusLabel);
 		
 		return layout;
 	}
@@ -56,30 +63,14 @@ public class ExportPreferences extends BasicImpExp {
 	private StreamResource createResource() {
 		
         return new StreamResource(new StreamSource() {
-            @SuppressWarnings("restriction")
 			@Override
             public InputStream getStream() {
-            	
-            	List<PreferencesPage> selectedPages = getSelectedPages();
-            	if (selectedPages.isEmpty())
+            	if (preferencesBytes != null) {
+            		ByteArrayInputStream is = new ByteArrayInputStream(preferencesBytes);
+                	return is;	
+            	}
+            	else
             		return null;
-            	
-            	IEclipsePreferences root = PreferencesService.getDefault().getRootNode();
-            	
-            	ByteArrayOutputStream baos = new ByteArrayOutputStream(200);
-            	
-            	try {
-					PreferencesService.getDefault().exportPreferences(root, new IPreferenceFilter[] {createFilter(selectedPages)}, baos);
-				} catch (CoreException e) {
-					logger.error("Exception when export preferences", e);
-					return null;
-				}
-        		
-        		byte[] preferencesBytes = baos.toByteArray();
-            	
-        		ByteArrayInputStream is = new ByteArrayInputStream(preferencesBytes);
-            	return is;
-                
             }
         }, "preferences.epf");
     }
@@ -106,9 +97,60 @@ public class ExportPreferences extends BasicImpExp {
 		};
 	}
 
+	@SuppressWarnings("restriction")
 	@Override
 	protected void doAction() {
-		dlg.close();
+		//dlg.close();
+		
+		List<PreferencesPage> selectedPages = getSelectedPages();
+    	if (selectedPages.isEmpty()) {
+    		setStatusText("Preferences doesn't selected. Please select preferences above.");
+    		return;
+    	}
+    	
+    	IEclipsePreferences root = PreferencesService.getDefault().getRootNode();
+    	
+    	ByteArrayOutputStream baos = new ByteArrayOutputStream(200);
+    	
+    	try {
+			PreferencesService.getDefault().exportPreferences(root, new IPreferenceFilter[] {createFilter(selectedPages)}, baos);
+		} catch (CoreException e) {
+			logger.error("Exception when export preferences", e);
+			return;
+		}
+		
+		preferencesBytes = baos.toByteArray();
+		
+		StringBuffer exportedPrefNames = new StringBuffer();
+		for (PreferencesPage page: selectedPages) {
+			String name = page.getCategory().getName();
+			if (name == null)
+				name = "NoName";
+			exportedPrefNames.append(name + ", ");
+		}
+		
+		exportedPrefNames.delete(exportedPrefNames.length()-2, exportedPrefNames.length()-1);
+		
+		setStatusText("Preferences was exported: " + exportedPrefNames.toString());
+		
+		if (downloadButton == null) {
+			downloadButton = new Button(BaseTheme.BUTTON_LINK);
+			downloadButton.addStyleName("download-button");
+			downloadButton.setCaption("Download preferences.epf");
+			layout.addComponent(downloadButton);
+			
+			FileDownloader fileDownloader = new FileDownloader(createResource());
+			fileDownloader.extend(downloadButton);
+		}
+	}
+
+	private void setStatusText(String statusText) {
+//		layout.removeComponent(statusLabel);
+//		statusLabel = new Label(statusText);
+//		statusLabel.addStyleName("status-label");
+//		layout.addComponent(statusLabel);
+		
+		statusLabel.setValue(statusText);
 	}
 
 	@Override
