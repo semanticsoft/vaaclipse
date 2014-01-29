@@ -21,8 +21,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.swing.Box;
@@ -63,8 +61,6 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 	private String contextPath = "/";
 	private String appWidgetset;
 	private String appAuthProvider;
-
-	private static final String VAACLIPSE_USER_THEME = "vaaclipse_user_theme";
 
 	public static VaadinE4Application getInstance()
 	{
@@ -133,7 +129,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 		startVaadinWebApplication();
 
-		showFrame();
+		String showFrame = appContext.getBrandingProperty("showFrame");
+		
+		if ("true".equalsIgnoreCase(showFrame))
+			showFrame();
 
 		String msg;
 		while (!(msg = queue.take()).equals(EXIT))
