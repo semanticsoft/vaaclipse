@@ -70,26 +70,6 @@ public class ExportPreferences extends BasicImpExp {
         }, "preferences.epf");
     }
 
-	protected IPreferenceFilter createFilter(List<PreferencesPage> selectedPages) {
-		final Set<String> set = new HashSet<>();
-		for (PreferencesPage p : selectedPages) {
-			for (FieldEditor<?> e : p.getChildren()) {
-				set.add(e.getEquinoxPath());
-			}
-		}
-		
-		return new IPreferenceFilter() {
-			
-			@Override
-			public String[] getScopes() {
-				return (String[]) set.toArray(new String[set.size()]);
-			}
-			
-			@Override
-			public Map<?, ?> getMapping(String scope) {return null;}
-		};
-	}
-
 	@SuppressWarnings("restriction")
 	@Override
 	protected void doAction() {
@@ -115,8 +95,6 @@ public class ExportPreferences extends BasicImpExp {
 		preferencesBytes = baos.toByteArray();
 		
 		StringBuffer exportedPrefNames = toTextWithCatName(selectedPages);
-		
-		exportedPrefNames.delete(exportedPrefNames.length()-2, exportedPrefNames.length()-1);
 		
 		setStatusText("Preferences was exported: " + exportedPrefNames.toString());
 		

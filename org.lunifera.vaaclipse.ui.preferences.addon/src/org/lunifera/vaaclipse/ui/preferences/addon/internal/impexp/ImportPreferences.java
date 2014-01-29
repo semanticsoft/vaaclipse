@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import org.eclipse.core.internal.preferences.PreferencesService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IExportedPreferences;
+import org.eclipse.core.runtime.preferences.IPreferenceFilter;
 import org.lunifera.vaaclipse.ui.preferences.addon.internal.util.PrefHelper;
 import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesCategory;
@@ -75,8 +76,10 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 	@Override
 	protected void doAction() {
 		
-		if (toImport == null)
+		if (toImport == null) {
+			setStatusText("No uploaded preferences for import. Upload preferences file.");
 			return;
+		}
 		
 		List<PreferencesPage> selectedPages = getSelectedPages();
 		if (selectedPages.isEmpty()) {
@@ -85,15 +88,8 @@ public class ImportPreferences extends BasicImpExp implements SucceededListener,
 		}
 		
 		try {
-			for (PreferencesPage page : selectedPages) {
-				if (page.getCategory() != null) {
-					for (FieldEditor<?> editor : page.getChildren()) {
-						//TODO: import
-					}	
-				}
-			}
-		}
-		catch (Exception e) {
+			PreferencesService.getDefault().applyPreferences(toImport, new IPreferenceFilter[] {createFilter(selectedPages)});
+		} catch (CoreException e) {
 			logger.error("Error when import preferences", e);
 			setStatusText("Import preferences failed");
 			return;

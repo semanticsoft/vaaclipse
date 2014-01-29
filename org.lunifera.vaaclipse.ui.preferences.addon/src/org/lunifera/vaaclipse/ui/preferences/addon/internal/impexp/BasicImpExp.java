@@ -5,11 +5,16 @@ package org.lunifera.vaaclipse.ui.preferences.addon.internal.impexp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.core.runtime.preferences.IPreferenceFilter;
+import org.lunifera.vaaclipse.ui.preferences.model.FieldEditor;
 import org.lunifera.vaaclipse.ui.preferences.model.PreferencesPage;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -171,14 +176,35 @@ public abstract class BasicImpExp implements ComponentProvider {
 		return list;
 	}
 	
+	protected IPreferenceFilter createFilter(List<PreferencesPage> selectedPages) {
+		final Set<String> set = new HashSet<>();
+		for (PreferencesPage p : selectedPages) {
+			for (FieldEditor<?> e : p.getChildren()) {
+				set.add(e.getEquinoxPath());
+			}
+		}
+		
+		return new IPreferenceFilter() {
+			
+			@Override
+			public String[] getScopes() {
+				return (String[]) set.toArray(new String[set.size()]);
+			}
+			
+			@Override
+			public Map<?, ?> getMapping(String scope) {return null;}
+		};
+	}
+	
 	protected StringBuffer toTextWithCatName(List<PreferencesPage> selectedPages) {
-		StringBuffer exportedPrefNames = new StringBuffer();
+		StringBuffer prefNames = new StringBuffer();
 		for (PreferencesPage page: selectedPages) {
 			String name = page.getCategory().getName();
 			if (name == null)
 				name = "NoName";
-			exportedPrefNames.append(name + ", ");
+			prefNames.append(name + ", ");
 		}
-		return exportedPrefNames;
+		prefNames.delete(prefNames.length()-2, prefNames.length()-1);
+		return prefNames;
 	}
 }
