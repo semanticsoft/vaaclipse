@@ -11,6 +11,7 @@ import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Slider;
+import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 
 /**
  * @author rushan
@@ -30,11 +31,18 @@ public class ScaleFieldEditorRenderer extends FieldEditorRenderer<Integer> {
 		layout.addComponent(new Label(editor.getLabel()));
 		slider = new Slider();
 		slider.setWidth("100%");
-		slider.setValue(getValue().doubleValue());
 		if (editor.getMaxValue() != null)
 			slider.setMax(editor.getMaxValue().doubleValue());
 		if (editor.getMinValue() != null)
 			slider.setMin(editor.getMinValue().doubleValue());
+		
+		try {
+			slider.setValue(getValue().doubleValue());
+		}
+		catch (ValueOutOfBoundsException vo) {
+			
+		}
+		
 		slider.setOrientation(SliderOrientation.HORIZONTAL);
 		layout.addComponent(slider);
 		this.component = layout;
