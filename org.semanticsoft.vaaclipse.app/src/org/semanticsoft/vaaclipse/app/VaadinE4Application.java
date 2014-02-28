@@ -137,7 +137,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 		String msg;
 		while (!(msg = queue.take()).equals(EXIT))
 		{
-			System.out.println(msg);
+			System.out.println("Vaaclipse Application shutdowned");
 		}
 
 		if (frame != null) {
@@ -343,6 +343,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 	}
 
 	public void shutdown() {
+		System.out.println("Vaaclipse Application will shutdown");
 		try
 		{
 			queue.put(EXIT);
