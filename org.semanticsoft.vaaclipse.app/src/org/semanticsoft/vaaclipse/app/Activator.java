@@ -45,6 +45,7 @@ public class Activator implements BundleActivator
 	@Override
 	public void stop(BundleContext context) throws Exception
 	{
+		VaadinE4Application.getInstance().shutdown();
 	}
 
 	public Bundle getBundle()

@@ -140,8 +140,10 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 			System.out.println(msg);
 		}
 
-		frame.setVisible(false);
-		frame.dispose();
+		if (frame != null) {
+			frame.setVisible(false);
+			frame.dispose();	
+		}
 
 		return EXIT_OK;
 	}
@@ -335,16 +337,20 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 		if (exit)
 		{
-			try
-			{
-				queue.put(EXIT);
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			shutdown();
 		}
 		return exit;
+	}
+
+	public void shutdown() {
+		try
+		{
+			queue.put(EXIT);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
