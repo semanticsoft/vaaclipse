@@ -49,7 +49,7 @@ public class VaadinE4Application implements IApplication, ResourceInfoProvider
 
 	private ArrayBlockingQueue<String> queue;
 	private Logger logger = new WorkbenchLogger("org.semanticsoft.vaaclipse.app");
-
+	
 	private IApplicationContext appContext;
 
 	private static VaadinE4Application instance;
